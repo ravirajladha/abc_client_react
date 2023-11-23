@@ -375,7 +375,7 @@ class Root extends Component {
             path={`${process.env.PUBLIC_URL}/school/add_student_view`}
             element={<AddStudent />}
           />
-        </Routes>
+       
         <Route
             exact
             path={`${process.env.PUBLIC_URL}/school/view_student`}
@@ -393,7 +393,7 @@ class Root extends Component {
             path={`${process.env.PUBLIC_URL}/school/add_teacher`}
             element={<AddTeacher />}
           />
-          
+           </Routes>
       </HashRouter>
     );
   }
