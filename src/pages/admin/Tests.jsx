@@ -61,8 +61,8 @@ function Tests() {
                                                                 style={{ height: 200 }} /></a>
                                                         </div>
                                                         <div className="card-body pt-0 text-center">
-                                                            <span
-                                                                className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-danger d-inline-block text-danger mr-1">{test.subject.subject_name}</span>
+                                                            {/* <span
+                                                                className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-danger d-inline-block text-danger mr-1">{test.subject.subject_name}</span> */}
                                                             <h4 className="fw-700 font-xss mt-3 lh-28 mt-0"><a href="default_course_details"
                                                                 className="text-dark text-grey-900">{test.title}</a></h4>
 

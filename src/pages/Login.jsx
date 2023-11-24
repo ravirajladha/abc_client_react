@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Link } from 'react-router-dom';
+
 
 import { saveUserToSessionStorage, getUserFromSessionStorage } from './util/SessionStorage'
 
@@ -96,7 +98,7 @@ function Login() {
                 <img
                   src="assets/images/abc_logo.png"
                   alt="logo"
-                  className="" width={100}
+                  className="inline-center flex center" width={100}
                 /><br />
                 <h2 className="fw-700 display1-size display2-md-size mb-3">
                   Login into <br />
@@ -136,12 +138,13 @@ function Login() {
                     >
                       Remember me
                     </label>
-                    <a
+                 
+                    {/* <a
                       href="/forgot"
                       className="fw-600 font-xssss text-grey-700 mt-1 float-right"
                     >
                       Forgot your Password?
-                    </a>
+                    </a> */}
                   </div>
                   <button type="submit" className="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 ">Login</button>
                 </form>
@@ -150,9 +153,9 @@ function Login() {
 
                   <h6 className="text-grey-500 font-xssss fw-500 mt-0 mb-0 lh-32">
                     Dont have account{' '}
-                    <a href="/register" className="fw-700 ml-1">
-                      Register
-                    </a>
+                    <Link to="/register" className="fw-700 ml-1">
+    Register
+  </Link>
                   </h6>
                 </div>
 

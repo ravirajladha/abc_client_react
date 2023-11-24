@@ -76,12 +76,12 @@ import { Link } from 'react-router-dom';
                         >
                           LEARN
                         </Link>
-                        <a
-                          href="#"
+                        <Link
+                          to={"/subject_stream/take_test/"+value.id+"/2"}
                           className="p-2 mt-4 d-inline-block text-white fw-700 lh-30 rounded-lg w100 text-center font-xsssss ls-3 bg-current"
                         >
                           TAKE TEST
-                        </a>
+                          </Link>
                       </div>
                     </div>
                   ))}

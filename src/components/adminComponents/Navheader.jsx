@@ -61,53 +61,78 @@ function Navheader() {
             </span>
           </div>
           <div className="nav-caption fw-600 font-xssss text-grey-500">
-            <span></span>Feeds
+            <span></span>Home
           </div>
           <ul className="mb-3">
             <li className="logo d-none d-xl-block d-lg-block"></li>
+            
             <li className="nav-item">
               <NavLink className="navi-link" to="/admin">
                 <i className="feather-home mr-2"></i>
                 <span>Home</span>
               </NavLink>
             </li>
-            
+          
+       
             <li className="nav-item">
               <NavLink className="navi-link" to="/all_subjects">
                 <i className="feather-book-open mr-2"></i>
                 <span>Subjects</span>
               </NavLink>
             </li>
+            <div className="nav-caption fw-600 font-xssss text-grey-500">
+        Subjects</div>
+         
             <li className="nav-item">
               <NavLink className="navi-link" to="/assessments">
                 <i className="feather-briefcase mr-2"></i>
                 <span>Assessments</span>
               </NavLink>
             </li>
+            <div className="nav-caption fw-600 font-xssss text-grey-500">
+      Assessments
+          </div>
+           
             <li className="nav-item">
               <NavLink className="navi-link" to="/tests">
                 <i className="feather-mail mr-2"></i>
                 <span>Tests</span>
               </NavLink>
             </li>
+            <div className="nav-caption fw-600 font-xssss text-grey-500">
+      Tests
+          </div>
+         
             <li className="nav-item">
               <NavLink className="navi-link" to="/mini_projects">
                 <i className="feather-shopping-bag mr-2"></i>
                 <span>Mini Projects</span>
               </NavLink>
             </li>
+            <div className="nav-caption fw-600 font-xssss text-grey-500">
+      Mini Project
+          </div>
+          
             <li className="nav-item">
               <NavLink className="navi-link" to="/schools">
                 <i className="feather-monitor mr-2"></i>
                 <span>Schools</span>
               </NavLink>
             </li>
+            <div className="nav-caption fw-600 font-xssss text-grey-500">
+       Schools
+          </div>
+            
             <li className="nav-item">
-              <NavLink className="navi-link" to="/create_lab">
-                <i className="feather-monitor mr-2"></i>
-                <span>Labs</span>
+              <NavLink className="navi-link" to="/all_labs">
+                <i className="feather-package mr-2"></i>
+                <span>E-Labs</span>
+              
               </NavLink>
             </li>
+            <div className="nav-caption fw-600 font-xssss text-grey-500">
+         E-Lab
+          </div>
           </ul>
 
           <div className="nav-caption fw-600 font-xssss text-grey-500">

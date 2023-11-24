@@ -1,12 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Button } from 'react-bootstrap';
-
+import { Modal, Button, Form } from 'react-bootstrap';
 import Appheader from '../../components/adminComponents/Appheader';
 import Appfooter from '../../components/adminComponents/Appfooter';
-
+import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Schools() {
     const baseUrl = process.env.REACT_APP_BASE_URL;
+
+    // New state for the form and modal visibility
+    const [showModal, setShowModal] = useState(false);
+    const [form, setForm] = useState({
+        name: '',
+        email: '',
+        phone: '',
+        password: ''
+    });
     useEffect(() => {
         getSchools();
     }, [])
@@ -21,8 +31,72 @@ function Schools() {
         });
     }
 
+
+    
+    const handleShowModal = () => setShowModal(true);
+    const handleCloseModal = () => setShowModal(false);
+
+    const handleFormChange = (e) => {
+        const { name, value } = e.target;
+        setForm(prevState => ({ ...prevState, [name]: value }));
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const userData = { ...form };
+        console.log('Sending data to the server:', userData);
+    
+        try {
+            const response = await axios.post(`${baseUrl}api/add_school`, userData, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            toast.success('School added successfully');
+            setShowModal(false);
+            // getSchools();
+        } catch (error) {
+            toast.error('Failed to add school');
+            console.error('Error adding school:', error.response || error);
+        }
+    };
+    
+
+
     return (
         <>
+        <ToastContainer />
+            {/* ... rest of your component */}
+           
+
+            {/* Modal for adding a school */}
+            <Modal show={showModal} onHide={handleCloseModal}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Add School</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form onSubmit={handleSubmit}>
+                        <Form.Group>
+                            <Form.Label>Name</Form.Label>
+                            <Form.Control type="text" name="name" value={form.name} onChange={handleFormChange} required />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Email</Form.Label>
+                            <Form.Control type="email" name="email" value={form.email} onChange={handleFormChange} required />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Phone</Form.Label>
+                            <Form.Control type="tel" name="phone" value={form.phone} onChange={handleFormChange} required />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control type="password" name="password" value={form.password} onChange={handleFormChange} required />
+                        </Form.Group>
+                        <Button variant="secondary" onClick={handleCloseModal}>Close</Button>
+                        <Button variant="primary" type="submit">Save Changes</Button>
+                    </Form>
+                </Modal.Body>
+            </Modal>
             <div className="main-wrapper">
 
                 <div className="main-content menu-active">
@@ -36,7 +110,9 @@ function Schools() {
                                         <h2 className="fw-400 font-lg d-block">All <b> Schools</b> </h2>
                                     </div>
                                     <div className="float-right">
-                                        <a href="/admin/add_school" className="p-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current">Add Schools</a>
+                                    <Button onClick={handleShowModal} className="p-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current">Add School</Button>
+
+                                        
                                     </div>
                                 </div>
                                 {

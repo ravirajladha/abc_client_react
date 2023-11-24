@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
+import './index.css'
 
+import './App.css';
 import "./main.scss";
 
 // Common Layout
 import Login from "./pages/Login";
-import Register from "./pages/Register";
+import Register from "./pages/parent/Register";
 import Notfound from "./pages/Notfound";
 import Defaultuserprofile from "./pages/Defaultuserprofile";
 import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom";
@@ -20,7 +22,8 @@ import AnswerForum from "./pages/student/AnswerForum";
 import Settings from "./pages/student/Settings";
 import StudentRoute from "./pages/util/StudentRoute";
 import SubjectStream from "./pages/student/SubjectStream";
-import CreateLab from "./pages/admin/CreateLab";
+import CreateLab from "./pages/admin/CreateLab"; 
+import CreateLabNew from "./pages/admin/CreateLabNew"; 
 import Schools from "./pages/admin/Schools";
 import AllSubjects from "./pages/admin/AllSubjects";
 import Assessments from "./pages/admin/Assessments";
@@ -39,6 +42,7 @@ import CreateSubject from "./pages/admin/CreateSubject";
 import CreateChapters from "./pages/admin/CreateChapters";
 import CreateVideos from "./pages/admin/CreateVideos";
 import AdminHome from "./pages/admin/AdminHome";
+import AllLabs from "./pages/admin/AllLabs";
 import TakeAssessments from "./pages/student/TakeAssessments";
 import Elab from "./pages/student/Elab";
 import TeacherHome from "./pages/teacher/TeacherHome";
@@ -66,6 +70,8 @@ import AddStudent from "./pages/school/AddStudent";
 import ViewStudent from "./pages/school/ViewStudent";
 import Teachers from "./pages/school/Teachers";
 import AddTeacher from "./pages/school/AddTeacher";
+import Editor1 from "./pages/e_lab/components/Editor1";
+
 class Root extends Component {
   render() {
     return (
@@ -223,6 +229,16 @@ class Root extends Component {
           />
           <Route
             exact
+            path={`${process.env.PUBLIC_URL}/editor/:labId?`}
+            element={<Editor1 />}
+          />
+          <Route
+            exact
+            path={`${process.env.PUBLIC_URL}/create_lab_new`}
+            element={<CreateLabNew />}
+          />
+          <Route
+            exact
             path={`${process.env.PUBLIC_URL}/schools`}
             element={<Schools />}
           />
@@ -285,6 +301,11 @@ class Root extends Component {
             exact
             path={`${process.env.PUBLIC_URL}/tests/add_question_to_test`}
             element={<AddQuestionsToTest />}
+          />
+          <Route
+            exact
+            path={`${process.env.PUBLIC_URL}/all_labs`}
+            element={<AllLabs />}
           />
           <Route
             exact
