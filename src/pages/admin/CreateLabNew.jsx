@@ -97,18 +97,13 @@ function CreateLab(props) {
     setSelectedSubject(selectedValue);
     fetchChapters(selectedValue); // Fetch chapters when a subject is selected
     setFormData({ ...formData, subject_id: selectedValue });
-
-
   };
   const handleChapterChange = (e) => {
     const selectedValue = e.target.value;
     setSelectedChapter(selectedValue);
     fetchVideos(selectedValue); // Fetch chapters when a subject is selected
     setFormData({ ...formData, chapter_id: selectedValue });
-
-
   };
-
 
   // Initial fetch for classes
   useEffect(() => {
@@ -134,9 +129,9 @@ function CreateLab(props) {
     name: "",
     code: "",
     course: "",
-    subject_id:"",
-    chapter_id:"",
-    video_id:"",
+    subject_id: "",
+    chapter_id: "",
+    video_id: "",
     description: "",
     io_format: "",
     constraints: "",
@@ -162,6 +157,13 @@ function CreateLab(props) {
         ...formData,
         [name]: languageDetailsString, // You can keep this if you just want to store the ID
       });
+    } else if (name === "video_id") {
+      setSelectedVideo(value); // Update the selectedVideo state
+      // If you need to update formData with video_id
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
     } else {
       // For all other inputs, handle them as before
       setFormData({
@@ -183,7 +185,7 @@ function CreateLab(props) {
         },
         body: JSON.stringify(formData),
       });
-      console.log("formData",formData);
+      console.log("formData", formData);
       const data = await response.json();
       // Handle response data
       if (data.success) {
@@ -192,9 +194,9 @@ function CreateLab(props) {
           name: "",
           code: "",
           course: "",
-          subject_id:"",
-          chapter_id:"",
-          video_id:"",
+          subject_id: "",
+          chapter_id: "",
+          video_id: "",
           description: "",
           io_format: "",
           constraints: "",
@@ -344,7 +346,7 @@ function CreateLab(props) {
                                     key={chapterDetail.id}
                                     value={chapterDetail.id}
                                   >
-                                    {chapterDetail.chapter_name} 
+                                    {chapterDetail.chapter_name}
                                   </option>
                                 ))}
                               </select>
@@ -357,12 +359,12 @@ function CreateLab(props) {
                               </label>
                               <br />
                               <select
-  onChange={handleInputChange} // or use a dedicated handler like handleVideoChange
-  value={selectedVideo} // Control the select's value with state
-  name="video_id"
-  className="form-control"
-  id="video"
->
+                                onChange={handleInputChange} // or use a dedicated handler like handleVideoChange
+                                value={selectedVideo} // Control the select's value with state
+                                name="video_id"
+                                className="form-control"
+                                id="video"
+                              >
                                 <option disabled value="">
                                   -Select a Video-
                                 </option>
@@ -371,7 +373,7 @@ function CreateLab(props) {
                                     key={videoDetail.id}
                                     value={videoDetail.id}
                                   >
-                                    {videoDetail.video_name} 
+                                    {videoDetail.video_name}
                                   </option>
                                 ))}
                               </select>

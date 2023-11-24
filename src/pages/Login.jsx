@@ -22,7 +22,7 @@ function Login() {
         "email": email,
         "password": password
       };
-
+  
       fetch(baseUrl + "api/login", {
         method: 'POST',
         headers: {
@@ -31,44 +31,36 @@ function Login() {
         },
         body: JSON.stringify(inputobj)
       }).then((res) => {
+        // Check the HTTP status code before proceeding
+        if (!res.ok) {
+          throw new Error('Invalid Credentials'); // This will be caught by the catch block below
+        }
         return res.json();
       }).then((resp) => {
-        // console.log(resp)
-        // if (Object.keys(resp).length === 1) {
-        //     toast.error(resp.msg);
-        // } else {
-        //         toast.success('Success');
-        //         saveUserToSessionStorage(resp);
-        //         const user = getUserFromSessionStorage();
-        //         console.log(user);
-        //         if(user.user.type === 'admin'){
-        //           console.log(122); 
-        //           usenavigate('/schools');
-        //         }else{
-        //           usenavigate('/home')
-        //         }
-        // }
+        // Now we know the login is successful
         toast.success('Success');
         saveUserToSessionStorage(resp);
         const user = getUserFromSessionStorage();
         console.log(user);
+        // Your navigation logic based on user type
         if (user.user.type === 'admin') {
-          // console.log(122);
           usenavigate('/admin');
-        }else if(user.user.type === 'teacher'){
+        } else if (user.user.type === 'teacher') {
           usenavigate('/teacher');
-        }else if(user.user.type === 'sub_admin'){
+        } else if (user.user.type === 'sub_admin') {
           usenavigate('/school');
-        } else if(user.user.type === 'parent'){
+        } else if (user.user.type === 'parent') {
           usenavigate('/parent');
         } else {
-          usenavigate('/home')
+          usenavigate('/home');
         }
       }).catch((err) => {
-        toast.error('Login Failed due to :' + err.message);
+        // Handle errors here, including the error thrown for invalid credentials
+        toast.error(err.message);
       });
     }
   }
+  
   const validate = () => {
     let result = true;
     if (email === '' || email === null) {

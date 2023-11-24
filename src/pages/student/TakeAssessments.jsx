@@ -7,7 +7,7 @@ import Myclass from '../../components/Myclass';
 import Subscribe from '../../components/Subscribe';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getUserFromSessionStorage } from '../util/SessionStorage';
-import { toast, ToastContainer } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function TakeAssessments() {
@@ -66,12 +66,9 @@ function TakeAssessments() {
 
     };
     useEffect(() => {
-        // console.log(selectedAnswers);
-        // console.log(selectedQuestionIds);
-        // console.log(video_id);
-        // console.log(user_id);
+
         if (formIsSubmitting) {
-            // Send selectedAnswers to the API
+  
             const formData = new FormData();
             formData.append('selectedAnswers', selectedAnswers);
             formData.append('selectedQuestionIds', selectedQuestionIds);

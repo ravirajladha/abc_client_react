@@ -20,7 +20,7 @@ import ViewForum from "./pages/student/ViewForum";
 import ViewQna from "./pages/student/ViewQna";
 import AnswerForum from "./pages/student/AnswerForum";
 import Settings from "./pages/student/Settings";
-import StudentRoute from "./pages/util/StudentRoute";
+import ProtectedRoute from "./pages/util/ProtectedRoute";
 import SubjectStream from "./pages/student/SubjectStream";
 import CreateLab from "./pages/admin/CreateLab"; 
 import CreateLabNew from "./pages/admin/CreateLabNew"; 
@@ -79,11 +79,7 @@ class Root extends Component {
         <Routes>
          
 
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/login`}
-            element={<Login />}
-          />
+        
 
           <Route
             exact
@@ -92,12 +88,7 @@ class Root extends Component {
           />
         
         
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/notfound`}
-            element={<Notfound />}
-          />
-       
+        <Route path="*" element={<Notfound />} />
          
      
 
@@ -110,310 +101,284 @@ class Root extends Component {
             path={`${process.env.PUBLIC_URL}/`}
             element={<Login />}
           />
+
+
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/home`}
-            element={<StudentRoute element={<Home />} />}
+            element={<ProtectedRoute element={<Home />} allowedTypes={['school_student']} />}
           />
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/subjects`}
-            element={<StudentRoute element={<Subjects />} />}
+            element={<ProtectedRoute element={<Subjects />} allowedTypes={['school_student']} />}
           />
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/school_qna`}
-            element={<StudentRoute element={<Qna />} />}
+            element={<ProtectedRoute element={<Qna />}  allowedTypes={['school_student']}/>}
           />
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/school_forums`}
-            element={<StudentRoute element={<Forums />} />}
+            element={<ProtectedRoute element={<Forums />}  allowedTypes={['school_student']}/>}
           />
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/school_qna/view_qna/:qnaId`}
-            element={<StudentRoute element={<ViewQna />} />}
+            element={<ProtectedRoute element={<ViewQna />}  allowedTypes={['school_student']}/>}
           />
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/school_forums/view_forum/:forumId`}
-            element={<StudentRoute element={<ViewForum />} />}
+            element={<ProtectedRoute element={<ViewForum />}  allowedTypes={['school_student']}/>}
           />
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/school_forums/answer_forum/:forumId`}
-            element={<StudentRoute element={<AnswerForum />} />}
+            element={<ProtectedRoute element={<AnswerForum />}  allowedTypes={['school_student']}/>}
           />
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/settings`}
-            element={<StudentRoute element={<Settings />} />}
+            element={<ProtectedRoute element={<Settings />}  allowedTypes={['school_student']}/>}
           />
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/subject_stream/:subjectId`}
-            element={<StudentRoute element={<SubjectStream />} />}
+            element={<ProtectedRoute element={<SubjectStream />}  allowedTypes={['school_student']}/>}
           />
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/subject_stream/take_assessments/:video_id`}
-            element={<StudentRoute element={<TakeAssessments />} />}
+            element={<ProtectedRoute element={<TakeAssessments />}  allowedTypes={['school_student']}/>}
           />
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/subject_stream/view_assessment_score/:video_id`}
-            element={<StudentRoute element={<ViewAssessmentScore />} />}
+            element={<ProtectedRoute element={<ViewAssessmentScore />}  allowedTypes={['school_student']}/>}
           />
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/subject_stream/take_test/:subject_id/:test_id`}
-            element={<StudentRoute element={<TakeTest />} />}
+            element={<ProtectedRoute element={<TakeTest />}  allowedTypes={['school_student']}/>}
           />
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/subject_stream/view_test_score/:subject_id/:test_id`}
-            element={<StudentRoute element={<ViewTestScore />} />}
+            element={<ProtectedRoute element={<ViewTestScore />}  allowedTypes={['school_student']}/>}
           />
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/subject_stream/view_project/:project_id`}
-            element={<StudentRoute element={<ViewProject />} />}
+            element={<ProtectedRoute element={<ViewProject />}  allowedTypes={['school_student']}/>}
           />
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/subject_stream/start_project/:project_id/:task_id/:lab_code`}
-            element={<StudentRoute element={<StartProject />} />}
+            element={<ProtectedRoute element={<StartProject />}  allowedTypes={['school_student']}/>}
           />
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/subject_stream/elab/:video_id`}
-            element={<StudentRoute element={<Elab />} />}
+            element={<ProtectedRoute element={<Elab />}  allowedTypes={['school_student']}/>}
           />
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/video_features`}
-            element={<StudentRoute element={<VideoFeatures />} />}
+            element={<ProtectedRoute element={<VideoFeatures />}  allowedTypes={['school_student']}/>}
           />
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/video_features/markers`}
-            element={<StudentRoute element={<Markers />} />}
+            element={<ProtectedRoute element={<Markers />}  allowedTypes={['school_student']}/>}
           />
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/video_features/marker_single`}
-            element={<StudentRoute element={<MarkerSingle />} />}
+            element={<ProtectedRoute element={<MarkerSingle />}  allowedTypes={['school_student']}/>}
           />
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/video_features/video_with_watermark`}
-            element={<StudentRoute element={<VideoWithWaterMark />} />}
+            element={<ProtectedRoute element={<VideoWithWaterMark />}  allowedTypes={['school_student']}/>}
           />
 
           {/* admin */}
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/default-user-profile`}
-            element={<Defaultuserprofile />}
+            element={<ProtectedRoute element={<Defaultuserprofile />} allowedTypes={['school_student','admin','sub_admin','parent','teacher']} />}
           />
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/admin`}
-            element={<AdminHome />}
-          />
+            element={<ProtectedRoute element={<AdminHome />} allowedTypes={['admin']} />}   />
+
+      
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/create_lab`}
-            element={<CreateLab />}
-          />
+            element={<ProtectedRoute element={<CreateLab />}  
+           allowedTypes={['admin']} />}   />
+       
+       
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/editor/:labId?`}
-            element={<Editor1 />}
-          />
+            element={<ProtectedRoute element={<Editor1 />}    allowedTypes={['student','admin']} />}   />
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/create_lab_new`}
-            element={<CreateLabNew />}
-          />
+            element={<ProtectedRoute element={<CreateLabNew />}    allowedTypes={['admin']} />}   />
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/schools`}
-            element={<Schools />}
-          />
+            element={<ProtectedRoute element={<Schools />}    allowedTypes={['admin']} />}   />
+
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/all_subjects`}
-            element={<AllSubjects />}
-          />
+            element={<ProtectedRoute element={<AllSubjects />}    allowedTypes={['admin']} />}   />
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/all_subjects/create_subject`}
-            element={<CreateSubject />}
-          />
+            element={<ProtectedRoute element={<CreateSubject />}    allowedTypes={['admin']} />}   />
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/all_subjects/create_chapters`}
-            element={<CreateChapters />}
-          />
+            element={<ProtectedRoute element={<CreateChapters />}   allowedTypes={['admin']} />}   />
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/all_subjects/create_videos`}
-            element={<CreateVideos />}
-          />
+            element={<ProtectedRoute element={<CreateVideos />}    allowedTypes={['admin']} />}   />
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/assessments`}
-            element={<Assessments />}
-          />
+            element={<ProtectedRoute element={<Assessments />}    allowedTypes={['admin']} />}   />
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/assessments/create_assessments`}
-            element={<CreateAssessments />}
-          />
+            element={<ProtectedRoute element={<CreateAssessments />}    allowedTypes={['admin']} />}   />
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/assessments/view_assessments/:subject_id`}
-            element={<ViewAssessments />}
-          />
+            element={<ProtectedRoute element={<ViewAssessments />}    allowedTypes={['admin']} />}   />
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/tests`}
-            element={<Tests />}
-          />
+            element={<ProtectedRoute element={<Tests />}    allowedTypes={['admin']} />}   />
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/tests/create_question`}
-            element={<CreateQuestion />}
-          />
+            element={<ProtectedRoute element={<CreateQuestion />}   allowedTypes={['admin']} />}   />
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/tests/all_questions`}
-            element={<AllQuestions />}
-          />
+            element={<ProtectedRoute element={<AllQuestions />}    allowedTypes={['admin']} />}   />
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/tests/create_test`}
-            element={<CreateTest />}
-          />
+            element={<ProtectedRoute element={<CreateTest />}   allowedTypes={['admin']} />}   />
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/tests/add_question_to_test`}
-            element={<AddQuestionsToTest />}
-          />
+            element={<ProtectedRoute element={<AddQuestionsToTest />}   allowedTypes={['admin']} />}   />
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/all_labs`}
-            element={<AllLabs />}
-          />
+            element={<ProtectedRoute element={<AllLabs />}   allowedTypes={['admin']} />}   />
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/tests/test_details/:testId`}
-            element={<SingleTestDetails />}
-          />
+            element={<ProtectedRoute element={<SingleTestDetails />}   allowedTypes={['admin']} />}   />
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/tests/test_results/:testId`}
-            element={<TestResult />}
-          />
+            element={<ProtectedRoute element={<TestResult />}   allowedTypes={['admin']} />}   />
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/mini_projects`}
-            element={<MiniProjects />}
-          />
+            element={<ProtectedRoute element={<MiniProjects />}    allowedTypes={['admin']} />}   />
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/mini_projects/create_project`}
-            element={<CreateProject />}
-          />
+            element={<ProtectedRoute element={<CreateProject />}   allowedTypes={['admin']} />}   />
+      
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/mini_projects/create_project_task`}
-            element={<CreateProjectTask />}
-          />
+            element={<ProtectedRoute element={<CreateProjectTask />}   allowedTypes={['admin']} />}   />
 
           {/* teacher */}
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/teacher`}
-            element={<TeacherHome />}
-          />
+            element={<ProtectedRoute element={<TeacherHome />}    allowedTypes={['teacher']} />}   />
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/qnas`}
-            element={<Qnas />}
-          />
+            element={<ProtectedRoute element={<Qnas />}    allowedTypes={['teacher']} />}   />
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/qnas/answer_qna/:qna_id`}
-            element={<AnswerQna />}
-          />
+            element={<ProtectedRoute element={<AnswerQna />}   allowedTypes={['teacher']} />}   />
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/chats`}
-            element={<Chats />}
-          />
+            element={<ProtectedRoute element={<Chats />}    allowedTypes={['teacher']} />}   />
 
           {/* parent */}
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/parent`}
-            element={<ParentHome />}
-          />
+            element={<ProtectedRoute element={<ParentHome />}   allowedTypes={['parent']} />}   />
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/parent_subjects/:user_id`}
-            element={<ParentSubjects />}
-          />
+            element={<ProtectedRoute element={<ParentSubjects />}    allowedTypes={['parent']} />}   />
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/parent_assessments/:user_id`}
-            element={<ParentAssessments />}
-          />
+            element={<ProtectedRoute element={<ParentAssessments />}   allowedTypes={['parent']} />}   />
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/parent_tests/:user_id`}
-            element={<ParentTests />}
-          />
+            element={<ProtectedRoute element={<ParentTests />}    allowedTypes={['parent']} />}   />
 
           {/* school */}
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/school`}
-            element={<SchoolHome />}
-          />
+            element={<ProtectedRoute element={<SchoolHome />}    allowedTypes={['school']} />}   />
 
           {/* Rakshith */}
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/school/students`}
-            element={<Students />}
-          />
+            element={<ProtectedRoute element={<Students />}  allowedTypes={['school']} />}   />
 
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/school/add_student_view`}
-            element={<AddStudent />}
-          />
+            element={<ProtectedRoute element={<AddStudent />}  allowedTypes={['school']} />}   />
        
         <Route
             exact
             path={`${process.env.PUBLIC_URL}/school/view_student`}
-            element={<ViewStudent />}
-          />
+            element={<ProtectedRoute element={<ViewStudent />}  allowedTypes={['school']} />}   />
 
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/school/teachers`}
-            element={<Teachers />}
-          />
+            element={<ProtectedRoute element={<Teachers />}  allowedTypes={['admin']} />}   />
 
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/school/add_teacher`}
-            element={<AddTeacher />}
-          />
+            element={<ProtectedRoute element={<AddTeacher />}  allowedTypes={['admin']} />}   />
+
+        
            </Routes>
       </HashRouter>
     );

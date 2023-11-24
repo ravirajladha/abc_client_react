@@ -6,8 +6,7 @@ import Profile from '../../components/Profile';
 import Myclass from '../../components/Myclass';
 import Subscribe from '../../components/Subscribe';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { getUserFromSessionStorage } from '../util/SessionStorage';
-import { toast, ToastContainer } from 'react-toastify';
+
 import 'react-toastify/dist/ReactToastify.css';
 
 function StartProject() {
