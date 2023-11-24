@@ -1,8 +1,8 @@
 import React, { Component, Fragment, useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
-import Appheader from '../../components/adminComponents/Appheader';
-import Appfooter from '../../components/adminComponents/Appfooter';
+import AppHeader from '../../components/includes/AppHeader';
+import AppFooter from '../../components/includes/AppFooter';
 
 
 function CreateLab() {
@@ -12,7 +12,7 @@ function CreateLab() {
             <div className="main-wrapper">
 
                 <div className="main-content menu-active">
-                    <Appheader />
+                    <AppHeader />
 
                     <div className="middle-sidebar-bottom theme-dark-bg">
                         <div className="middle-sidebar-left">
@@ -114,7 +114,7 @@ function CreateLab() {
                         </div>
                     </div>
                 </div>
-                <Appfooter />
+                <AppFooter />
             </div>
         </>
     );

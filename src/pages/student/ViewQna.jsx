@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import Appfooter from '../../components/Appfooter';
-import Appheader from '../../components/Appheader';
+import AppFooter from '../../components/includes/AppFooter';
+import AppHeader from '../../components/includes/AppHeader';
 import Profile from '../../components/Profile';
 import Myclass from '../../components/Myclass';
 import Subscribe from '../../components/Subscribe';
@@ -28,7 +28,7 @@ function ViewQna() {
         <>
             <div className="main-wrapper">
                 <div className="main-content menu-active">
-                    <Appheader />
+                    <AppHeader />
                     <div className="middle-sidebar-bottom theme-dark-bg">
                         <div className="middle-sidebar-left">
                             <h2 className="fw-400 font-lg d-block">ABC <b> Qna</b> </h2>
@@ -67,7 +67,7 @@ function ViewQna() {
                     </div>
                 </div>
 
-                <Appfooter />
+                <AppFooter />
             </div>
         </>
     )

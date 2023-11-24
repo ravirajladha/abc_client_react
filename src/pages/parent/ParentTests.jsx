@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
-import Appheader from '../../components/parentComponents/Appheader';
-import Appfooter from '../../components/parentComponents/Appfooter';
+import AppHeader from '../../components/includes/AppHeader';
+import AppFooter from '../../components/includes/AppFooter';
 
 import { Link, useParams } from 'react-router-dom';
 
@@ -11,7 +11,7 @@ function ParentTests() {
         <>
              <div className="main-wrapper">
                 <div className="main-content">
-                    <Appheader />
+                    <AppHeader />
                     <div className="middle-sidebar-bottom theme-dark-bg">
                         <div className="middle-sidebar-left">
                             <div className="row">
@@ -58,7 +58,7 @@ function ParentTests() {
                         </div>
                     </div>
                 </div>
-                <Appfooter />
+                <AppFooter />
             </div>
         </>
     )

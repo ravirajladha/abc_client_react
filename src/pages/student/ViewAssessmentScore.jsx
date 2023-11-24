@@ -1,6 +1,6 @@
-import Appfooter from '../../components/Appfooter';
+import AppFooter from '../../components/includes/AppFooter';
 import Navheader from '../../components/Navheader';
-import Appheader from '../../components/Appheader';
+import AppHeader from '../../components/includes/AppHeader';
 import Profile from '../../components/Profile';
 import Myclass from '../../components/Myclass';
 import Subscribe from '../../components/Subscribe';
@@ -35,7 +35,7 @@ function ViewAssessmentScore() {
             <div className="main-wrapper">
 
                 <div className="main-content menu-active">
-                    <Appheader />
+                    <AppHeader />
                     <div className="middle-sidebar-bottom theme-dark-bg">
                         <div className="middle-sidebar-left">
 
@@ -63,7 +63,7 @@ function ViewAssessmentScore() {
                         </div>
                     </div>
                 </div>
-                <Appfooter />
+                <AppFooter />
             </div>
         </>
     )

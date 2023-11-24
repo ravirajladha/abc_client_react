@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Appheader from "../../components/schoolComponents/Appheader";
+import AppHeader from '../../components/includes/AppHeader';
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 
 function AddTeacher() {
@@ -122,7 +122,7 @@ function AddTeacher() {
   return (
     <div className="main-wrapper">
       <div className="main-content menu-active">
-        <Appheader />
+        <AppHeader />
         <div className="middle-sidebar-bottom bg-lightblue theme-dark-bg">
           <div className="middle-sidebar-left">
             <div className="mb-3">

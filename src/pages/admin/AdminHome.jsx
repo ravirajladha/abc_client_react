@@ -1,208 +1,215 @@
 import React, { useState, useEffect } from 'react'
-import Appheader from '../../components/adminComponents/Appheader';
-import Appfooter from '../../components/adminComponents/Appfooter';
+// import AppHeader from '../../components/includes/AppHeader';
+import AppHeader from '../../components/includes/AppHeader';
+import AppFooter from '../../components/includes/AppFooter';
 import Dropdown from '../../components/inputs/Dropdown';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { getUserFromSessionStorage } from '../../pages/util/SessionStorage';
 
 import Chart from 'react-apexcharts';
 
 const iconlList = [
+  {
+    name: '325.2k',
+    count: 'Order complete',
+    status: 'warning',
+    icon: 'feather-hard-drive',
+    des: '20% Incrase from Last Week',
+  },
+  {
+    name: '43.4k',
+    count: 'Active Courses',
+    status: 'success',
+    icon: 'feather-box',
+    des: '20% Incrase from Last Week',
+  },
+  {
+    name: '54M',
+    count: 'Active Customers',
+    status: 'info',
+    icon: 'feather-award',
+    des: '20% Incrase from Last Week',
+  },
+  {
+    name: '354',
+    count: 'Calories gain',
+    status: 'secondary',
+    icon: 'feather-flag',
+    des: '20% Incrase from Last Week',
+  },
+];
+
+const orderlList = [
+  {
+    id: '0901',
+    name: 'Marvin McKinney',
+    email: 'marvin@example.com',
+    total: '$9.00',
+    color: 'warning',
+    status: 'Pending',
+    date: '03.12.2020',
+  },
+  {
+    id: '2323',
+    name: 'Leslie Alexander',
+    email: 'leslie@example.com',
+    total: '$46.61',
+    color: 'warning',
+    status: 'Pending',
+    date: '21.02.2020',
+  },
+  {
+    id: '1233',
+    name: 'Esther Howard',
+    email: 'esther@example.com',
+    total: '$12.00',
+    color: 'danger',
+    status: 'Canceled',
+    date: '03.07.2020',
+  },
+  {
+    id: '1233',
+    name: 'Esther Howard',
+    email: 'esther@example.com',
+    total: '$12.00',
+    color: 'danger',
+    status: 'Canceled',
+    date: '03.07.2020',
+  },
+  {
+    id: '2323',
+    name: 'Jenny Wilson',
+    email: 'jenny@example.com',
+    total: '$589.99',
+    color: 'success',
+    status: 'Received',
+    date: '22.05.2020',
+  },
+];
+
+const lineChart = {
+  labels: [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ],
+  series: [
     {
-      name: '325.2k',
-      count: 'Order complete',
-      status: 'warning',
-      icon: 'feather-hard-drive',
-      des: '20% Incrase from Last Week',
-    },
-    {
-      name: '43.4k',
-      count: 'Active Courses',
-      status: 'success',
-      icon: 'feather-box',
-      des: '20% Incrase from Last Week',
-    },
-    {
-      name: '54M',
-      count: 'Active Customers',
-      status: 'info',
-      icon: 'feather-award',
-      des: '20% Incrase from Last Week',
-    },
-    {
-      name: '354',
-      count: 'Calories gain',
-      status: 'secondary',
-      icon: 'feather-flag',
-      des: '20% Incrase from Last Week',
-    },
-  ];
-  
-  const orderlList = [
-    {
-      id: '0901',
-      name: 'Marvin McKinney',
-      email: 'marvin@example.com',
-      total: '$9.00',
-      color: 'warning',
-      status: 'Pending',
-      date: '03.12.2020',
-    },
-    {
-      id: '2323',
-      name: 'Leslie Alexander',
-      email: 'leslie@example.com',
-      total: '$46.61',
-      color: 'warning',
-      status: 'Pending',
-      date: '21.02.2020',
-    },
-    {
-      id: '1233',
-      name: 'Esther Howard',
-      email: 'esther@example.com',
-      total: '$12.00',
-      color: 'danger',
-      status: 'Canceled',
-      date: '03.07.2020',
-    },
-    {
-      id: '1233',
-      name: 'Esther Howard',
-      email: 'esther@example.com',
-      total: '$12.00',
-      color: 'danger',
-      status: 'Canceled',
-      date: '03.07.2020',
-    },
-    {
-      id: '2323',
-      name: 'Jenny Wilson',
-      email: 'jenny@example.com',
-      total: '$589.99',
-      color: 'success',
-      status: 'Received',
-      date: '22.05.2020',
-    },
-  ];
-  
-  const lineChart = {
-    labels: [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ],
-    series: [
-      {
-        name: '',
-        data: [
-          35, 16, 34, 36, 18, 35, 26, 34, 26, 18, 36, 18, 36, 34, 36, 18, 16, 18,
-        ],
-      },
-      {
-        name: '',
-        data: [12, 24, 12, 11, 7, 12, 34, 12, 11, 7, 11, 7, 34, 12, 11, 7, 11, 7],
-      },
-    ],
-    options: {
-      chart: {
-        height: 100,
-        type: 'bar',
-        // width:'50%',
-        stacked: true,
-        toolbar: {
-          show: false,
-        },
-      },
-      responsive: [
-        {
-          breakpoint: 480,
-          options: {
-            legend: {
-              position: 'bottom',
-              offsetX: -10,
-              offsetY: 0,
-            },
-          },
-        },
+      name: '',
+      data: [
+        35, 16, 34, 36, 18, 35, 26, 34, 26, 18, 36, 18, 36, 34, 36, 18, 16, 18,
       ],
-      plotOptions: {
-        columnWidth: '40%',
-        bar: {
-          horizontal: false,
-          borderRadius: 10,
-        },
-      },
-      dataLabels: {
-        enabled: false,
-      },
-      legend: {
-        show: false,
-      },
-      fill: {
-        opacity: 1,
-      },
     },
-  };
-  
-  const pieChart = {
-    series: [44, 55, 41, 17, 15],
-    options: {
-      chart: {
-        type: 'donut',
-      },
-      responsive: [
-        {
-          breakpoint: 480,
-          options: {
-            chart: {
-              width: 300,
-            },
-            legend: {
-              position: 'bottom',
-            },
-            stacked: true,
-            toolbar: {
-              show: false,
-            },
-          },
-        },
-      ],
-      dataLabels: {
-        enabled: false,
-      },
-      legend: {
+    {
+      name: '',
+      data: [12, 24, 12, 11, 7, 12, 34, 12, 11, 7, 11, 7, 34, 12, 11, 7, 11, 7],
+    },
+  ],
+  options: {
+    chart: {
+      height: 100,
+      type: 'bar',
+      // width:'50%',
+      stacked: true,
+      toolbar: {
         show: false,
       },
     },
-  };
+    responsive: [
+      {
+        breakpoint: 480,
+        options: {
+          legend: {
+            position: 'bottom',
+            offsetX: -10,
+            offsetY: 0,
+          },
+        },
+      },
+    ],
+    plotOptions: {
+      columnWidth: '40%',
+      bar: {
+        horizontal: false,
+        borderRadius: 10,
+      },
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    legend: {
+      show: false,
+    },
+    fill: {
+      opacity: 1,
+    },
+  },
+};
+
+const pieChart = {
+  series: [44, 55, 41, 17, 15],
+  options: {
+    chart: {
+      type: 'donut',
+    },
+    responsive: [
+      {
+        breakpoint: 480,
+        options: {
+          chart: {
+            width: 300,
+          },
+          legend: {
+            position: 'bottom',
+          },
+          stacked: true,
+          toolbar: {
+            show: false,
+          },
+        },
+      },
+    ],
+    dataLabels: {
+      enabled: false,
+    },
+    legend: {
+      show: false,
+    },
+  },
+};
+
 function AdminHome() {
-    return (
-        <>
-            <div className="main-wrapper">
-                <div className="main-content menu-active">
-                    <Appheader />
-                    <div className="middle-sidebar-bottom theme-dark-bg">
-                        <div className="middle-sidebar-left">
-                        <div className="container px-3 py-4">
+  const userDetails = getUserFromSessionStorage();
+  return (
+    <>
+      <div className="main-wrapper">
+        <div className="main-content menu-active">
+          <AppHeader />
+          <div className="middle-sidebar-bottom theme-dark-bg">
+            <div className="middle-sidebar-left">
+              <div className="container px-3 py-4">
+                <div className="row mb-2">
+                  <h1>Welcome, {userDetails.user.name}!</h1>  <br />
+                </div>
                 <div className="row">
                   <div className="col-lg-12 d-flex mb-4">
-                    <h2 className="text-grey-900 font-md fw-700">Overview</h2>
+                    <h2 className="text-grey-900 font-md fw-700">Overview { } </h2>
                     <select
                       className="form-select ml-auto float-right border-0 font-xssss fw-600 text-grey-700 bg-transparent"
                       aria-label="Default select example"
@@ -427,13 +434,13 @@ function AdminHome() {
               </div>
 
 
-                        </div>
-                    </div>
-                </div>
-                <Appfooter />
             </div>
-        </>
-    )
+          </div>
+        </div>
+        <AppFooter />
+      </div>
+    </>
+  )
 }
 
 export default AdminHome

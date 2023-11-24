@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import Appheader from '../../components/teacherComponents/Appheader';
-import Appfooter from '../../components/teacherComponents/Appfooter';
+import React from 'react';
+import AppHeader from '../../components/includes/AppHeader';
+import AppFooter from '../../components/includes/AppFooter';
 import Dropdown from '../../components/inputs/Dropdown';
 import Chart from 'react-apexcharts';
 
+import { getUserFromSessionStorage } from '../../pages/util/SessionStorage';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -192,14 +193,18 @@ const pieChart = {
     },
 };
 function TeacherHome() {
+    const userDetails = getUserFromSessionStorage();
     return (
         <>
             <div className="main-wrapper">
                 <div className="main-content menu-active">
-                    <Appheader />
+                    <AppHeader />
                     <div className="middle-sidebar-bottom theme-dark-bg">
                         <div className="middle-sidebar-left">
                             <div className="container px-3 py-4">
+                                <div className="row mb-2">
+                                    <h1>Welcome, {userDetails.user.name}!</h1> <br />
+                                </div>
                                 <div className="row">
                                     <div className="col-lg-12 d-flex mb-4">
                                         <h2 className="text-grey-900 font-md fw-700">Overview</h2>
@@ -430,7 +435,7 @@ function TeacherHome() {
                         </div>
                     </div>
                 </div>
-                <Appfooter />
+                <AppFooter />
             </div>
         </>
     )

@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import Appfooter from '../../components/Appfooter';
-import Navheader from '../../components/Navheader';
-import Appheader from '../../components/Appheader';
-import Profile from '../../components/Profile';
-import Subscribe from '../../components/Subscribe';
-import Slider from 'react-slick';
 import { Link } from 'react-router-dom';
-import Myclass from '../../components/Myclass';
-
 import { toast, ToastContainer } from 'react-toastify';
+import { getUserFromSessionStorage } from '../../pages/util/SessionStorage';
+
 import 'react-toastify/dist/ReactToastify.css';
+import Slider from 'react-slick';
+
+import Profile from '../../components/Profile';
+import Myclass from '../../components/Myclass';
+import AppFooter from '../../components/includes/AppFooter';
+import AppHeader from '../../components/includes/AppHeader';
+import Navheader from '../../components/Navheader';
+import Subscribe from '../../components/Subscribe';
+
 
 const latestList = [
   {
@@ -165,6 +168,7 @@ const memberList = [
 ];
 
   function Home() {
+  const userDetails = getUserFromSessionStorage();
     const categorysettings = {
       arrows: false,
       dots: false,
@@ -223,10 +227,13 @@ const memberList = [
         <div className="main-wrapper">
 
           <div className="main-content menu-active">
-            <Appheader />
+            <AppHeader />
 
             <div className="middle-sidebar-bottom theme-dark-bg">
               <div className="middle-sidebar-left">
+              <div className="row mb-2">
+                  <h1>Welcome, {userDetails.user.name}!</h1>  <br />
+                </div>
                 <div className="row">
                   <div className="col-lg-12 mb-3">
                     <div
@@ -594,7 +601,7 @@ const memberList = [
             </div>
           </div>
 
-          <Appfooter />
+          <AppFooter />
         </div>
       </>
     );

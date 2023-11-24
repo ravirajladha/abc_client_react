@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Appfooter from '../../components/Appfooter';
 import Navheader from '../../components/Navheader';
-import Appheader from '../../components/Appheader';
+import AppHeader from '../../components/includes/AppHeader';
+import AppFooter from '../../components/includes/AppFooter';
 import Profile from '../../components/Profile';
 import Myclass from '../../components/Myclass';
 import Subscribe from '../../components/Subscribe';
@@ -80,7 +80,7 @@ function AnswerForum() {
             <div className="main-wrapper">
 
                 <div className="main-content menu-active">
-                    <Appheader />
+                    <AppHeader />
 
                     <div className="middle-sidebar-bottom theme-dark-bg">
                         <div className="middle-sidebar-left">
@@ -126,7 +126,7 @@ function AnswerForum() {
                     </div>
                 </div>
 
-                <Appfooter />
+                <AppFooter />
             </div>
         </>
     )

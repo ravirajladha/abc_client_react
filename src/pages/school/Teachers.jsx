@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Appheader from "../../components/schoolComponents/Appheader";
+import AppHeader from '../../components/includes/AppHeader';
 
 function Teachers() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -25,7 +25,7 @@ function Teachers() {
   return (
     <div className="main-wrapper">
       <div className="main-content menu-active">
-        <Appheader />
+        <AppHeader />
         <div className="middle-sidebar-bottom">
           <div className="middle-sidebar-left">
             <div className="row">

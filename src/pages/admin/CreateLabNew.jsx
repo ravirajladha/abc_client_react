@@ -4,8 +4,8 @@ import { Modal, Button } from "react-bootstrap";
 // import AdminTopnav from "../../components/AdminTopnav";
 // import Adminfooter from "../../components/Adminfooter";
 
-import Appheader from "../../components/adminComponents/Appheader";
-import Appfooter from "../../components/adminComponents/Appfooter";
+import AppHeader from '../../components/includes/AppHeader';
+import AppFooter from '../../components/includes/AppFooter';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AceEditor from "react-ace";
@@ -253,7 +253,7 @@ function CreateLab(props) {
       <ToastContainer />
       <div className="main-wrapper">
         <div className="main-content menu-active">
-          <Appheader />
+          <AppHeader />
 
           <div className="middle-sidebar-bottom theme-dark-bg">
             <div className="middle-sidebar-left">
@@ -623,7 +623,7 @@ function CreateLab(props) {
                 </div>
               </div>
             </div>
-            <Appfooter />
+            <AppFooter />
           </div>
         </div>
       </div>

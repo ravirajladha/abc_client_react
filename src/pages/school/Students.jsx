@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import Appheader from "../../components/schoolComponents/Appheader";
-import Appfooter from "../../components/schoolComponents/Appfooter";
+import AppHeader from '../../components/includes/AppHeader';
+import AppFooter from '../../components/includes/AppFooter';
 
 import $ from "jquery";
 import "datatables.net";
@@ -46,7 +46,7 @@ function Students() {
     <div>
       <div className="main-wrapper">
         <div className="main-content menu-active">
-          <Appheader />
+          <AppHeader />
           <div className="middle-sidebar-bottom">
             <div className="middle-sidebar-left">
               <div className="row">
@@ -105,7 +105,7 @@ function Students() {
             </div>
           </div>
         </div>
-        <Appfooter />
+        <AppFooter />
       </div>
     </div>
   );

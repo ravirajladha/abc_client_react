@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Appheader from '../../components/adminComponents/Appheader';
-import Appfooter from '../../components/adminComponents/Appfooter';
+import AppHeader from '../../components/includes/AppHeader';
+import AppFooter from '../../components/includes/AppFooter';
 import { Link } from 'react-router-dom';
 
 function AllLabs() {
@@ -36,7 +36,7 @@ console.log(baseUrl);
     <>
       <div className="main-wrapper">
         <div className="main-content menu-active">
-          <Appheader />
+          <AppHeader />
 
           <div className="middle-sidebar-bottom theme-dark-bg">
             <div className="middle-sidebar-left">
@@ -88,7 +88,7 @@ console.log(baseUrl);
             </div>
           </div>
 
-          <Appfooter />
+          <AppFooter />
         </div>
       </div>
     </>

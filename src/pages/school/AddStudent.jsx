@@ -8,8 +8,8 @@ import {
   Form,
   Row,
 } from "react-bootstrap";
-import Appheader from "../../components/schoolComponents/Appheader";
-import Appfooter from "../../components/schoolComponents/Appfooter";
+import AppHeader from '../../components/includes/AppHeader';
+import AppFooter from '../../components/includes/AppFooter';
 import Topbar from "../../components/subAdminComponents/Topbar";
 import { useNavigate } from "react-router-dom";
 
@@ -117,7 +117,7 @@ function AddStudent() {
     <div>
       <div className="main-wrapper">
         <div className="main-content menu-active">
-          <Appheader />
+          <AppHeader />
           <div className="middle-sidebar-bottom">
             <div className="middle-sidebar-left">
               <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">

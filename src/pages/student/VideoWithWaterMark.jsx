@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Appfooter from '../../components/Appfooter';
+import AppFooter from '../../components/includes/AppFooter';
 import Navheader from '../../components/Navheader';
-import Appheader from '../../components/Appheader';
+import AppHeader from '../../components/includes/AppHeader';
 import Profile from '../../components/Profile';
 import Myclass from '../../components/Myclass';
 import Subscribe from '../../components/Subscribe';
@@ -27,7 +27,7 @@ function VideoWithWaterMark() {
                 <Navheader />
 
                 <div className="main-content menu-active">
-                    <Appheader />
+                    <AppHeader />
 
                     <div className="middle-sidebar-bottom theme-dark-bg">
                         <div className="middle-sidebar-left">
@@ -67,7 +67,7 @@ function VideoWithWaterMark() {
                     </div>
                 </div>
 
-                <Appfooter />
+                <AppFooter />
             </div>
         </>
     )

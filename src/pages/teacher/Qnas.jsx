@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Appheader from '../../components/teacherComponents/Appheader';
-import Appfooter from '../../components/teacherComponents/Appfooter';
+import AppHeader from '../../components/includes/AppHeader';
+import AppFooter from '../../components/includes/AppFooter';
 
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -29,7 +29,7 @@ function Qnas() {
             <div className="main-wrapper">
 
                 <div className="main-content menu-active">
-                    <Appheader />
+                    <AppHeader />
 
                     <div className="middle-sidebar-bottom theme-dark-bg">
                         <div className="middle-sidebar-left">
@@ -85,7 +85,7 @@ function Qnas() {
                         </div>
                     </div>
                 </div>
-                <Appfooter />
+                <AppFooter />
             </div>
         </>
     )

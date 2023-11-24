@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Appheader from '../../components/teacherComponents/Appheader';
-import Appfooter from '../../components/teacherComponents/Appfooter';
+import AppHeader from '../../components/includes/AppHeader';
+import AppFooter from '../../components/includes/AppFooter';
 import Dropdown from '../../components/inputs/Dropdown';
 
 import { toast, ToastContainer } from 'react-toastify';
@@ -22,7 +22,7 @@ function Chats() {
     const [messageInput, setMessageInput] = useState('');
     const handleInputChange = (e) => {
         setMessageInput(e.target.value);
-      };
+    };
 
     const user = getUserFromSessionStorage();
     const auth_id = user.user.id;
@@ -56,7 +56,7 @@ function Chats() {
 
     const sendMessage = (e) => {
         e.preventDefault();
-    
+
         console.log(selectedStudent);
         // Perform your logic for sending the message
         const receiverId = selectedStudent; // Replace with the actual receiver ID
@@ -64,37 +64,35 @@ function Chats() {
         formData.append('receiver_id', receiverId);
         formData.append('sender_id', auth_id);
         formData.append('message', messageInput);
-    
+
         fetch(baseUrl + 'api/send_message', {
-          method: 'POST',
-          body: formData,
+            method: 'POST',
+            body: formData,
         })
-          .then((response) => response.json())
-          .then((data) => {
-            // Handle success
-            // console.log('Message sent successfully', data);
-            // Optionally, you can update the messages state here
-            toast.success(data.msg);
-            handleStudentClick(receiverId)
-          })
-          .catch((error) => {
-            // Handle error
-            console.error('Error sending message:', error);
-          });
-    
+            .then((response) => response.json())
+            .then((data) => {
+                // Handle success
+                // console.log('Message sent successfully', data);
+                // Optionally, you can update the messages state here
+                toast.success(data.msg);
+                handleStudentClick(receiverId)
+            })
+            .catch((error) => {
+                // Handle error
+                console.error('Error sending message:', error);
+            });
+
         // Clear the message input after submission
         setMessageInput('');
-      };
+    };
     return (
         <>
             <div className="main-wrapper">
-
                 <div className="main-content menu-active">
-                    <Appheader />
-
+                    <AppHeader />
                     <div className="middle-sidebar-bottom theme-dark-bg">
                         <div className="middle-sidebar-left">
-                        <ToastContainer autoClose={3000} />
+                            <ToastContainer autoClose={3000} />
 
                             <div className="row">
                                 <div className="col-lg-6 col-xl-4 col-md-6 chat-left scroll-bar border-right-light pl-4 pr-4">
@@ -182,7 +180,7 @@ function Chats() {
                                         </div>
                                     </div>
                                     <div className="chat-bottom dark-bg p-3 shadow-xss" >
-                                        <form  onSubmit={sendMessage} className="chat-form">
+                                        <form onSubmit={sendMessage} className="chat-form">
                                             <button className="bg-grey float-left"><i className="ti-microphone text-white"></i></button>
                                             <div className="form-group"><input
                                                 name="message"
@@ -201,7 +199,7 @@ function Chats() {
                         </div>
                     </div>
                 </div>
-                <Appfooter />
+                <AppFooter />
             </div>
         </>
     )

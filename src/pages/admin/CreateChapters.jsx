@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Appheader from '../../components/adminComponents/Appheader';
-import Appfooter from '../../components/adminComponents/Appfooter';
+import AppHeader from '../../components/includes/AppHeader';
+import AppFooter from '../../components/includes/AppFooter';
 import Dropdown from '../../components/inputs/Dropdown';
 
 import { toast, ToastContainer } from 'react-toastify';
@@ -85,7 +85,7 @@ function CreateChapters() {
         <>
             <div className="main-wrapper">
                 <div className="main-content menu-active">
-                    <Appheader />
+                    <AppHeader />
                     <div className="middle-sidebar-bottom theme-dark-bg">
                         <div className="middle-sidebar-left">
                             <div className="row">
@@ -162,7 +162,7 @@ function CreateChapters() {
                         </div>
                     </div>
                 </div>
-                <Appfooter />
+                <AppFooter />
             </div>
         </>
     )
