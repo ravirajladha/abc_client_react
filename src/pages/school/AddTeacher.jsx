@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import AppHeader from '../../components/includes/AppHeader';
+import AppHeader from "../../components/includes/AppHeader";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 
 function AddTeacher() {
@@ -34,8 +34,11 @@ function AddTeacher() {
   };
 
   const handleChange = (index, e) => {
-    const updatedFields = [...fields];
-    updatedFields[index][e.target.name] = e.target.value;
+    const { name, value } = e.target;
+    const fieldName = name.includes("className") ? "className" : "subject";
+    const updatedFields = fields.map((field, idx) =>
+      index === idx ? { ...field, [fieldName]: value } : field
+    );
     setFields(updatedFields);
   };
 
@@ -66,34 +69,30 @@ function AddTeacher() {
 
     // Access the form data
     const formDataToSend = new FormData();
-
+  
     Object.entries(formData).forEach(([key, value]) => {
       formDataToSend.append(key, value);
     });
-
-    // Separate arrays for classes and subjects
-    // const classesArray = [];
-    // const subjectsArray = [];
-
-    // Add selected class and subject names to the form data
-    fields.forEach((field, index) => {
-      const selectedClass = field.className;
-      const selectedSubject = field.subject;
-
-      // if (selectedClass && selectedSubject) {
-      //   classesArray.push(selectedClass);
-      //   subjectsArray.push(selectedSubject);
-      // }
-
-      console.log(formDataToSend);
-
-      // formDataToSend.class.append(selectedClass);
-      // formDataToSend.subject.append(selectedSubject);
-    });
-
-    // Add arrays to form data
-    // formDataToSend.append("class", classesArray.join(", "));
-    // formDataToSend.append("subject", subjectsArray.join(", "));
+  
+    // Collect class and subject data
+    const classAndSubjectData = fields.map(field => ({
+      class_id: field.className,
+      subject_id: field.subject,
+    }));
+  
+    // Filter out any pairs that have empty class_id or subject_id
+    const filteredClassAndSubjectData = classAndSubjectData.filter(field => field.class_id && field.subject_id);
+  
+    // Convert the array to a JSON string
+    const classAndSubjectJson = JSON.stringify(filteredClassAndSubjectData);
+  
+    // Append the JSON string to your FormData
+    formDataToSend.append('class_and_subject', classAndSubjectJson);
+  
+    // Log FormData contents
+    for (var pair of formDataToSend.entries()) {
+      console.log(pair[0]+ ', ' + pair[1]); 
+    }
 
     fetch(baseUrl + "api/school/api_add_teacher", {
       method: "POST",
@@ -110,9 +109,13 @@ function AddTeacher() {
           email: "",
           phone: "",
           password: "",
-          class: "",
-          subject: "",
+          // class: "",
+          // subject: "",
         });
+        setFields([{ className: "", subject: "" }]);
+
+        // If there's a separate state for subjectList, clear that as well
+        setSubjectList([]);
       })
       .catch((error) => {
         console.error("Error adding teacher:", error);
@@ -287,7 +290,7 @@ function AddTeacher() {
                                 {subjectList.map((subject) => (
                                   <option
                                     key={subject.id}
-                                    value={subject.subject_name}
+                                    value={subject.id}
                                   >
                                     {subject.subject_name}
                                   </option>

@@ -1,23 +1,22 @@
-import React, { Component, useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
-import Darkbutton from '../Darkbutton';
+import React, { Component, useState } from "react";
+import { Link, NavLink } from "react-router-dom";
+import Darkbutton from "../Darkbutton";
 
-import AdminNav from '../navigation/AdminNav';
-import SchoolNav from '../navigation/SchoolNav';
-import ParentNav from '../navigation/ParentNav';
-import StudentNav from '../navigation/StudentNav';
-import TeacherNav from '../navigation/TeacherNav';
+import AdminNav from "../navigation/AdminNav";
+import SchoolNav from "../navigation/SchoolNav";
+import ParentNav from "../navigation/ParentNav";
+import StudentNav from "../navigation/StudentNav";
+import TeacherNav from "../navigation/TeacherNav";
 
-import { getUserFromSessionStorage } from '../../pages/util/SessionStorage';
+import { getUserFromSessionStorage } from "../../pages/util/SessionStorage";
 
 function AppHeader() {
-
   const userData = getUserFromSessionStorage();
   const [isActive, setIsActive] = useState(false);
 
   const toggleActive = () => setIsActive(!isActive);
 
-  const searchClass = `${isActive ? ' show' : ''}`;
+  const searchClass = `${isActive ? " show" : ""}`;
 
   const sidebarComponents = {
     admin: <AdminNav />,
@@ -27,7 +26,8 @@ function AppHeader() {
     default: <StudentNav />,
   };
 
-  const sidebar = sidebarComponents[userData.user.type] || sidebarComponents.default;
+  const sidebar =
+    sidebarComponents[userData.user.type] || sidebarComponents.default;
 
   return (
     <div className="middle-sidebar-header bg-white">
@@ -164,10 +164,8 @@ function AppHeader() {
       </ul>
 
       {sidebar}
-
     </div>
   );
 }
-
 
 export default AppHeader;

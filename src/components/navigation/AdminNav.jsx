@@ -20,18 +20,19 @@ function AdminNav() {
 
   useEffect(() => {
     if (loggedOut) {
-      const userData = getUserFromSessionStorage();
-      if (userData && userData.user && userData.user.type === 'admin') {
-        navigate('/admin');
-      } else if (userData && userData.user && userData.user.type === 'teacher') {
-        navigate('/');
-      } else if (userData && userData.user && userData.user.type === 'sub_admin') {
-        navigate('/');
-      } else if (userData && userData.user && userData.user.type === 'parent') {
-        navigate('/');
-      } else {
-        navigate('/');
-      }
+      navigate('/');
+      // const userData = getUserFromSessionStorage();
+      // if (userData && userData.user && userData.user.type === 'admin') {
+      //   navigate('/admin');
+      // } else if (userData && userData.user && userData.user.type === 'teacher') {
+      //   navigate('/');
+      // } else if (userData && userData.user && userData.user.type === 'sub_admin') {
+      //   navigate('/');
+      // } else if (userData && userData.user && userData.user.type === 'parent') {
+      //   navigate('/');
+      // } else {
+      //   navigate('/');
+      // }
     }
   }, [loggedOut, navigate]);
 
@@ -74,14 +75,22 @@ function AdminNav() {
 
 
             <li className="nav-item">
-              <NavLink className="navi-link" to="/all_subjects">
+              <NavLink className="navi-link" to="/all_classes">
                 <i className="feather-book-open mr-2"></i>
-                <span>Subjects</span>
+                <span>Classes</span>
               </NavLink>
             </li>
             <div className="nav-caption fw-600 font-xssss text-grey-500">
-              Subjects</div>
-
+            Classes</div>
+            <li className="nav-item">
+              <NavLink className="navi-link" to="/schools">
+                <i className="feather-monitor mr-2"></i>
+                <span>Schools</span>
+              </NavLink>
+            </li>
+            <div className="nav-caption fw-600 font-xssss text-grey-500">
+              Schools
+            </div>
             <li className="nav-item">
               <NavLink className="navi-link" to="/assessments">
                 <i className="feather-briefcase mr-2"></i>
@@ -112,15 +121,7 @@ function AdminNav() {
               Mini Project
             </div>
 
-            <li className="nav-item">
-              <NavLink className="navi-link" to="/schools">
-                <i className="feather-monitor mr-2"></i>
-                <span>Schools</span>
-              </NavLink>
-            </li>
-            <div className="nav-caption fw-600 font-xssss text-grey-500">
-              Schools
-            </div>
+          
 
             <li className="nav-item">
               <NavLink className="navi-link" to="/all_labs">

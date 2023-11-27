@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import AppHeader from '../../components/includes/AppHeader';
-import AppFooter from '../../components/includes/AppFooter';
+import AppHeader from "../../components/includes/AppHeader";
+import AppFooter from "../../components/includes/AppFooter";
 
 import $ from "jquery";
 import "datatables.net";
@@ -25,7 +25,7 @@ function Students() {
       const table = $(tableRef.current).DataTable();
       table.destroy();
     };
-  },[]);
+  }, []);
 
   const getStudents = () => {
     fetch(baseUrl + "api/school/api_all_students")
@@ -72,6 +72,7 @@ function Students() {
                       <tr>
                         <th scope="col">Sl. No.</th>
                         <th scope="col">Name</th>
+                        <th scope="col">Roll No</th>
                         <th scope="col">School</th>
                         <th scope="col">Class</th>
                         <th scope="col">Section</th>
@@ -85,6 +86,7 @@ function Students() {
                         <tr key={index}>
                           <td>{index + 1}</td>
                           <td>{student.name}</td>
+                          <td>{student.auth_id}</td>
                           <td>{student.school?.school_name}</td>
                           <td>{student.class?.class}</td>
                           <td>{student.section_id === 1 ? "A" : "B"}</td>
