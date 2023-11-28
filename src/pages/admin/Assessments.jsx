@@ -12,15 +12,23 @@ function Assessments() {
         getSubjects();
     }, [])
 
-    const [subjects, setSubjects] = useState([]);
+    const [data, setData] = useState([]);
+
     function getSubjects() {
-        let result = fetch(baseUrl + 'api/get_subjects').then(function (result) {
-            result.json().then(function (jsonbody) {
-                console.warn(jsonbody);
-                setSubjects(jsonbody);
+        return fetch(baseUrl + 'api/get-classes-and-subjects')
+            .then(function (result) {
+                return result.json();
             })
-        });
+            .then(function (res) {
+                setData(res);
+            })
+            .catch(function (error) {
+                console.error('Error fetching subjects:', error);
+            });
     }
+
+    //filter to show classses which have subjects
+    const classesWithSubjects = data.filter(classItem => classItem.subjects.length > 0);
 
     return (
         <>
@@ -40,14 +48,16 @@ function Assessments() {
                                         <Link to={"/assessments/create_assessments"} className="p-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current">Create Assesments</Link>
                                     </div>
                                 </div>
-                                {
-                                    subjects ? (
-                                        subjects && subjects.map((subject, index) => (
-                                            <div className="col-xl-4 col-lg-6 col-md-6" key={index}>
+
+                                { classesWithSubjects ? (classesWithSubjects.map((classItem, index) => (
+                                    <div className="row" key={classItem.id}>
+                                        <h2 className="fw-400 font-lg d-block mb-2">{classItem.class}</h2>
+                                        {classItem.subjects.map(subject => (
+                                            <div className="col-xl-4 col-lg-6 col-md-6" key={subject.id}>
                                                 <div className="card mb-4 d-block w-100 shadow-xss rounded-lg p-xxl-5 p-4 border-0 text-center">
                                                     <a href="" className="position-absolute right-0 mr-4 top-0 mt-3"><i className="ti-more text-grey-500 font-xs"></i></a>
                                                     <a href="#" className="btn-round-xxxl rounded-lg bg-lightblue ml-auto mr-auto">
-                                                        <img src={baseUrl + subject.subject_image} alt="icon" className="p-1" style={{ width: 50, height: 50 }} />
+                                                        <img src={baseUrl + subject.subject_image} alt="icon" className="p-1" />
                                                     </a>
                                                     <h4 className="fw-700 font-xs mt-4">{subject.subject_name}</h4>
                                                     <div className="clearfix"></div>
@@ -56,16 +66,14 @@ function Assessments() {
                                                     <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-info d-inline-block text-info mb-1">30 Min</span>
                                                     <div className="clearfix"></div>
 
-                                                    <Link to={"/assessments/view_assessments/"+subject.id} className="p-2 mt-4 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current">VIEW ASSESMENTS</Link>
+                                                    <Link to={"/assessments/view_assessments/" + subject.id} className="p-2 mt-4 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current">VIEW ASSESMENTS</Link>
                                                 </div>
                                             </div>
-                                        ))
-                                    )
-                                        :
-                                        ""
-                                }
-                            </div>
+                                        ))}
+                                    </div>
+                                ))) : ""}
 
+                            </div>
 
                         </div>
                     </div>

@@ -24,14 +24,14 @@ function ViewProject() {
 
     const getProjectName = () => {
         fetch(baseUrl + "api/get-mini-project/" + project_id)
-        .then((res) => {
-            return res.json();
-        }).then(data => {
-            setProjectName(data.project_name);
-        })
-        .catch(error => {
-            console.error('Error fetching project name:', error);
-        });
+            .then((res) => {
+                return res.json();
+            }).then(data => {
+                setProjectName(data.project_name);
+            })
+            .catch(error => {
+                console.error('Error fetching project name:', error);
+            });
     }
 
     const get_project_tasks = (e) => {
@@ -73,6 +73,7 @@ function ViewProject() {
     useEffect(() => {
         get_project_task_todo();
     }, []);
+
     const start_project_task = (task_id, lab_code) => {
         fetch(baseUrl + "api/start_project_task/" + user_id + "/" + task_id, {
             method: "PUT",
@@ -86,9 +87,29 @@ function ViewProject() {
             })
             .then((resp) => {
                 console.log(resp);
-                navigate("/subject_stream/start_project/" + project_id + "/" + task_id + "/" + lab_code);
+                window.location.reload();
+                // navigate("/subject_stream/start_project/" + project_id + "/" + task_id + "/" + lab_code);
             });
     };
+
+    const complete_task = (task_id, lab_code) => {
+        fetch(baseUrl + "api/complete-project-task/" + task_id, {
+            method: "PUT",
+            headers: {
+                "Content-type": "application/json",
+                Accept: "application/json",
+            },
+        })
+            .then((res) => {
+                return res.json();
+            })
+            .then((resp) => {
+                console.log(resp);
+                window.location.reload();
+                // navigate("/subject_stream/start_project/" + project_id + "/" + task_id + "/" + lab_code);
+            });
+    };
+
     return (
         <>
             <div className="main-wrapper">
@@ -168,13 +189,16 @@ function ViewProject() {
                                                         <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 me-2 alert-info d-inline-block text-info">
                                                             {task.duration}
                                                         </span>
-                                                        <Link
+                                                        {/* <Link
                                                             to={`/subject_stream/start_project/${project_id}/${task.id}/${task.lab_code}`}
                                                         >
                                                             <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-success d-inline-block text-success mr-1">
                                                                 Continue
                                                             </span>
-                                                        </Link>
+                                                        </Link> */}
+                                                        <button type="button" onClick={() => complete_task(task.id, task.lab_code)}>
+                                                            <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-success d-inline-block text-success mr-1 border-0">CONTINUE</span>
+                                                        </button>
                                                     </div>
                                                 ))
                                             : ""}

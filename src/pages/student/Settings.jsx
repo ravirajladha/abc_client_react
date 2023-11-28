@@ -17,7 +17,7 @@ function Settings() {
     const userId = user.user.id;
 
     const [parentCode, setParentCode] = useState("");
-    
+
     const connectParent = (e) => {
         let inputobj = {
             "parentCode": parentCode,
@@ -26,7 +26,7 @@ function Settings() {
 
         e.preventDefault();
 
-        if (validate()) {
+        if (validateParent()) {
             fetch(baseUrl + "api/connect_parent", {
                 method: 'POST',
                 headers: {
@@ -45,7 +45,8 @@ function Settings() {
             });
         }
     }
-    const validate = () => {
+
+    const validateParent = () => {
         let result = true;
 
         if (parentCode === '' || parentCode === null) {
@@ -57,29 +58,66 @@ function Settings() {
     }
 
     const [parentData, setParentData] = useState(null);
-// const getParent = () =>{
-    if(user.user.parent_id){
-        fetch(baseUrl + "api/get_parent/"+user.user.parent_id, {
-            method: 'GET',
-            headers: {
-                "Content-type": "application/json",
-                "Accept": "application/json"
-            },
-            // body: JSON.stringify(inputobj)
-        }).then((res) => {
-            return res.json();
-        }).then((resp) => {
-            console.log(resp);
-            // parentData = resp
-            setParentData(resp);
-        }).catch((err) => {
-            toast.error('Could not submit Form :' + err.message);
-        });
+    const getParent = () => {
+        if (user.user.parent_id) {
+            fetch(baseUrl + "api/get_parent/" + user.user.parent_id, {
+                method: 'GET',
+                headers: {
+                    "Content-type": "application/json",
+                    "Accept": "application/json"
+                },
+                // body: JSON.stringify(inputobj)
+            }).then((res) => {
+                return res.json();
+            }).then((resp) => {
+                // console.log(resp);
+                // parentData = resp
+                setParentData(resp);
+            }).catch((err) => {
+                toast.error('Could not submit Form :' + err.message);
+            });
+        }
     }
-// }
-    // useEffect(() => {
-    //     getParent();
-    // }, [])
+
+    const [formData, setFormData] = useState({
+        name: user.user.name,
+        email: user.user.email,
+        password: ''
+    });
+
+    const handleUserInputChange = (e) => {
+        e.preventDefault();
+
+        const formDataToSend = new FormData();
+        Object.entries(formData).forEach(([key, value]) => {
+            formDataToSend.append(key, value);
+        });
+
+        fetch(baseUrl + "api/update_student", {
+            method: "POST",
+            body: formDataToSend,
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log("User updated successfully", data);
+                window.location.reload();
+            })
+            .catch((error) => {
+                console.error("Error updating student:", error);
+            });
+    };
+
+    const formSubmit = (e) => {
+        e.preventDefault();
+
+        console.log(formData);
+    };
+
+    useEffect(() => {
+        console.log(user.user)
+        getParent();
+    }, []);
+
     return (
         <>
             <div className="main-wrapper">
@@ -90,18 +128,25 @@ function Settings() {
                     <div className="middle-sidebar-bottom theme-dark-bg bg-lightblue">
                         <div className="middle-sidebar-left">
                             <div className="row">
-                            <ToastContainer autoClose={3000} />
+                                <ToastContainer autoClose={3000} />
                                 <div className="col-lg-6">
                                     <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
                                         <div className="card-body p-4 w-100 border-0 rounded-lg">
                                             <h2 className="fw-300 font-400 d-block">Update <b> Password</b> </h2>
-                                            <form >
+                                            <form
+                                                onSubmit={formSubmit}
+                                                method="post"
+                                                encType="multipart/form-data">
                                                 <div className="row">
 
                                                     <div className="col-lg-12">
                                                         <div className="form-group">
                                                             <label className="mont-font fw-600 font-xsss">Name</label>
-                                                            <input type="text" className="form-control" placeholder="Enter Name" />
+                                                            <input type="text" className="form-control" placeholder="Enter Name" type="text"
+                                                                name="name"
+                                                                value={formData.name}
+                                                                onChange={handleUserInputChange}
+                                                                required />
                                                         </div>
                                                     </div>
                                                     <div className="col-lg-12">
@@ -132,31 +177,30 @@ function Settings() {
                                             <h2 className="fw-400 font-lg d-block">Connect <b> Parent</b> </h2>
                                             {
                                                 parentData ?
-                                                <div>
-                                                <h3>Parent Name:{parentData.name}</h3>
-                                                <h3>Parent Code:{parentData.parent_code}</h3>
-                                                </div>
-                                                :
-                                                <form onSubmit={connectParent}>
-                                                <div className="row">
+                                                    <div>
+                                                        <h3>Parent Name:{parentData.name}</h3>
+                                                        <h3>Parent Code:{parentData.parent_code}</h3>
+                                                    </div>
+                                                    :
+                                                    <form onSubmit={connectParent}>
+                                                        <div className="row">
 
-                                                    <div className="col-lg-12">
-                                                        <div className="form-group">
-                                                            <label className="mont-font fw-600 font-xsss">Unique Parent Code</label>
-                                                            <input type="text" className="form-control" placeholder="Enter Unique Parent id"
-                                                            value={parentCode}
-                                                            onChange={e => setParentCode(e.target.value)}
-                                                             />
+                                                            <div className="col-lg-12">
+                                                                <div className="form-group">
+                                                                    <label className="mont-font fw-600 font-xsss">Unique Parent Code</label>
+                                                                    <input type="text" className="form-control" placeholder="Enter Unique Parent id"
+                                                                        value={parentCode}
+                                                                        onChange={e => setParentCode(e.target.value)}
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                            <div className="col-lg-12">
+                                                                <button type="submit" className="btn bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0">Submit</button>
+                                                            </div>
+
                                                         </div>
-                                                    </div>
-                                                    <div className="col-lg-12">
-                                                        <button type="submit" className="btn bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0">Submit</button>
-                                                    </div>
-
-                                                </div>
-                                            </form>
+                                                    </form>
                                             }
-                                            
                                         </div>
                                     </div>
                                 </div>

@@ -9,9 +9,9 @@ import {
   Row,
 } from "react-bootstrap";
 import AppHeader from '../../components/includes/AppHeader';
-import AppFooter from '../../components/includes/AppFooter';
-import Topbar from "../../components/subAdminComponents/Topbar";
 import { useNavigate } from "react-router-dom";
+import { getUserFromSessionStorage } from '../../pages/util/SessionStorage';
+
 
 function AddStudent() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -19,6 +19,9 @@ function AddStudent() {
   const [schools, setSchools] = useState([]);
   const [classes, setClasses] = useState([]);
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const userString = sessionStorage.getItem("rexkod_user");
+  const user = JSON.parse(userString);
+  const schoolId = user.user.id;
 
   const getAllSchools = async () => {
     try {
@@ -52,10 +55,11 @@ function AddStudent() {
 
   const [formData, setFormData] = useState({
     name: "",
-    school: "",
+    school: schoolId,
     className: "",
     section: "",
   });
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -75,7 +79,6 @@ function AddStudent() {
       formDataToSend.append(key, value);
     });
 
-    // Perform your logic for sending the student data
     fetch(baseUrl + "api/school/add_student", {
       method: "POST",
       body: formDataToSend,
@@ -83,7 +86,7 @@ function AddStudent() {
       .then((response) => response.json())
       .then((data) => {
         // Handle success
-        console.log("Student added successfully", data);
+        // console.log("Student added successfully", data);
 
         setFormSubmitted(true);
 
@@ -97,7 +100,7 @@ function AddStudent() {
       })
       .catch((error) => {
         setFormSubmitted(false);
-        console.error("Error adding student:", error);
+        // console.error("Error adding student:", error);
       });
   };
 
@@ -162,7 +165,7 @@ function AddStudent() {
                           />
                         </div>
                       </div>
-                      <div className="col-lg-6">
+                      <div className="col-lg-6" hidden>
                         <div className="form-group">
                           <label className="mont-font fw-600 font-xsss">
                             School Name
@@ -190,7 +193,7 @@ function AddStudent() {
                       <div className="col-lg-6">
                         <div className="form-group">
                           <label className="mont-font fw-600 font-xsss">
-                            className
+                            Class
                           </label>
                           <br />
                           <select
@@ -200,7 +203,7 @@ function AddStudent() {
                             value={formData.className}
                             onChange={handleChange}
                           >
-                            <option value="">-Select-</option>
+                            <option value="">Select a class</option>
                             {classes.map((classVal) => (
                               <option
                                 key={classVal.class}
@@ -225,7 +228,7 @@ function AddStudent() {
                             value={formData.section}
                             onChange={handleChange}
                           >
-                            <option value="">-Select-</option>
+                            <option value="">Select a section</option>
                             <option value="1">A</option>
                             <option value="2">B</option>
                           </select>
