@@ -343,7 +343,7 @@ class Root extends Component {
             element={
               <ProtectedRoute
                 element={<Editor1 />}
-                allowedTypes={["student", "admin"]}
+                allowedTypes={["school_student", "admin"]}
               />
             }
           />

@@ -17,7 +17,7 @@ function ParentTests() {
                             <div className="row">
 
                                 <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
-                                    <h2 className="fw-400 font-lg d-block ml-2">All <b> Assessments</b> </h2>
+                                    <h2 className="fw-400 font-lg d-block ml-2">All <b> Tests Score</b> </h2>
                                     <div className="card-body p-lg-5 px-4 w-100 border-0 ">
                                         <div className="table-responsive">
                                             <table className="table table-admin mb-0">

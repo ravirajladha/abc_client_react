@@ -22,11 +22,13 @@ import {clearSessionStorage, getUserFromSessionStorage} from '../../pages/util/S
     if (loggedOut) {
       // After the logout state changes, navigate to the appropriate page
       const userData = getUserFromSessionStorage();
-      if (userData && userData.user && userData.user.type === 'school_student') {
-        navigate('/home');
-      } else {
-        navigate('/');
-      }
+      navigate('/');
+
+      // if (userData && userData.user && userData.user.type === 'school_student') {
+      //   navigate('/home');
+      // } else {
+      //   navigate('/');
+      // }
     }
   }, [loggedOut, navigate]);
 

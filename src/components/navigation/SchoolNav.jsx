@@ -24,25 +24,27 @@ function SchoolNav() {
     if (loggedOut) {
       // After the logout state changes, navigate to the appropriate page
       const userData = getUserFromSessionStorage();
-      if (userData && userData.user && userData.user.type === "admin") {
-        navigate("/admin");
-      } else if (
-        userData &&
-        userData.user &&
-        userData.user.type === "teacher"
-      ) {
-        navigate("/teacher");
-      } else if (
-        userData &&
-        userData.user &&
-        userData.user.type === "sub_admin"
-      ) {
-        navigate("/");
-      } else if (userData && userData.user && userData.user.type === "parent") {
-        navigate("/");
-      } else {
-        navigate("/");
-      }
+      navigate("/");
+
+      // if (userData && userData.user && userData.user.type === "admin") {
+      //   navigate("/admin");
+      // } else if (
+      //   userData &&
+      //   userData.user &&
+      //   userData.user.type === "teacher"
+      // ) {
+      //   navigate("/teacher");
+      // } else if (
+      //   userData &&
+      //   userData.user &&
+      //   userData.user.type === "sub_admin"
+      // ) {
+      //   navigate("/");
+      // } else if (userData && userData.user && userData.user.type === "parent") {
+      //   navigate("/");
+      // } else {
+      //   navigate("/");
+      // }
     }
   }, [loggedOut, navigate]);
 

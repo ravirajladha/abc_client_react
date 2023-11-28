@@ -26,25 +26,27 @@ function ParentNav() {
     if (loggedOut) {
       // After the logout state changes, navigate to the appropriate page
       const userData = getUserFromSessionStorage();
-      if (userData && userData.user && userData.user.type === "admin") {
-        navigate("/admin");
-      } else if (
-        userData &&
-        userData.user &&
-        userData.user.type === "teacher"
-      ) {
-        navigate("/teacher");
-      } else if (
-        userData &&
-        userData.user &&
-        userData.user.type === "sub_admin"
-      ) {
         navigate("/");
-      } else if (userData && userData.user && userData.user.type === "parent") {
-        navigate("/");
-      } else {
-        navigate("/");
-      }
+
+      // if (userData && userData.user && userData.user.type === "admin") {
+      //   navigate("/admin");
+      // } else if (
+      //   userData &&
+      //   userData.user &&
+      //   userData.user.type === "teacher"
+      // ) {
+      //   navigate("/teacher");
+      // } else if (
+      //   userData &&
+      //   userData.user &&
+      //   userData.user.type === "sub_admin"
+      // ) {
+      //   navigate("/");
+      // } else if (userData && userData.user && userData.user.type === "parent") {
+      //   navigate("/");
+      // } else {
+      //   navigate("/");
+      // }
     }
   }, [loggedOut, navigate]);
 
@@ -115,46 +117,35 @@ function ParentNav() {
                   </Link>
                   <ul className="submenu">
                     <li className="nav-item">
-                      <NavLink
+                      <Link
                         className="navi-link"
                         to={"/parent_subjects/" + c.id}
                       >
-                        Subjetcs
-                      </NavLink>
+                        Subjects
+                      </Link>
                     </li>
                     <li className="nav-item">
-                      <NavLink
+                      <Link
                         className="navi-link"
                         to={"/parent_assessments/" + c.id}
                       >
                         Assessments
-                      </NavLink>
+                      </Link>
                     </li>
                     <li className="nav-item">
-                      <NavLink
+                      <Link
                         className="navi-link"
                         to={"/parent_tests/" + c.id}
                       >
                         Tests
-                      </NavLink>
+                      </Link>
                     </li>
                   </ul>
                 </li>
               ))
               : ""}
 
-            {/* <li className="nav-item">
-              <NavLink className="navi-link" to="student">
-                <i className="feather-book-open mr-2"></i>
-                <span>Student name</span>
-              </NavLink>
-            </li> */}
-            {/* <li className="nav-item">
-              <NavLink className="navi-link" to="/teachers">
-                <i className="feather-briefcase mr-2"></i>
-                <span>Teachers</span>
-              </NavLink>
-            </li> */}
+           
           </ul>
 
           <div className="nav-caption fw-600 font-xssss text-grey-500">

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import AppHeader from '../../components/includes/AppHeader';
-import AppFooter from '../../components/includes/AppFooter';
+import AppHeader from "../../components/includes/AppHeader";
+import AppFooter from "../../components/includes/AppFooter";
 import Navheader from "../../components/Navheader";
 import Profile from "../../components/Profile";
 import Myclass from "../../components/Myclass";
@@ -21,6 +21,7 @@ function SubjectStream() {
   const userString = sessionStorage.getItem("rexkod_user");
   const user = JSON.parse(userString);
   const userId = user.user.id;
+  console.log(userId)
   const [receiverId, setReceiverId] = useState();
 
   const chatContentRef = useRef(null);
@@ -37,12 +38,14 @@ function SubjectStream() {
 
     let hours = date.getHours();
     const minutes = date.getMinutes();
-    const amPm = hours >= 12 ? 'PM' : 'AM';
+    const amPm = hours >= 12 ? "PM" : "AM";
 
     // Convert to 12-hour format
     hours = hours % 12 || 12;
 
-    const formattedTime = `${hours}:${minutes < 10 ? '0' : ''}${minutes} ${amPm}`;
+    const formattedTime = `${hours}:${
+      minutes < 10 ? "0" : ""
+    }${minutes} ${amPm}`;
     return formattedTime;
   }
 
@@ -79,6 +82,33 @@ function SubjectStream() {
     //     videojs.log('player will dispose');
     // });
   };
+
+  const [assessments, setAssessments] = useState([]);
+
+  useEffect(() => {
+    // Fetch assessments when the component mounts
+    fetch(baseUrl + "api/get_assessments_for_videos")
+      .then((response) => response.json())
+      .then((data) => {
+        setAssessments(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching assessments:", error);
+      });
+  }, []);
+  const [elabs, setElabs] = useState([]);
+
+  useEffect(() => {
+    // Fetch elabs when the component mounts
+    fetch(baseUrl + "api/get_elab_for_videos")
+      .then((response) => response.json())
+      .then((data) => {
+        setElabs(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching elab:", error);
+      });
+  }, []);
 
   const [allSubjectData, setAllSubjectData] = useState([]);
   function subjectDetails() {
@@ -173,23 +203,22 @@ function SubjectStream() {
   const sendMessage = async (e) => {
     e.preventDefault();
     try {
-
       const formData = new FormData();
-      formData.append('sender_id', userId);
-      formData.append('receiver_id', receiverId);
-      formData.append('message', newMessage);
+      formData.append("sender_id", userId);
+      formData.append("receiver_id", receiverId);
+      formData.append("message", newMessage);
 
-      const response = await fetch(baseUrl + 'api/send-message', {
-        method: 'POST',
+      const response = await fetch(baseUrl + "api/send-message", {
+        method: "POST",
         body: formData,
       });
       if (!response) {
-        throw new Error('Failed to send message');
+        throw new Error("Failed to send message");
       }
-      setNewMessage('');
+      setNewMessage("");
       fetchMessages();
     } catch (error) {
-      console.error('Error sending message:', error);
+      console.error("Error sending message:", error);
     }
   };
 
@@ -219,23 +248,22 @@ function SubjectStream() {
   const storeNotes = async (e) => {
     e.preventDefault();
     try {
-
       const formData = new FormData();
-      formData.append('student_id', userId);
-      formData.append('subject_id', subjectId);
-      formData.append('note', newNote);
+      formData.append("student_id", userId);
+      formData.append("subject_id", subjectId);
+      formData.append("note", newNote);
 
-      const response = await fetch(baseUrl + 'api/store-notes', {
-        method: 'POST',
+      const response = await fetch(baseUrl + "api/store-notes", {
+        method: "POST",
         body: formData,
       });
       if (!response) {
-        throw new Error('Failed to store notes');
+        throw new Error("Failed to store notes");
       }
-      setNewNote('');
+      setNewNote("");
       fetchNotes();
     } catch (error) {
-      console.error('Error storing notes:', error);
+      console.error("Error storing notes:", error);
     }
   };
 
@@ -267,9 +295,7 @@ function SubjectStream() {
     fetchMessages();
     const intervalId = setInterval(fetchMessages, 5000);
     return () => clearInterval(intervalId);
-
   }, [activeTab, matchVideo]);
-
 
   return (
     <>
@@ -325,113 +351,126 @@ function SubjectStream() {
                               defaultActiveKey="0"
                               className="accordian mb-0 accordian-course"
                             >
-                              {allSubjectData && allSubjectData.chapters ? (
-                                allSubjectData &&
+                              {allSubjectData &&
+                                allSubjectData.chapters &&
                                 allSubjectData.chapters.map(
-                                  (chapter, index) => (
-                                    <Accordion.Item
-                                      eventKey={index}
-                                      className="accordion-item border-0 mb-0 shadow-xss rounded-sm bg-white"
-                                    >
-                                      <Accordion.Header>
-                                        {chapter.chapter_name}
-                                      </Accordion.Header>
-                                      <Accordion.Body className="py-0">
-                                        {allSubjectData.videos &&
-                                          allSubjectData.videos.map(
-                                            (video, videoIndex) =>
-                                              video.chapter_id ===
-                                                chapter.id ? (
-                                                <div
-                                                  className="card-body d-flex p-1 video"
-                                                  data-id={video.id}
-                                                  key={videoIndex}
-                                                  onClick={() =>
-                                                    handleVideoClick(
-                                                      video.id,
-                                                      video.video_file,
-                                                      video.video_name
-                                                    )
-                                                  }
-                                                >
-                                                  <i className="feather-play-circle mr-3 font-lg"></i>
-                                                  <div className="d-flex flex-column">
-                                                    <div>
-                                                      <span className="bg-current btn-round-xs rounded-lg font-xssss text-white fw-600">
-                                                        {videoIndex + 1}
-                                                      </span>
-                                                      <span className="font-xssss fw-500 text-grey-500 ml-2">
-                                                        {video.video_name}
-                                                      </span>
+                                  (chapter, index) => {
+                                    // Check if there are videos for this chapter
+                                    const chapterVideos =
+                                      allSubjectData.videos.filter(
+                                        (video) =>
+                                          video.chapter_id === chapter.id
+                                      );
+                                    const hasVideos = chapterVideos.length > 0;
+
+                                    return hasVideos ? (
+                                      <Accordion.Item
+                                        eventKey={index}
+                                        className="accordion-item border-0 mb-0 shadow-xss rounded-sm bg-white"
+                                      >
+                                        <Accordion.Header>
+                                          {chapter.chapter_name}
+                                        </Accordion.Header>
+                                        <Accordion.Body className="py-0">
+                                          {allSubjectData.videos &&
+                                            allSubjectData.videos.map(
+                                              (video, videoIndex) => {
+                                                if (
+                                                  video.chapter_id ===
+                                                  chapter.id
+                                                ) {
+                                                  // Check if there's an assessment, ebook, and elab for this video
+                                                  const hasAssessment =
+                                                    assessments.some(
+                                                      (assessment) =>
+                                                        assessment.video_id ===
+                                                        video.id
+                                                    );
+                                                  const hasEBook = null; //when the ebook will come
+                                                  const hasELab = elabs.some(
+                                                    (elab) =>
+                                                      elab.video_id == video.id
+                                                  );
+
+                                                  return (
+                                                    <div
+                                                      className="card-body d-flex p-1 video"
+                                                      data-id={video.id}
+                                                      key={video.id}
+                                                    >
+                                                      <i className="feather-play-circle mr-3 font-lg"></i>
+                                                      <div className="d-flex flex-column">
+                                                        <div>
+                                                          <span className="bg-current btn-round-xs rounded-lg font-xssss text-white fw-600">
+                                                            {videoIndex + 1}
+                                                          </span>
+                                                          <span className="font-xssss fw-500 text-grey-500 ml-2">
+                                                            {video.video_name}
+                                                          </span>
+                                                        </div>
+                                                        <div className="d-flex justify-content-between">
+                                                          {hasAssessment && (
+                                                            <div
+                                                              className="border-size-sm rounded-sm px-1 mx-1"
+                                                              style={{
+                                                                border:
+                                                                  "1px solid #000",
+                                                              }}
+                                                            >
+                                                              <Link
+                                                                className="font-xssss"
+                                                                to={`/subject_stream/take_assessments/${video.id}`}
+                                                              >
+                                                                Assessments
+                                                              </Link>
+                                                            </div>
+                                                          )}
+                                                          {hasEBook && (
+                                                            <div
+                                                              className="border-size-sm rounded-sm px-1 mx-1"
+                                                              style={{
+                                                                border:
+                                                                  "1px solid #000",
+                                                              }}
+                                                            >
+                                                              <Link
+                                                                className="font-xssss"
+                                                                to={`/subject_stream/ebook/${video.id}`}
+                                                              >
+                                                                EBook
+                                                              </Link>
+                                                            </div>
+                                                          )}
+                                                          {hasELab && (
+                                                            <div
+                                                              className="border-size-sm rounded-sm px-1 mx-1"
+                                                              style={{
+                                                                border:
+                                                                  "1px solid #000",
+                                                              }}
+                                                            >
+                                                              <Link
+                                                                className="font-xssss"
+                                                                to={`/editor/${video.id}`}
+                                                              >
+                                                                ELab
+                                                              </Link>
+                                                            </div>
+                                                          )}
+                                                        </div>
+                                                      </div>
                                                     </div>
-                                                    <div className="d-flex justify-content-between">
-                                                      <div
-                                                        className="border-size-sm rounded-sm px-1 mx-1"
-                                                        style={{
-                                                          border:
-                                                            "1px solid #000",
-                                                        }}
-                                                      >
-                                                        <Link
-                                                          className="font-xssss"
-                                                          to={
-                                                            "/subject_stream/take_assessments/" +
-                                                            video.id
-                                                          }
-                                                        >
-                                                          Assesments
-                                                        </Link>
-                                                      </div>
-                                                      <div
-                                                        className="border-size-sm rounded-sm px-1 mx-1"
-                                                        style={{
-                                                          border:
-                                                            "1px solid #000",
-                                                        }}
-                                                      >
-                                                        <Link
-                                                          className="font-xssss"
-                                                          to={
-                                                            "/subject_stream/ebook"
-                                                          }
-                                                        >
-                                                          EBook
-                                                        </Link>
-                                                      </div>
-                                                      <div
-                                                        className="border-size-sm rounded-sm px-1 mx-1"
-                                                        style={{
-                                                          border:
-                                                            "1px solid #000",
-                                                        }}
-                                                      >
-                                                        <Link
-                                                          className="font-xssss"
-                                                          to={
-                                                            "/subject_stream/elab/" +
-                                                            video.id
-                                                          }
-                                                        >
-                                                          ELab
-                                                        </Link>
-                                                      </div>
-                                                    </div>
-                                                  </div>
-                                                </div>
-                                              ) : (
-                                                ""
-                                              )
-                                          )}
-                                      </Accordion.Body>
-                                    </Accordion.Item>
-                                  )
-                                )
-                              ) : (
-                                <Accordion.Item
-                                  eventKey="0"
-                                  className="accordion-item border-0 mb-0 shadow-xss rounded-sm bg-white"
-                                ></Accordion.Item>
-                              )}
+                                                  );
+                                                } else {
+                                                  return null;
+                                                }
+                                              }
+                                            )}
+                                        </Accordion.Body>
+                                      </Accordion.Item>
+                                    ) : null; // Or instead of null, render something to indicate no videos are available
+                                  }
+                                )}
                             </Accordion>
                           </div>
                         </div>
@@ -466,7 +505,10 @@ function SubjectStream() {
                                       <div>
                                         <h5>You</h5>
                                         <div className="time">
-                                          {message.created_at && formatTimeFromTimestamp(message.created_at)}
+                                          {message.created_at &&
+                                            formatTimeFromTimestamp(
+                                              message.created_at
+                                            )}
                                           <i className="ti-double-check text-info"></i>
                                         </div>
                                       </div>
@@ -489,7 +531,10 @@ function SubjectStream() {
                                           Teacher
                                         </h5>
                                         <div className="time">
-                                          {message.created_at && formatTimeFromTimestamp(message.created_at)}
+                                          {message.created_at &&
+                                            formatTimeFromTimestamp(
+                                              message.created_at
+                                            )}
                                         </div>
                                       </div>
                                     </div>
@@ -502,21 +547,24 @@ function SubjectStream() {
                           ) : (
                             <div className="message-item"></div>
                           )}
-
-
                         </div>
                         <form
-                          className="chat-form position-absolute bottom-0 w-100 left-0 bg-white z-index-1 p-3 shadow-xs theme-dark-bg" onSubmit={sendMessage} >
+                          className="chat-form position-absolute bottom-0 w-100 left-0 bg-white z-index-1 p-3 shadow-xs theme-dark-bg"
+                          onSubmit={sendMessage}
+                        >
                           <button className="bg-grey float-left">
-                            <i className="ti-microphone text-white" disabled></i>
+                            <i
+                              className="ti-microphone text-white"
+                              disabled
+                            ></i>
                           </button>
                           <div className="form-group">
                             <input
                               type="text"
-                              placeholder={newMessage ? '' : 'Start typing..'}
+                              placeholder={newMessage ? "" : "Start typing.."}
                               value={newMessage}
                               onChange={(e) => setNewMessage(e.target.value)}
-                              onClick={() => setNewMessage('')}
+                              onClick={() => setNewMessage("")}
                               className="text-grey-500"
                             />
                           </div>
@@ -557,16 +605,18 @@ function SubjectStream() {
                           )}
                         </div>
                         <form
-                          className="chat-form position-absolute bottom-0 w-100 left-0 bg-white z-index-1 p-3 shadow-xs theme-dark-bg" onSubmit={storeNotes} >
+                          className="chat-form position-absolute bottom-0 w-100 left-0 bg-white z-index-1 p-3 shadow-xs theme-dark-bg"
+                          onSubmit={storeNotes}
+                        >
                           <button className="bg-grey float-left">
                             <i className="ti-microphone text-white"></i>
                           </button>
                           <div className="form-group">
                             <input
                               type="text"
-                              placeholder={newNote ? '' : 'New Note'}
+                              placeholder={newNote ? "" : "New Note"}
                               value={newNote}
-                              onClick={() => setNewNote('')}
+                              onClick={() => setNewNote("")}
                               onChange={(e) => setNewNote(e.target.value)}
                               className="text-grey-500"
                             />
@@ -575,7 +625,6 @@ function SubjectStream() {
                             <i className="ti-arrow-right text-white"></i>
                           </button>
                         </form>
-
                       </Tab>
                     </Tabs>
                   </div>
@@ -661,7 +710,7 @@ function SubjectStream() {
                   <div className="card d-block border-0 rounded-lg overflow-hidden p-4 shadow-xss mt-4 bg-lightblue">
                     {allSubjectData && allSubjectData.test ? (
                       allSubjectData.test_result &&
-                        allSubjectData.test_result.score_percentage >= 50 ? (
+                      allSubjectData.test_result.score_percentage >= 50 ? (
                         <a href="">
                           <h2 className="fw-700 font-sm mt-1 pl-1">
                             View certificate.{" "}

@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import AppFooter from '../components/includes/AppFooter';
 import AppHeader from '../components/includes/AppHeader';
 import Profile from '../components/Profile';
@@ -11,43 +11,43 @@ import { getUserFromSessionStorage } from '../pages/util/SessionStorage';
 const memberList = [
   {
     imageUrl: 'user.png',
-    name: 'Aliqa Macale ',
+    name: 'Student1 ',
     email: 'support@gmail.com',
     bgimage: 'blog.png',
   },
   {
     imageUrl: 'user.png',
-    name: 'John Steere ',
+    name: 'Student1 ',
     email: 'support@gmail.com',
     bgimage: 'blog.png',
   },
   {
     imageUrl: 'user.png',
-    name: 'Mohannad Zitoun ',
+    name: 'Student3 ',
     email: 'support@gmail.com',
     bgimage: 'blog.png',
   },
   {
     imageUrl: 'user.png',
-    name: 'Aliqa Macale ',
+    name: 'Student4',
     email: 'support@gmail.com',
     bgimage: 'blog.png',
   },
   {
     imageUrl: 'user.png',
-    name: 'Hendrix Stamp ',
+    name: 'Student5',
     email: 'support@gmail.com',
     bgimage: 'blog.png',
   },
   {
     imageUrl: 'user.png',
-    name: 'Mohannad Zitoun ',
+    name: 'Student6',
     email: 'support@gmail.com',
     bgimage: 'blog.png',
   },
   {
     imageUrl: 'user.png',
-    name: 'John Steere ',
+    name: 'Student7',
     email: 'support@gmail.com',
     bgimage: 'blog.png',
   },
@@ -55,7 +55,7 @@ const memberList = [
 const liveList = [
   {
     imageUrl: 'user.png',
-    name: 'Aliqa Macale ',
+    name: 'Student1 ',
     email: 'support@gmail.com',
     status: 'LIVE',
     statusColor: 'bg-danger',
@@ -63,7 +63,7 @@ const liveList = [
   },
   {
     imageUrl: 'user.png',
-    name: 'John Steere ',
+    name: 'Student2',
     email: 'support@gmail.com',
     status: 'OFFLINE',
     statusColor: 'bg-dark',
@@ -71,7 +71,7 @@ const liveList = [
   },
   {
     imageUrl: 'user.png',
-    name: 'Mohannad Zitoun ',
+    name: 'Student3',
     email: 'support@gmail.com',
     status: 'LIVE',
     statusColor: 'bg-danger',
@@ -79,7 +79,7 @@ const liveList = [
   },
   {
     imageUrl: 'user.png',
-    name: 'Aliqa Macale ',
+    name: 'Student4',
     email: 'support@gmail.com',
     status: 'OFFLINE',
     statusColor: 'bg-dark',
@@ -87,7 +87,7 @@ const liveList = [
   },
   {
     imageUrl: 'user.png',
-    name: 'Hendrix Stamp ',
+    name: 'Student5',
     email: 'support@gmail.com',
     status: 'LIVE',
     statusColor: 'bg-danger',
@@ -95,7 +95,7 @@ const liveList = [
   },
   {
     imageUrl: 'user.png',
-    name: 'Mohannad Zitoun ',
+    name: 'Student6',
     email: 'support@gmail.com',
     status: 'LIVE',
     statusColor: 'bg-danger',
@@ -103,7 +103,7 @@ const liveList = [
   },
   {
     imageUrl: 'user.png',
-    name: 'John Steere ',
+    name: 'Student7',
     email: 'support@gmail.com',
     status: 'LIVE',
     statusColor: 'bg-danger',

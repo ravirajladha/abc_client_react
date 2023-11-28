@@ -81,7 +81,7 @@ function CreateSubject() {
                                                 </div>
                                                 <div className="col-lg-4">
                                                     <div className="">
-                                                        <label className="mont-font fw-600 font-xsss">Project Image</label><br />
+                                                        <label className="mont-font fw-600 font-xsss">Subject Image</label><br />
                                                         <input type="file" onChange={(e) => setImage(e.target.files[0])} className="form-control" required />
                                                     </div>
                                                 </div>

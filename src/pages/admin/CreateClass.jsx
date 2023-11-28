@@ -3,8 +3,11 @@ import AppHeader from "../../components/includes/AppHeader";
 import AppFooter from "../../components/includes/AppFooter";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Link, useNavigate  } from "react-router-dom";
+
 
 function CreateClass() {
+  const navigate = useNavigate();
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const [className, setClassName] = useState("");
 
@@ -30,6 +33,9 @@ function CreateClass() {
       });
   };
 
+  const goBack = () => {
+    navigate(-1);
+  };
   return (
     <>
       <div className="main-wrapper">
@@ -39,14 +45,32 @@ function CreateClass() {
             <div className="middle-sidebar-left">
               <div className="row">
                 <ToastContainer autoClose={3000} />
-                <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
-                  <h2 className="fw-400 font-lg d-block ml-2">
-                    Create <b> Class</b>{" "}
-                  </h2>
+                <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
+                <div>
+                    <h2 className="fw-400 font-lg d-block">
+                      Create <b>Class</b>
+                    </h2>
+                  </div>     
+                       <div className="float-right">
+                       <Link
+                      to={"/all_classes"}
+                      className="p-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current mx-1"
+                    >    View  CLlasses
+                    </Link>
+                    <button
+                      onClick={goBack}
+                      className="p-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1"
+                    >
+                      Back
+                    </button>
+                  </div>
+                  </div>
+                <div className="card w-100 mt-4 border-0 bg-white shadow-xs p-0 mb-4">
+                 
                   <div className="card-body p-lg-5 px-4 w-100 border-0 ">
                     <form onSubmit={createClass}>
                       <div className="row mb-3">
-                        <div className="col-lg-6">
+                        <div className="col-lg-12">
                           <label className="mont-font fw-600 font-xsss">
                             Class Name
                           </label>
