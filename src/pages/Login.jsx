@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
 
 
-import { saveUserToSessionStorage, getUserFromSessionStorage } from './util/SessionStorage'
+import { saveUserToLocalStorage, getUserFromLocalStorage } from './util/SessionStorage'
 
 function Login() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -39,8 +39,8 @@ function Login() {
       }).then((resp) => {
         // Now we know the login is successful
         toast.success('Success');
-        saveUserToSessionStorage(resp);
-        const user = getUserFromSessionStorage();
+        saveUserToLocalStorage(resp);
+        const user = getUserFromLocalStorage();
         console.log(user);
         // Your navigation logic based on user type
         if (user.user.type === 'admin') {
@@ -88,7 +88,7 @@ function Login() {
             <div className="card shadow-none border-0 ml-auto mr-auto login-card">
               <div className="card-body rounded-0 text-left">
                 <img
-                  src="assets/images/abc_logo.png"
+                  src="assets/images/abc_logo.jpg"
                   alt="logo"
                   className="inline-center flex center" width={100}
                 /><br />

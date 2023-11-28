@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Slider from 'react-slick';
-import { getUserFromSessionStorage } from '../pages/util/SessionStorage';
+import { getUserFromLocalStorage } from '../pages/util/SessionStorage';
 const skillList = [
   {
     skill: 'user.png',
@@ -20,7 +20,7 @@ const skillList = [
 ];
 
   function Profile() {
-    const userDetails = getUserFromSessionStorage();
+    const userDetails = getUserFromLocalStorage();
     const skillsettings = {
       arrows: false,
       dots: false,

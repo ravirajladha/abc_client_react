@@ -26,7 +26,7 @@ import { Link, NavLink } from 'react-router-dom';
           </span>
           {/* <Link to="/" className='justify-content-center pl-0'>
               <img 
-              src="/assets/images/abc_logo.png"
+              src="/assets/images/abc_logo.jpg"
                             alt="logo"
                             className="" width={80}
                           />

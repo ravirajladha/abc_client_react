@@ -2,11 +2,11 @@
 
 import React from 'react';
 import {  Navigate } from 'react-router-dom';
-import { getUserFromSessionStorage } from './SessionStorage';
+import { getUserFromLocalStorage } from './SessionStorage';
 import NotFound from "../Notfound";
 
 const ProtectedRoute = ({ element, allowedTypes }) => {
-  const userData = getUserFromSessionStorage();
+  const userData = getUserFromLocalStorage();
   const userType = userData?.user?.type;
 
    // User is signed in but does not have permission to view this route

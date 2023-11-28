@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { clearSessionStorage, getUserFromSessionStorage } from '../../pages/util/SessionStorage';
+import { clearLocalStorage, getUserFromLocalStorage } from '../../pages/util/SessionStorage';
 
 
 function AdminNav() {
@@ -14,16 +14,17 @@ function AdminNav() {
 
   const [loggedOut, setLoggedOut] = useState(false);
   const logout = () => {
-    clearSessionStorage();
+    clearLocalStorage();
     setLoggedOut(true);
   };
 
   useEffect(() => {
     if (loggedOut) {
+      console.log("logoutt")
       navigate('/');
     }
     // if (loggedOut) {
-    //   const userData = getUserFromSessionStorage();
+    //   const userData = getUserFromLocalStorage();
     //   if (userData && userData.user && userData.user.type === 'admin') {
     //     navigate('/admin');
     //   } else if (userData && userData.user && userData.user.type === 'teacher') {
@@ -50,7 +51,7 @@ function AdminNav() {
                 Elomoas.
               </span> */}
               <img
-                src="/assets/images/abc_logo.png"
+                src="/assets/images/abc_logo.jpg"
                 alt="logo"
                 className="" width={60}
               />

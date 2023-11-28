@@ -6,7 +6,7 @@ import Profile from '../../components/Profile';
 import Myclass from '../../components/Myclass';
 import Subscribe from '../../components/Subscribe';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getUserFromSessionStorage } from '../util/SessionStorage';
+import { getUserFromLocalStorage } from '../util/SessionStorage';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -26,7 +26,7 @@ function TakeTest() {
 
     const [formIsSubmitting, setFormIsSubmitting] = useState(false);
 
-    const user = getUserFromSessionStorage();
+    const user = getUserFromLocalStorage();
     const user_id = user.user.id;
 
     const get_tests = (e) => {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AppHeader from "../../components/includes/AppHeader";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
+import { toast, ToastContainer } from "react-toastify";
 
 function AddTeacher() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -102,6 +103,7 @@ function AddTeacher() {
       .then((data) => {
         // Handle success
         console.log("Teacher added successfully", data);
+        toast.success("Teacher added successfully!");
 
         // Clear form values after successful submission
         setFormData({
@@ -134,16 +136,17 @@ function AddTeacher() {
                   <h2 className="fw-400 font-lg d-block">
                     Add <b> Teacher</b>
                   </h2>
+                  <ToastContainer autoClose={3000} />
 
                   <div className="float-right">
                     <Breadcrumb style={{ padding: "0.25rem 1rem" }}>
                       <Breadcrumb style={{ padding: "0.25rem 1rem" }}>
-                        <Breadcrumb.Item href="/admin/index">
+                        <Breadcrumb.Item href="/school">
                           <i className="fa fa-home"></i>&nbsp; Home
                         </Breadcrumb.Item>
-                        <Breadcrumb.Item href="/admin/all_courses">
+                        {/* <Breadcrumb.Item href="/s/all_courses">
                           &nbsp; Course
-                        </Breadcrumb.Item>
+                        </Breadcrumb.Item> */}
                         <Breadcrumb.Item active className="fw-500 text-black">
                           &nbsp; Add Teacher
                         </Breadcrumb.Item>
@@ -259,6 +262,7 @@ function AddTeacher() {
                               <br />
                               <select
                                 name={`className_${index}`}
+                                value={field.className} 
                                 onChange={(e) => handleClassChange(index, e)}
                                 className="form-control"
                               >

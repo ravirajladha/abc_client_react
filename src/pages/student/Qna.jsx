@@ -111,7 +111,7 @@ function Qna() {
 
                     <div className="middle-sidebar-bottom theme-dark-bg">
                         <div className="middle-sidebar-left">
-                            <h2 className="fw-400 font-lg d-block">ABC <b> Qna</b> </h2>
+                            <h2 className="fw-400 font-lg d-block mb-2 ">ABC <b> Qna</b> </h2>
 
                             <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
 
@@ -144,7 +144,7 @@ function Qna() {
                                         <div className="row mb-6">
                                             <ToastContainer autoClose={3000} />
 
-                                            <div className="col-lg-4">
+                                            <div className="col-lg-12">
                                                 <label className="mont-font fw-600 font-xsss">Select Subject</label><br />
                                                 <select id="subject" className="form-control"
                                                     value={subject}
@@ -169,7 +169,7 @@ function Qna() {
                                         <div className="row">
                                             <div className="col-lg-4">
                                                 <button type="submit"
-                                                    className="btn bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0">Submit</button>
+                                                    className="btn bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0 mt-4">Submit</button>
                                             </div>
                                         </div>
                                     </form>

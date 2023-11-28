@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import {
-  clearSessionStorage,
-  getUserFromSessionStorage,
+  clearLocalStorage,
+  getUserFromLocalStorage,
 } from "../../pages/util/SessionStorage";
 
 function SchoolNav() {
@@ -17,13 +17,13 @@ function SchoolNav() {
   const [loggedOut, setLoggedOut] = useState(false);
   const logout = () => {
     // Clear user data from session storage
-    clearSessionStorage();
+    clearLocalStorage();
     setLoggedOut(true);
   };
   useEffect(() => {
     if (loggedOut) {
       // After the logout state changes, navigate to the appropriate page
-      const userData = getUserFromSessionStorage();
+      const userData = getUserFromLocalStorage();
       navigate("/");
 
       // if (userData && userData.user && userData.user.type === "admin") {
@@ -62,7 +62,7 @@ function SchoolNav() {
                 Elomoas.
               </span> */}
               <img
-                src="/assets/images/abc_logo.png"
+                src="/assets/images/abc_logo.jpg"
                 alt="logo"
                 className=""
                 width={60}

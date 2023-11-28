@@ -5,7 +5,7 @@ import Profile from "../../components/Profile";
 import Myclass from "../../components/Myclass";
 import Subscribe from "../../components/Subscribe";
 import { Link, useParams } from "react-router-dom";
-import { getUserFromSessionStorage } from "../util/SessionStorage";
+import { getUserFromLocalStorage } from "../util/SessionStorage";
 
 import React, { useState, useEffect, useRef } from "react";
 
@@ -15,7 +15,7 @@ function ViewTestScore() {
 
   const [score, setScore] = useState("");
 
-  const user = getUserFromSessionStorage();
+  const user = getUserFromLocalStorage();
   const user_id = user.user.id;
 
   const get_test_score = (e) => {

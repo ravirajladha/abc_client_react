@@ -6,7 +6,7 @@ import Myclass from '../components/Myclass';
 import Subscribe from '../components/Subscribe';
 import { Link } from 'react-router-dom';
 import { Tab, Tabs } from 'react-bootstrap';
-import { getUserFromSessionStorage } from '../pages/util/SessionStorage';
+import { getUserFromLocalStorage } from '../pages/util/SessionStorage';
 
 const memberList = [
   {
@@ -274,7 +274,7 @@ const courseList = [
 ];
 
 function Defaultuserprofile() {
-  const userDetails = getUserFromSessionStorage();
+  const userDetails = getUserFromLocalStorage();
   return (
     <Fragment>
       <div className="main-wrapper">

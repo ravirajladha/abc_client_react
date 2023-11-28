@@ -84,6 +84,7 @@ function SubjectStream() {
   };
 
   const [assessments, setAssessments] = useState([]);
+  const [isTeacherAvailable, setIsTeacherAvailable] = useState(false);
 
   useEffect(() => {
     // Fetch assessments when the component mounts
@@ -124,8 +125,17 @@ function SubjectStream() {
       })
       .then((resp) => {
         setAllSubjectData(resp);
+        const teacherAssigned = resp.teacher && resp.teacher.user && resp.teacher.user.id;
+  setIsTeacherAvailable(teacherAssigned);
+
+if(teacherAssigned){
+
+  setReceiverId(resp.teacher.user.id);
+}else{
+  setReceiverId(null);
+
+}
         // console.log(allSubjectData.subject.subject_name);
-        setReceiverId(resp.teacher.user.id);
         if (resp && resp.video_details) {
           setActiveVideoId(resp && resp.video_details.id);
           setMainVideoTitle(resp && resp.video_details.video_name);
@@ -548,6 +558,7 @@ function SubjectStream() {
                             <div className="message-item"></div>
                           )}
                         </div>
+                        {isTeacherAvailable ? (
                         <form
                           className="chat-form position-absolute bottom-0 w-100 left-0 bg-white z-index-1 p-3 shadow-xs theme-dark-bg"
                           onSubmit={sendMessage}
@@ -572,7 +583,13 @@ function SubjectStream() {
                             <i className="ti-arrow-right text-white"></i>
                           </button>
                         </form>
+                          ) : (
+                            <div className="text-center p-3">
+                              <span>Chat unavailable. No teacher assigned.</span>
+                            </div>
+                          )}
                       </Tab>
+                      
                       <Tab
                         eventKey="notes"
                         title="NOTES"

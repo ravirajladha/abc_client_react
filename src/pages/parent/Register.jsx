@@ -3,9 +3,13 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
+import { saveUserToLocalStorage, getUserFromLocalStorage } from '../util/SessionStorage'
 
 const Register = () => {
+  const usenavigate = useNavigate();
+
   const baseUrl = process.env.REACT_APP_BASE_URL;
 
   const [formData, setFormData] = useState({
@@ -38,7 +42,19 @@ const Register = () => {
       const response = await axios.post(`${baseUrl}api/parent_registration`, user); // Include the correct base URL and endpoint
       console.log('Response from the server:', response.data);
       toast.success("Registration successful");
-      window.location = '/login'; 
+   // Now perform automatic login
+   const loginResponse = await axios.post(`${baseUrl}api/login`, { email, password });
+   console.log('Response from the server:', loginResponse.data);
+   saveUserToLocalStorage(loginResponse.data);
+   toast.success('Login successful');
+
+   // Redirect to home based on the user type
+   const loggedInUser = getUserFromLocalStorage();
+  if (loggedInUser.user.type === 'parent') {
+    usenavigate('/parent');
+  } else {
+    usenavigate('/');
+  }
       // handle success (e.g., redirect to login)
     } catch (error) {
       if (error.response && error.response.status === 409) {
@@ -67,7 +83,7 @@ const Register = () => {
             <div className="card shadow-none border-0 ml-auto mr-auto login-card">
               <div className="card-body rounded-0 text-left">
                 <img
-                  src="assets/images/abc_logo.png"
+                  src="assets/images/abc_logo.jpg"
                   alt="logo"
                   className=""
                   width={100}

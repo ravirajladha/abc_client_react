@@ -8,7 +8,7 @@ import Subscribe from '../../components/Subscribe';
 import "../../css/custom.css"
 
 import { Tabs, Tab, Accordion } from 'react-bootstrap';
-import { getUserFromSessionStorage } from '../util/SessionStorage';
+import { getUserFromLocalStorage } from '../util/SessionStorage';
 
 
 
@@ -21,7 +21,7 @@ import { Link, useParams } from 'react-router-dom';
 function MarkerSingle() {
 
     const baseUrl = process.env.REACT_APP_BASE_URL;
-    const user = getUserFromSessionStorage();
+    const user = getUserFromLocalStorage();
     const user_id = user.user.id;
 
     const [markers, setMarkers] = useState([]);

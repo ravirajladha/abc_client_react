@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react';
 import AppHeader from '../../components/includes/AppHeader';
 import AppFooter from '../../components/includes/AppFooter';
 import Dropdown from '../../components/inputs/Dropdown';
+import { Link, useNavigate  } from "react-router-dom";
 
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function CreateVideos() {
+  const navigate = useNavigate();
+
     const baseUrl = process.env.REACT_APP_BASE_URL;
     useEffect(() => {
         getClasses();
@@ -108,6 +111,9 @@ function CreateVideos() {
                 toast.error('Could not submit chapter names: ' + err.message);
             });
     }
+    const goBack = () => {
+        navigate(-1);
+      };
     return (
         <>
             <div className="main-wrapper">
@@ -117,9 +123,24 @@ function CreateVideos() {
                         <div className="middle-sidebar-left">
                             <div className="row">
                                 <ToastContainer autoClose={3000} />
-
+                                <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
+                <div>
+                    <h2 className="fw-400 font-lg d-block">
+                      Create <b>Video</b>
+                    </h2>
+                  </div>     
+                       <div className="float-right">
+                    
+                    <button
+                      onClick={goBack}
+                      className="p-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1"
+                    >
+                      Back
+                    </button>
+                  </div>
+                  </div>
                                 <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
-                                    <h2 className="fw-400 font-lg d-block ml-2">Create <b> Video</b> </h2>
+                             
                                     <div className="card-body p-lg-5 px-4 w-100 border-0 ">
                                         <form encType="multipart/form-data" onSubmit={createVideo}>
                                             <div className="row mb-6">
@@ -183,8 +204,9 @@ function CreateVideos() {
                                                             <div className="col-lg-4">
                                                                 <button
                                                                     type="button"
-                                                                    className="btn btn-danger ml-2 mt-5"
+                                                                    className="btn btn-danger ml-2 mt-4"
                                                                     onClick={() => deleteVideoField(index)}
+                                                                    style={{ backgroundColor: 'red', color: 'white', marginLeft: '2px' }} 
                                                                 >
                                                                     <i class="feather-minus"></i>
                                                                 </button>

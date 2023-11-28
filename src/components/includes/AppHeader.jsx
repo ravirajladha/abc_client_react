@@ -8,10 +8,10 @@ import ParentNav from "../navigation/ParentNav";
 import StudentNav from "../navigation/StudentNav";
 import TeacherNav from "../navigation/TeacherNav";
 
-import { getUserFromSessionStorage } from "../../pages/util/SessionStorage";
+import { getUserFromLocalStorage } from "../../pages/util/SessionStorage";
 
 function AppHeader() {
-  const userData = getUserFromSessionStorage();
+  const userData = getUserFromLocalStorage();
   const [isActive, setIsActive] = useState(false);
 
   const toggleActive = () => setIsActive(!isActive);
@@ -26,8 +26,9 @@ function AppHeader() {
     default: <StudentNav />,
   };
 
-  const sidebar =
-    sidebarComponents[userData.user.type] || sidebarComponents.default;
+
+  const sidebar = sidebarComponents[userData?.user?.type] || sidebarComponents.default;
+
 
   // const navigate = useNavigate();
 

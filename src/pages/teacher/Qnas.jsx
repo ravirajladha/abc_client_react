@@ -5,13 +5,13 @@ import AppFooter from '../../components/includes/AppFooter';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import {getUserFromSessionStorage} from '../util/SessionStorage';
+import {getUserFromLocalStorage} from '../util/SessionStorage';
 import { Link, useParams } from 'react-router-dom';
 
 function Qnas() {
     const baseUrl = process.env.REACT_APP_BASE_URL;
     const [qnas, setQnas] = useState([]);
-    const user = getUserFromSessionStorage();
+    const user = getUserFromLocalStorage();
     const auth_id = user.user.id;
     const getQnas = (e) => {
         let result = fetch(baseUrl + 'api/get_qnas/' + auth_id).then(function (result) {

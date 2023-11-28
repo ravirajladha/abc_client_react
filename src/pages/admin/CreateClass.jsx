@@ -55,7 +55,7 @@ function CreateClass() {
                        <Link
                       to={"/all_classes"}
                       className="p-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current mx-1"
-                    >    View  CLlasses
+                    >    View  Classes
                     </Link>
                     <button
                       onClick={goBack}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
-import { getUserFromSessionStorage } from '../../pages/util/SessionStorage';
+import { getUserFromLocalStorage } from '../../pages/util/SessionStorage';
 
 import 'react-toastify/dist/ReactToastify.css';
 import Slider from 'react-slick';
@@ -168,7 +168,7 @@ const memberList = [
 ];
 
   function Home() {
-  const userDetails = getUserFromSessionStorage();
+  const userDetails = getUserFromLocalStorage();
     const categorysettings = {
       arrows: false,
       dots: false,

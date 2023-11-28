@@ -6,7 +6,7 @@ import Dropdown from '../../components/inputs/Dropdown';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { getUserFromSessionStorage } from '../util/SessionStorage';
+import { getUserFromLocalStorage } from '../util/SessionStorage';
 
 function Chats() {
     const myStyles = {
@@ -24,7 +24,7 @@ function Chats() {
         setMessageInput(e.target.value);
     };
 
-    const user = getUserFromSessionStorage();
+    const user = getUserFromLocalStorage();
     const auth_id = user.user.id;
     const getChatStudents = (e) => {
         let result = fetch(baseUrl + 'api/get_chat_students/' + auth_id).then(function (result) {

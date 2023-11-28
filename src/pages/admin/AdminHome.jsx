@@ -5,7 +5,7 @@ import AppFooter from '../../components/includes/AppFooter';
 import Dropdown from '../../components/inputs/Dropdown';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { getUserFromSessionStorage } from '../../pages/util/SessionStorage';
+import { getUserFromLocalStorage } from '../../pages/util/SessionStorage';
 
 import Chart from 'react-apexcharts';
 
@@ -195,7 +195,7 @@ const pieChart = {
 };
 
 function AdminHome() {
-  const userDetails = getUserFromSessionStorage();
+  const userDetails = getUserFromLocalStorage();
   return (
     <>
       <div className="main-wrapper">

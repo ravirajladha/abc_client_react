@@ -5,7 +5,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { getUserFromSessionStorage } from '../util/SessionStorage';
+import { getUserFromLocalStorage } from '../util/SessionStorage';
 
 
 function AnswerQna() {
@@ -15,7 +15,7 @@ function AnswerQna() {
 
     const [answer, setAnswer] = useState("");
     const [question, setQuestion] = useState("");
-    const user = getUserFromSessionStorage();
+    const user = getUserFromLocalStorage();
     const auth_id = user.user.id;
     const getQna = (e) => {
         let result = fetch(baseUrl + 'api/get_qna/' + qna_id).then(function (result) {

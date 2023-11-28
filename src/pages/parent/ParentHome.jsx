@@ -3,8 +3,9 @@ import AppHeader from '../../components/includes/AppHeader';
 import AppFooter from '../../components/includes/AppFooter';
 import Dropdown from '../../components/inputs/Dropdown';
 import Chart from 'react-apexcharts';
+import axios from 'axios';
 
-import { getUserFromSessionStorage } from '../../pages/util/SessionStorage';
+import { getUserFromLocalStorage } from '../../pages/util/SessionStorage';
 
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -193,8 +194,34 @@ const pieChart = {
         },
     },
 };
+const baseUrl = process.env.REACT_APP_BASE_URL;
+
+  
 function ParentHome() {
-    const userDetails = getUserFromSessionStorage()
+const [parentCode,setParentCode]  = useState("")
+const fetchUserDetails = async () => {
+    try {
+      const userDetails = getUserFromLocalStorage();
+      const userId = userDetails.user.id; // Assuming you store the user ID in local storage
+  
+      const response = await axios.get(`${baseUrl}api/getParentCode?user_id=${userId}`);
+      if (response.data.success) {
+        console.log('Parent code:', response.data.data.parent_code);
+        setParentCode(response.data.data.parent_code)
+    // const    parent_code = response.data.data.parent_code;
+      } else {
+        console.error('Failed to fetch user details');
+      }
+    } catch (error) {
+      console.error('Error fetching user details:', error);
+    }
+  };
+  
+  // Call this function wherever you need to fetch the user details
+  fetchUserDetails();
+
+
+    const userDetails = getUserFromLocalStorage()
     return (
         <>
             <div className="main-wrapper">
@@ -204,11 +231,13 @@ function ParentHome() {
                         <div className="middle-sidebar-left">
                             <div className="container px-3 py-4">
                                 <div className="row mb-2">
-                                    <h1>Welcome, {userDetails.user.name}!</h1> <br />
+                                    <h1>Welcome, {userDetails.user.name}! {parentCode}</h1> <br />
                                 </div>
                                 <div className="row">
-                                    <div className="col-lg-12 d-flex mb-4">
-                                        <h2 className="text-grey-900 font-md fw-700">Overview</h2>
+                                <div className="col-lg-6 d-flex mb-4 justify float-right">
+                                        <h2 className="text-grey-900 font-md fw-700">Parent Code:  {parentCode} </h2>
+                                    </div>
+                                    <div className="col-lg-6 d-flex mb-4 justify float-right">
                                         <select
                                             className="form-select ml-auto float-right border-0 font-xssss fw-600 text-grey-700 bg-transparent"
                                             aria-label="Default select example"
