@@ -43,9 +43,9 @@ function Schools() {
         e.preventDefault();
         const userData = { ...form };
         console.log('Sending data to the server:', userData);
-    
+
         try {
-      
+
             const response = await axios.post(`${baseUrl}api/addSchool`, userData);
             toast.success('School added successfully');
             setShowModal(false);
@@ -55,48 +55,48 @@ function Schools() {
             console.error('Error adding school:', error.response || error);
         }
     };
-    
+
 
 
     return (
         <>
-        <ToastContainer />
+            <ToastContainer />
             {/* ... rest of your component */}
-           
+
 
             {/* Modal for adding a school */}
             <Modal show={showModal} onHide={handleCloseModal}>
-  <Modal.Header closeButton>
-    <Modal.Title>Add School</Modal.Title>
-  </Modal.Header>
-  <Modal.Body>
-    <Form onSubmit={handleSubmit}>
-      <Form.Group className="mb-3">
-        <Form.Label>Name</Form.Label>
-        <Form.Control type="text" name="name" value={form.name} onChange={handleFormChange} required />
-      </Form.Group>
-      <Form.Group className="mb-3">
-        <Form.Label>Email</Form.Label>
-        <Form.Control type="email" name="email" value={form.email} onChange={handleFormChange} required />
-      </Form.Group>
-      <Form.Group className="mb-3">
-        <Form.Label>Phone</Form.Label>
-        <Form.Control type="tel" name="phone" value={form.phone} onChange={handleFormChange} required />
-      </Form.Group>
-      <Form.Group className="mb-3">
-        <Form.Label>Password</Form.Label>
-        <Form.Control type="password" name="password" value={form.password} onChange={handleFormChange} required />
-      </Form.Group>
-      <div className="d-flex justify-content-between">
-        <Button variant="secondary" className="p-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current" onClick={handleCloseModal}>Close</Button>
-        <Button variant="primary" className="p-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current" type="submit">Save Changes</Button>
+                <Modal.Header closeButton>
+                    <Modal.Title>Add School</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form onSubmit={handleSubmit}>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Name</Form.Label>
+                            <Form.Control type="text" name="name" value={form.name} onChange={handleFormChange} required />
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Email</Form.Label>
+                            <Form.Control type="email" name="email" value={form.email} onChange={handleFormChange} required />
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Phone</Form.Label>
+                            <Form.Control type="tel" name="phone" value={form.phone} onChange={handleFormChange} required />
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control type="password" name="password" value={form.password} onChange={handleFormChange} required />
+                        </Form.Group>
+                        <div className="d-flex justify-content-between">
+                            <Button variant="secondary" className="p-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current" onClick={handleCloseModal}>Close</Button>
+                            <Button variant="primary" className="p-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current" type="submit">Save Changes</Button>
 
-    
 
-      </div>
-    </Form>
-  </Modal.Body>
-</Modal>
+
+                        </div>
+                    </Form>
+                </Modal.Body>
+            </Modal>
 
             <div className="main-wrapper">
 
@@ -111,9 +111,9 @@ function Schools() {
                                         <h2 className="fw-400 font-lg d-block">All <b> Schools</b> </h2>
                                     </div>
                                     <div className="float-right">
-                                    <Button onClick={handleShowModal} className="p-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current">Add School</Button>
+                                        <Button onClick={handleShowModal} className="p-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current">Add School</Button>
 
-                                        
+
                                     </div>
                                 </div>
                                 {

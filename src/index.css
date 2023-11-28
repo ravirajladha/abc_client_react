@@ -98,3 +98,11 @@ code {
 	color: white;
 	font-size: 1rem;
 }
+
+button.btn.btn-primary {
+	color: #0d6efd;
+}
+
+button.btn.btn-secondary {
+	color: #6c757d!important;
+}

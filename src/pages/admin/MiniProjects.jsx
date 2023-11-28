@@ -42,36 +42,34 @@ function MiniProjects() {
 
                                     </div>
                                 </div>
-                                {
-                                    miniProjects ? (
-                                        miniProjects && miniProjects.map((miniProject, index) => (
-                                            <div className="col-lg-2 col-md-6 col-12 col-sm-6 " key={index}>
-                                                <div className="item">
+                                <div className="col-lg-2 col-md-6 col-12 col-sm-6 d-flex justify-content-between">
+                                    {
+                                        miniProjects ? (
+                                            miniProjects && miniProjects.map((miniProject, index) => (
+                                                <div className="item m-1" key={index}>
                                                     <div className="card w200 d-block border-0 shadow-xss rounded-lg overflow-hidden mb-4">
                                                         <div className="card-image w-100">
-                                                            <img src={baseUrl + miniProject.project_image} alt="image" className="w-100" style={{height: 100}} />
+                                                            <img src={baseUrl + miniProject.project_image} alt="image" className="w-100" style={{ height: 100 }} />
                                                         </div>
                                                         <div className="card-body d-block w-100 pl-4 pr-4 pb-4 text-center">
 
                                                             <div className="clearfix"></div>
-                                                            <h4 className="fw-700 font-xsss mt-3 mb-1"><a href="#" className="text-dark text-grey-900"> </a>{miniProject.project_name}</h4>
-                                                            <p className="fw-500 font-xsssss text-grey-500 mt-0 mb-2">{miniProject.description}</p>
-
+                                                            <h4 className="fw-700 font-xss mt-3 mb-1"><a href="#" className="text-dark text-grey-900"> </a>{miniProject.project_name}</h4>
+                                                            <p className="fw-500 font-xssss text-grey-500 mt-0 mb-2">{miniProject.description}</p>
                                                         </div>
                                                     </div>
                                                 </div>
-
-                                            </div>
-                                        ))
-                                    )
-                                        :
-                                        ""
-                                }
+                                            ))
+                                        )
+                                            :
+                                            ""
+                                    }
+                                </div>
                             </div>
-                            
-                            
+
+
                         </div>
-                       
+
                     </div>
                 </div>
                 <AppFooter />

@@ -1,6 +1,6 @@
-import React, { Component, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
-import Darkbutton from "../Darkbutton";
+import React, { useEffect, useState } from 'react';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import Darkbutton from '../Darkbutton';
 
 import AdminNav from "../navigation/AdminNav";
 import SchoolNav from "../navigation/SchoolNav";
@@ -28,6 +28,17 @@ function AppHeader() {
 
   const sidebar =
     sidebarComponents[userData.user.type] || sidebarComponents.default;
+
+  // const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   if (userData && userData.user) {
+  //     navigate('/home');
+  //     const sidebar = sidebarComponents[userData.user.type] || sidebarComponents.default;
+  //   } else {
+  //     navigate('/');
+  //   }
+  // }, []);
 
   return (
     <div className="middle-sidebar-header bg-white">

@@ -280,7 +280,7 @@ function Defaultuserprofile() {
       <div className="main-wrapper">
 
         <div className="main-content menu-active">
-        <AppHeader />
+          <AppHeader />
           <div className="middle-sidebar-bottom theme-dark-bg">
             <div className="middle-sidebar-left">
               <div
@@ -307,17 +307,11 @@ function Defaultuserprofile() {
                         <i className="ti-check font-xssss btn-round-xs bg-success text-white ml-1"></i>
                       </h4>
                       <span className="font-xssss fw-600 text-grey-500 d-inline-block ml-0">
-                        support@gmail.com
+                        {userDetails.user.email}
                       </span>
                       <span className="dot ml-2 mr-2 d-inline-block btn-round-xss bg-grey"></span>
                       <span className="font-xssss fw-600 text-grey-500 d-inline-block ml-1">
-                        Desinger
-                      </span>
-                      <span className="font-xssss fw-600 text-grey-500 d-inline-block ml-1">
-                        PHP
-                      </span>
-                      <span className="font-xssss fw-600 text-grey-500 d-inline-block ml-1">
-                        HTML5
+                        {userDetails.user.type}
                       </span>
                       <ul className="memberlist mt-3 mb-2 ml-0">
                         <li>
@@ -366,15 +360,18 @@ function Defaultuserprofile() {
                         </li>
                       </ul>
                     </div>
-                    <div className="col-xl-4 col-lg-6 d-block">
-                      <h2 className="display5-size text-white fw-700 lh-1 mr-3">
-                        98
-                        <i className="feather-arrow-up-right text-success font-xl"></i>
-                      </h2>
-                      <h4 className="text-white font-sm fw-600 mt-0 lh-3">
-                        Your learning level points!
-                      </h4>
-                    </div>
+                    {userDetails.user.type == 'school_student' &&
+                      <><div className="col-xl-4 col-lg-6 d-block">
+                        <h2 className="display5-size text-white fw-700 lh-1 mr-3">
+                          98
+                          <i className="feather-arrow-up-right text-success font-xl"></i>
+                        </h2>
+                        <h4 className="text-white font-sm fw-600 mt-0 lh-3">
+                          Your learning level points!
+                        </h4>
+                      </div>
+                      </>
+                    }
                     <div className="col-xl-3 mt-4"></div>
                   </div>
                 </div>
@@ -589,6 +586,7 @@ function Defaultuserprofile() {
                     </div>
                   </div>
                 </Tab>
+                {userDetails.user.type == 'school_student' &&
                 <Tab eventKey="bdage" title="BADGE">
                   <div className="card d-block w-100 border-0 shadow-xss rounded-lg overflow-hidden p-lg-4 p-2">
                     <div className="card-body mb-lg-3 pb-0">
@@ -655,6 +653,7 @@ function Defaultuserprofile() {
                     </div>
                   </div>
                 </Tab>
+                }
                 <Tab eventKey="group" title="GROUP">
                   <div className="card d-block w-100 border-0 shadow-xss rounded-lg overflow-hidden p-lg-4 p-2">
                     <div className="card-body mb-lg-3 pb-0">
@@ -789,6 +788,7 @@ function Defaultuserprofile() {
                     </div>
                   </div>
                 </Tab>
+                {userDetails.user.type == 'school_student' &&
                 <Tab eventKey="friends" title="FRIENDS">
                   <div className="card d-block w-100 border-0 shadow-xss rounded-lg overflow-hidden p-lg-4 p-2">
                     <div className="card-body mb-lg-3 pb-0">
@@ -873,7 +873,8 @@ function Defaultuserprofile() {
                     </div>
                   </div>
                 </Tab>
-                <Tab eventKey="group" title="STREAM"></Tab>
+                }
+                <Tab eventKey="stream" title="STREAM"></Tab>
                 <Tab eventKey="saved" title="SAVED">
                   <div className="card d-block w-100 border-0 shadow-xss rounded-lg overflow-hidden p-lg-4 p-2">
                     <div className="card-body mb-lg-3 pb-0">

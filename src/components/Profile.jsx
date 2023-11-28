@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Slider from 'react-slick';
-
+import { getUserFromSessionStorage } from '../pages/util/SessionStorage';
 const skillList = [
   {
     skill: 'user.png',
@@ -20,6 +20,7 @@ const skillList = [
 ];
 
   function Profile() {
+    const userDetails = getUserFromSessionStorage();
     const skillsettings = {
       arrows: false,
       dots: false,
@@ -43,7 +44,7 @@ const skillList = [
           </figure>
           <div className="clearfix"></div>
           <h2 className="text-black font-xss lh-3 fw-700 mt-3 mb-1">
-            Hendrix Stamp
+          {userDetails.user.name}
           </h2>
           <h4 className="text-grey-500 font-xssss mt-0">
             <span className="d-inline-block bg-success btn-round-xss m-0"></span>
