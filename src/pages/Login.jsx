@@ -3,11 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
+import { AuthContext } from "../lib/AuthContext.js"
+import { useContext } from 'react';
 
 
 import { saveUserToLocalStorage, getUserFromLocalStorage } from './util/SessionStorage'
 
 function Login() {
+  const { setUser } = useContext(AuthContext);
   const baseUrl = process.env.REACT_APP_BASE_URL;
 
   const [email, setEmail] = useState("");
@@ -40,6 +43,7 @@ function Login() {
         // Now we know the login is successful
         toast.success('Success');
         saveUserToLocalStorage(resp);
+        setUser(resp); 
         const user = getUserFromLocalStorage();
         console.log(user);
         // Your navigation logic based on user type

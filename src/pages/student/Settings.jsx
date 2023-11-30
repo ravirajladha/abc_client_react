@@ -8,16 +8,21 @@ import Subscribe from '../../components/Subscribe';
 
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { useContext } from 'react';
+import { AuthContext } from "../../lib/AuthContext.js"
 function Settings() {
     const baseUrl = process.env.REACT_APP_BASE_URL;
 
-    const userString = sessionStorage.getItem("rexkod_user");
-    const user = JSON.parse(userString);
-    const userId = user.user.id;
-
+    const  user = useContext(AuthContext).user;
+   
+   
     const [parentCode, setParentCode] = useState("");
-
+    const [formData, setFormData] = useState({
+        // Initialize with empty strings to handle the case when user is null
+        name: '',
+        email: '',
+        password: ''
+    });
     const connectParent = (e) => {
         let inputobj = {
             "parentCode": parentCode,
@@ -58,6 +63,22 @@ function Settings() {
     }
 
     const [parentData, setParentData] = useState(null);
+       // Call hooks at the top level
+       useEffect(() => {
+        if (user) {
+            // Update formData state when user is available
+            setFormData({
+                name: user.user.name,
+                email: user.user.email,
+                password: ''
+            });
+            // Load parent data if a parent_id exists
+            if (user.user.parent_id) {
+                getParent(user.user.parent_id);
+            }
+        }
+    }, [user]); // Depend on user
+
     const getParent = () => {
         if (user.user.parent_id) {
             fetch(baseUrl + "api/get_parent/" + user.user.parent_id, {
@@ -78,12 +99,8 @@ function Settings() {
             });
         }
     }
-
-    const [formData, setFormData] = useState({
-        name: user.user.name,
-        email: user.user.email,
-        password: ''
-    });
+   
+ 
 
     const handleUserInputChange = (e) => {
         e.preventDefault();
@@ -113,11 +130,14 @@ function Settings() {
         console.log(formData);
     };
 
-    useEffect(() => {
-        console.log(user.user)
-        getParent();
-    }, []);
-
+ 
+    if (!user) {
+        // Handle the case when there is no user. You might want to redirect
+        // to a login page or return null or some placeholder content.
+        console.log("No user found. User might be logged out.");
+        return <div>User is not logged in</div>;
+      }
+    const userId = user.user.id;
     return (
         <>
             <div className="main-wrapper">
@@ -142,7 +162,7 @@ function Settings() {
                                                     <div className="col-lg-12">
                                                         <div className="form-group">
                                                             <label className="mont-font fw-600 font-xsss">Name</label>
-                                                            <input type="text" className="form-control" placeholder="Enter Name" type="text"
+                                                            <input type="text" className="form-control" placeholder="Enter Name" 
                                                                 name="name"
                                                                 value={formData.name}
                                                                 onChange={handleUserInputChange}

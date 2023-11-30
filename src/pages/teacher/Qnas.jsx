@@ -7,23 +7,36 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import {getUserFromLocalStorage} from '../util/SessionStorage';
 import { Link, useParams } from 'react-router-dom';
-
+import { useContext } from 'react';
+import { AuthContext } from "../../lib/AuthContext.js"
 function Qnas() {
     const baseUrl = process.env.REACT_APP_BASE_URL;
     const [qnas, setQnas] = useState([]);
-    const user = getUserFromLocalStorage();
-    const auth_id = user.user.id;
-    const getQnas = (e) => {
-        let result = fetch(baseUrl + 'api/get_qnas/' + auth_id).then(function (result) {
-            result.json().then(function (jsonbody) {
+    const  user = useContext(AuthContext).user;
+   
+    useEffect(() => {
+        if (user) { // Check if user is defined
+          const getQnas = () => {
+            fetch(`${baseUrl}api/get_qnas/${user.user.id}`) // Use template literals for cleaner code
+              .then((result) => result.json())
+              .then((jsonbody) => {
                 console.warn(jsonbody);
                 setQnas(jsonbody);
-            })
-        });
-    }
-    useEffect(() => {
-        getQnas();
-    }, [])
+              })
+              .catch((error) => {
+                console.error('Error fetching QnAs:', error);
+              });
+          };
+          
+          getQnas(); // Call the function to fetch data
+        }
+      }, [user, baseUrl]);
+      if (!user) {
+        // Handle the case when there is no user. You might want to redirect
+        // to a login page or return null or some placeholder content.
+        console.log("No user found. User might be logged out.");
+        return <div>User is not logged in</div>;
+      }
     return (
         <>
             <div className="main-wrapper">

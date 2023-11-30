@@ -8,16 +8,17 @@ import ParentNav from "../navigation/ParentNav";
 import StudentNav from "../navigation/StudentNav";
 import TeacherNav from "../navigation/TeacherNav";
 
-import { getUserFromLocalStorage } from "../../pages/util/SessionStorage";
 
+import { useContext } from 'react';
+import { AuthContext } from "../../lib/AuthContext.js"
 function AppHeader() {
-  const userData = getUserFromLocalStorage();
+  const { user } = useContext(AuthContext);
   const [isActive, setIsActive] = useState(false);
 
   const toggleActive = () => setIsActive(!isActive);
-
   const searchClass = `${isActive ? " show" : ""}`;
-
+  // Add console logs to debug
+  
   const sidebarComponents = {
     admin: <AdminNav />,
     teacher: <TeacherNav />,
@@ -26,20 +27,10 @@ function AppHeader() {
     default: <StudentNav />,
   };
 
+  // Use user from context
+  const sidebar = sidebarComponents[user?.user?.type] || sidebarComponents.default;
 
-  const sidebar = sidebarComponents[userData?.user?.type] || sidebarComponents.default;
 
-
-  // const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   if (userData && userData.user) {
-  //     navigate('/home');
-  //     const sidebar = sidebarComponents[userData.user.type] || sidebarComponents.default;
-  //   } else {
-  //     navigate('/');
-  //   }
-  // }, []);
 
   return (
     <div className="middle-sidebar-header bg-white">

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { clearLocalStorage, getUserFromLocalStorage } from '../../pages/util/SessionStorage';
+import LogoutButton from "../../components/LogoutButton"
 
 
 function AdminNav() {
@@ -10,34 +11,9 @@ function AdminNav() {
 
   const navClass = `${isOpen ? ' nav-active' : ''}`;
 
-  const navigate = useNavigate();
 
-  const [loggedOut, setLoggedOut] = useState(false);
-  const logout = () => {
-    clearLocalStorage();
-    setLoggedOut(true);
-  };
 
-  useEffect(() => {
-    if (loggedOut) {
-      console.log("logoutt")
-      navigate('/');
-    }
-    // if (loggedOut) {
-    //   const userData = getUserFromLocalStorage();
-    //   if (userData && userData.user && userData.user.type === 'admin') {
-    //     navigate('/admin');
-    //   } else if (userData && userData.user && userData.user.type === 'teacher') {
-    //     navigate('/');
-    //   } else if (userData && userData.user && userData.user.type === 'sub_admin') {
-    //     navigate('/');
-    //   } else if (userData && userData.user && userData.user.type === 'parent') {
-    //     navigate('/');
-    //   } else {
-    //     navigate('/');
-    //   }
-    // }
-  }, [loggedOut, navigate]);
+
 
 
   return (
@@ -153,14 +129,7 @@ function AdminNav() {
               </Link>
             </li>
             <li>
-              <Link
-
-                onClick={logout}
-                className="nav-content-bttn open-font h-auto pt-2 pb-2"
-              >
-                <i className="font-sm feather-log-out mr-3 text-grey-500"></i>
-                <span>Logout</span>
-              </Link>
+            <LogoutButton />
             </li>
           </ul>
         </div>

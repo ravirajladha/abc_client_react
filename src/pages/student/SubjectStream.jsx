@@ -6,22 +6,21 @@ import Profile from "../../components/Profile";
 import Myclass from "../../components/Myclass";
 import Subscribe from "../../components/Subscribe";
 import "../../css/custom.css";
-
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 import { Tabs, Tab, Accordion } from "react-bootstrap";
 
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
 import VideoPlayer from "./VideoPlayer";
 import { Link, useParams } from "react-router-dom";
-
+import { useContext } from 'react';
+import { AuthContext } from "../../lib/AuthContext.js"
 function SubjectStream() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
 
   let { subjectId } = useParams();
-  const userString = sessionStorage.getItem("rexkod_user");
-  const user = JSON.parse(userString);
-  const userId = user.user.id;
-  console.log(userId)
+  const  user = useContext(AuthContext).user;
   const [receiverId, setReceiverId] = useState();
 
   const chatContentRef = useRef(null);
@@ -32,7 +31,8 @@ function SubjectStream() {
 
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState("");
-
+  const chatInputRef = useRef(null);
+  const noteInputRef = useRef(null);
   function formatTimeFromTimestamp(timestamp) {
     const date = new Date(timestamp);
 
@@ -125,16 +125,15 @@ function SubjectStream() {
       })
       .then((resp) => {
         setAllSubjectData(resp);
-        const teacherAssigned = resp.teacher && resp.teacher.user && resp.teacher.user.id;
-  setIsTeacherAvailable(teacherAssigned);
+        const teacherAssigned =
+          resp.teacher && resp.teacher.user && resp.teacher.user.id;
+        setIsTeacherAvailable(teacherAssigned);
 
-if(teacherAssigned){
-
-  setReceiverId(resp.teacher.user.id);
-}else{
-  setReceiverId(null);
-
-}
+        if (teacherAssigned) {
+          setReceiverId(resp.teacher.user.id);
+        } else {
+          setReceiverId(null);
+        }
         // console.log(allSubjectData.subject.subject_name);
         if (resp && resp.video_details) {
           setActiveVideoId(resp && resp.video_details.id);
@@ -226,11 +225,18 @@ if(teacherAssigned){
         throw new Error("Failed to send message");
       }
       setNewMessage("");
+      chatInputRef.current.focus();
+
+      
       fetchMessages();
     } catch (error) {
       console.error("Error sending message:", error);
     }
   };
+  useEffect(() => {
+    console.log("New Message after update:", newMessage);
+  }, [newMessage]);
+  
 
   const fetchNotes = async () => {
     try {
@@ -271,6 +277,8 @@ if(teacherAssigned){
         throw new Error("Failed to store notes");
       }
       setNewNote("");
+      noteInputRef.current.focus();
+
       fetchNotes();
     } catch (error) {
       console.error("Error storing notes:", error);
@@ -306,6 +314,33 @@ if(teacherAssigned){
     const intervalId = setInterval(fetchMessages, 5000);
     return () => clearInterval(intervalId);
   }, [activeTab, matchVideo]);
+
+  const responsive = {
+    superLargeDesktop: {
+      breakpoint: { max: 4000, min: 3000 },
+      items: 5,
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 3,
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+    },
+  };
+
+  if (!user) {
+    // Handle the case when there is no user. You might want to redirect
+    // to a login page or return null or some placeholder content.
+    console.log("No user found. User might be logged out.");
+    return <div>User is not logged in</div>;
+  }
+const userId = user.user.id
 
   return (
     <>
@@ -559,37 +594,39 @@ if(teacherAssigned){
                           )}
                         </div>
                         {isTeacherAvailable ? (
-                        <form
-                          className="chat-form position-absolute bottom-0 w-100 left-0 bg-white z-index-1 p-3 shadow-xs theme-dark-bg"
-                          onSubmit={sendMessage}
-                        >
-                          <button className="bg-grey float-left">
-                            <i
-                              className="ti-microphone text-white"
-                              disabled
-                            ></i>
-                          </button>
-                          <div className="form-group">
-                            <input
-                              type="text"
-                              placeholder={newMessage ? "" : "Start typing.."}
-                              value={newMessage}
-                              onChange={(e) => setNewMessage(e.target.value)}
-                              onClick={() => setNewMessage("")}
-                              className="text-grey-500"
-                            />
-                          </div>
-                          <button type="submit" className="bg-current">
-                            <i className="ti-arrow-right text-white"></i>
-                          </button>
-                        </form>
-                          ) : (
-                            <div className="text-center p-3">
-                              <span>Chat unavailable. No teacher assigned.</span>
+                          <form
+                            className="chat-form position-absolute bottom-0 w-100 left-0 bg-white z-index-1 p-3 shadow-xs theme-dark-bg"
+                            onSubmit={sendMessage}
+                          >
+                            <button className="bg-grey float-left">
+                              <i
+                                className="ti-microphone text-white"
+                                disabled
+                              ></i>
+                            </button>
+                            <div className="form-group">
+                              <input
+                                type="text"
+                                ref={chatInputRef}
+                                // placeholder="start typing"
+                                placeholder={newMessage ? "" : "Start typing.."}
+                                value={newMessage}
+                                onChange={(e) => setNewMessage(e.target.value)}
+                                onClick={() => setNewMessage("")}
+                                className="text-grey-500"
+                              />
                             </div>
-                          )}
+                            <button type="submit" className="bg-current">
+                              <i className="ti-arrow-right text-white"></i>
+                            </button>
+                          </form>
+                        ) : (
+                          <div className="text-center p-3">
+                            <span>Chat unavailable. No teacher assigned.</span>
+                          </div>
+                        )}
                       </Tab>
-                      
+
                       <Tab
                         eventKey="notes"
                         title="NOTES"
@@ -631,6 +668,7 @@ if(teacherAssigned){
                           <div className="form-group">
                             <input
                               type="text"
+                              ref={noteInputRef}
                               placeholder={newNote ? "" : "New Note"}
                               value={newNote}
                               onClick={() => setNewNote("")}
@@ -724,127 +762,6 @@ if(teacherAssigned){
                   </div>
                 </div>
                 <div className="col-xl-12 col-xxl-12 col-lg-12">
-                  <div className="card d-block border-0 rounded-lg overflow-hidden p-4 shadow-xss mt-4 bg-lightblue">
-                    {allSubjectData && allSubjectData.test ? (
-                      allSubjectData.test_result &&
-                      allSubjectData.test_result.score_percentage >= 50 ? (
-                        <a href="">
-                          <h2 className="fw-700 font-sm mt-1 pl-1">
-                            View certificate.{" "}
-                            <i className="ti-arrow-right font-sm text-dark float-right"></i>
-                          </h2>
-                        </a>
-                      ) : (
-                        <Link
-                          to={
-                            "/subject_stream/take_test/" +
-                            subjectId +
-                            "/" +
-                            allSubjectData.test.id
-                          }
-                        >
-                          <h2 className="fw-700 font-sm mt-1 pl-1">
-                            Take test to get certified.{" "}
-                            <i className="ti-arrow-right font-sm text-dark float-right"></i>
-                          </h2>
-                        </Link>
-                      )
-                    ) : (
-                      <a href="#">
-                        <h2 className="fw-700 font-sm mt-1 pl-1">
-                          Test coming soon!.{" "}
-                          <i className="ti-arrow-right font-sm text-dark float-right"></i>
-                        </h2>
-                      </a>
-                    )}
-                  </div>
-                </div>
-                <div className="col-lg-12 pt-2 mt-2">
-                  <h2 className="fw-400 font-lg d-block">
-                    Mini <b>Projetcs</b>{" "}
-                    <a href="#" className="float-right">
-                      <i className="feather-edit text-grey-500 font-xs"></i>
-                    </a>
-                  </h2>
-                  <div className="owl-carousel category-card owl-theme overflow-hidden overflow-visible-xl nav-none">
-                    {allSubjectData && allSubjectData.mini_projects ? (
-                      allSubjectData &&
-                      allSubjectData.mini_projects.map((mini_project, id) => (
-                        <div className="item" key={id}>
-                          <div className="card w200 d-block border-0 shadow-xss rounded-lg overflow-hidden mb-4">
-                            <div className="card-image w-100 ">
-                              <img
-                                src={baseUrl + mini_project.project_image}
-                                alt="image"
-                                className="w-100"
-                                style={{ height: 100 }}
-                              />
-                            </div>
-                            <div className="card-body d-block w-100 pl-4 pr-4 pb-4 text-center">
-                              <div className="clearfix"></div>
-                              <h4 className="fw-700 font-xsss mt-3 mb-1">
-                                <a
-                                  href="#"
-                                  className="text-dark text-grey-900"
-                                ></a>
-                                {mini_project.project_name}
-                              </h4>
-                              <p className="fw-500 font-xsssss text-grey-500 mt-0 mb-2">
-                                {mini_project.description}
-                              </p>
-                              <Link
-                                to={
-                                  "/subject_stream/view_project/" +
-                                  mini_project.id
-                                }
-                                className="text-dark text-grey-900"
-                              >
-                                <span className="live-tag mt-2 mb-3 bg-danger p-2 z-index-1 rounded-lg text-white font-xsssss text-uppersace fw-700 ls-3">
-                                  Start
-                                </span>
-                              </Link>
-                            </div>
-                          </div>
-                        </div>
-                      ))
-                    ) : (
-                      <div>No Mini Projects Available</div>
-                    )}
-                  </div>
-                </div>
-                <div className="col-lg-12 pt-2 mt-2">
-                  <h2 className="fw-400 font-lg d-block">
-                    MY <b>Assesments</b>{" "}
-                    <a href="#" className="float-right">
-                      <i className="feather-edit text-grey-500 font-xs"></i>
-                    </a>
-                  </h2>
-                  <div className="owl-carousel category-card owl-theme overflow-hidden overflow-visible-xl nav-none">
-                    {allSubjectData && allSubjectData.assesments_given ? (
-                      allSubjectData &&
-                      allSubjectData.assesments_given.map((assesment, id) => (
-                        <div className="item" key={id}>
-                          <div className="card w200 d-block border-0 shadow-xss rounded-lg overflow-hidden mb-4">
-                            <div className="card-body d-block w-100 pl-4 pr-4 pb-4 text-center">
-                              <div className="clearfix"></div>
-                              <h4 className="fw-700 font-xsss mt-3 mb-1">
-                                <a
-                                  href="/view_assesment_results/{{$assesments_given->id}}"
-                                  className="text-dark text-grey-900"
-                                >
-                                  {assesment.video_name}
-                                </a>
-                              </h4>
-                            </div>
-                          </div>
-                        </div>
-                      ))
-                    ) : (
-                      <div>No Assesments Available</div>
-                    )}
-                  </div>
-                </div>
-                <div className="col-xl-12 col-xxl-12 col-lg-12">
                   <div className="card d-block border-0 rounded-lg overflow-hidden p-4 shadow-xss mt-4">
                     <h2 className="fw-700 font-sm mb-3 mt-1 pl-1 mb-3">
                       Description
@@ -916,6 +833,142 @@ if(teacherAssigned){
                       </div>
                     </div>
                   </div>
+                </div>
+                <div className="col-xl-12 col-xxl-12 col-lg-12">
+                  <div className="card d-block border-0 rounded-lg overflow-hidden p-4 shadow-xss mt-4 bg-lightblue">
+                    {allSubjectData && allSubjectData.test ? (
+                      allSubjectData.test_result &&
+                      allSubjectData.test_result.score_percentage >= 50 ? (
+                        <a href="">
+                          <h2 className="fw-700 font-sm mt-1 pl-1">
+                            View certificate.{" "}
+                            <i className="ti-arrow-right font-sm text-dark float-right"></i>
+                          </h2>
+                        </a>
+                      ) : (
+                        <Link
+                          to={
+                            "/subject_stream/take_test/" +
+                            subjectId +
+                            "/" +
+                            allSubjectData.test.id
+                          }
+                        >
+                          <h2 className="fw-700 font-sm mt-1 pl-1">
+                            Take test to get certified.{" "}
+                            <i className="ti-arrow-right font-sm text-dark float-right"></i>
+                          </h2>
+                        </Link>
+                      )
+                    ) : (
+                      <a href="#">
+                        <h2 className="fw-700 font-sm mt-1 pl-1">
+                          Test coming soon!.{" "}
+                          <i className="ti-arrow-right font-sm text-dark float-right"></i>
+                        </h2>
+                      </a>
+                    )}
+                  </div>
+                </div>
+                <div className="col-lg-12 pt-2 mt-2">
+                  <h2 className="fw-400 font-lg d-block">
+                    Mini <b>Projects</b>{" "}
+                    <a href="#" className="float-right">
+                      <i className="feather-edit text-grey-500 font-xs"></i>
+                    </a>
+                  </h2>
+                  {/* <div className="owl-carousel category-card owl-theme overflow-hidden overflow-visible-xl nav-none"> */}
+                  <Carousel
+                    responsive={responsive}
+                    autoPlay={false}
+                    infinite={true}
+                    className="owl-carousel category-card owl-theme"
+                  >
+                    {allSubjectData &&
+                    allSubjectData.mini_projects &&
+                    allSubjectData.mini_projects.length > 0 ? (
+                      allSubjectData &&
+                      allSubjectData.mini_projects.map((mini_project, id) => (
+                        <div className="item" key={id}>
+                          <div className="card w200 d-block border-0 shadow-xss rounded-lg overflow-hidden mb-4">
+                            <div className="card-image w-100 ">
+                              <img
+                                src={baseUrl + mini_project.project_image}
+                                alt="image"
+                                className="w-100"
+                                style={{ height: 100 }}
+                              />
+                            </div>
+                            <div className="card-body d-block w-100 pl-4 pr-4 pb-4 text-center">
+                              <div className="clearfix"></div>
+                              <h4 className="fw-700 font-xsss mt-3 mb-1">
+                                <a
+                                  href="#"
+                                  className="text-dark text-grey-900"
+                                ></a>
+                                {mini_project.project_name}
+                              </h4>
+                              <p className="fw-500 font-xsssss text-grey-500 mt-0 mb-2">
+                                {mini_project.description}
+                              </p>
+                              <Link
+                                to={
+                                  "/subject_stream/view_project/" +
+                                  mini_project.id
+                                }
+                                className="text-dark text-grey-900"
+                              >
+                                <span className="live-tag mt-2 mb-3 bg-danger p-2 z-index-1 rounded-lg text-white font-xsssss text-uppersace fw-700 ls-3">
+                                  Start
+                                </span>
+                              </Link>
+                            </div>
+                          </div>
+                        </div>
+                      ))
+                    ) : (
+                      <div>No Mini Projects Available</div>
+                    )}
+                  </Carousel>
+                </div>
+                <div className="col-lg-12 pt-2 mt-2">
+                  <h2 className="fw-400 font-lg d-block">
+                    My <b>Assesments</b>{" "}
+                    <a href="#" className="float-right">
+                      <i className="feather-edit text-grey-500 font-xs"></i>
+                    </a>
+                  </h2>
+                  <Carousel
+                    responsive={responsive}
+                    autoPlay={false}
+                    infinite={true}
+                    className="owl-carousel category-card owl-theme"
+                  >
+                    {allSubjectData &&
+                    allSubjectData.assesments_given &&
+                    allSubjectData.assesments_given.length > 0 ? (
+                      allSubjectData &&
+                      allSubjectData.assesments_given.map((assesment, id) => (
+                        <div className="item" key={id}>
+                          <div className="card w200 d-block border-0 shadow-xss rounded-lg overflow-hidden mb-4">
+                            <div className="card-body d-block w-100 pl-4 pr-4 pb-4 text-center">
+                              <div className="clearfix"></div>
+                              <h4 className="fw-700 font-xsss mt-3 mb-1">
+                                <a
+                                  href="/view_assesment_results/{{$assesments_given->id}}"
+                                  className="text-dark text-grey-900"
+                                >
+                                  {assesment.video_name}
+                                </a>
+                              </h4>
+                            </div>
+                          </div>
+                        </div>
+                      ))
+                    ) : (
+                      <div>No Assesments Available</div>
+                    )}
+                  </Carousel>
                 </div>
               </div>
             </div>

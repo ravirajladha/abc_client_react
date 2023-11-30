@@ -9,19 +9,19 @@ import Subscribe from '../../components/Subscribe';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useParams } from 'react-router-dom';
-
+import { useContext } from 'react';
+import { AuthContext } from "../../lib/AuthContext.js"
 
 function AnswerForum() {
-
-    const baseUrl = process.env.REACT_APP_BASE_URL;
-
-    
-    const userString = sessionStorage.getItem("rexkod_user");
-    const user = JSON.parse(userString);
-    const userId = user.user.id
-
     let { forumId } = useParams();
     const [answer, setAnswer] = useState("");
+    const baseUrl = process.env.REACT_APP_BASE_URL;
+    const [forum, setForum] = useState([]);
+    
+    const  user = useContext(AuthContext).user;
+  
+
+   
 
     const submitSchoolForum = (e) => {
         let inputobj = {
@@ -62,10 +62,21 @@ function AnswerForum() {
     }
 
     useEffect(() => {
-        getForum();
-    }, [])
+        if (!user) {
+          console.log("No user found. User might be logged out.");
+          // Optionally redirect to login page here
+        } else {
+          getForum(); // Call the function only if there is a user
+        }
+      }, [user, forumId]);
+      if (!user) {
+        // Handle the case when there is no user. You might want to redirect
+        // to a login page or return null or some placeholder content.
+        console.log("No user found. User might be logged out.");
+        return <div>User is not logged in</div>;
+      }
+    const userId = user.user.id
 
-    const [forum, setForum] = useState([]);
     function getForum() {
         let result = fetch(baseUrl + 'api/get_school_forum_single/' + forumId).then(function (result) {
             result.json().then(function (jsonbody) {
@@ -84,7 +95,7 @@ function AnswerForum() {
 
                     <div className="middle-sidebar-bottom theme-dark-bg">
                         <div className="middle-sidebar-left">
-                            <h2 className="fw-400 font-lg d-block">ABC <b> Forums</b> </h2>
+                            <h2 className="fw-400 font-lg d-block">AV <b> Forums</b> </h2>
                             
                             <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
 

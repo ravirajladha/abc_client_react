@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Slider from 'react-slick';
-import { getUserFromLocalStorage } from '../pages/util/SessionStorage';
+
+import { useContext } from 'react';
+import { AuthContext } from "../lib/AuthContext.js"
 const skillList = [
   {
     skill: 'user.png',
@@ -20,7 +22,15 @@ const skillList = [
 ];
 
   function Profile() {
-    const userDetails = getUserFromLocalStorage();
+    const userDetails = useContext(AuthContext).user;
+    if (!userDetails) {
+      // Handle the case when there is no user. You might want to redirect
+      // to a login page or return null or some placeholder content.
+      console.log("No user found. User might be logged out.");
+      return <div>User is not logged in</div>;
+    }
+  
+    // const userDetails = getUserFromLocalStorage();
     const skillsettings = {
       arrows: false,
       dots: false,

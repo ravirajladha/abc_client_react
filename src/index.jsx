@@ -75,11 +75,13 @@ import ViewStudent from "./pages/school/ViewStudent";
 import Teachers from "./pages/school/Teachers";
 import AddTeacher from "./pages/school/AddTeacher";
 import Editor1 from "./pages/e_lab/components/Editor1";
-
+import AuthProvider from "./lib/AuthContext.js";
 class Root extends Component {
   render() {
     return (
+     
       <HashRouter basename={"/"}>
+         <AuthProvider>
         <Routes>
           <Route
             exact
@@ -734,7 +736,9 @@ class Root extends Component {
             }
           />
         </Routes>
+      </AuthProvider>
       </HashRouter>
+
     );
   }
 }

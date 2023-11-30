@@ -17,7 +17,7 @@ function Forums() {
     const baseUrl = process.env.REACT_APP_BASE_URL;
 
     
-    const userString = sessionStorage.getItem("rexkod_user");
+    const userString = localStorage.getItem("rexkod_user");
     const user = JSON.parse(userString);
     const userId = user.user.id
 
@@ -95,7 +95,7 @@ function Forums() {
 
                     <div className="middle-sidebar-bottom theme-dark-bg">
                         <div className="middle-sidebar-left">
-                            <h2 className="fw-400 font-lg d-block">ABC <b> Forums</b> </h2>
+                            <h2 className="fw-400 font-lg d-block mb-2">AV <b> Forums</b> </h2>
                             <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
                                 <div className="row">
                                     <div className="col-lg-10 col-10">
@@ -136,7 +136,7 @@ function Forums() {
 
                                         </div>
                                         <div className="row">
-                                            <div className="col-lg-4">
+                                            <div className="col-lg-4 mt-4">
                                                 <button type="submit" className="btn bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0">Submit</button>
                                             </div>
                                         </div>

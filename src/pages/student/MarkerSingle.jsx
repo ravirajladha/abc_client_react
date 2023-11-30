@@ -17,12 +17,13 @@ import 'video.js/dist/video-js.css';
 import VideoPlayer from './VideoPlayer';
 import { Link, useParams } from 'react-router-dom';
 
-
+import { useContext } from 'react';
+import { AuthContext } from "../../lib/AuthContext.js"
 function MarkerSingle() {
 
     const baseUrl = process.env.REACT_APP_BASE_URL;
-    const user = getUserFromLocalStorage();
-    const user_id = user.user.id;
+    const  user = useContext(AuthContext).user;
+   
 
     const [markers, setMarkers] = useState([]);
     const [currentTime, setCurrentTime] = useState(0);
@@ -89,6 +90,14 @@ function MarkerSingle() {
         });
     };
 
+    if (!user) {
+        // Handle the case when there is no user. You might want to redirect
+        // to a login page or return null or some placeholder content.
+        console.log("No user found. User might be logged out.");
+        return <div>User is not logged in</div>;
+      }
+    
+        const user_id = user.user.id;
     return (
         <>
          <div className="main-wrapper">

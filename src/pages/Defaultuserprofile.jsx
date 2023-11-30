@@ -7,7 +7,8 @@ import Subscribe from '../components/Subscribe';
 import { Link } from 'react-router-dom';
 import { Tab, Tabs } from 'react-bootstrap';
 import { getUserFromLocalStorage } from '../pages/util/SessionStorage';
-
+import { AuthContext } from "../lib/AuthContext.js"
+import { useContext } from 'react';
 const memberList = [
   {
     imageUrl: 'user.png',
@@ -274,7 +275,8 @@ const courseList = [
 ];
 
 function Defaultuserprofile() {
-  const userDetails = getUserFromLocalStorage();
+  const userDetails = useContext(AuthContext).user;
+  // const userDetails = getUserFromLocalStorage();
   return (
     <Fragment>
       <div className="main-wrapper">

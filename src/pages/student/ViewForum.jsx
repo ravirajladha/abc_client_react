@@ -34,7 +34,7 @@ function ViewForum() {
                     <AppHeader />
                     <div className="middle-sidebar-bottom theme-dark-bg">
                         <div className="middle-sidebar-left">
-                            <h2 className="fw-400 font-lg d-block">ABC <b> Forum</b> </h2>
+                            <h2 className="fw-400 font-lg d-block">AV <b> Forum</b> </h2>
                             <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
 
                             </div>

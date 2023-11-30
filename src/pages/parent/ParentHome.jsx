@@ -9,7 +9,8 @@ import { getUserFromLocalStorage } from '../../pages/util/SessionStorage';
 
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { useContext } from 'react';
+import { AuthContext } from "../../lib/AuthContext.js"
 const iconlList = [
     {
         name: '325.2k',
@@ -198,10 +199,23 @@ const baseUrl = process.env.REACT_APP_BASE_URL;
 
   
 function ParentHome() {
+    
 const [parentCode,setParentCode]  = useState("")
+const  userDetails = useContext(AuthContext).user;
+if (!userDetails) {
+    // Handle the case when there is no user. You might want to redirect
+    // to a login page or return null or some placeholder content.
+    console.log("No user found. User might be logged out.");
+    return <div>User is not logged in</div>;
+  }
 const fetchUserDetails = async () => {
     try {
-      const userDetails = getUserFromLocalStorage();
+        if (!userDetails) {
+          // Handle the case when there is no user. You might want to redirect
+          // to a login page or return null or some placeholder content.
+          console.log("No user found. User might be logged out.");
+          return <div>User is not logged in</div>;
+        }
       const userId = userDetails.user.id; // Assuming you store the user ID in local storage
   
       const response = await axios.get(`${baseUrl}api/getParentCode?user_id=${userId}`);
@@ -221,7 +235,7 @@ const fetchUserDetails = async () => {
   fetchUserDetails();
 
 
-    const userDetails = getUserFromLocalStorage()
+    // const userDetails = getUserFromLocalStorage()
     return (
         <>
             <div className="main-wrapper">

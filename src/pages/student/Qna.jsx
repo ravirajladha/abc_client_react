@@ -11,13 +11,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import SearchResults from '../../components/SearchResults';
 import { Link } from 'react-router-dom';
 
+import { useContext } from 'react';
+import { AuthContext } from "../../lib/AuthContext.js"
 function Qna() {
     const baseUrl = process.env.REACT_APP_BASE_URL;
 
-    const userString = sessionStorage.getItem("rexkod_user");
-    const user = JSON.parse(userString);
+    const  user = useContext(AuthContext).user;
     const classId = user.student.class_id;
-    const userId = user.user.id
+  
 
     useEffect(() => {
         getSubjects();
@@ -102,6 +103,13 @@ function Qna() {
         setQnaId(selectedId); 
         // setAllQnas([]);
       }
+      if (!user) {
+        // Handle the case when there is no user. You might want to redirect
+        // to a login page or return null or some placeholder content.
+        console.log("No user found. User might be logged out.");
+        return <div>User is not logged in</div>;
+      }
+    const userId = user.user.id
     return (
         <>
             <div className="main-wrapper">
@@ -111,7 +119,7 @@ function Qna() {
 
                     <div className="middle-sidebar-bottom theme-dark-bg">
                         <div className="middle-sidebar-left">
-                            <h2 className="fw-400 font-lg d-block mb-2 ">ABC <b> Qna</b> </h2>
+                            <h2 className="fw-400 font-lg d-block mb-2 ">AV <b> Qna</b> </h2>
 
                             <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
 

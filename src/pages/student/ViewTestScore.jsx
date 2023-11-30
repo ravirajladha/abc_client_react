@@ -6,39 +6,53 @@ import Myclass from "../../components/Myclass";
 import Subscribe from "../../components/Subscribe";
 import { Link, useParams } from "react-router-dom";
 import { getUserFromLocalStorage } from "../util/SessionStorage";
+import { AuthContext } from "../../lib/AuthContext.js"
+import { useContext } from 'react';
 
 import React, { useState, useEffect, useRef } from "react";
 
 function ViewTestScore() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const { subject_id, test_id } = useParams();
-
   const [score, setScore] = useState("");
+  const { user } = useContext(AuthContext);
 
-  const user = getUserFromLocalStorage();
-  const user_id = user.user.id;
+  useEffect(() => {
+    // Make sure the user is available before fetching the score
+    if (!user) {
+      console.log("User not logged in or user data not available.");
+      // Optional: redirect to login or handle the missing user case
+      return;
+    }
 
-  const get_test_score = (e) => {
-    fetch(baseUrl + "api/get_test_score/" + test_id + "/" + user_id, {
-      method: "GET",
-      headers: {
-        "Content-type": "application/json",
-        Accept: "application/json",
-      },
-    })
+    const user_id = user.user?.id; // Directly access the user_id from the user object
+    const get_test_score = () => {
+      fetch(`${baseUrl}api/get_test_score/${test_id}/${user_id}`, {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json",
+          "Accept": "application/json",
+        },
+      })
       .then((res) => {
+        if (!res.ok) {
+          // Handle HTTP errors here
+          throw new Error('Network response was not ok');
+        }
         return res.json();
       })
       .then((resp) => {
-        // setAllSubjectData(resp);
         console.log(resp);
         setScore(resp.score);
+      })
+      .catch((error) => {
+        console.error('There has been a problem with your fetch operation:', error);
       });
-  };
-  useEffect(() => {
-    get_test_score();
-  }, []);
+    };
 
+    get_test_score();
+  // Include `user` in the dependency array to re-fetch when the user logs in/out
+  }, [baseUrl, test_id, user]);
   return (
     <>
       <div className="main-wrapper">
@@ -47,7 +61,7 @@ function ViewTestScore() {
           <div className="middle-sidebar-bottom theme-dark-bg">
             <div className="middle-sidebar-left">
               <div className="row">
-                <div className="col-xxl-1 col-xl-12 col-md-12">
+              <div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12">
                   <div className="card mb-4 d-block w-100 shadow-xss rounded-lg p-5 border-0 text-left question-div">
                     <div
                       className="card-body text-center p-3 bg-no-repeat bg-image-topcenter"

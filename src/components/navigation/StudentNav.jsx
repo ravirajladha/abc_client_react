@@ -1,53 +1,45 @@
-import React, { useEffect, useState } from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
-import {clearLocalStorage, getUserFromLocalStorage} from '../../pages/util/SessionStorage';
-
-
-  function StudentNav() {
+import React, { useEffect, useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import {
+  clearLocalStorage,
+  getUserFromLocalStorage,
+} from "../../pages/util/SessionStorage";
+import { useContext } from 'react';
+import { AuthContext } from "../../lib/AuthContext.js"
+import LogoutButton from "../../components/LogoutButton"
+function StudentNav() {
   const [isOpen, setIsOpen] = useState(false);
-
   const toggleOpen = () => setIsOpen(!isOpen);
+  const navClass = `${isOpen ? " nav-active" : ""}`;
+  // const navigate = useNavigate();
+  // const { logout } = useContext(AuthContext); // Get logout from AuthContext
 
-  const navClass = `${isOpen ? ' nav-active' : ''}`;
-
-  const navigate = useNavigate();
-
-  const [loggedOut, setLoggedOut] = useState(false);
-  const logout = () => {
-    // Clear user data from session storage
-    clearLocalStorage();
-    setLoggedOut(true);
-  };
-  useEffect(() => {
-    if (loggedOut) {
-      // After the logout state changes, navigate to the appropriate page
-      const userData = getUserFromLocalStorage();
-      navigate('/');
-
-      // if (userData && userData.user && userData.user.type === 'school_student') {
-      //   navigate('/home');
-      // } else {
-      //   navigate('/');
-      // }
-    }
-  }, [loggedOut, navigate]);
+  // When the logout button is pressed, call the logout function with navigate
+  // const handleLogout = () => {
+  //   console.log('Logout button clicked');
+  //   logout(navigate);
+  // };
 
 
-    return (
-      <nav className={`navigation scroll-bar menu-active ${navClass}`} style={{ zIndex: 999 }}>
+  return (
+    <nav
+      className={`navigation scroll-bar menu-active ${navClass}`}
+      style={{ zIndex: 999 }}
+    >
       <div className="container pl-0 pr-0">
         <div className="nav-content">
           <div className="nav-top">
-            <Link to="/" className='justify-content-center pl-0'>
+            <Link to="/" className="justify-content-center pl-0">
               {/* <i className="feather-slack text-success display1-size mr-3 ml-3"></i>
               <span className="d-inline-block fredoka-font ls-3 fw-600 text-current font-xl logo-text mb-0">
                 Elomoas.
               </span> */}
-              <img 
-              src="/assets/images/abc_logo.jpg"
-                            alt="logo"
-                            className="" width={60}
-                          />
+              <img
+                src="/assets/images/abc_logo.jpg"
+                alt="logo"
+                className=""
+                width={60}
+              />
             </Link>
             <span
               onClick={toggleOpen}
@@ -116,7 +108,6 @@ import {clearLocalStorage, getUserFromLocalStorage} from '../../pages/util/Sessi
                 <span>Video Features</span>
               </NavLink>
             </li>
-            
           </ul>
 
           <div className="nav-caption fw-600 font-xssss text-grey-500">
@@ -134,21 +125,14 @@ import {clearLocalStorage, getUserFromLocalStorage} from '../../pages/util/Sessi
               </Link>
             </li>
             <li>
-              <Link
-               
-                onClick={logout}
-                className="nav-content-bttn open-font h-auto pt-2 pb-2"
-              >
-                <i className="font-sm feather-log-out mr-3 text-grey-500"></i>
-                <span>Logout</span>
-              </Link>
+             
+              <LogoutButton />
             </li>
           </ul>
         </div>
       </div>
     </nav>
-    );
-  }
-
+  );
+}
 
 export default StudentNav;

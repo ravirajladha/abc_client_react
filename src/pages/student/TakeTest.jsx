@@ -9,7 +9,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { getUserFromLocalStorage } from '../util/SessionStorage';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { useContext } from 'react';
+import { AuthContext } from "../../lib/AuthContext.js"
 function TakeTest() {
     const baseUrl = process.env.REACT_APP_BASE_URL;
     const navigate = useNavigate();
@@ -26,8 +27,8 @@ function TakeTest() {
 
     const [formIsSubmitting, setFormIsSubmitting] = useState(false);
 
-    const user = getUserFromLocalStorage();
-    const user_id = user.user.id;
+    const  user = useContext(AuthContext).user;
+  
 
     const get_tests = (e) => {
         fetch(baseUrl + "api/get_tests/" + test_id, {
@@ -120,7 +121,13 @@ function TakeTest() {
         setFormIsSubmitting(true);
 
     };
-
+    if (!user) {
+        // Handle the case when there is no user. You might want to redirect
+        // to a login page or return null or some placeholder content.
+        console.log("No user found. User might be logged out.");
+        return <div>User is not logged in</div>;
+      }
+    const user_id = user.user.id
     return (
         <>
             <div className="main-wrapper">

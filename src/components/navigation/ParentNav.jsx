@@ -4,6 +4,7 @@ import {
   clearLocalStorage,
   getUserFromLocalStorage,
 } from "../../pages/util/SessionStorage";
+import LogoutButton from "../../components/LogoutButton"
 
 function ParentNav() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -25,7 +26,6 @@ function ParentNav() {
   useEffect(() => {
     if (loggedOut) {
       // After the logout state changes, navigate to the appropriate page
-      const userData = getUserFromLocalStorage();
         navigate("/");
 
       // if (userData && userData.user && userData.user.type === "admin") {
@@ -163,13 +163,7 @@ function ParentNav() {
               </Link>
             </li>
             <li>
-              <Link
-                onClick={logout}
-                className="nav-content-bttn open-font h-auto pt-2 pb-2"
-              >
-                <i className="font-sm feather-log-out mr-3 text-grey-500"></i>
-                <span>Logout</span>
-              </Link>
+            <LogoutButton />
             </li>
           </ul>
         </div>

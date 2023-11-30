@@ -5,7 +5,8 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { getUserFromLocalStorage } from '../util/SessionStorage';
+import { useContext } from 'react';
+import { AuthContext } from "../../lib/AuthContext.js"
 
 
 function AnswerQna() {
@@ -15,8 +16,8 @@ function AnswerQna() {
 
     const [answer, setAnswer] = useState("");
     const [question, setQuestion] = useState("");
-    const user = getUserFromLocalStorage();
-    const auth_id = user.user.id;
+    const  user = useContext(AuthContext).user;
+    
     const getQna = (e) => {
         let result = fetch(baseUrl + 'api/get_qna/' + qna_id).then(function (result) {
             result.json().then(function (jsonbody) {
@@ -34,9 +35,12 @@ function AnswerQna() {
         const formData = new FormData();
         formData.append('answer', answer);
         formData.append('qna_id', qna_id);
-        formData.append('auth_id', auth_id);
+        formData.append('auth_id', user.user.id);
         e.preventDefault();
-
+        if (!user) {
+            toast.error('You must be logged in to submit an answer.');
+            return; // Exit the function if no user
+        }
         fetch(baseUrl + "api/answer_qna", {
             method: 'POST',
             body: formData
@@ -50,6 +54,13 @@ function AnswerQna() {
             toast.error('Could not submit question :' + err.message);
         });
     }
+    if (!user) {
+        // Handle the case when there is no user. You might want to redirect
+        // to a login page or return null or some placeholder content.
+        console.log("No user found. User might be logged out.");
+        return <div>User is not logged in</div>;
+      }
+ 
 
     return (
         <>

@@ -7,7 +7,8 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { getUserFromLocalStorage } from '../util/SessionStorage';
-
+import { useContext } from 'react';
+import { AuthContext } from "../../lib/AuthContext.js"
 function Chats() {
     const myStyles = {
         marginBottom: '90px',
@@ -24,9 +25,20 @@ function Chats() {
         setMessageInput(e.target.value);
     };
 
-    const user = getUserFromLocalStorage();
-    const auth_id = user.user.id;
+    const  user = useContext(AuthContext).user;
+ 
+   
+
+    useEffect(() => {
+        if (user) {
+            getChatStudents();
+        }
+    }, [user]); // Add user as a dependency
+
+
     const getChatStudents = (e) => {
+        const auth_id = user.user.id;
+
         let result = fetch(baseUrl + 'api/get_chat_students/' + auth_id).then(function (result) {
             result.json().then(function (jsonbody) {
                 console.warn(jsonbody);
@@ -34,12 +46,10 @@ function Chats() {
             })
         });
     }
-    useEffect(() => {
-        getChatStudents();
-    }, [])
 
     const getMessagesForStudent = (studentId) => {
-        fetch(baseUrl + `api/get_messages_for_student/${auth_id}/${studentId}`)
+        if (!user) return;
+        fetch(baseUrl + `api/get_messages_for_student/${user.user.id}/${studentId}`)
             .then((result) => result.json())
             .then((jsonbody) => {
                 console.warn(jsonbody);
@@ -56,13 +66,14 @@ function Chats() {
 
     const sendMessage = (e) => {
         e.preventDefault();
+        if (!user) return; // Guard against no user
 
         console.log(selectedStudent);
         // Perform your logic for sending the message
         const receiverId = selectedStudent; // Replace with the actual receiver ID
         const formData = new FormData();
         formData.append('receiver_id', receiverId);
-        formData.append('sender_id', auth_id);
+        formData.append('sender_id', user.user.id);
         formData.append('message', messageInput);
 
         fetch(baseUrl + 'api/send_message', {
@@ -85,6 +96,13 @@ function Chats() {
         // Clear the message input after submission
         setMessageInput('');
     };
+
+    if (!user) {
+        console.log("No user found. User might be logged out.");
+        // Handle the redirect to login or return placeholder content here
+        return <div>User is not logged in</div>;
+    }
+    const auth_id = user.user.id;
     return (
         <>
             <div className="main-wrapper">

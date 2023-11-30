@@ -7,7 +7,8 @@ import Chart from 'react-apexcharts';
 import { getUserFromLocalStorage } from '../../pages/util/SessionStorage';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { useContext } from 'react';
+import { AuthContext } from "../../lib/AuthContext.js"
 const iconlList = [
     {
         name: '325.2k',
@@ -193,7 +194,13 @@ const pieChart = {
     },
 };
 function TeacherHome() {
-    const userDetails = getUserFromLocalStorage();
+   
+    const  userDetails = useContext(AuthContext).user;
+    if (!userDetails) {
+        console.log("No user found. User might be logged out.");
+        // Handle the redirect to login or return placeholder content here
+        return <div>User is not logged in</div>;
+    }
     return (
         <>
             <div className="main-wrapper">

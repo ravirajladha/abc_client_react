@@ -10,7 +10,7 @@ import { Link, useParams } from 'react-router-dom';
 function ParentSubjects() {
     const baseUrl = process.env.REACT_APP_BASE_URL;
 
-    const userString = sessionStorage.getItem("rexkod_user");
+    const userString = localStorage.getItem("rexkod_user");
     const { user_id } = useParams();
 
     const [student, setStudent] = useState();

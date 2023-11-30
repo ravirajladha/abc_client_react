@@ -8,7 +8,8 @@ import Subscribe from '../../components/Subscribe';
 import "../../css/custom.css"
 
 import { Tabs, Tab, Accordion } from 'react-bootstrap';
-import { getUserFromLocalStorage } from '../util/SessionStorage';
+import { useContext } from 'react';
+import { AuthContext } from "../../lib/AuthContext.js"
 
 
 
@@ -19,7 +20,13 @@ import { Link, useParams } from 'react-router-dom';
 
 function VideoWithWaterMark() {
     const baseUrl = process.env.REACT_APP_BASE_URL;
-    const user = getUserFromLocalStorage();
+    const  user = useContext(AuthContext).user;
+    if (!user) {
+        // Handle the case when there is no user. You might want to redirect
+        // to a login page or return null or some placeholder content.
+        console.log("No user found. User might be logged out.");
+        return <div>User is not logged in</div>;
+      }
     const user_id = user.user.id;
     return (
         <>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { clearLocalStorage, getUserFromLocalStorage } from '../../pages/util/SessionStorage';
+import LogoutButton from "../../components/LogoutButton"
 
 
 function TeacherNav() {
@@ -21,7 +22,6 @@ function TeacherNav() {
   useEffect(() => {
     if (loggedOut) {
       // After the logout state changes, navigate to the appropriate page
-      const userData = getUserFromLocalStorage();
       navigate('/');
       // if (userData && userData.user && userData.user.type === 'admin') {
       //   navigate('/admin');
@@ -102,14 +102,8 @@ function TeacherNav() {
               </Link>
             </li>
             <li>
-              <Link
+            <LogoutButton />
 
-                onClick={logout}
-                className="nav-content-bttn open-font h-auto pt-2 pb-2"
-              >
-                <i className="font-sm feather-log-out mr-3 text-grey-500"></i>
-                <span>Logout</span>
-              </Link>
             </li>
           </ul>
         </div>

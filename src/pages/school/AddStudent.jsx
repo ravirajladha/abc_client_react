@@ -10,7 +10,7 @@ import {
 } from "react-bootstrap";
 import AppHeader from '../../components/includes/AppHeader';
 import { useNavigate } from "react-router-dom";
-import { getUserFromSessionStorage } from '../../pages/util/SessionStorage';
+import { getUserFromLocalStorage } from '../../pages/util/SessionStorage';
 
 
 function AddStudent() {
@@ -19,10 +19,10 @@ function AddStudent() {
   const [schools, setSchools] = useState([]);
   const [classes, setClasses] = useState([]);
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const userString = sessionStorage.getItem("rexkod_user");
+  const userString = localStorage.getItem("rexkod_user");
   const user = JSON.parse(userString);
   const schoolId = user.user.id;
-
+  console.log(schoolId);
   const getAllSchools = async () => {
     try {
       const response = await fetch(baseUrl + "api/school/api_get_schools");
@@ -72,37 +72,41 @@ function AddStudent() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+  
     // Access the form data
     const formDataToSend = new FormData();
     Object.entries(formData).forEach(([key, value]) => {
       formDataToSend.append(key, value);
     });
-
+  
+    // Echo the formDataToSend
+    for (let [key, value] of formDataToSend) {
+      console.log(`${key}: ${value}`);
+    }
+  
     fetch(baseUrl + "api/school/add_student", {
       method: "POST",
       body: formDataToSend,
     })
-      .then((response) => response.json())
-      .then((data) => {
-        // Handle success
-        // console.log("Student added successfully", data);
-
-        setFormSubmitted(true);
-
-        // Clear form values after successful submission
-        setFormData({
-          name: "",
-          school: "",
-          className: "",
-          section: "",
-        });
-      })
-      .catch((error) => {
-        setFormSubmitted(false);
-        // console.error("Error adding student:", error);
+    .then((response) => response.json())
+    .then((data) => {
+      // Handle success
+      setFormSubmitted(true);
+  
+      // Clear form values after successful submission
+      setFormData({
+        name: "",
+        school: "",
+        className: "",
+        section: "",
       });
-  };
+    })
+    .catch((error) => {
+      setFormSubmitted(false);
+      console.error("Error adding student:", error);
+    });
+  }
+  
 
   const navigate = useNavigate();
 

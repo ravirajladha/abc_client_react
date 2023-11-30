@@ -12,7 +12,8 @@ import AppFooter from '../../components/includes/AppFooter';
 import AppHeader from '../../components/includes/AppHeader';
 import Navheader from '../../components/Navheader';
 import Subscribe from '../../components/Subscribe';
-
+import { AuthContext } from "../../lib/AuthContext.js"
+import { useContext } from 'react';
 
 const latestList = [
   {
@@ -168,7 +169,6 @@ const memberList = [
 ];
 
   function Home() {
-  const userDetails = getUserFromLocalStorage();
     const categorysettings = {
       arrows: false,
       dots: false,
@@ -202,26 +202,37 @@ const memberList = [
       variableWidth: true,
     };
 
+  
 
   const baseUrl = process.env.REACT_APP_BASE_URL;
-  
-  const userString = sessionStorage.getItem("rexkod_user");
-  const user = JSON.parse(userString);
-  const classId = user.student.class_id;
+  const { user } = useContext(AuthContext);
+  // const userString = localStorage.getItem("rexkod_user");
+  // const user = JSON.parse(userString);
+
 
     useEffect(() => {
-      getSubjects();
-    },[])
+      if(user){
+
+        getSubjects();
+      }else{
+        return ;
+      }
+    },[user])
 
     const [subjects, setSubjects] = useState([]);
     function getSubjects() {
-      let result = fetch(baseUrl+'api/get_subjects/'+ classId).then(function (result) {
+      let result = fetch(baseUrl+'api/get_subjects/'+  user.student.class_id).then(function (result) {
           result.json().then(function (jsonbody) {
               console.warn(jsonbody);
               setSubjects(jsonbody);
           })
       });
   }
+  if (!user) {
+    console.log("No user found. User might be logged out.");
+    // Handle the redirect to login or return placeholder content here
+    return <div>User is not logged in</div>;
+}
     return (
       <>
         <div className="main-wrapper">
@@ -232,7 +243,7 @@ const memberList = [
             <div className="middle-sidebar-bottom theme-dark-bg">
               <div className="middle-sidebar-left">
               <div className="row mb-2">
-                  <h1>Welcome, {userDetails.user.name}!</h1>  <br />
+                  <h1>Welcome, {user.user.name}!</h1>  <br />
                 </div>
                 <div className="row">
                   <div className="col-lg-12 mb-3">
@@ -593,7 +604,7 @@ const memberList = [
               </div>
               <div className="middle-sidebar-right scroll-bar">
                 <div className="middle-sidebar-right-content">
-                  <Profile />
+                  {/* <Profile /> */}
                   <Myclass />
                   <Subscribe />
                 </div>

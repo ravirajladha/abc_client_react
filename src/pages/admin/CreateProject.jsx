@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useRef } from 'react';
 import AppHeader from '../../components/includes/AppHeader';
 import AppFooter from '../../components/includes/AppFooter';
 import Dropdown from '../../components/inputs/Dropdown';
@@ -22,6 +22,7 @@ function CreateProject() {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
 
+    const fileInputRef = useRef();
 
     function getClasses() {
         let result = fetch(baseUrl + 'api/get_classes').then(function (result) {
@@ -72,9 +73,13 @@ function CreateProject() {
         }).then((resp) => {
             setSelectedClass("");
             setSelectedSubject("");
-            setImage("");
+           
             setName("");
             setDescription("");
+            if (fileInputRef.current) {
+                fileInputRef.current.value = "";
+              }
+              setImage(null);
             toast.success(resp.msg);
 
         }).catch((err) => {
@@ -112,7 +117,15 @@ function CreateProject() {
                                                 <div className="col-lg-6">
                                                     <div className="">
                                                         <label className="mont-font fw-600 font-xsss">Project Image</label><br />
-                                                        <input type="file" onChange={(e) => setImage(e.target.files[0])} className="form-control" required />
+                                                        <input
+  type="file"
+  onChange={(e) => setImage(e.target.files[0])}
+  className="form-control"
+  required
+  ref={fileInputRef}
+/>
+
+
                                                     </div>
                                                 </div>
                                                 <div className="col-lg-6">
