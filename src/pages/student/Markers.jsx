@@ -2,9 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import AppFooter from '../../components/includes/AppFooter';
 import Navheader from '../../components/Navheader';
 import AppHeader from '../../components/includes/AppHeader';
-import Profile from '../../components/Profile';
-import Myclass from '../../components/Myclass';
-import Subscribe from '../../components/Subscribe';
+import StudentSidebar from '../../components/includes/StudentSidebar';
+
+
 import "../../css/custom.css"
 
 import { Tabs, Tab, Accordion } from 'react-bootstrap';
@@ -211,13 +211,7 @@ function Markers() {
 
                             </div>
                         </div>
-                        <div className="middle-sidebar-right scroll-bar">
-                            <div className="middle-sidebar-right-content">
-                                <Profile />
-                                <Myclass />
-                                <Subscribe />
-                            </div>
-                        </div>
+                        <StudentSidebar />
                     </div>
                 </div>
 

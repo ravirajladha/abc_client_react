@@ -4,6 +4,7 @@ import { Modal, Button } from 'react-bootstrap';
 import AppHeader from '../../components/includes/AppHeader';
 import AppFooter from '../../components/includes/AppFooter';
 import { Link } from 'react-router-dom';
+import BackButton from '../../components/navigation/BackButton';
 
 
 function Tests() {
@@ -45,8 +46,9 @@ function Tests() {
                                             className="p-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1">ALL
                                             QUESTIONS</Link>
                                         <Link to={"/tests/create_test"}
-                                            className="p-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1">CREATE
+                                            className="p-2 me-2 d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1">CREATE
                                             TEST</Link>
+                                        <BackButton/>
                                     </div>
                                 </div>
                                 {

@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import AppFooter from '../../components/includes/AppFooter';
-import Navheader from '../../components/Navheader';
 import AppHeader from '../../components/includes/AppHeader';
-import Profile from '../../components/Profile';
-import Myclass from '../../components/Myclass';
-import Subscribe from '../../components/Subscribe';
+import StudentSidebar from '../../components/includes/StudentSidebar';
+import BackButton from '../../components/navigation/BackButton';
+
 
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -16,7 +15,7 @@ import { Link } from 'react-router-dom';
 function Forums() {
     const baseUrl = process.env.REACT_APP_BASE_URL;
 
-    
+
     const userString = localStorage.getItem("rexkod_user");
     const user = JSON.parse(userString);
     const userId = user.user.id
@@ -82,9 +81,9 @@ function Forums() {
     const [forumId, setForumId] = useState([]);
     function handleResultClick(selectedValue, selectedId) {
         setSearchValue(selectedValue); // Set the input field value to the selected result
-        setForumId(selectedId); 
+        setForumId(selectedId);
 
-      }
+    }
 
     return (
         <>
@@ -95,7 +94,14 @@ function Forums() {
 
                     <div className="middle-sidebar-bottom theme-dark-bg">
                         <div className="middle-sidebar-left">
-                            <h2 className="fw-400 font-lg d-block mb-2">AV <b> Forums</b> </h2>
+                            <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
+                                <div>
+                                    <h2 className="fw-400 font-lg d-block"> <b> Forums</b> </h2>
+                                </div>
+                                <div className="float-right">
+                                    <BackButton />
+                                </div>
+                            </div>
                             <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
                                 <div className="row">
                                     <div className="col-lg-10 col-10">
@@ -106,11 +112,11 @@ function Forums() {
                                                 placeholder="Search questions.."
                                                 onChange={(e) => search(e.target.value)}
                                                 value={searchValue}
-                                                ></input>
+                                            ></input>
                                         </div>
                                     </div>
                                     <div className="col-lg-2 col-2">
-                                    <Link to={"/school_forums/view_forum/"+forumId} id="search-button"
+                                        <Link to={"/school_forums/view_forum/" + forumId} id="search-button"
                                             className="w-100 d-block btn bg-current text-white font-xssss fw-600 ls-3 style1-input p-3 border-0 text-uppercase ">Search</Link>
                                     </div>
                                 </div>
@@ -145,13 +151,7 @@ function Forums() {
                                 </div>
                             </div>
                         </div>
-                        <div className="middle-sidebar-right scroll-bar">
-                            <div className="middle-sidebar-right-content">
-                                <Profile />
-                                <Myclass />
-                                <Subscribe />
-                            </div>
-                        </div>
+                        <StudentSidebar />
                     </div>
                 </div>
 

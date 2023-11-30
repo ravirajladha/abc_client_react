@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import AppFooter from '../../components/includes/AppFooter';
-import Navheader from '../../components/Navheader';
 import AppHeader from '../../components/includes/AppHeader';
-import Profile from '../../components/Profile';
-import Myclass from '../../components/Myclass';
-import Subscribe from '../../components/Subscribe';
+import StudentSidebar from '../../components/includes/StudentSidebar';
+import BackButton from '../../components/navigation/BackButton';
+
+
 import { useParams, useNavigate } from 'react-router-dom';
 import { getUserFromLocalStorage } from '../util/SessionStorage';
 import { ToastContainer } from 'react-toastify';
@@ -68,7 +68,7 @@ function TakeAssessments() {
     useEffect(() => {
 
         if (formIsSubmitting) {
-  
+
             const formData = new FormData();
             formData.append('selectedAnswers', selectedAnswers);
             formData.append('selectedQuestionIds', selectedQuestionIds);
@@ -85,13 +85,13 @@ function TakeAssessments() {
                     // Handle the API response
                     console.log(resp);
                     // toast.success(resp.msg);
-                    navigate('/subject_stream/view_assessment_score/'+video_id);
+                    navigate('/subject_stream/view_assessment_score/' + video_id);
                 })
                 .catch((err) => {
                     // Handle errors
                     console.error('Error submitting answers:', err);
                 })
-               
+
         }
     }, [formIsSubmitting, selectedAnswers, currentQuestionIndex, questions]);
 
@@ -129,6 +129,14 @@ function TakeAssessments() {
                     <AppHeader />
                     <div className="middle-sidebar-bottom theme-dark-bg">
                         <div className="middle-sidebar-left">
+                            <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
+                                <div>
+                                    <h2 className="fw-400 font-lg d-block"> <b> Forums</b> </h2>
+                                </div>
+                                <div className="float-right">
+                                    <BackButton />
+                                </div>
+                            </div>
 
                             <ToastContainer autoClose={3000} />
 
@@ -192,13 +200,7 @@ function TakeAssessments() {
                             }
 
                         </div>
-                        <div className="middle-sidebar-right scroll-bar">
-                            <div className="middle-sidebar-right-content">
-                                <Profile />
-                                <Myclass />
-                                <Subscribe />
-                            </div>
-                        </div>
+                        <StudentSidebar />
                     </div>
                 </div>
                 <AppFooter />

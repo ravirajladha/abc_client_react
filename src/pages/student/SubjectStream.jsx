@@ -1,26 +1,22 @@
-import React, { useState, useEffect, useRef } from "react";
-import AppHeader from "../../components/includes/AppHeader";
-import AppFooter from "../../components/includes/AppFooter";
-import Navheader from "../../components/Navheader";
-import Profile from "../../components/Profile";
-import Myclass from "../../components/Myclass";
-import Subscribe from "../../components/Subscribe";
+import React, { useState, useEffect, useRef, useContext } from "react";
+import { Link, useParams } from "react-router-dom";
+import { AuthContext } from "../../lib/AuthContext.js"
+import videojs from "video.js";
+import "video.js/dist/video-js.css";
 import "../../css/custom.css";
+import VideoPlayer from "./VideoPlayer";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { Tabs, Tab, Accordion } from "react-bootstrap";
+import AppHeader from "../../components/includes/AppHeader";
+import AppFooter from "../../components/includes/AppFooter";
+import StudentSidebar from '../../components/includes/StudentSidebar';
 
-import videojs from "video.js";
-import "video.js/dist/video-js.css";
-import VideoPlayer from "./VideoPlayer";
-import { Link, useParams } from "react-router-dom";
-import { useContext } from 'react';
-import { AuthContext } from "../../lib/AuthContext.js"
 function SubjectStream() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
 
   let { subjectId } = useParams();
-  const  user = useContext(AuthContext).user;
+  const user = useContext(AuthContext).user;
   const [receiverId, setReceiverId] = useState();
 
   const chatContentRef = useRef(null);
@@ -43,9 +39,8 @@ function SubjectStream() {
     // Convert to 12-hour format
     hours = hours % 12 || 12;
 
-    const formattedTime = `${hours}:${
-      minutes < 10 ? "0" : ""
-    }${minutes} ${amPm}`;
+    const formattedTime = `${hours}:${minutes < 10 ? "0" : ""
+      }${minutes} ${amPm}`;
     return formattedTime;
   }
 
@@ -227,7 +222,7 @@ function SubjectStream() {
       setNewMessage("");
       chatInputRef.current.focus();
 
-      
+
       fetchMessages();
     } catch (error) {
       console.error("Error sending message:", error);
@@ -236,7 +231,7 @@ function SubjectStream() {
   useEffect(() => {
     console.log("New Message after update:", newMessage);
   }, [newMessage]);
-  
+
 
   const fetchNotes = async () => {
     try {
@@ -340,12 +335,11 @@ function SubjectStream() {
     console.log("No user found. User might be logged out.");
     return <div>User is not logged in</div>;
   }
-const userId = user.user.id
+  const userId = user.user.id
 
   return (
     <>
       <div className="main-wrapper">
-        <Navheader />
         <div className="main-content menu-active">
           <AppHeader />
           <div className="middle-sidebar-bottom theme-dark-bg">
@@ -838,7 +832,7 @@ const userId = user.user.id
                   <div className="card d-block border-0 rounded-lg overflow-hidden p-4 shadow-xss mt-4 bg-lightblue">
                     {allSubjectData && allSubjectData.test ? (
                       allSubjectData.test_result &&
-                      allSubjectData.test_result.score_percentage >= 50 ? (
+                        allSubjectData.test_result.score_percentage >= 50 ? (
                         <a href="">
                           <h2 className="fw-700 font-sm mt-1 pl-1">
                             View certificate.{" "}
@@ -885,8 +879,8 @@ const userId = user.user.id
                     className="owl-carousel category-card owl-theme"
                   >
                     {allSubjectData &&
-                    allSubjectData.mini_projects &&
-                    allSubjectData.mini_projects.length > 0 ? (
+                      allSubjectData.mini_projects &&
+                      allSubjectData.mini_projects.length > 0 ? (
                       allSubjectData &&
                       allSubjectData.mini_projects.map((mini_project, id) => (
                         <div className="item" key={id}>
@@ -945,8 +939,8 @@ const userId = user.user.id
                     className="owl-carousel category-card owl-theme"
                   >
                     {allSubjectData &&
-                    allSubjectData.assesments_given &&
-                    allSubjectData.assesments_given.length > 0 ? (
+                      allSubjectData.assesments_given &&
+                      allSubjectData.assesments_given.length > 0 ? (
                       allSubjectData &&
                       allSubjectData.assesments_given.map((assesment, id) => (
                         <div className="item" key={id}>
@@ -972,13 +966,7 @@ const userId = user.user.id
                 </div>
               </div>
             </div>
-            <div className="middle-sidebar-right scroll-bar">
-              <div className="middle-sidebar-right-content">
-                <Profile />
-                <Myclass />
-                <Subscribe />
-              </div>
-            </div>
+            <StudentSidebar />
           </div>
         </div>
 

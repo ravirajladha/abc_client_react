@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import AppFooter from '../../components/includes/AppFooter';
-import Navheader from '../../components/Navheader';
 import AppHeader from '../../components/includes/AppHeader';
-import Profile from '../../components/Profile';
-import Myclass from '../../components/Myclass';
-import Subscribe from '../../components/Subscribe';
+import StudentSidebar from '../../components/includes/StudentSidebar';
+import BackButton from '../../components/navigation/BackButton';
+
+
 import { Link } from 'react-router-dom';
 
 
@@ -15,7 +15,7 @@ function Subjects() {
   const user = JSON.parse(userString);
   const classId = user.student.class_id;
 
-  
+
   useEffect(() => {
     getSubjects();
   }, [])
@@ -41,6 +41,14 @@ function Subjects() {
           <div className="middle-sidebar-bottom theme-dark-bg">
             <div className="middle-sidebar-left">
               <div className="row">
+                <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
+                  <div>
+                    <h2 className="fw-400 font-lg d-block">  <b> Subjects</b> </h2>
+                  </div>
+                  <div className="float-right">
+                    <BackButton />
+                  </div>
+                </div>
                 {subjects.map((value, index) => (
                   <div className="col-xl-4 col-lg-6 col-md-6" key={index}>
                     <div className="card mb-4 d-block w-100 shadow-xss rounded-lg p-xxl-5 p-4 border-0 text-center">
@@ -79,11 +87,10 @@ function Subjects() {
                       >
                         LEARN
                       </Link>
-                       <Link
+                      <Link
                         to={value.latest_test_id ? `/subject_stream/take_test/${value.id}/${value.latest_test_id}` : '#'}
-                        className={`p-2 mt-4 d-inline-block fw-700 lh-30 rounded-lg w100 text-center font-xsssss ls-3 ${
-                          value.latest_test_id ? 'bg-current text-white' : 'bg-light text-grey-500 bg-hover-light disabled'
-                        }`}
+                        className={`p-2 mt-4 d-inline-block fw-700 lh-30 rounded-lg w100 text-center font-xsssss ls-3 ${value.latest_test_id ? 'bg-current text-white' : 'bg-light text-grey-500 bg-hover-light disabled'
+                          }`}
                         style={value.latest_test_id ? {} : { pointerEvents: 'none', cursor: 'not-allowed' }}
                       >
                         TAKE TEST
@@ -93,13 +100,7 @@ function Subjects() {
                 ))}
               </div>
             </div>
-            <div className="middle-sidebar-right scroll-bar">
-              <div className="middle-sidebar-right-content">
-                <Profile />
-                <Myclass />
-                <Subscribe />
-              </div>
-            </div>
+            <StudentSidebar />
           </div>
         </div>
 

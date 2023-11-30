@@ -3,7 +3,7 @@ import AppHeader from "../../components/includes/AppHeader";
 import AppFooter from "../../components/includes/AppFooter";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Link, useNavigate  } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 function CreateClass() {
@@ -46,13 +46,13 @@ function CreateClass() {
               <div className="row">
                 <ToastContainer autoClose={3000} />
                 <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
-                <div>
+                  <div>
                     <h2 className="fw-400 font-lg d-block">
                       Create <b>Class</b>
                     </h2>
-                  </div>     
-                       <div className="float-right">
-                       <Link
+                  </div>
+                  <div className="float-right">
+                    <Link
                       to={"/all_classes"}
                       className="p-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current mx-1"
                     >    View  Classes
@@ -64,9 +64,9 @@ function CreateClass() {
                       Back
                     </button>
                   </div>
-                  </div>
+                </div>
                 <div className="card w-100 mt-4 border-0 bg-white shadow-xs p-0 mb-4">
-                 
+
                   <div className="card-body p-lg-5 px-4 w-100 border-0 ">
                     <form onSubmit={createClass}>
                       <div className="row mb-3">

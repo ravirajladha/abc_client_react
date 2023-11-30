@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import AppFooter from '../../components/includes/AppFooter';
-import Navheader from '../../components/Navheader';
 import AppHeader from '../../components/includes/AppHeader';
-import Profile from '../../components/Profile';
-import Myclass from '../../components/Myclass';
-import Subscribe from '../../components/Subscribe';
+import StudentSidebar from '../../components/includes/StudentSidebar';
+import BackButton from '../../components/navigation/BackButton';
+
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
@@ -34,7 +33,14 @@ function ViewForum() {
                     <AppHeader />
                     <div className="middle-sidebar-bottom theme-dark-bg">
                         <div className="middle-sidebar-left">
-                            <h2 className="fw-400 font-lg d-block">AV <b> Forum</b> </h2>
+                            <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
+                                <div>
+                                    <h2 className="fw-400 font-lg d-block"> <b> Forum</b> </h2>
+                                </div>
+                                <div className="float-right">
+                                    <BackButton />
+                                </div>
+                            </div>
                             <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
 
                             </div>
@@ -44,9 +50,9 @@ function ViewForum() {
                                         <div className="card-body p-0" id="question">
                                             <div className="d-flex flex-column p-3">
                                                 <h4 className="font-xssss text-uppercase text-current fw-700 ls-3">QUESTION
-                                                <Link to={"/school_forums" } id="search-button"
+                                                    <Link to={"/school_forums"} id="search-button"
                                                         className="d-block btn bg-current text-white font-xssss fw-600 ls-3  p-1 border-0 text-uppercase float-right"> <i className='feather-plus'></i>Ask Question</Link>
-                                                        </h4>
+                                                </h4>
 
                                                 <h3 className="font-sm text-grey-800 fw-700 lh-32 mt-4 mb-4">
                                                     {forum && forum.forum_question ? (
@@ -82,13 +88,7 @@ function ViewForum() {
                                 </div>
                             </div>
                         </div>
-                        <div className="middle-sidebar-right scroll-bar">
-                            <div className="middle-sidebar-right-content">
-                                <Profile />
-                                <Myclass />
-                                <Subscribe />
-                            </div>
-                        </div>
+                        <StudentSidebar />
                     </div>
                 </div>
 

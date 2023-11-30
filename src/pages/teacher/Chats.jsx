@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { getUserFromLocalStorage } from '../util/SessionStorage';
 import { useContext } from 'react';
 import { AuthContext } from "../../lib/AuthContext.js"
+import BackButton from '../../components/navigation/BackButton.jsx';
 function Chats() {
     const myStyles = {
         marginBottom: '90px',
@@ -25,9 +26,9 @@ function Chats() {
         setMessageInput(e.target.value);
     };
 
-    const  user = useContext(AuthContext).user;
- 
-   
+    const user = useContext(AuthContext).user;
+
+
 
     useEffect(() => {
         if (user) {
@@ -113,6 +114,14 @@ function Chats() {
                             <ToastContainer autoClose={3000} />
 
                             <div className="row">
+                            <div className="card-body p-lg-5 px-4 w-100 border-0 d-flex rounded-lg justify-content-between">
+                                        <div className="">
+                                            <h2 className="fw-400 font-lg d-block">Test <b> Questions</b> </h2>
+                                        </div>
+                                        <div className="float-right">
+                                            <BackButton/>
+                                        </div>
+                                    </div>
                                 <div className="col-lg-6 col-xl-4 col-md-6 chat-left scroll-bar border-right-light pl-4 pr-4">
                                     <form action="#" className="mt-0 pl-3 pt-3">
                                         <div className="search-form">

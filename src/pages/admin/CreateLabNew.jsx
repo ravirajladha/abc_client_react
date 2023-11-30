@@ -12,6 +12,7 @@ import AceEditor from "react-ace";
 
 import "ace-builds/src-noconflict/mode-java";
 import "ace-builds/src-noconflict/theme-github";
+import BackButton from "../../components/navigation/BackButton";
 function CreateLab(props) {
   //fetch the records from api and store in classes dropdown
   const [classes, setClasses] = useState([]);
@@ -260,6 +261,14 @@ function CreateLab(props) {
           <div className="middle-sidebar-bottom theme-dark-bg">
             <div className="middle-sidebar-left">
               <div className="row">
+                <div className="card-body p-lg-5 px-4 w-100 border-0 d-flex rounded-lg justify-content-between">
+                  <div className="">
+                    <h2 className="fw-400 font-lg d-block">Create <b> E-Lab</b> </h2>
+                  </div>
+                  <div className="float-right">
+                    <BackButton/>
+                  </div>
+                </div>
                 <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
                   <div className="card-body p-lg-5 p-4 w-100 border-0 ">
                     <form

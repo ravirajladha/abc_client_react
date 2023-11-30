@@ -4,6 +4,7 @@ import { Modal, Button } from 'react-bootstrap';
 import AppHeader from '../../components/includes/AppHeader';
 import AppFooter from '../../components/includes/AppFooter';
 import { Link } from 'react-router-dom';
+import BackButton from '../../components/navigation/BackButton';
 
 
 function MiniProjects() {
@@ -38,8 +39,8 @@ function MiniProjects() {
                                     </div>
                                     <div className="float-right">
                                         <Link to={"/mini_projects/create_project"} className="p-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1">CREATE PROJECT</Link>
-                                        <Link to={"/mini_projects/create_project_task"} className="p-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1">CREATE TASK</Link>
-
+                                        <Link to={"/mini_projects/create_project_task"} className="p-2 me-2 d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1">CREATE TASK</Link>
+                                        <BackButton/>
                                     </div>
                                 </div>
                                 <div className="col-lg-2 col-md-6 col-12 col-sm-6 d-flex justify-content-between">

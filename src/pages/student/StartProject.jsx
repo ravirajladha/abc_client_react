@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import AppFooter from '../../components/includes/AppFooter';
 import AppHeader from '../../components/includes/AppHeader';
-import Profile from '../../components/Profile';
-import Myclass from '../../components/Myclass';
-import Subscribe from '../../components/Subscribe';
+import StudentSidebar from '../../components/includes/StudentSidebar';
+import BackButton from '../../components/navigation/BackButton';
+
 import { useParams, useNavigate, Link } from 'react-router-dom';
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -61,6 +61,7 @@ function StartProject() {
                                     <h2 className="fw-400 font-lg d-block"><b>{projectName}</b></h2>
                                     <div class="float-right">
                                         <button type='button' onClick={update_project_status} class="p-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current border-0">COMPLETED</button>
+                                        <BackButton />
                                     </div>
                                 </div>
 
@@ -68,13 +69,7 @@ function StartProject() {
 
                             </div>
                         </div>
-                        <div className="middle-sidebar-right scroll-bar">
-                            <div className="middle-sidebar-right-content">
-                                <Profile />
-                                <Myclass />
-                                <Subscribe />
-                            </div>
-                        </div>
+                        <StudentSidebar />
                     </div>
                 </div>
 

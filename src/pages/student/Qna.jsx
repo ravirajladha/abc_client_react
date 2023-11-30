@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import AppFooter from '../../components/includes/AppFooter';
-import Navheader from '../../components/Navheader';
 import AppHeader from '../../components/includes/AppHeader';
-import Profile from '../../components/Profile';
-import Myclass from '../../components/Myclass';
-import Subscribe from '../../components/Subscribe';
+import StudentSidebar from '../../components/includes/StudentSidebar';
+import BackButton from '../../components/navigation/BackButton';
+
 
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -16,9 +15,9 @@ import { AuthContext } from "../../lib/AuthContext.js"
 function Qna() {
     const baseUrl = process.env.REACT_APP_BASE_URL;
 
-    const  user = useContext(AuthContext).user;
+    const user = useContext(AuthContext).user;
     const classId = user.student.class_id;
-  
+
 
     useEffect(() => {
         getSubjects();
@@ -99,16 +98,16 @@ function Qna() {
     const [qnaValue, setQnaValue] = useState([]);
     const [qnaId, setQnaId] = useState([]);
     function handleResultClick(selectedValue, selectedId) {
-        setQnaValue(selectedValue); 
-        setQnaId(selectedId); 
+        setQnaValue(selectedValue);
+        setQnaId(selectedId);
         // setAllQnas([]);
-      }
-      if (!user) {
+    }
+    if (!user) {
         // Handle the case when there is no user. You might want to redirect
         // to a login page or return null or some placeholder content.
         console.log("No user found. User might be logged out.");
         return <div>User is not logged in</div>;
-      }
+    }
     const userId = user.user.id
     return (
         <>
@@ -119,7 +118,14 @@ function Qna() {
 
                     <div className="middle-sidebar-bottom theme-dark-bg">
                         <div className="middle-sidebar-left">
-                            <h2 className="fw-400 font-lg d-block mb-2 ">AV <b> Qna</b> </h2>
+                            <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
+                                <div>
+                                    <h2 className="fw-400 font-lg d-block">  <b> QnA</b> </h2>
+                                </div>
+                                <div className="float-right">
+                                    <BackButton />
+                                </div>
+                            </div>
 
                             <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
 
@@ -136,7 +142,7 @@ function Qna() {
                                         </div>
                                     </div>
                                     <div className="col-lg-2 col-2">
-                                        <Link to={"/school_qna/view_qna/"+qnaId} id="search-button"
+                                        <Link to={"/school_qna/view_qna/" + qnaId} id="search-button"
                                             className="w-100 d-block btn bg-current text-white font-xssss fw-600 ls-3 style1-input p-3 border-0 text-uppercase ">Search</Link>
                                     </div>
                                 </div>
@@ -185,13 +191,7 @@ function Qna() {
                                 </div>
                             </div>
                         </div>
-                        <div className="middle-sidebar-right scroll-bar">
-                            <div className="middle-sidebar-right-content">
-                                <Profile />
-                                <Myclass />
-                                <Subscribe />
-                            </div>
-                        </div>
+                        <StudentSidebar />
                     </div>
                 </div>
                 <AppFooter />

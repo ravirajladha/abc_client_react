@@ -5,10 +5,10 @@ import Dropdown from '../../components/inputs/Dropdown';
 
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Link, useNavigate  } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function CreateChapters() {
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const baseUrl = process.env.REACT_APP_BASE_URL;
     useEffect(() => {
@@ -86,7 +86,7 @@ function CreateChapters() {
     }
     const goBack = () => {
         navigate(-1);
-      };
+    };
     return (
         <>
             <div className="main-wrapper">
@@ -97,23 +97,23 @@ function CreateChapters() {
                             <div className="row">
                                 <ToastContainer autoClose={3000} />
                                 <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
-                <div>
-                    <h2 className="fw-400 font-lg d-block">
-                      Create <b>Chapter</b>
-                    </h2>
-                  </div>     
-                       <div className="float-right">
-                   
-                    <button
-                      onClick={goBack}
-                      className="p-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1"
-                    >
-                      Back
-                    </button>
-                  </div>
-                  </div>
+                                    <div>
+                                        <h2 className="fw-400 font-lg d-block">
+                                            Create <b>Chapter</b>
+                                        </h2>
+                                    </div>
+                                    <div className="float-right">
+
+                                        <button
+                                            onClick={goBack}
+                                            className="p-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1"
+                                        >
+                                            Back
+                                        </button>
+                                    </div>
+                                </div>
                                 <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
-                                  
+
                                     <div className="card-body p-lg-5 px-4 w-100 border-0 ">
                                         <form encType="multipart/form-data" onSubmit={createChapter}>
                                             <div className="row mb-6">
@@ -157,12 +157,12 @@ function CreateChapters() {
                                                                 onClick={() => deleteChapterField(index)}
                                                             > */}
 
-<button
-  type="button"
-  className="btn btn-danger"
-  onClick={() => deleteChapterField(index)}
-  style={{ backgroundColor: 'red', color: 'white', marginLeft: '2px' }} // Added marginLeft for the "ml-2" class
->
+                                                            <button
+                                                                type="button"
+                                                                className="btn btn-danger"
+                                                                onClick={() => deleteChapterField(index)}
+                                                                style={{ backgroundColor: 'red', color: 'white', marginLeft: '2px' }} // Added marginLeft for the "ml-2" class
+                                                            >
 
 
                                                                 <i class="feather-minus"></i>

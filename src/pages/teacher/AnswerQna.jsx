@@ -7,6 +7,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import { useContext } from 'react';
 import { AuthContext } from "../../lib/AuthContext.js"
+import BackButton from '../../components/navigation/BackButton.jsx';
 
 
 function AnswerQna() {
@@ -16,8 +17,8 @@ function AnswerQna() {
 
     const [answer, setAnswer] = useState("");
     const [question, setQuestion] = useState("");
-    const  user = useContext(AuthContext).user;
-    
+    const user = useContext(AuthContext).user;
+
     const getQna = (e) => {
         let result = fetch(baseUrl + 'api/get_qna/' + qna_id).then(function (result) {
             result.json().then(function (jsonbody) {
@@ -59,8 +60,8 @@ function AnswerQna() {
         // to a login page or return null or some placeholder content.
         console.log("No user found. User might be logged out.");
         return <div>User is not logged in</div>;
-      }
- 
+    }
+
 
     return (
         <>
@@ -74,7 +75,14 @@ function AnswerQna() {
                             <ToastContainer autoClose={3000} />
                             <div className="row">
                                 <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
-                                    <h2 className="fw-400 font-lg d-block ml-2">Give <b> Answer</b> </h2>
+                                    <div className="card-body p-lg-5 px-4 w-100 border-0 d-flex rounded-lg justify-content-between">
+                                        <div className="">
+                                            <h2 className="fw-400 font-lg d-block ml-2"> <b> Answer</b> Questions</h2>
+                                        </div>
+                                        <div className="float-right">
+                                            <BackButton />
+                                        </div>
+                                    </div>
                                     <div className="card-body p-lg-5 px-4 w-100 border-0 ">
                                         <form encType="multipart/form-data" onSubmit={answerQna}>
 

@@ -5,6 +5,7 @@ import Dropdown from '../../components/inputs/Dropdown';
 
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import BackButton from '../../components/navigation/BackButton';
 
 function CreateProject() {
 
@@ -98,7 +99,13 @@ function CreateProject() {
                             <div className="row">
                                 <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
                                     <div className="card-body p-4 w-100 border-0 d-flex rounded-lg justify-content-between">
+                                        <div className="">
                                         <h2 className="fw-400 font-lg d-block">Create <b> Mini Project</b> </h2>
+                                        </div>
+                                        <div className="float-right">
+                                            <BackButton/>
+                                        </div>
+
                                     </div>
                                     <ToastContainer autoClose={3000} />
 

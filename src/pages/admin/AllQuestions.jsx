@@ -4,6 +4,7 @@ import AppFooter from '../../components/includes/AppFooter';
 import Dropdown from '../../components/inputs/Dropdown';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import BackButton from '../../components/navigation/BackButton';
 
 function AllQuestions() {
     const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -71,7 +72,14 @@ function AllQuestions() {
                             <div className="row">
 
                                 <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
-                                    <h2 className="fw-400 font-lg d-block ml-2">Test <b> Questions</b> </h2>
+                                    <div className="card-body p-lg-5 px-4 w-100 border-0 d-flex rounded-lg justify-content-between">
+                                        <div className="">
+                                            <h2 className="fw-400 font-lg d-block">Test <b> Questions</b> </h2>
+                                        </div>
+                                        <div className="float-right">
+                                            <BackButton />
+                                        </div>
+                                    </div>
                                     <div className="card-body p-lg-5 px-4 w-100 border-0 ">
                                         <div className="row mb-6">
                                             <div className="col-lg-5">
@@ -109,10 +117,10 @@ function AllQuestions() {
                                                         <h4 class="fw-600 font-xss mt-4" >{`Q ${index + 1}. ${question.question}`} </h4>
                                                         {
                                                             question.question_code ? (
-                                                        <pre className="text-wrap bg-grey p-2" >{question.question_code}</pre>
+                                                                <pre className="text-wrap bg-grey p-2" >{question.question_code}</pre>
                                                             )
-                                                            :
-                                                            ""
+                                                                :
+                                                                ""
                                                         }
                                                         <p className={`fw-500 font-xsss mt-3 ${question.answer === "option1" ? 'text-success' : ''}`}>A. {question.option1}</p>
                                                         <p className={`fw-500 font-xsss mt-3 ${question.answer === "option2" ? 'text-success' : ''}`}>A. {question.option2}</p>

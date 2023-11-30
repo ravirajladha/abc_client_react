@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import AppHeader from '../../components/includes/AppHeader';
+import BackButton from "../../components/navigation/BackButton";
 
 function Teachers() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -38,10 +39,11 @@ function Teachers() {
                 <div className="float-right">
                   <Link
                     to="/school/add_teacher"
-                    className="p-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current"
+                    className="p-2 d-inline-block text-white me-2 fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current"
                   >
                     Add Teacher
                   </Link>
+                  <BackButton/>
                 </div>
               </div>
 

@@ -4,6 +4,7 @@ import { Modal, Button } from 'react-bootstrap';
 import AppHeader from '../../components/includes/AppHeader';
 import AppFooter from '../../components/includes/AppFooter';
 import { Link } from 'react-router-dom';
+import BackButton from '../../components/navigation/BackButton';
 
 
 function Assessments() {
@@ -45,7 +46,8 @@ function Assessments() {
                                         <h2 className="fw-400 font-lg d-block">All <b> Assesments</b> </h2>
                                     </div>
                                     <div className="float-right">
-                                        <Link to={"/assessments/create_assessments"} className="p-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current">Create Assesments</Link>
+                                        <Link to={"/assessments/create_assessments"} className="p-2 me-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current">Create Assesments</Link>
+                                        <BackButton />
                                     </div>
                                 </div>
 

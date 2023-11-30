@@ -6,7 +6,7 @@ import {
 } from "../../pages/util/SessionStorage";
 import LogoutButton from "../../components/LogoutButton"
 
-function SchoolNav() {
+function SchoolNav({ isSidebarOpen }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleOpen = () => setIsOpen(!isOpen);
@@ -116,7 +116,7 @@ function SchoolNav() {
               </Link>
             </li>
             <li>
-            <LogoutButton />
+              <LogoutButton />
             </li>
           </ul>
         </div>

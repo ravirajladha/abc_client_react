@@ -5,6 +5,7 @@ import AppHeader from '../../components/includes/AppHeader';
 import AppFooter from '../../components/includes/AppFooter';
 
 import { Link, useParams } from 'react-router-dom';
+import BackButton from '../../components/navigation/BackButton';
 
 
 function ParentSubjects() {
@@ -54,6 +55,9 @@ function ParentSubjects() {
                                 <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
                                     <div>
                                         <h2 className="fw-400 font-lg d-block">All <b> Subjects</b> </h2>
+                                    </div>
+                                    <div className="float-right">
+                                        <BackButton/>
                                     </div>
 
                                 </div>

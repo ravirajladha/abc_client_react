@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import AppHeader from "../../components/includes/AppHeader";
 import AppFooter from "../../components/includes/AppFooter";
 import { Link } from "react-router-dom";
+import BackButton from "../../components/navigation/BackButton";
 
 function AllLabs() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -44,7 +45,7 @@ function AllLabs() {
                 <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
                   <div>
                     <h2 className="fw-400 font-lg d-block">
-                      All <b> E-Labs</b>{" "}
+                      All <b> E-Labs</b>
                     </h2>
                   </div>
                   <div className="float-right">
@@ -54,6 +55,7 @@ function AllLabs() {
                     >
                       ADD E-LAB
                     </Link>
+                    <BackButton />
                   </div>
                 </div>
                 <div className="col-lg-12 mb-3">

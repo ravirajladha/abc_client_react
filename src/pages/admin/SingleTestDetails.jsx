@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import AppHeader from '../../components/includes/AppHeader';
 import AppFooter from '../../components/includes/AppFooter';
 import { useParams } from 'react-router-dom';
+import BackButton from '../../components/navigation/BackButton';
 
 
 function SingleTestDetails() {
@@ -31,8 +32,15 @@ function SingleTestDetails() {
                         <div className="middle-sidebar-left">
                             <div className="row">
 
+                                <div className="w-100 border-0 d-flex rounded-lg justify-content-between">
+                                    <div className="">
+                                        <h2 className="fw-400 font-lg d-block">Test <b> Details</b> </h2>
+                                    </div>
+                                    <div className="float-right">
+                                        <BackButton />
+                                    </div>
+                                </div>
                                 <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
-                                    <h2 className="fw-400 font-lg d-block ml-2">Test <b> Details</b> </h2>
                                     <div className="card-body p-lg-5 px-4 w-100 border-0 ">
                                         <div className="row mb-6">
                                             <div className="col-lg-4">

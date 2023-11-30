@@ -1,15 +1,11 @@
-import AppFooter from "../../components/includes/AppFooter";
-import Navheader from "../../components/Navheader";
-import AppHeader from "../../components/includes/AppHeader";
-import Profile from "../../components/Profile";
-import Myclass from "../../components/Myclass";
-import Subscribe from "../../components/Subscribe";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
-import { getUserFromLocalStorage } from "../util/SessionStorage";
 import { AuthContext } from "../../lib/AuthContext.js"
-import { useContext } from 'react';
+import { getUserFromLocalStorage } from "../util/SessionStorage";
 
-import React, { useState, useEffect, useRef } from "react";
+import AppFooter from "../../components/includes/AppFooter";
+import AppHeader from "../../components/includes/AppHeader";
+import StudentSidebar from '../../components/includes/StudentSidebar';
 
 function ViewTestScore() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -93,13 +89,7 @@ function ViewTestScore() {
                 </div>
               </div>
             </div>
-            <div className="middle-sidebar-right scroll-bar">
-              <div className="middle-sidebar-right-content">
-                <Profile />
-                <Myclass />
-                <Subscribe />
-              </div>
-            </div>
+            <StudentSidebar />
           </div>
         </div>
         <AppFooter />

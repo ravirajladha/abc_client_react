@@ -6,12 +6,10 @@ import { getUserFromLocalStorage } from '../../pages/util/SessionStorage';
 import 'react-toastify/dist/ReactToastify.css';
 import Slider from 'react-slick';
 
-import Profile from '../../components/Profile';
-import Myclass from '../../components/Myclass';
 import AppFooter from '../../components/includes/AppFooter';
 import AppHeader from '../../components/includes/AppHeader';
-import Navheader from '../../components/Navheader';
-import Subscribe from '../../components/Subscribe';
+import StudentSidebar from '../../components/includes/StudentSidebar';
+
 import { AuthContext } from "../../lib/AuthContext.js"
 import { useContext } from 'react';
 
@@ -602,13 +600,7 @@ const memberList = [
                   </div>
                 </div>
               </div>
-              <div className="middle-sidebar-right scroll-bar">
-                <div className="middle-sidebar-right-content">
-                  {/* <Profile /> */}
-                  <Myclass />
-                  <Subscribe />
-                </div>
-              </div>
+              <StudentSidebar />
             </div>
           </div>
 

@@ -14,15 +14,31 @@ import { AuthContext } from "../../lib/AuthContext.js"
 function AppHeader() {
   const { user } = useContext(AuthContext);
   const [isActive, setIsActive] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
+  //Nav toggle
+  const handleSidebarToggle = () => {
+    const sidebar = document.querySelector('.navigation');
+
+    if (sidebar) {
+      if (!isSidebarOpen) {
+        sidebar.classList.add('nav-active');
+      } else {
+        sidebar.classList.remove('nav-active');
+      }
+    }
+
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  //Search toggle
   const toggleActive = () => setIsActive(!isActive);
   const searchClass = `${isActive ? " show" : ""}`;
-  // Add console logs to debug
-  
+
   const sidebarComponents = {
     admin: <AdminNav />,
     teacher: <TeacherNav />,
-    sub_admin: <SchoolNav />,
+    sub_admin: <SchoolNav isSidebarOpen={isSidebarOpen} />,
     parent: <ParentNav />,
     default: <StudentNav />,
   };
@@ -57,7 +73,7 @@ function AppHeader() {
         </form>
       </div>
 
-      <button className="header-menu"></button>
+      <button onClick={handleSidebarToggle} className="header-menu"></button>
       <form action="#" className="float-left header-search">
         <div className="form-group mb-0 icon-input">
           <i className="feather-search font-lg text-grey-400"></i>

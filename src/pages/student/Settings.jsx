@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import AppFooter from '../../components/includes/AppFooter';
-import Navheader from '../../components/Navheader';
 import AppHeader from '../../components/includes/AppHeader';
-import Profile from '../../components/Profile';
-import Myclass from '../../components/Myclass';
-import Subscribe from '../../components/Subscribe';
+import StudentSidebar from '../../components/includes/StudentSidebar';
+import BackButton from '../../components/navigation/BackButton';
+
 
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -13,9 +12,9 @@ import { AuthContext } from "../../lib/AuthContext.js"
 function Settings() {
     const baseUrl = process.env.REACT_APP_BASE_URL;
 
-    const  user = useContext(AuthContext).user;
-   
-   
+    const user = useContext(AuthContext).user;
+
+
     const [parentCode, setParentCode] = useState("");
     const [formData, setFormData] = useState({
         // Initialize with empty strings to handle the case when user is null
@@ -63,8 +62,8 @@ function Settings() {
     }
 
     const [parentData, setParentData] = useState(null);
-       // Call hooks at the top level
-       useEffect(() => {
+    // Call hooks at the top level
+    useEffect(() => {
         if (user) {
             // Update formData state when user is available
             setFormData({
@@ -99,8 +98,8 @@ function Settings() {
             });
         }
     }
-   
- 
+
+
 
     const handleUserInputChange = (e) => {
         e.preventDefault();
@@ -130,13 +129,13 @@ function Settings() {
         console.log(formData);
     };
 
- 
+
     if (!user) {
         // Handle the case when there is no user. You might want to redirect
         // to a login page or return null or some placeholder content.
         console.log("No user found. User might be logged out.");
         return <div>User is not logged in</div>;
-      }
+    }
     const userId = user.user.id;
     return (
         <>
@@ -148,6 +147,14 @@ function Settings() {
                     <div className="middle-sidebar-bottom theme-dark-bg bg-lightblue">
                         <div className="middle-sidebar-left">
                             <div className="row">
+                                <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
+                                    <div>
+                                        <h2 className="fw-400 font-lg d-block">  <b> Settings</b> </h2>
+                                    </div>
+                                    <div className="float-right">
+                                        <BackButton />
+                                    </div>
+                                </div>
                                 <ToastContainer autoClose={3000} />
                                 <div className="col-lg-6">
                                     <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
@@ -162,7 +169,7 @@ function Settings() {
                                                     <div className="col-lg-12">
                                                         <div className="form-group">
                                                             <label className="mont-font fw-600 font-xsss">Name</label>
-                                                            <input type="text" className="form-control" placeholder="Enter Name" 
+                                                            <input type="text" className="form-control" placeholder="Enter Name"
                                                                 name="name"
                                                                 value={formData.name}
                                                                 onChange={handleUserInputChange}
@@ -226,13 +233,7 @@ function Settings() {
                                 </div>
                             </div>
                         </div>
-                        <div className="middle-sidebar-right scroll-bar">
-                            <div className="middle-sidebar-right-content">
-                                <Profile />
-                                <Myclass />
-                                <Subscribe />
-                            </div>
-                        </div>
+                        <StudentSidebar />
                     </div>
                 </div>
 

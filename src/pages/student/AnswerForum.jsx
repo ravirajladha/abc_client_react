@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import Navheader from '../../components/Navheader';
 import AppHeader from '../../components/includes/AppHeader';
 import AppFooter from '../../components/includes/AppFooter';
-import Profile from '../../components/Profile';
-import Myclass from '../../components/Myclass';
-import Subscribe from '../../components/Subscribe';
+import StudentSidebar from '../../components/includes/StudentSidebar';
+import BackButton from '../../components/navigation/BackButton';
 
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -17,11 +15,11 @@ function AnswerForum() {
     const [answer, setAnswer] = useState("");
     const baseUrl = process.env.REACT_APP_BASE_URL;
     const [forum, setForum] = useState([]);
-    
-    const  user = useContext(AuthContext).user;
-  
 
-   
+    const user = useContext(AuthContext).user;
+
+
+
 
     const submitSchoolForum = (e) => {
         let inputobj = {
@@ -32,7 +30,7 @@ function AnswerForum() {
         e.preventDefault();
 
         if (validate()) {
-            fetch(baseUrl + "api/submitSchoolForumAnswer/"+ forumId, {
+            fetch(baseUrl + "api/submitSchoolForumAnswer/" + forumId, {
                 method: 'POST',
                 headers: {
                     "Content-type": "application/json",
@@ -63,18 +61,18 @@ function AnswerForum() {
 
     useEffect(() => {
         if (!user) {
-          console.log("No user found. User might be logged out.");
-          // Optionally redirect to login page here
+            console.log("No user found. User might be logged out.");
+            // Optionally redirect to login page here
         } else {
-          getForum(); // Call the function only if there is a user
+            getForum(); // Call the function only if there is a user
         }
-      }, [user, forumId]);
-      if (!user) {
+    }, [user, forumId]);
+    if (!user) {
         // Handle the case when there is no user. You might want to redirect
         // to a login page or return null or some placeholder content.
         console.log("No user found. User might be logged out.");
         return <div>User is not logged in</div>;
-      }
+    }
     const userId = user.user.id
 
     function getForum() {
@@ -95,8 +93,16 @@ function AnswerForum() {
 
                     <div className="middle-sidebar-bottom theme-dark-bg">
                         <div className="middle-sidebar-left">
-                            <h2 className="fw-400 font-lg d-block">AV <b> Forums</b> </h2>
-                            
+                            <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
+                                <div>
+                                    <h2 className="fw-400 font-lg d-block">
+                                        <b> Forums</b>
+                                    </h2>
+                                </div>
+                                <div className="float-right">
+                                  <BackButton />
+                                </div>
+                            </div>
                             <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
 
                                 <ToastContainer autoClose={3000} />
@@ -105,10 +111,10 @@ function AnswerForum() {
                                         <div className="row mb-6">
                                             <div className="col-lg-12">
                                                 <label className="mont-font fw-600 font-xsss">{forum && forum.forum_question ? (
-                                                        forum.forum_question.question
-                                                    ) : (
-                                                        ''
-                                                    )}</label><br />
+                                                    forum.forum_question.question
+                                                ) : (
+                                                    ''
+                                                )}</label><br />
                                                 <textarea rows="4" cols="70" className="form-control" placeholder="Enter Answer.."
                                                     required
                                                     value={answer ? answer : ""}
@@ -127,13 +133,7 @@ function AnswerForum() {
                                 </div>
                             </div>
                         </div>
-                        <div className="middle-sidebar-right scroll-bar">
-                            <div className="middle-sidebar-right-content">
-                                <Profile />
-                                <Myclass />
-                                <Subscribe />
-                            </div>
-                        </div>
+                        <StudentSidebar />
                     </div>
                 </div>
 

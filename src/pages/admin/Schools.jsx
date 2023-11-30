@@ -5,6 +5,7 @@ import AppFooter from '../../components/includes/AppFooter';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import BackButton from '../../components/navigation/BackButton';
 
 function Schools() {
     const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -111,9 +112,8 @@ function Schools() {
                                         <h2 className="fw-400 font-lg d-block">All <b> Schools</b> </h2>
                                     </div>
                                     <div className="float-right">
-                                        <Button onClick={handleShowModal} className="p-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current">Add School</Button>
-
-
+                                        <button onClick={handleShowModal} className="p-2 px-3 d-inline-block me-2 text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current">Add School</button>
+                                        <BackButton/>
                                     </div>
                                 </div>
                                 {

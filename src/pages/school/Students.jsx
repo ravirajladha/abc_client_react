@@ -10,6 +10,7 @@ import "datatables.net-buttons/js/buttons.html5";
 import "datatables.net-buttons/js/buttons.print";
 
 import { Link } from "react-router-dom";
+import BackButton from "../../components/navigation/BackButton";
 
 function Students() {
   const tableRef = useRef(null);
@@ -53,16 +54,17 @@ function Students() {
                 <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
                   <div>
                     <h2 className="fw-400 font-lg d-block">
-                      All <b> Students</b>{" "}
+                      All <b> Students</b>
                     </h2>
                   </div>
                   <div className="float-right">
                     <Link
                       to="/school/add_student_view"
-                      className="p-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current"
+                      className="p-2 d-inline-block me-2 text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current"
                     >
                       Add student
                     </Link>
+                    <BackButton/>
                   </div>
                 </div>
 
