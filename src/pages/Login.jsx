@@ -48,6 +48,7 @@ function Login() {
         console.log(user);
         // Your navigation logic based on user type
         if (user.user.type === 'admin') {
+        
           usenavigate('/admin');
         } else if (user.user.type === 'teacher') {
           usenavigate('/teacher');

@@ -4,7 +4,7 @@ import {
   clearLocalStorage,
   getUserFromLocalStorage,
 } from "../../pages/util/SessionStorage";
-import LogoutButton from "../../components/LogoutButton"
+import LogoutButton from "../../components/LogoutButton";
 
 function SchoolNav({ isSidebarOpen }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,26 +25,6 @@ function SchoolNav({ isSidebarOpen }) {
     if (loggedOut) {
       // After the logout state changes, navigate to the appropriate page
       navigate("/");
-
-      // if (userData && userData.user && userData.user.type === "admin") {
-      //   navigate("/admin");
-      // } else if (
-      //   userData &&
-      //   userData.user &&
-      //   userData.user.type === "teacher"
-      // ) {
-      //   navigate("/teacher");
-      // } else if (
-      //   userData &&
-      //   userData.user &&
-      //   userData.user.type === "sub_admin"
-      // ) {
-      //   navigate("/");
-      // } else if (userData && userData.user && userData.user.type === "parent") {
-      //   navigate("/");
-      // } else {
-      //   navigate("/");
-      // }
     }
   }, [loggedOut, navigate]);
 
@@ -81,7 +61,13 @@ function SchoolNav({ isSidebarOpen }) {
           <ul className="mb-3">
             <li className="logo d-none d-xl-block d-lg-block"></li>
             <li className="nav-item">
-              <NavLink className="navi-link" to="/school">
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? "navi-link active" : "navi-link"
+                }
+                end
+                to="/school"
+              >
                 <i className="feather-home mr-2"></i>
                 <span>Home</span>
               </NavLink>

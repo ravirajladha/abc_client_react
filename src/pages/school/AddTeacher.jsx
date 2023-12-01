@@ -99,7 +99,21 @@ function AddTeacher() {
       method: "POST",
       body: formDataToSend,
     })
-      .then((response) => response.json())
+    .then((response) => {
+      if (!response.ok) {
+          // If the response status code is not in the 2xx range
+          return response.json().then(data => {
+              if (response.status === 409) {
+                  // Duplicate email error
+                  throw new Error(data.error || 'Duplicate email found');
+              } else {
+                  // Other errors
+                  throw new Error(data.error || 'Failed to add teacher');
+              }
+          });
+      }
+      return response.json();
+  })
       .then((data) => {
         // Handle success
         console.log("Teacher added successfully", data);
@@ -121,6 +135,7 @@ function AddTeacher() {
       })
       .catch((error) => {
         console.error("Error adding teacher:", error);
+        toast.error(error.message); // Display the error m
       });
   };
 

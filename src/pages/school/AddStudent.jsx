@@ -8,10 +8,13 @@ import {
   Form,
   Row,
 } from "react-bootstrap";
+import { toast, ToastContainer } from "react-toastify";
+
 import AppHeader from '../../components/includes/AppHeader';
 import { useNavigate } from "react-router-dom";
 import { getUserFromLocalStorage } from '../../pages/util/SessionStorage';
-
+import { useContext } from 'react';
+import { AuthContext } from "../../lib/AuthContext.js"
 
 function AddStudent() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -19,10 +22,25 @@ function AddStudent() {
   const [schools, setSchools] = useState([]);
   const [classes, setClasses] = useState([]);
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const userString = localStorage.getItem("rexkod_user");
-  const user = JSON.parse(userString);
-  const schoolId = user.user.id;
-  console.log(schoolId);
+  const  user = useContext(AuthContext).user;
+
+ 
+ // Define the initial formData state with empty values or derived from user if available
+ const [formData, setFormData] = useState({
+  name: "",
+  school: user ? user.user.id : "", // Conditional property access with default
+  className: "",
+  section: "",
+});
+
+useEffect(() => {
+  getAllSchools();
+  getAllClasses();
+  // If formSubmitted is true, navigate to the teacher page
+  if (formSubmitted) {
+    navigate(`${process.env.PUBLIC_URL}/school/students`);
+  }
+}, [formSubmitted]); // React to formSubmitted changes
   const getAllSchools = async () => {
     try {
       const response = await fetch(baseUrl + "api/school/api_get_schools");
@@ -47,18 +65,6 @@ function AddStudent() {
       console.error("Error fetching classes:", error);
     }
   };
-
-  // Call the function to fetch schools
-  useEffect(() => {
-    getAllClasses();
-  }, []);
-
-  const [formData, setFormData] = useState({
-    name: "",
-    school: schoolId,
-    className: "",
-    section: "",
-  });
 
 
   const handleChange = (e) => {
@@ -92,7 +98,7 @@ function AddStudent() {
     .then((data) => {
       // Handle success
       setFormSubmitted(true);
-  
+      toast.success("Teacher added successfully!");
       // Clear form values after successful submission
       setFormData({
         name: "",
@@ -119,7 +125,11 @@ function AddStudent() {
       navigateToTeacherPage();
     }
   }, [formSubmitted]);
-
+  if (!user) {
+    console.log("No user found. User might be logged out.");
+    // Handle the redirect to login or return placeholder content here
+    return <div>User is not logged in</div>;
+}
   return (
     <div>
       <div className="main-wrapper">
@@ -131,14 +141,15 @@ function AddStudent() {
                 <div className="card-body p-4 w-100 border-0 d-flex rounded-lg justify-content-between">
                   <h2 className="fw-400 font-lg d-block">
                     Add <b> Student</b>
+                    <ToastContainer autoClose={3000} />
                   </h2>
                   <Breadcrumb style={{ padding: "0.25rem 1rem" }}>
-                    <Breadcrumb.Item href="#">
+                  <Breadcrumb.Item href="/school">
                       <i className="fa fa-home"></i>&nbsp;Home&nbsp;
                     </Breadcrumb.Item>
-                    <Breadcrumb.Item href="#">
+                    {/* <Breadcrumb.Item href="#">
                       Course&nbsp;<i className="fa fa-angle-right"></i>
-                    </Breadcrumb.Item>
+                    </Breadcrumb.Item> */}
                     <Breadcrumb.Item active className="fw-500 text-black">
                       &nbsp;Add Student
                     </Breadcrumb.Item>

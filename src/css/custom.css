@@ -161,3 +161,8 @@ opacity: 50%;
 75% {left: 30%; top: 93%;}
 100% {left: 3%; top: 3%;}
 }
+
+/* accordion in ebook module */
+.accordian-course .accordion-header {
+    padding: 0px 0px;
+  }

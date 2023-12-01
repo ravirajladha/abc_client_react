@@ -14,27 +14,35 @@ import { useContext } from 'react';
 import { AuthContext } from "../../lib/AuthContext.js"
 function Qna() {
     const baseUrl = process.env.REACT_APP_BASE_URL;
-
-    const user = useContext(AuthContext).user;
-    const classId = user.student.class_id;
-
-
-    useEffect(() => {
-        getSubjects();
-    }, [])
+    const { user } = useContext(AuthContext); // Destructure user directly from context
 
     const [subjects, setSubjects] = useState([]);
-    function getSubjects() {
-        let result = fetch(baseUrl + 'api/get_subjects/' + classId).then(function (result) {
-            result.json().then(function (jsonbody) {
-                // console.warn(jsonbody);
-                setSubjects(jsonbody);
-            })
-        });
-    }
-
     const [question, setQuestion] = useState("");
     const [subject, setSubject] = useState("");
+    const [allQnas, setAllQnas] = useState([]);
+    const [qnaValue, setQnaValue] = useState("");
+    const [qnaId, setQnaId] = useState("");
+  
+
+  
+
+
+    const getSubjects = () => {
+        if (user && user.student.class_id) {
+            fetch(`${baseUrl}api/get_subjects/${user.student.class_id}`)
+                .then((result) => result.json())
+                .then((jsonbody) => {
+                    setSubjects(jsonbody);
+                })
+                .catch((error) => {
+                    console.error('Error fetching subjects:', error);
+                });
+        }
+    };
+    useEffect(() => {
+        getSubjects();
+    }, [user]); // Depend on user
+
 
     const submitSchoolQna = (e) => {
         let inputobj = {
@@ -79,7 +87,7 @@ function Qna() {
         return result;
     }
 
-    const [allQnas, setAllQnas] = useState([]);
+  
     function search(name) {
         setQnaValue(name);
         if (name.trim() === "") {
@@ -95,8 +103,7 @@ function Qna() {
         }
     }
 
-    const [qnaValue, setQnaValue] = useState([]);
-    const [qnaId, setQnaId] = useState([]);
+
     function handleResultClick(selectedValue, selectedId) {
         setQnaValue(selectedValue);
         setQnaId(selectedId);

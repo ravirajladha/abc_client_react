@@ -3,18 +3,10 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { clearLocalStorage, getUserFromLocalStorage } from '../../pages/util/SessionStorage';
 import LogoutButton from "../../components/LogoutButton"
 
-
 function AdminNav() {
   const [isOpen, setIsOpen] = useState(false);
-
   const toggleOpen = () => setIsOpen(!isOpen);
-
   const navClass = `${isOpen ? ' nav-active' : ''}`;
-
-
-
-
-
 
   return (
     <nav className={`navigation scroll-bar menu-active ${navClass}`} style={{ zIndex: 999 }}>
@@ -39,9 +31,9 @@ function AdminNav() {
               <i className="ti-close bg-grey mb-4 btn-round-sm font-xssss fw-700 text-dark ml-auto mr-2 "></i>
             </span>
           </div>
-          <div className="nav-caption fw-600 font-xssss text-grey-500">
+          {/* <div className="nav-caption fw-600 font-xssss text-grey-500">
             <span></span>Home
-          </div>
+          </div> */}
           <ul className="mb-3">
             <li className="logo d-none d-xl-block d-lg-block"></li>
 
@@ -51,7 +43,8 @@ function AdminNav() {
                 <span>Home</span>
               </NavLink>
             </li>
-
+            <div className="nav-caption fw-600 font-xssss text-grey-500">
+            Home</div>
 
             <li className="nav-item">
               <NavLink className="navi-link" to="/all_classes">

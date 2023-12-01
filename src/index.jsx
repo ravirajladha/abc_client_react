@@ -68,36 +68,34 @@ import ViewAssessments from "./pages/admin/ViewAssessments";
 import ParentSubjects from "./pages/parent/ParentSubjects";
 import ParentAssessments from "./pages/parent/ParentAssessments";
 import ParentTests from "./pages/parent/ParentTests";
-
 import Students from "./pages/school/Students";
 import AddStudent from "./pages/school/AddStudent";
 import ViewStudent from "./pages/school/ViewStudent";
+import EditStudentProfile from "./pages/school/EditProfile";
+import EditSchoolProfile from "./pages/admin/AddSchool";
 import Teachers from "./pages/school/Teachers";
 import AddTeacher from "./pages/school/AddTeacher";
 import Editor1 from "./pages/e_lab/components/Editor1";
 import AuthProvider from "./lib/AuthContext.js";
+import Ebooks from "./pages/admin/Ebooks";
+import CreateEbook from "./pages/admin/CreateEbook";
+import EbookModules from "./pages/admin/EbookModules";
+import AddSections from "./pages/admin/AddSections";
+import AddElements from "./pages/admin/AddElements";
+import PreviewEbook from "./pages/admin/PreviewEbook";
+
 class Root extends Component {
   render() {
     return (
      
       <HashRouter basename={"/"}>
-         <AuthProvider>
+       <AuthProvider>
         <Routes>
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/register`}
-            element={<Register />}
-          />
 
-          <Route path="*" element={<Notfound />} />
-
-          {/* user */}
-
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/`}
-            element={<Login />}
-          />
+        <Route exact path={`${process.env.PUBLIC_URL}/register`} element={<Register />} />
+        <Route path="*" element={<Notfound />} />
+        <Route exact path={`${process.env.PUBLIC_URL}/`} element={<Login />} />
+      
 
           <Route
             exact
@@ -317,6 +315,68 @@ class Root extends Component {
               />
             }
           />
+{/* ebook start */}
+<Route
+            exact
+            path={`${process.env.PUBLIC_URL}/ebooks`}
+            element={
+              <ProtectedRoute
+                element={<Ebooks />}
+                allowedTypes={["admin"]}
+              />
+            }
+          />
+          <Route
+            exact
+            path={`${process.env.PUBLIC_URL}/ebooks/create_ebook`}
+            element={
+              <ProtectedRoute
+                element={<CreateEbook />}
+                allowedTypes={["admin"]}
+              />
+            }
+          />
+          <Route
+            exact
+            path={`${process.env.PUBLIC_URL}/ebooks/ebook_modules/:ebook_id`}
+            element={
+              <ProtectedRoute
+                element={<EbookModules />}
+                allowedTypes={["admin"]}
+              />
+            }
+          />
+          <Route
+            exact
+            path={`${process.env.PUBLIC_URL}/ebooks/add_sections/:module_id`}
+            element={
+              <ProtectedRoute
+                element={<AddSections />}
+                allowedTypes={["admin"]}
+              />
+            }
+          />
+          <Route
+            exact
+            path={`${process.env.PUBLIC_URL}/ebooks/add_elements/:section_id`}
+            element={
+              <ProtectedRoute
+                element={<AddElements />}
+                allowedTypes={["admin"]}
+              />
+            }
+          />
+          <Route
+            exact
+            path={`${process.env.PUBLIC_URL}/ebooks/preview_ebook/:ebook_id`}
+            element={
+              <ProtectedRoute
+                element={<PreviewEbook />}
+                allowedTypes={["admin"]}
+              />
+            }
+          />
+          {/* ebook end */}
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/admin`}
@@ -716,6 +776,28 @@ class Root extends Component {
               />
             }
           />
+          <Route
+            exact
+            path={`${process.env.PUBLIC_URL}/school/edit-student-profile`}
+            element={
+              <ProtectedRoute
+                element={<EditStudentProfile />}
+                allowedTypes={["sub_admin"]}
+              />
+            }
+          />
+          
+          <Route
+            exact
+            path={`${process.env.PUBLIC_URL}/edit-school-profile`}
+            element={
+              <ProtectedRoute
+                element={<EditSchoolProfile />}
+                allowedTypes={["admin"]}
+              />
+            }
+          />
+          
 
           <Route
             exact
@@ -735,8 +817,9 @@ class Root extends Component {
               />
             }
           />
+    
         </Routes>
-      </AuthProvider>
+        </AuthProvider>
       </HashRouter>
 
     );

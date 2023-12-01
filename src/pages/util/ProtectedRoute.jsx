@@ -11,17 +11,14 @@ const ProtectedRoute = ({ element, allowedTypes }) => {
   console.log(`User Data: ${JSON.stringify(userData)}`); // Add logging to check the userData structure
   console.log(`Allowed Types: ${allowedTypes}`);
    // User is signed in but does not have permission to view this route
-   if (userData && !allowedTypes.includes(userType)) {
-    console.log(`User Type: ${userType} is not allowed`);
-
+   if (!userData) {
+    return <Navigate to="/" replace />;
+  } else if (!allowedTypes.includes(userType)) {
     return <NotFound />;
   }
 
-  if (allowedTypes.includes(userType)) {
-    return element;
-  } else {
-    return <Navigate to="/" />;
-  }
+ // If the user type is allowed, render the protected component
+ return element;
 };
 
 export default ProtectedRoute;

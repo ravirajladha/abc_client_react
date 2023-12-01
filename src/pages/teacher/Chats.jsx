@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useRef } from 'react';
 import AppHeader from '../../components/includes/AppHeader';
 import AppFooter from '../../components/includes/AppFooter';
 import Dropdown from '../../components/inputs/Dropdown';
@@ -11,6 +11,8 @@ import { useContext } from 'react';
 import { AuthContext } from "../../lib/AuthContext.js"
 import BackButton from '../../components/navigation/BackButton.jsx';
 function Chats() {
+  const  chatInputRef = useRef(null);
+
     const myStyles = {
         marginBottom: '90px',
         height: 'calc(100vh - 240px)',
@@ -96,6 +98,8 @@ function Chats() {
 
         // Clear the message input after submission
         setMessageInput('');
+      chatInputRef.current.focus();
+
     };
 
     if (!user) {
@@ -212,9 +216,12 @@ function Chats() {
                                             <div className="form-group"><input
                                                 name="message"
                                                 type="text"
+                                ref={chatInputRef}
                                                 placeholder="Start typing.."
+                                                
                                                 value={messageInput}
                                                 onChange={handleInputChange}
+                                                
                                             /></div>
                                             <button type="submit" className="bg-current"><i className="ti-arrow-right text-white"></i></button>
                                         </form>

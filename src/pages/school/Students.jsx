@@ -97,7 +97,7 @@ function Students() {
                               to="/school/view_student"
                               className="p-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current"
                             >
-                              View
+                              Edit
                             </Link>
                           </td>
                         </tr>
