@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import AppFooter from '../../components/includes/AppFooter';
-import Navheader from '../../components/Navheader';
 import AppHeader from '../../components/includes/AppHeader';
 import StudentSidebar from '../../components/includes/StudentSidebar';
 
 
 import { useParams, useNavigate } from 'react-router-dom';
-import { getUserFromLocalStorage } from '../util/SessionStorage';
-import { toast, ToastContainer } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useContext } from 'react';
 import { AuthContext } from "../../lib/AuthContext.js"

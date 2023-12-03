@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import Darkbutton from '../Darkbutton';
+import Darkbutton from '../common/DarkButton.jsx';
 
-import AdminNav from "../navigation/AdminNav";
-import SchoolNav from "../navigation/SchoolNav";
-import ParentNav from "../navigation/ParentNav";
-import StudentNav from "../navigation/StudentNav";
-import TeacherNav from "../navigation/TeacherNav";
+import AdminNav from "./nav-sidebar-components/AdminNav.jsx";
+import SchoolNav from "./nav-sidebar-components/SchoolNav.jsx";
+import ParentNav from "./nav-sidebar-components/ParentNav.jsx";
+import StudentNav from "./nav-sidebar-components/StudentNav.jsx";
+import TeacherNav from "./nav-sidebar-components/TeacherNav.jsx";
 
 
 import { useContext } from 'react';
@@ -43,6 +43,18 @@ function AppHeader() {
     default: <StudentNav />,
   };
 
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const toggleDropdownMenu = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleLogout = () => {
+    // Implement your logout logic here
+    navigate('/login');
+  };
+
   // Use user from context
   const sidebar = sidebarComponents[user?.user?.type] || sidebarComponents.default;
 
@@ -74,7 +86,7 @@ function AppHeader() {
       </div>
 
       <button onClick={handleSidebarToggle} className="header-menu"></button>
-      <form action="#" className="float-left header-search">
+      {/* <form action="#" className="float-left header-search">
         <div className="form-group mb-0 icon-input">
           <i className="feather-search font-lg text-grey-400"></i>
           <input
@@ -83,90 +95,43 @@ function AppHeader() {
             className="bg-transparent border-0 lh-32 pt-2 pb-2 pl-5 pr-3 font-xsss fw-500 rounded-xl w350"
           />
         </div>
-      </form>
+      </form> */}
+       
       <ul className="d-flex ml-auto right-menu-icon">
+      <Darkbutton />
         <li>
           <Link to="#">
             <span className="dot-count bg-warning"></span>
-            <i className="feather-bell font-xl text-current"></i>
-            <div className="menu-dropdown">
-              <h4 className="fw-700 font-xs mb-4">Notification</h4>
-              <div className="card bg-transparent-card w-100 border-0 pl-5 mb-3">
-                <img
-                  src="assets/images/user-8.png"
-                  alt="user"
-                  className="w40 position-absolute left-0"
-                />
-                <h5 className="font-xsss text-grey-900 mb-1 mt-0 fw-700 d-block">
-                  Hendrix Stamp
-                  <span className="text-grey-400 font-xsssss fw-600 float-right mt-1">
-                    3 min
-                  </span>
-                </h5>
-                <h6 className="text-grey-500 fw-500 font-xssss lh-4">
-                  There are many variations of pass..s
-                </h6>
-              </div>
-              <div className="card bg-transparent-card w-100 border-0 pl-5 mb-3">
-                <img
-                  src="assets/images/user-4.png"
-                  alt="user"
-                  className="w40 position-absolute left-0"
-                />
-                <h5 className="font-xsss text-grey-900 mb-1 mt-0 fw-700 d-block">
-                  Goria Coast
-                  <span className="text-grey-400 font-xsssss fw-600 float-right mt-1">
-                    2 min
-                  </span>
-                </h5>
-                <h6 className="text-grey-500 fw-500 font-xssss lh-4">
-                  Mobile Apps UI Designer is require..
-                </h6>
-              </div>
+            <img
+              src="/assets/images/user.png"
+              alt="user"
+              className="w40 mt--1 rounded-circle"
+            />
+            <div className="menu-dropdown" style={{ width: '170px' }}>
+              {/* <h4 className="fw-700 font-xs mb-4">Notification</h4> */}
+              <li className='font-xsss text-grey-900 mb-1 mt-0 ml-0 fw-700 d-block'>
+              <i className="feather-settings text-grey-900 font-lg mr-2"></i>
+              <Link to="/settings" onClick={() => setIsDropdownOpen(false)}>
+                Settings
+              </Link>
+            </li>
+            <li className='font-xsss text-grey-900 mb-1 mt-0 fw-700 ml-0 d-block'>
+            <i className="feather-user text-grey-900 font-lg mr-2"></i>
+              <Link to="/default-user-profile" onClick={() => setIsDropdownOpen(false)}>
+                Profile
+              </Link>
+            </li>
+           
 
-              <div className="card bg-transparent-card w-100 border-0 pl-5 mb-3">
-                <img
-                  src="assets/images/user-7.png"
-                  alt="user"
-                  className="w40 position-absolute left-0"
-                />
-                <h5 className="font-xsss text-grey-900 mb-1 mt-0 fw-700 d-block">
-                  Surfiya Zakir
-                  <span className="text-grey-400 font-xsssss fw-600 float-right mt-1">
-                    1 min
-                  </span>
-                </h5>
-                <h6 className="text-grey-500 fw-500 font-xssss lh-4">
-                  Mobile Apps UI Designer is require..
-                </h6>
-              </div>
-              <div className="card bg-transparent-card w-100 border-0 pl-5">
-                <img
-                  src="assets/images/user-6.png"
-                  alt="user"
-                  className="w40 position-absolute left-0"
-                />
-                <h5 className="font-xsss text-grey-900 mb-1 mt-0 fw-700 d-block">
-                  Victor Exrixon
-                  <span className="text-grey-400 font-xsssss fw-600 float-right mt-1">
-                    30 sec
-                  </span>
-                </h5>
-                <h6 className="text-grey-500 fw-500 font-xssss lh-4">
-                  Mobile Apps UI Designer is require..
-                </h6>
-              </div>
+          
+            
             </div>
           </Link>
         </li>
-        <Darkbutton />
+      
 
-        <li>
-          <Link to="#">
-            <i className="feather-message-square font-xl text-current"></i>
-          </Link>
-        </li>
-        <li>
+     
+        {/* <li>
           <Link to="/default-user-profile">
             <img
               src="/assets/images/user.png"
@@ -174,13 +139,18 @@ function AppHeader() {
               className="w40 mt--1 rounded-circle"
             />
           </Link>
-        </li>
+        </li> */}
+
+        
         <li>
           <span onClick={toggleActive} className="menu-search-icon">
             <i className="feather-search text-grey-900 font-lg"></i>
           </span>
         </li>
       </ul>
+
+    
+    
 
       {sidebar}
     </div>

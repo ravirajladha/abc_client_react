@@ -6,16 +6,16 @@ import "./App.css";
 import "./main.scss";
 
 // Common Layout
-import Login from "./pages/Login";
-import Register from "./pages/parent/Register";
-import Notfound from "./pages/Notfound";
-import Defaultuserprofile from "./pages/Defaultuserprofile";
+import Login from "./pages/common/Login.jsx";
+import Register from "./pages/common/Register.jsx";
+import Notfound from "./pages/common/Notfound.jsx";
+import Defaultuserprofile from "./pages/common/DefaultUserProfile.jsx";
 import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
 import Home from "./pages/student/Home";
 import Subjects from "./pages/student/Subjects";
 import Qna from "./pages/student/Qna";
-import Forums from "./pages/student/Forums";
+import Forums from "./components/common/Forums.jsx";
 import ViewForum from "./pages/student/ViewForum";
 import ViewQna from "./pages/student/ViewQna";
 import AnswerForum from "./pages/student/AnswerForum";
@@ -77,12 +77,12 @@ import Teachers from "./pages/school/Teachers";
 import AddTeacher from "./pages/school/AddTeacher";
 import Editor1 from "./pages/e_lab/components/Editor1";
 import AuthProvider from "./lib/AuthContext.js";
-import Ebooks from "./pages/admin/Ebooks";
-import CreateEbook from "./pages/admin/CreateEbook";
-import EbookModules from "./pages/admin/EbookModules";
+import Ebooks from "./pages/admin/ebook/Ebooks.jsx";
+import CreateEbook from "./pages/admin/ebook/CreateEbook.jsx";
+import EbookModules from "./pages/common/EbookModules.jsx";
 import AddSections from "./pages/admin/AddSections";
-import AddElements from "./pages/admin/AddElements";
-import PreviewEbook from "./pages/admin/PreviewEbook";
+import AddElements from "./pages/admin/ebook/AddElements.jsx";
+import PreviewEbook from "./pages/admin/ebook/PreviewEbook.jsx";
 
 class Root extends Component {
   render() {

@@ -18,6 +18,7 @@ export const AuthProvider = ({ children }) => {
     console.log('AuthProvider mounted or user state changed:', user);
   }, [user]);
 
+  
   const logout = useCallback(() => {
     clearLocalStorage();
     setUser(null); // This will trigger the useEffect below due to the state update
@@ -32,14 +33,27 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const publicPaths = ['/register', '/notfound']; // List your public paths here
+    const homePaths = {
+      school_student: '/home',
+      admin: '/admin',
+      teacher: '/teacher',
+      sub_admin: '/school',
+      parent: '/parent',
+     
+      // ... other user types
+    };
+
+    const redirectTo = user ? (homePaths[user.user.type] || '/') : '/';
+    
+    const publicPaths = ['/register', '/notfound', '/'];
     const pathIsPublic = publicPaths.includes(location.pathname);
-    if (user === null && !pathIsPublic) {
-      console.log('Redirecting to login because user is null and path is not public');
+    
+    if (user && pathIsPublic) {
+      navigate(redirectTo); // Redirect logged-in users to their home page
+    } else if (!user && !pathIsPublic) {
       navigate('/'); // Redirect to login if there's no user and the path isn't public
     }
   }, [user, navigate, location.pathname]);
-
   // Providing the user and logout function in the context value
   return (
     <AuthContext.Provider value={{ user, setUser: handleSetUser, logout }}>

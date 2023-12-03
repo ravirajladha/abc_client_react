@@ -1,24 +1,42 @@
 // ProtectedRoute.js
 
 import React from 'react';
-import {  Navigate } from 'react-router-dom';
+import {  Navigate ,useLocation } from 'react-router-dom';
 import { getUserFromLocalStorage } from './SessionStorage';
-import NotFound from "../Notfound";
+import NotFound from "../common/Notfound";
 
 const ProtectedRoute = ({ element, allowedTypes }) => {
   const userData = getUserFromLocalStorage();
   const userType = userData?.user?.type;
+  const location = useLocation();
+
+  // Define the home paths for different user types
+  const homePaths = {
+   
+    teacher: '/teacher',
+    sub_admin: '/school',
+    parent: '/parent',
+    school_student: '/home',
+    admin: '/admin',// Assuming 'school_student' is already defined
+    // Add any other user types and their home paths here
+  };
   console.log(`User Data: ${JSON.stringify(userData)}`); // Add logging to check the userData structure
   console.log(`Allowed Types: ${allowedTypes}`);
-   // User is signed in but does not have permission to view this route
-   if (!userData) {
-    return <Navigate to="/" replace />;
-  } else if (!allowedTypes.includes(userType)) {
-    return <NotFound />;
-  }
+    // Get the redirect path from the homePaths based on the userType or default to '/home'
+    const redirectPath = homePaths[userType];
 
- // If the user type is allowed, render the protected component
- return element;
-};
+    if (!userData) {
+      return <Navigate to="/" replace />;
+    } else if (allowedTypes && !allowedTypes.includes(userType)) {
+      return <NotFound />;
+    } else if (location.pathname === '/' || location.pathname === '/register') {
+      // Redirect to the appropriate home page based on userType
+      return <Navigate to={redirectPath} replace />;
+    }
+  
+    return element; // User is signed in and has permission
+  };
+
+
 
 export default ProtectedRoute;

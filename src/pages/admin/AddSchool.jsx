@@ -1,25 +1,25 @@
 import React, { useState } from "react";
 import Appheader from "../../components/includes/AppHeader";
 
-import SchoolDetailsForm from "../../components/school_profile/SchoolDetailsForm";
-import AdmissionFees from "../../components/school_profile/AdmissionFees";
-import AdmissionProcedure from "../../components/school_profile/AdmissionProcedure";
-import Scholastic from "../../components/school_profile/Scholastic";
-import CoScholastic from "../../components/school_profile/CoScholastic";
-import Achievements from "../../components/school_profile/Achievements";
-import Facilities from "../../components/school_profile/Facilities";
-import ExtraCurricular from "../../components/school_profile/ExtraCurricular";
-import Academics from "../../components/school_profile/Academics";
-import Faculty from "../../components/school_profile/Faculty";
-import Reviews from "../../components/school_profile/Reviews";
-import Gallery from "../../components/school_profile/Gallery";
-import FAQ from "../../components/school_profile/FAQ";
-import SchoolDocuments from "../../components/school_profile/SchoolDocuments";
-import AuthorizedSignatoryInfo from "../../components/school_profile/AuthorizedSignatoryInfo";
-import AuthorizedSignatoryDocs from "../../components/school_profile/AuthorizedSignatoryDocs";
-import BankDetails from "../../components/school_profile/BankDetails";
-import BillingDetails from "../../components/school_profile/BillingDetails";
-import Sidebar from "../../components/school_profile/Sidebar";
+import SchoolDetailsForm from "./school-edit-profile-components/SchoolDetailsForm";
+import AdmissionFees from "./school-edit-profile-components/AdmissionFees";
+import AdmissionProcedure from "./school-edit-profile-components/AdmissionProcedure";
+import Scholastic from "./school-edit-profile-components/Scholastic";
+import CoScholastic from "./school-edit-profile-components/CoScholastic";
+import Achievements from "./school-edit-profile-components/Achievements";
+import Facilities from "./school-edit-profile-components/Facilities";
+import ExtraCurricular from "./school-edit-profile-components/ExtraCurricular";
+import Academics from "./school-edit-profile-components/Academics";
+import Faculty from "./school-edit-profile-components/Faculty";
+import Reviews from "./school-edit-profile-components/Reviews";
+import Gallery from "./school-edit-profile-components/Gallery";
+import FAQ from "./school-edit-profile-components/FAQ";
+import SchoolDocuments from "./school-edit-profile-components/SchoolDocuments";
+import AuthorizedSignatoryInfo from "./school-edit-profile-components/AuthorizedSignatoryInfo";
+import AuthorizedSignatoryDocs from "./school-edit-profile-components/AuthorizedSignatoryDocs";
+import BankDetails from "./school-edit-profile-components/BankDetails";
+import BillingDetails from "./school-edit-profile-components/BillingDetails";
+import Sidebar from "./school-edit-profile-components/Sidebar";
 
 function AddSchool() {
   const [currentStep, setCurrentStep] = useState(0);

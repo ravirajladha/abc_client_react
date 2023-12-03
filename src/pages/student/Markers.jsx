@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import AppFooter from '../../components/includes/AppFooter';
-import Navheader from '../../components/Navheader';
 import AppHeader from '../../components/includes/AppHeader';
 import StudentSidebar from '../../components/includes/StudentSidebar';
 
@@ -133,7 +132,7 @@ function Markers() {
         <>
 
             <div className="main-wrapper">
-                <Navheader />
+           
 
                 <div className="main-content menu-active">
                     <AppHeader />

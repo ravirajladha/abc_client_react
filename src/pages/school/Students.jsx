@@ -94,7 +94,7 @@ function Students() {
                           <td>{student.section_id === 1 ? "A" : "B"}</td>
                           <td className="text-dark">
                             <Link
-                              to="/school/view_student"
+                              to="/school/edit-student-profile"
                               className="p-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current"
                             >
                               Edit

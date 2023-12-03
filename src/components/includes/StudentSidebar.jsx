@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
-import Profile from '../Profile';
-import Myclass from '../Myclass';
+import Profile from '../common/Profile';
+import Myclass from '../common/MyClass';
 
 const StudentSidebar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);

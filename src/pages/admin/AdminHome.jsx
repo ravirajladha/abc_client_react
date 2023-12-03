@@ -6,83 +6,84 @@ import Dropdown from '../../components/inputs/Dropdown';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getUserFromLocalStorage } from '../../pages/util/SessionStorage';
+import { Link } from 'react-router-dom';
 
 import Chart from 'react-apexcharts';
 import { useContext } from 'react';
 import { AuthContext } from "../../lib/AuthContext.js"
 const iconlList = [
   {
-    name: '325.2k',
-    count: 'Order complete',
+    name: '325',
+    count: 'Courses complete',
     status: 'warning',
     icon: 'feather-hard-drive',
-    des: '20% Incrase from Last Week',
+    des: '20% Increase from Last Week',
   },
   {
-    name: '43.4k',
+    name: '43',
     count: 'Active Courses',
     status: 'success',
     icon: 'feather-box',
-    des: '20% Incrase from Last Week',
+    des: '20% Increase from Last Week',
   },
   {
-    name: '54M',
-    count: 'Active Customers',
+    name: '5444',
+    count: 'Enrolled Students',
     status: 'info',
     icon: 'feather-award',
-    des: '20% Incrase from Last Week',
+    des: '20% Increase from Last Week',
   },
   {
     name: '354',
-    count: 'Calories gain',
+    count: 'Activity Points',
     status: 'secondary',
     icon: 'feather-flag',
-    des: '20% Incrase from Last Week',
+    des: '20% Increase from Last Week',
   },
 ];
 
 const orderlList = [
   {
     id: '0901',
-    name: 'Marvin McKinney',
-    email: 'marvin@example.com',
-    total: '$9.00',
+    name: 'Student1',
+    email: 'student1@example.com',
+    score: '545',
     color: 'warning',
     status: 'Pending',
     date: '03.12.2020',
   },
   {
     id: '2323',
-    name: 'Leslie Alexander',
-    email: 'leslie@example.com',
-    total: '$46.61',
+    name: 'Student2',
+    email: 'student2@example.com',
+    score: '545',
     color: 'warning',
     status: 'Pending',
     date: '21.02.2020',
   },
   {
     id: '1233',
-    name: 'Esther Howard',
-    email: 'esther@example.com',
-    total: '$12.00',
+    name: 'Student3',
+    email: 'student3@example.com',
+    score: '545',
     color: 'danger',
     status: 'Canceled',
     date: '03.07.2020',
   },
   {
     id: '1233',
-    name: 'Esther Howard',
-    email: 'esther@example.com',
-    total: '$12.00',
+    name: 'Student4',
+    email: 'student4@example.com',
+    score: '545',
     color: 'danger',
     status: 'Canceled',
     date: '03.07.2020',
   },
   {
     id: '2323',
-    name: 'Jenny Wilson',
-    email: 'jenny@example.com',
-    total: '$589.99',
+    name: 'Student5',
+    email: 'student5@example.com',
+    score: '545',
     color: 'success',
     status: 'Received',
     date: '22.05.2020',
@@ -225,10 +226,10 @@ function AdminHome() {
                       <option>Sort by latest</option>
                       <option defaultValue="1">Sort by popularity</option>
                       <option defaultValue="2">
-                        Sort by price : low to high
+                        Sort by score : low to high
                       </option>
                       <option defaultValue="3">
-                        Sort by price : high to low
+                        Sort by score : high to low
                       </option>
                     </select>
                   </div>
@@ -262,15 +263,15 @@ function AdminHome() {
                     <div className="card border-0 p-4 mt-2 rounded-10">
                       <div className="card-body d-flex">
                         <h4 className="font-xss text-grey-800 mb-4 mt-3 fw-700">
-                          Sales Statistics
+                          Student Statistics
                         </h4>
                         <h5 className="ml-auto mr-3 mt-2 text-grey-600 font-xssss fw-700">
                           <span className="btn-round-xss bg-warning mr-1"></span>
-                          Sale
+                          New Enrollments
                         </h5>
                         <h5 className="mt-2 text-grey-600 font-xssss fw-700">
                           <span className="btn-round-xss bg-success mr-1"></span>
-                          Earn
+                          Courses Completed
                         </h5>
                       </div>
                       <Chart
@@ -289,7 +290,7 @@ function AdminHome() {
                     <div className="card border-0 mt-2 rounded-10">
                       <div className="card-body d-flex px-4 pt-4 pb-0">
                         <h4 className="font-xss text-grey-800 mt-3 fw-700">
-                          Order List
+                          Score Details
                         </h4>
                         <select
                           className="form-select ml-auto float-right border-0 font-xssss fw-600 text-grey-700 bg-transparent"
@@ -298,10 +299,10 @@ function AdminHome() {
                           <option>Sort by latest</option>
                           <option defaultValue="1">Sort by popularity</option>
                           <option defaultValue="2">
-                            Sort by price : low to high
+                            Sort by score : low to high
                           </option>
                           <option defaultValue="3">
-                            Sort by price : high to low
+                            Sort by score : high to low
                           </option>
                         </select>
                       </div>
@@ -318,7 +319,7 @@ function AdminHome() {
                                   Email
                                 </th>
                                 <th className="border-0" scope="col">
-                                  Total
+                                  Score
                                 </th>
                                 <th className="border-0" scope="col">
                                   Status
@@ -339,7 +340,7 @@ function AdminHome() {
                                     <b>{value.name}</b>
                                   </td>
                                   <td>{value.email}</td>
-                                  <td>{value.total}</td>
+                                  <td>{value.score}</td>
                                   <td>
                                     <span
                                       className={`badge rounded-pill font-xsssss fw-700 pl-3 pr-3 lh-24 text-uppercase rounded-3 ls-2 alert-${value.color}`}
@@ -352,9 +353,9 @@ function AdminHome() {
                                     <a href="/admin">
                                       <i className="feather-edit me-1 font-xs text-grey-500"></i>
                                     </a>
-                                    <a href="/admin">
+                                    <Link to="/">
                                       <i className="ti-trash  font-xs text-danger ml-3"></i>
-                                    </a>
+                                    </Link>
                                   </td>
                                 </tr>
                               ))}
@@ -375,11 +376,11 @@ function AdminHome() {
                         </h4>
                         <h5 className="ml-auto mr-3 mt-2 text-grey-600 font-xssss fw-700">
                           <span className="btn-round-xss bg-warning mr-1"></span>
-                          Sale
+                          New Enrollments
                         </h5>
                         <h5 className="mt-2 text-grey-600 font-xssss fw-700">
                           <span className="btn-round-xss bg-success mr-1"></span>
-                          Earn
+                          Courses Completed
                         </h5>
                       </div>
                       <Chart
@@ -390,7 +391,7 @@ function AdminHome() {
                       <div className="row mt-2">
                         <div className="col-6 mb-1 text-center">
                           <h2 className="font-md mb-1 text-grey-900 fw-700 ls-lg">
-                            44.2k
+                          454
                           </h2>
                           <h4 className="text-grey-500 d-flex justify-content-center fw-600 ls-lg font-xsssss text-uppercase">
                             <span className="mr-2 bg-facebook btn-round-xss d-inline-block mt-0 me-2 rounded-circle"></span>
@@ -414,19 +415,18 @@ function AdminHome() {
                       <div className="row">
                         <div className="col-lg-6 col-md-6 col-sm-6 p-5">
                           <h2 className="text-grey-900 fw-700 ls-0 font-xxl lh-3 m-0 pt-3">
-                            Online Course and LMS React Template
+                            Learning Management System
                           </h2>
                           <p className="text-grey-500 font-xssss mt-2 fw-500">
                             Vivamus adipiscing nisl ut dolor dignissim semper.
                             Nulla luctus malesuada tincidunt luctus malesuada
                             tincidunt.
                           </p>
-                          <a
-                            href="/admin"
+                          <Link to="/admin"
                             className="bg-success text-white rounded-xl btn-cart w125 d-inline-block text-center font-xsssss p-3 fw-700 ls-3"
                           >
                             ANALYTICS
-                          </a>
+                          </Link>
                         </div>
                         <div className="col-lg-6 col-md-6 col-sm-6 p-4">
                           <img
