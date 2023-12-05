@@ -66,6 +66,7 @@ function AddSchool() {
         return <SchoolDetailsForm />;
     }
   };
+  // comment testing by ashutosh
   return (
     <>
       <div className="main-wrapper">
