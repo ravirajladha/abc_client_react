@@ -8,18 +8,10 @@ import { useContext } from 'react';
 import { AuthContext } from "../../../lib/AuthContext.js"
 import LogoutButton from "../../common/LogoutButton.jsx"
 function StudentNav() {
+
   const [isOpen, setIsOpen] = useState(false);
   const toggleOpen = () => setIsOpen(!isOpen);
   const navClass = `${isOpen ? " nav-active" : ""}`;
-  // const navigate = useNavigate();
-  // const { logout } = useContext(AuthContext); // Get logout from AuthContext
-
-  // When the logout button is pressed, call the logout function with navigate
-  // const handleLogout = () => {
-  //   console.log('Logout button clicked');
-  //   logout(navigate);
-  // };
-
 
   return (
     <nav
@@ -55,7 +47,7 @@ function StudentNav() {
             <li className="logo d-none d-xl-block d-lg-block"></li>
             <li>
               <NavLink
-                activeClassName="active"
+                activeclassname="active"
                 to="/home"
                 className="nav-content-bttn open-font"
                 data-tab="chats"
@@ -69,7 +61,7 @@ function StudentNav() {
             </div>
             <li>
               <NavLink
-                activeClassName="active"
+                activeclassname="active"
                 to="/subjects"
                 className=" nav-content-bttn open-font"
                 data-tab="friends"
@@ -83,7 +75,7 @@ function StudentNav() {
             </div>
             <li>
               <NavLink
-                activeClassName="active"
+                activeclassname="active"
                 to="/school_qna"
                 className="nav-content-bttn open-font"
                 data-tab="favorites"
@@ -97,7 +89,7 @@ function StudentNav() {
             </div>
             <li>
               <NavLink
-                activeClassName="active"
+                activeclassname="active"
                 to="/school_forums"
                 className="nav-content-bttn open-font"
                 data-tab="favorites"
@@ -111,7 +103,7 @@ function StudentNav() {
             </div>
             <li>
               <NavLink
-                activeClassName="active"
+                activeclassname="active"
                 to="/video_features"
                 className="nav-content-bttn open-font"
                 data-tab="favorites"

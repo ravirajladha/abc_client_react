@@ -20,7 +20,7 @@ function AllSubjects() {
   };
   const [subjects, setSubjects] = useState([]);
   function getSubjects(class_id) {
-    let result = fetch(baseUrl + "api/get_subjects/" + class_id).then(function (
+    let result = fetch(baseUrl + "api/admin/get_subjects/" + class_id).then(function (
       result
     ) {
       result.json().then(function (jsonbody) {
@@ -96,6 +96,12 @@ function AllSubjects() {
                             className="p-2 mt-4 ml-5 d-inline-block text-white fw-700 lh-30 rounded-lg w100 text-center font-xsssss ls-3 bg-current"
                           >
                             Chapters
+                          </Link>
+                          <Link
+                            to={`/results/${subject.id}`}
+                            className="p-2 mt-4 ml-5 d-inline-block text-white fw-700 lh-30 rounded-lg w100 text-center font-xsssss ls-3 bg-current"
+                          >
+                            Results
                           </Link>
                         </div>
                       </div>

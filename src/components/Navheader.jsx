@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import {clearLocalStorage, getUserFromLocalStorage} from '../../pages/util/SessionStorage';
+import {clearLocalStorage, getUserFromLocalStorage} from '../pages/util/SessionStorage';
 
 
-  function AppSidebar() {
+  function Navheader() {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleOpen = () => setIsOpen(!isOpen);
@@ -149,4 +149,4 @@ import {clearLocalStorage, getUserFromLocalStorage} from '../../pages/util/Sessi
   }
 
 
-export default AppSidebar;
+export default Navheader;

@@ -11,16 +11,16 @@ import "datatables.net-buttons/js/dataTables.buttons";
 import "datatables.net-buttons/js/buttons.html5";
 import "datatables.net-buttons/js/buttons.print";
 
-function TestResult() {
+function SubjectResult() {
     const baseUrl = process.env.REACT_APP_BASE_URL;
     const tableRef = useRef(null);
 
     const [results, setResults] = useState([]);
-    const { testId } = useParams();
+    const { subjectId } = useParams();
     const getTestResults = (e) => {
-        let result = fetch(baseUrl + 'api/get_test_results/' + testId).then(function (result) {
+        console.log(subjectId);
+        fetch(baseUrl + 'api/get-subject-results/' + subjectId).then(function (result) {
             result.json().then(function (jsonbody) {
-                console.warn(jsonbody);
                 setResults(jsonbody);
                 $(tableRef.current).DataTable();
             })
@@ -44,7 +44,7 @@ function TestResult() {
                             <div className="row">
                                 <div className="card-body p-lg-5 px-4 w-100 border-0 d-flex rounded-lg justify-content-between">
                                     <div className="">
-                                    <h2 className="fw-400 font-lg d-block ml-2">Test <b> Results</b> </h2>
+                                    <h2 className="fw-400 font-lg d-block ml-2">Subject <b> Results</b> </h2>
                                     </div>
                                     <div className="float-right">
                                         <BackButton/>
@@ -54,7 +54,7 @@ function TestResult() {
                                 <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
                                     <div className="card-body p-lg-5 px-4 w-100 border-0 ">
                                         <div className="table-responsive">
-                                            <table ref={tableRef} className="table table-admin mb-0">
+                                            <table ref={tableRef} className="table mb-0">
                                                 <thead className="bg-greylight rounded-10 ovh">
                                                     <tr>
                                                         <th className="border-0">Sl no.</th>
@@ -107,4 +107,4 @@ function TestResult() {
     )
 }
 
-export default TestResult
+export default SubjectResult

@@ -30,8 +30,8 @@ const StudentSidebar = () => {
           <Myclass />
         </div>
       </div>
-      <button onClick={handleSidebarToggle} class="btn btn-circle text-white btn-neutral sidebar-right">
-        <i class="ti-angle-right"></i>
+      <button onClick={handleSidebarToggle} className="btn btn-circle text-white btn-neutral sidebar-right">
+        <i className="ti-angle-right"></i>
       </button>
     </>
   )

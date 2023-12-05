@@ -12,7 +12,7 @@ function Profile() {
   const [projectTasks, setProjectTasks] = useState([]);
 
   const get_project_tasks = (e) => {
-    fetch(baseUrl + "api/student/project-tasks" + userDetails.user.id, {
+    fetch(baseUrl + "api/student/project-tasks/" + userDetails.user.id, {
       method: "GET",
       headers: {
         "Content-type": "application/json",
@@ -28,7 +28,7 @@ function Profile() {
   };
 
   useEffect(() => {
-    get_project_tasks();
+    // get_project_tasks();
   }, []);
 
   if (!userDetails) {

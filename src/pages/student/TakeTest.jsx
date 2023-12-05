@@ -1,209 +1,205 @@
-import React, { useState, useEffect, useRef } from 'react';
-import AppFooter from '../../components/includes/AppFooter';
-import AppHeader from '../../components/includes/AppHeader';
-import StudentSidebar from '../../components/includes/StudentSidebar';
+import React, { useState, useEffect, useRef } from "react";
+import AppFooter from "../../components/includes/AppFooter";
+import Navheader from "../../components/Navheader";
+import AppHeader from "../../components/includes/AppHeader";
+import StudentSidebar from "../../components/includes/StudentSidebar";
 
-
-import { useParams, useNavigate } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { useContext } from 'react';
-import { AuthContext } from "../../lib/AuthContext.js"
+import { useParams, useNavigate } from "react-router-dom";
+import { getUserFromLocalStorage } from "../util/SessionStorage";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useContext } from "react";
+import { AuthContext } from "../../lib/AuthContext.js";
 function TakeTest() {
-    const baseUrl = process.env.REACT_APP_BASE_URL;
-    const navigate = useNavigate();
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+  const navigate = useNavigate();
 
-    const { subject_id, test_id } = useParams();
+  const { subject_id, test_id } = useParams();
 
-    const [questions, setQuestions] = useState([]);
-    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [questions, setQuestions] = useState([]);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
-    const [selectedAnswers, setSelectedAnswers] = useState([]);
-    const [selectedQuestionIds, setSelectedQuestionIds] = useState([]);
+  const [selectedAnswers, setSelectedAnswers] = useState([]);
+  const [selectedQuestionIds, setSelectedQuestionIds] = useState([]);
 
-    const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState(null);
 
-    const [formIsSubmitting, setFormIsSubmitting] = useState(false);
+  const [formIsSubmitting, setFormIsSubmitting] = useState(false);
 
-    const  user = useContext(AuthContext).user;
-  
+  const user = useContext(AuthContext).user;
 
-    const get_tests = (e) => {
-        fetch(baseUrl + "api/get_tests/" + test_id, {
-            method: 'GET',
-            headers: {
-                "Content-type": "application/json",
-                "Accept": "application/json"
-            },
-        }).then((res) => {
-            return res.json();
-        }).then((resp) => {
-            // setAllSubjectData(resp);
-            console.log(resp);
-            setQuestions(resp);
-            // setLoading(false);
-            // console.log(questions[currentQuestionIndex]);
+  const get_tests = (e) => {
+    fetch(baseUrl + "api/get_tests/" + test_id, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+        Accept: "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((resp) => {
+        // setAllSubjectData(resp);
+        // console.log(resp);
+        setQuestions(resp);
+        // setLoading(false);
+        // console.log(questions[currentQuestionIndex]);
+      });
+  };
+  const handleNextQuestion = () => {
+    setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+    setSelectedQuestionIds((prevSelectedQuestionIds) => [
+      ...prevSelectedQuestionIds,
+      currentQuestion.id,
+    ]);
+    setActiveOption(null);
+    if (selectedOption) {
+      setSelectedAnswers((prevSelectedAnswers) => [
+        ...prevSelectedAnswers,
+        selectedOption,
+      ]);
+    }
+    setSelectedOption(null); // Reset selected option for the next question
+  };
 
+  useEffect(() => {
+    get_tests();
+  }, []);
+
+  useEffect(() => {
+    if (formIsSubmitting) {
+      const formData = new FormData();
+      formData.append("selectedAnswers", selectedAnswers);
+      formData.append("selectedQuestionIds", selectedQuestionIds);
+      formData.append("test_id", test_id);
+      formData.append("user_id", user_id);
+      fetch(baseUrl + "api/test-submit", {
+        method: "POST",
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then((resp) => {
+            console.warn(resp);
+            // toast.success(resp.msg);
+            // navigate('/subject_stream/view_test_score/'+ subject_id +"/"+test_id);
+        })
+        .catch((err) => {
+          console.error("Error submitting answers:", err);
         });
     }
-    useEffect(() => {
-        get_tests();
-    }, [])
-    const handleNextQuestion = () => {
-        setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-        setSelectedQuestionIds((prevSelectedQuestionIds) => [
-            ...prevSelectedQuestionIds,
-            currentQuestion.id,
-        ]);
-        setActiveOption(null);
-        if (selectedOption) {
-            setSelectedAnswers((prevSelectedAnswers) => [...prevSelectedAnswers, selectedOption]);
-        }
-        setSelectedOption(null); // Reset selected option for the next question
-        // console.log(selectedAnswers);
+  }, [formIsSubmitting, selectedAnswers, currentQuestionIndex, questions]);
 
-    };
-    useEffect(() => {
-        console.log(selectedAnswers);
-        console.log(selectedQuestionIds);
-        console.log(test_id);
-        console.log(user_id);
-        if (formIsSubmitting) {
-            // Send selectedAnswers to the API
-            const formData = new FormData();
-            formData.append('selectedAnswers', selectedAnswers);
-            formData.append('selectedQuestionIds', selectedQuestionIds);
-            formData.append('test_id', test_id);
-            formData.append('user_id', user_id);
-            fetch(baseUrl + 'api/test_submit', {
-                method: 'POST',
-                body: formData,
-            })
-                .then((res) => res.json())
-                .then((resp) => {
-                    // Handle the API response
-                    console.warn(resp);
-                    // toast.success(resp.msg);
-                    navigate('/subject_stream/view_test_score/'+ subject_id +"/"+test_id);
-                })
-                .catch((err) => {
-                    // Handle errors
-                    console.error('Error submitting answers:', err);
-                })
+  const hideStyle = {
+    display: "none",
+  };
 
-        }
-    }, [formIsSubmitting, selectedAnswers, currentQuestionIndex, questions]);
+  const currentQuestion = questions[currentQuestionIndex];
+  const [activeOption, setActiveOption] = useState(null);
 
-    const hideStyle = {
-        display: 'none'
-    };
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
+    setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+    setSelectedQuestionIds((prevSelectedQuestionIds) => [
+      ...prevSelectedQuestionIds,
+      currentQuestion.id,
+    ]);
+    setActiveOption(null);
+    if (selectedOption) {
+      setSelectedAnswers((prevSelectedAnswers) => [
+        ...prevSelectedAnswers,
+        selectedOption,
+      ]);
+    }
+    setSelectedOption(null);
 
-    const currentQuestion = questions[currentQuestionIndex];
-    const [activeOption, setActiveOption] = useState(null);
+    setFormIsSubmitting(true);
+  };
+  if (!user) {
+    console.log("No user found. User might be logged out.");
+    return <div>User is not logged in</div>;
+  }
+  const user_id = user.user.id;
+  return (
+    <>
+      <div className="main-wrapper">
+        <div className="main-content menu-active">
+          <AppHeader />
+          <div className="middle-sidebar-bottom theme-dark-bg">
+            <div className="middle-sidebar-left">
+              <ToastContainer autoClose={3000} />
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+              {currentQuestion ? (
+                <div className="d-flex flex-column question-div">
+                  <h4 className="font-xssss text-uppercase text-current fw-700 ls-3">{`Question ${
+                    currentQuestionIndex + 1
+                  }`}</h4>
+                  <h3 className="font-sm text-grey-800 fw-700 lh-32 mt-4 mb-4">
+                    {currentQuestion.question}
+                  </h3>
 
-        setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-        setSelectedQuestionIds((prevSelectedQuestionIds) => [
-            ...prevSelectedQuestionIds,
-            currentQuestion.id,
-        ]);
-        setActiveOption(null);
-        if (selectedOption) {
-            setSelectedAnswers((prevSelectedAnswers) => [...prevSelectedAnswers, selectedOption]);
-        }
-        setSelectedOption(null);
+                  {["option1", "option2", "option3", "option4"].map(
+                    (option, index) => (
+                      <React.Fragment key={index}>
+                        <input
+                          type="radio"
+                          id={`${option}_${index}`}
+                          value={option}
+                          style={hideStyle}
+                          checked={selectedOption === option}
+                          onChange={(e) => {
+                            setSelectedOption(option);
+                            setSelectedAnswers((prevSelectedAnswers) => [
+                              ...prevSelectedAnswers,
+                              e.target.value,
+                            ]);
+                          }}
+                        />
+                        <p
+                          className={`bg-lightblue theme-dark-bg p-2 mt-3 question-ans style2 rounded-lg font-xssss fw-600 lh-28 text-grey-700 mb-0 p-2 ${
+                            selectedOption === option ? "active" : ""
+                          }`}
+                          onClick={() => setSelectedOption(option)}
+                        >
+                          <span className="pt-2 pb-2 pl-3 pr-3 mr-4 d-inline-block rounded-lg bg-current text-white font-xssss fw-600">
+                            {String.fromCharCode(65 + index)}
+                          </span>
+                          {currentQuestion[option]}
+                        </p>
+                      </React.Fragment>
+                    )
+                  )}
 
-        setFormIsSubmitting(true);
-
-    };
-    if (!user) {
-        // Handle the case when there is no user. You might want to redirect
-        // to a login page or return null or some placeholder content.
-        console.log("No user found. User might be logged out.");
-        return <div>User is not logged in</div>;
-      }
-    const user_id = user.user.id
-    return (
-        <>
-            <div className="main-wrapper">
-
-                <div className="main-content menu-active">
-                    <AppHeader />
-                    <div className="middle-sidebar-bottom theme-dark-bg">
-                        <div className="middle-sidebar-left">
-
-                            <ToastContainer autoClose={3000} />
-
-                            {
-                                currentQuestion ? (
-                                    <div className="d-flex flex-column question-div">
-                                        <h4 className="font-xssss text-uppercase text-current fw-700 ls-3">{`Question ${currentQuestionIndex + 1}`}</h4>
-                                        <h3 className="font-sm text-grey-800 fw-700 lh-32 mt-4 mb-4">{currentQuestion.question}</h3>
-
-                                        {['option1', 'option2', 'option3', 'option4'].map((option, index) => (
-                                            <React.Fragment key={index}>
-
-                                                <input
-                                                    type="radio"
-                                                    id={`${option}_${index}`}
-                                                    value={option}
-                                                    style={hideStyle}
-                                                    checked={selectedOption === option}
-                                                    onChange={(e) => {
-                                                        setSelectedOption(option);
-                                                        setSelectedAnswers((prevSelectedAnswers) => [
-                                                            ...prevSelectedAnswers,
-                                                            e.target.value,
-                                                        ]);
-                                                    }}
-                                                />
-                                                <p
-                                                    className={`bg-lightblue theme-dark-bg p-2 mt-3 question-ans style2 rounded-lg font-xssss fw-600 lh-28 text-grey-700 mb-0 p-2 ${selectedOption === option ? 'active' : ''
-                                                        }`}
-                                                    onClick={() => setSelectedOption(option)}
-                                                >
-                                                    <span className="pt-2 pb-2 pl-3 pr-3 mr-4 d-inline-block rounded-lg bg-current text-white font-xssss fw-600">
-                                                        {String.fromCharCode(65 + index)}
-                                                    </span>
-                                                    {currentQuestion[option]}
-                                                </p>
-                                            </React.Fragment>
-                                        ))}
-
-                                        {currentQuestionIndex === questions.length - 1 ? (
-                                            <button
-                                                type="submit"
-                                                onClick={handleSubmit}
-                                                className="p-2 mt-3 d-inline-block text-white fw-700 lh-30 rounded-lg w200 text-center font-xsssss ls-3 bg-current border-0"
-                                            >
-                                                SUBMIT
-                                            </button>
-                                        ) : (
-                                            <button
-                                                type='button'
-                                                onClick={handleNextQuestion}
-                                                className="next-bttn p-2 mt-3 d-inline-block text-white fw-700 lh-30 rounded-lg w200 text-center font-xsssss ls-3 bg-current border-0"
-                                            >
-                                                NEXT
-                                            </button>
-                                        )}
-                                    </div>
-                                )
-                                    :
-                                    ""
-                            }
-
-                        </div>
-                        <StudentSidebar />
-                    </div>
+                  {currentQuestionIndex === questions.length - 1 ? (
+                    <button
+                      type="submit"
+                      onClick={handleSubmit}
+                      className="p-2 mt-3 d-inline-block text-white fw-700 lh-30 rounded-lg w200 text-center font-xsssss ls-3 bg-current border-0"
+                    >
+                      SUBMIT
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={handleNextQuestion}
+                      className="next-bttn p-2 mt-3 d-inline-block text-white fw-700 lh-30 rounded-lg w200 text-center font-xsssss ls-3 bg-current border-0"
+                    >
+                      NEXT
+                    </button>
+                  )}
                 </div>
-                <AppFooter />
+              ) : (
+                ""
+              )}
             </div>
-        </>
-    )
+            <StudentSidebar />
+          </div>
+        </div>
+        <AppFooter />
+      </div>
+    </>
+  );
 }
 
-export default TakeTest
+export default TakeTest;

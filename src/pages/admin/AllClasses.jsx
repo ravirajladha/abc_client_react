@@ -46,31 +46,31 @@ function AllClasses() {
                   <div className="float-right">
                     <Link
                       to={"/all_subjects/create_class"}
-                      className="p-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current mx-1"
+                      className="px-3 py-1  d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current mx-1"
                     >
                       ADD CLASS
                     </Link>
                     <Link
                       to={"/all_subjects/create_subject"}
-                      className="p-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current mx-1"
+                      className="px-3 py-1  d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current mx-1"
                     >
                       ADD SUBJECT
                     </Link>
                     <Link
                       to={"/all_subjects/create_chapters"}
-                      className="p-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current mx-1"
+                      className="px-3 py-1  d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current mx-1"
                     >
                       ADD CHAPTERS
                     </Link>
                     <Link
                       to={"/all_subjects/create_videos"}
-                      className="p-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current mx-1"
+                      className="px-3 py-1  d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current mx-1"
                     >
                       ADD VIDEOS
                     </Link>
                     <button
                       onClick={goBack}
-                      className="p-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1"
+                      className="px-3 py-1   d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1"
                     >
                       Back
                     </button>
@@ -87,9 +87,15 @@ function AllClasses() {
                         <div className="card-footer bg-transparent border-top-0">
                           <Link
                             to={`/all_subjects/${singleClass.id}`}
-                            className="p-2 mt-4  d-inline-block text-white fw-300 lh-30 rounded-lg w100 text-center font-xsssss ls-3 bg-current"
+                            className="px-2 py-1 mt-4 fw-500 d-inline-block text-white fw-300 lh-30 rounded-lg w100 text-center font-xssss mr-2 ls-3 bg-current"
                           >
-                            View Subjects
+                            Subjects
+                          </Link>
+                          <Link
+                            to={`/${singleClass.id}/results`}
+                            className="px-2 py-1 mt-4 fw-500 d-inline-block text-white fw-300 lh-30 rounded-lg w100 text-center font-xssss ls-3 bg-current"
+                          >
+                            Results
                           </Link>
                         </div>
                       </div>

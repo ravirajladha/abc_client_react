@@ -83,6 +83,8 @@ import EbookModules from "./pages/admin/ebook/EbookModules.jsx";
 import AddSections from "./pages/admin/ebook/AddSections.jsx";
 import AddElements from "./pages/admin/ebook/AddElements.jsx";
 import PreviewEbook from "./pages/admin/ebook/PreviewEbook.jsx";
+import ClassesResult from "./pages/admin/ClassesResult.jsx";
+import SubjectsResult from "./pages/admin/SubjectsResult.jsx";
 
 class Root extends Component {
   render() {
@@ -439,10 +441,30 @@ class Root extends Component {
           />
           <Route
             exact
+            path={`${process.env.PUBLIC_URL}/:classId/results`}
+            element={
+              <ProtectedRoute
+                element={<ClassesResult />}
+                allowedTypes={["admin"]}
+              />
+            }
+          />
+          <Route
+            exact
             path={`${process.env.PUBLIC_URL}/all_subjects/:class_id`}
             element={
               <ProtectedRoute
                 element={<AllSubjects />}
+                allowedTypes={["admin"]}
+              />
+            }
+          />
+          <Route
+            exact
+            path={`${process.env.PUBLIC_URL}/results/:subjectId`}
+            element={
+              <ProtectedRoute
+                element={<SubjectsResult />}
                 allowedTypes={["admin"]}
               />
             }

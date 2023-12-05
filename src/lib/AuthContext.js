@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
 
   // Log the user state upon component mount and whenever it changes
   useEffect(() => {
-    console.log('AuthProvider mounted or user state changed:', user);
+    // console.log('AuthProvider mounted or user state changed:', user);
   }, [user]);
 
   

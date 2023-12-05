@@ -14,7 +14,7 @@ function Subjects() {
   const userString = localStorage.getItem("rexkod_user");
   const user = JSON.parse(userString);
   const classId = user.student.class_id;
-
+  const studentId = user.student.auth_id
 
   useEffect(() => {
     getSubjects();
@@ -23,9 +23,10 @@ function Subjects() {
   const [subjects, setSubjects] = useState([]);
 
   function getSubjects() {
-    fetch(baseUrl + 'api/get_subjects/' + classId).then(function (result) {
+    fetch(baseUrl + 'api/get_subjects/' + classId + '/' + studentId).then(function (result) {
       result.json().then(function (jsonBody) {
         // console.warn(jsonBody);
+        console.log(jsonBody)
         setSubjects(jsonBody);
       })
     });
@@ -89,11 +90,11 @@ function Subjects() {
                       </Link>
                       <Link
                         to={value.latest_test_id ? `/subject_stream/take_test/${value.id}/${value.latest_test_id}` : '#'}
-                        className={`p-2 mt-4 d-inline-block fw-700 lh-30 rounded-lg w100 text-center font-xsssss ls-3 ${value.latest_test_id ? 'bg-current text-white' : 'bg-light text-grey-500 bg-hover-light disabled'
+                        className={`p-2 mt-4 d-inline-block fw-700 lh-30 rounded-lg w100 text-center font-xsssss ls-3  ${value.latest_test_id ? 'bg-current text-white' : 'bg-light text-grey-500 bg-hover-light '
                           }`}
                         style={value.latest_test_id ? {} : { pointerEvents: 'none', cursor: 'not-allowed' }}
                       >
-                        TAKE TEST
+                        {value.latest_test_id ? 'TAKE TEST' : 'Coming Soon'}
                       </Link>
                     </div>
                   </div>
