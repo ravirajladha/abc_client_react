@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import AppHeader from '../../components/includes/AppHeader';
-import AppFooter from '../../components/includes/AppFooter';
+import AppHeader from '../../../components/includes/AppHeader';
+import AppFooter from '../../../components/includes/AppFooter';
 import { Link, useParams } from 'react-router-dom';
 import { Accordion } from "react-bootstrap";
-import "../../css/custom.css";
+import "../../../css/custom.css";
 
 function EbookModules() {
     const baseUrl = process.env.REACT_APP_BASE_URL;

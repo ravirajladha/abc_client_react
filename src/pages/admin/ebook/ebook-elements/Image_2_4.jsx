@@ -2,6 +2,24 @@ import React, { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
 function Image_2_4({ element }) {
+    const modalHeader1 = {
+        backgroundImage: 'linear-gradient(to bottom, #9e3293, #6b4b9e)',
+        padding: '0.8rem',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        color: '#ffff',
+        
+      };
+    const modalHeader2 = {
+        backgroundImage: 'linear-gradient(to bottom, #39c5ea, #094ea0)',
+        padding: '0.8rem',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        color: '#ffff',
+        
+      };
     const [modal1Open, setModal1Open] = useState(false);
     const [modal2Open, setModal2Open] = useState(false);
 
@@ -24,29 +42,25 @@ function Image_2_4({ element }) {
                     <p className="p2">{element.image_text_2}</p>
                 </div>
                 {/* Modal 2 Option-1 */}
-                <Modal show={modal1Open} onHide={closeModal1}>
-                    <Modal.Header closeButton>
+                <Modal show={modal1Open} onHide={closeModal1} >
+                    <Modal.Header closeButton style={modalHeader1}>
                         <Modal.Title>{element.image_text_1}</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>{element.image_desc_1}</Modal.Body>
-                    {/* <Modal.Footer>
-                        <Button variant="secondary" onClick={closeModal1}>
-                            Close
-                        </Button>
-                    </Modal.Footer> */}
+                    <Modal.Footer>
+                        
+                    </Modal.Footer>
                 </Modal>
 
                 {/* Modal 2 Option-2 */}
                 <Modal show={modal2Open} onHide={closeModal2}>
-                    <Modal.Header closeButton>
+                    <Modal.Header closeButton style={modalHeader2}>
                         <Modal.Title>{element.image_text_2}</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>{element.image_desc_2}</Modal.Body>
-                    {/* <Modal.Footer>
-                        <Button variant="secondary" onClick={closeModal2}>
-                            Close
-                        </Button>
-                    </Modal.Footer> */}
+                    <Modal.Footer>
+                        
+                    </Modal.Footer>
                 </Modal>
             </div>
             <div className="spacer">&nbsp;</div>

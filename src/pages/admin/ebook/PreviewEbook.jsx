@@ -1,3 +1,6 @@
+
+
+
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, NavLink, useParams } from 'react-router-dom';
 
@@ -20,8 +23,22 @@ import Image_5_2 from './ebook-elements/Image_5_2';
 import Image_6_1 from './ebook-elements/Image_6_1';
 import Image_6_2 from './ebook-elements/Image_6_2';
 import Image_6_3 from './ebook-elements/Image_6_3';
-
-
+import Image_7_1 from './ebook-elements/Image_7_1';
+import Image_7_2 from './ebook-elements/Image_7_2';
+import Image_8_1 from './ebook-elements/Image_8_1';
+import Image_8_2 from './ebook-elements/Image_8_2';
+import Image_10_1 from './ebook-elements/Image_10_1';
+import Image_10_2 from './ebook-elements/Image_10_2';
+import Image_10_3 from './ebook-elements/Image_10_3';
+import Examples from './ebook-elements/Examples';
+import GifFile from './ebook-elements/GifFile';
+import ExamplePractice from './ebook-elements/ExamplePractice';
+import ExampleVideoPractice from './ebook-elements/ExampleVideoPractice';
+import List from './ebook-elements/List';
+import ExampleImagePractice from './ebook-elements/ExampleImagePractice';
+import Buttons from './ebook-elements/Buttons';
+import TextBox from './ebook-elements/TextBox';
+import SingleButton from './ebook-elements/SingleButton';
 
 function PreviewEbook() {
     const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -246,8 +263,54 @@ function PreviewEbook() {
                                                                         <Image_6_3 element={element} />
                                                                     )}
                                                                     {element.section_id === section.id && element.element_id === 10 && element.image_type === 'image_7_1' && (
-                                                                        <Image_6_3 element={element} />
+                                                                        <Image_7_1 element={element} />
                                                                     )}
+                                                                    {element.section_id === section.id && element.element_id === 10 && element.image_type === 'image_7_2' && (
+                                                                        <Image_7_2 element={element} />
+                                                                    )}
+                                                                    {element.section_id === section.id && element.element_id === 11 && element.image_type === 'image_8_1' && (
+                                                                        <Image_8_1 element={element} />
+                                                                    )}
+                                                                    {element.section_id === section.id && element.element_id === 11 && element.image_type === 'image_8_2' && (
+                                                                        <Image_8_2 element={element} />
+                                                                    )}
+                                                                    {element.section_id === section.id && element.element_id === 13 && element.image_type === 'image_10_1' && (
+                                                                        <Image_10_1 element={element} />
+                                                                    )}
+                                                                    {element.section_id === section.id && element.element_id === 13 && element.image_type === 'image_10_2' && (
+                                                                        <Image_10_2 element={element} />
+                                                                    )}
+                                                                    {element.section_id === section.id && element.element_id === 13 && element.image_type === 'image_10_3' && (
+                                                                        <Image_10_3 element={element} />
+                                                                    )}
+                                                                    {element.section_id === section.id && element.element_id === 15 && (
+                                                                        <Examples element={element} />
+                                                                    )}
+                                                                    {element.section_id === section.id && element.element_id === 14 && (
+                                                                        <List element={element} />
+                                                                    )}
+                                                                    {element.section_id === section.id && element.element_id === 18 && (
+                                                                        <GifFile element={element} />
+                                                                    )}
+                                                                    {element.section_id === section.id && element.element_id === 19 && (
+                                                                        <ExamplePractice element={element} />
+                                                                    )}
+                                                                    {element.section_id === section.id && element.element_id === 20 && (
+                                                                        <ExampleVideoPractice element={element} />
+                                                                    )}
+                                                                    {element.section_id === section.id && element.element_id === 21 && (
+                                                                        <ExampleImagePractice element={element} />
+                                                                    )}
+                                                                    {element.section_id === section.id && element.element_id === 22 && (
+                                                                        <Buttons element={element} />
+                                                                    )}
+                                                                    {element.section_id === section.id && element.element_id === 23 && (
+                                                                        <TextBox element={element} />
+                                                                    )}
+                                                                    {element.section_id === section.id && element.element_id === 24 && (
+                                                                        <SingleButton element={element} />
+                                                                    )}
+                                                                   
                                                                     
                                                                     
                                                                    

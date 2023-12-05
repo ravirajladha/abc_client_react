@@ -79,8 +79,8 @@ import Editor1 from "./pages/e_lab/components/Editor1";
 import AuthProvider from "./lib/AuthContext.js";
 import Ebooks from "./pages/admin/ebook/Ebooks.jsx";
 import CreateEbook from "./pages/admin/ebook/CreateEbook.jsx";
-import EbookModules from "./pages/common/EbookModules.jsx";
-import AddSections from "./pages/admin/AddSections";
+import EbookModules from "./pages/admin/ebook/EbookModules.jsx";
+import AddSections from "./pages/admin/ebook/AddSections.jsx";
 import AddElements from "./pages/admin/ebook/AddElements.jsx";
 import PreviewEbook from "./pages/admin/ebook/PreviewEbook.jsx";
 

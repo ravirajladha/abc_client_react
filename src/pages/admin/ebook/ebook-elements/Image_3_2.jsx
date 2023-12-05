@@ -2,6 +2,33 @@ import React, { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
 function Image_3_2({ element }) {
+    const modalHeader1 = {
+        backgroundColor: '#f26667',
+        padding: '0.8rem',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        color: '#ffff',
+        
+      };
+    const modalHeader2 = {
+        backgroundColor: '#faa945',
+        padding: '0.8rem',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        color: '#ffff',
+        
+      };
+    const modalHeader3 = {
+        backgroundColor: '#185b86',
+        padding: '0.8rem',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        color: '#ffff',
+        
+      };
     const [modal1Open, setModal1Open] = useState(false);
     const [modal2Open, setModal2Open] = useState(false);
     const [modal3Open, setModal3Open] = useState(false);
@@ -43,42 +70,36 @@ function Image_3_2({ element }) {
                     <p className="p3_1">{element.image_text_3}</p>
                 </div>
 
-                 {/* Modal 3 Option-2-1 */}
+              {/* Modal 3 Option-1-1 */}
             <Modal show={modal1Open} onHide={closeModal1}>
-                <Modal.Header closeButton>
+                <Modal.Header closeButton style={modalHeader1}>
                     <Modal.Title>{element.image_text_1}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>{element.image_desc_1}</Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={closeModal1}>
-                        Close
-                    </Button>
+                    
                 </Modal.Footer>
             </Modal>
 
-            {/* Modal 3 Option-2-2 */}
+            {/* Modal 3 Option-1-2 */}
             <Modal show={modal2Open} onHide={closeModal2}>
-                <Modal.Header closeButton>
+                <Modal.Header closeButton style={modalHeader2}>
                     <Modal.Title>{element.image_text_2}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>{element.image_desc_2}</Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={closeModal2}>
-                        Close
-                    </Button>
+                    
                 </Modal.Footer>
             </Modal>
 
-            {/* Modal 3 Option-2-3 */}
+            {/* Modal 3 Option-1-3 */}
             <Modal show={modal3Open} onHide={closeModal3}>
-                <Modal.Header closeButton>
+                <Modal.Header closeButton style={modalHeader3}>
                     <Modal.Title>{element.image_text_3}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>{element.image_desc_3}</Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={closeModal3}>
-                        Close
-                    </Button>
+                    
                 </Modal.Footer>
             </Modal>
 

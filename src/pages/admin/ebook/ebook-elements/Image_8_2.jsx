@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
-function Image_6_2({element}) {
+function Image_8_2({element}) {
     const modalHeader1 = {
-        backgroundColor: '#74ccd0',
+        backgroundColor: '#ffc709',
         padding: '0.8rem',
         display: 'flex',
         justifyContent: 'center',
@@ -12,7 +12,7 @@ function Image_6_2({element}) {
         
       };
     const modalHeader2 = {
-        backgroundColor: '#4e83c3',
+        backgroundColor: '#f26722',
         padding: '0.8rem',
         display: 'flex',
         justifyContent: 'center',
@@ -21,7 +21,7 @@ function Image_6_2({element}) {
         
       };
     const modalHeader3 = {
-        backgroundColor: '#a36fb0',
+        backgroundColor: '#ed1d7d',
         padding: '0.8rem',
         display: 'flex',
         justifyContent: 'center',
@@ -29,7 +29,7 @@ function Image_6_2({element}) {
         color: '#ffff',
       };
     const modalHeader4 = {
-        backgroundColor: '#ffd535',
+        backgroundColor: '#7e559e',
         padding: '0.8rem',
         display: 'flex',
         justifyContent: 'center',
@@ -38,7 +38,7 @@ function Image_6_2({element}) {
         
       };
     const modalHeader5 = {
-        backgroundColor: '#f4753d',
+        backgroundColor: '#3d7cbf',
         padding: '0.8rem',
         display: 'flex',
         justifyContent: 'center',
@@ -47,7 +47,25 @@ function Image_6_2({element}) {
         
       };
     const modalHeader6 = {
-        backgroundColor: '#ed2089',
+        backgroundColor: '#7e559e',
+        padding: '0.8rem',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        color: '#ffff',
+        
+      };
+    const modalHeader7 = {
+        backgroundColor: '#7e559e',
+        padding: '0.8rem',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        color: '#ffff',
+        
+      };
+    const modalHeader8 = {
+        backgroundColor: '#7e559e',
         padding: '0.8rem',
         display: 'flex',
         justifyContent: 'center',
@@ -61,6 +79,8 @@ function Image_6_2({element}) {
     const [modal4Open, setModal4Open] = useState(false);
     const [modal5Open, setModal5Open] = useState(false);
     const [modal6Open, setModal6Open] = useState(false);
+    const [modal7Open, setModal7Open] = useState(false);
+    const [modal8Open, setModal8Open] = useState(false);
 
     const closeModal1 = () => setModal1Open(false);
     const closeModal2 = () => setModal2Open(false);
@@ -68,55 +88,58 @@ function Image_6_2({element}) {
     const closeModal4 = () => setModal4Open(false);
     const closeModal5 = () => setModal5Open(false);
     const closeModal6 = () => setModal6Open(false);
+    const closeModal7 = () => setModal7Open(false);
+    const closeModal8 = () => setModal8Open(false);
     return (
         <>
-        <div className="img-preview-6_2">
-            <img src={`/assets_ebook/images/6.2.png`} alt="preview" className="introduction-img" />
+        <div className="img-preview-8_2">
+            <img src={`/assets_ebook/images/8.2.png`} alt="preview" className="introduction-img" />
 
             <div className="box0">
-                <p className="p0">{element.image_subheading}</p>
+                <p className="p0">{element.image_heading}</p>
             </div>
-
-            <div className="box0_1">
-                <p className="p0_1">{element.image_heading}</p>
-            </div>
-
-            <div className="box0_2">
-                <p className="p0_2">{element.image_heading_2}</p>
-            </div>
-
+            
             <div className="box1" onClick={() => setModal1Open(true)}>
-                    <p className="p1">{element.image_text_1}</p>
+                <p className="p1">{element.image_text_1}</p>
+            </div>
+
+            <div className="box2" onClick={() => setModal2Open(true)}>
+                <p className="p2">{element.image_text_2}</p>
+            </div>
+
+            <div className="box3" onClick={() => setModal3Open(true)}>
+                <p className="p3">{element.image_text_3}</p>
+            </div>
+
+            <div className="box4" onClick={() => setModal4Open(true)}>
+                <p className="p4">{element.image_text_4}</p>
+            </div>
+
+            <div className="box5" onClick={() => setModal5Open(true)}>
+                <p className="p5">{element.image_text_5}</p>
+            </div>
+
+            <div className="box6" onClick={() => setModal6Open(true)}>
+                <p className="p6">{element.image_text_6}</p>
+            </div>
+
+            <div className="box7" onClick={() => setModal7Open(true)}>
+                <p className="p7">{element.image_text_7}</p>
+            </div>
+            <div className="box8" onClick={() => setModal8Open(true)}>
+                    <p className="p8">{element.image_text_8}</p>
                 </div>
 
-                <div className="box2" onClick={() => setModal2Open(true)}>
-                    <p className="p2">{element.image_text_2}</p>
-                </div>
-
-                <div className="box3" onClick={() => setModal3Open(true)}>
-                    <p className="p3">{element.image_text_3}</p>
-                </div>
-
-                <div className="box4" onClick={() => setModal4Open(true)}>
-                    <p className="p4">{element.image_text_4}</p>
-                </div>
-
-                <div className="box5" onClick={() => setModal5Open(true)}>
-                    <p className="p5">{element.image_text_5}</p>
-                </div>
-
-                <div className="box6" onClick={() => setModal6Open(true)}>
-                    <p className="p6">{element.image_text_6}</p>
-                </div>
-
-  {/* Modal 6_1_1 */}
-  <Modal show={modal1Open} onHide={closeModal1} centered>
+                {/* Modal 6_1_1 */}
+                <Modal show={modal1Open} onHide={closeModal1} centered>
                     <Modal.Header closeButton style={modalHeader1}>
                         <Modal.Title>{element.image_text_1}</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>{element.image_desc_1}</Modal.Body>
                     <Modal.Footer>
-                       
+                        <Button variant="secondary" onClick={closeModal1}>
+                            Close
+                        </Button>
                     </Modal.Footer>
                 </Modal>
 
@@ -127,7 +150,9 @@ function Image_6_2({element}) {
                     </Modal.Header>
                     <Modal.Body>{element.image_desc_2}</Modal.Body>
                     <Modal.Footer>
-                        
+                        <Button variant="secondary" onClick={closeModal2}>
+                            Close
+                        </Button>
                     </Modal.Footer>
                 </Modal>
 
@@ -138,18 +163,22 @@ function Image_6_2({element}) {
                     </Modal.Header>
                     <Modal.Body>{element.image_desc_3}</Modal.Body>
                     <Modal.Footer>
-                        
+                        <Button variant="secondary" onClick={closeModal3}>
+                            Close
+                        </Button>
                     </Modal.Footer>
                 </Modal>
 
                 {/* Modal 6_1_4 */}
                 <Modal show={modal4Open} onHide={closeModal4} centered>
-                    <Modal.Header closeButton style={modalHeader4}> 
+                    <Modal.Header closeButton style={modalHeader4}>
                         <Modal.Title>{element.image_text_4}</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>{element.image_desc_4}</Modal.Body>
                     <Modal.Footer>
-                       
+                        <Button variant="secondary" onClick={closeModal4}>
+                            Close
+                        </Button>
                     </Modal.Footer>
                 </Modal>
 
@@ -160,7 +189,9 @@ function Image_6_2({element}) {
                     </Modal.Header>
                     <Modal.Body>{element.image_desc_5}</Modal.Body>
                     <Modal.Footer>
-                       
+                        <Button variant="secondary" onClick={closeModal5}>
+                            Close
+                        </Button>
                     </Modal.Footer>
                 </Modal>
                 {/* Modal 6_1_6 */}
@@ -170,17 +201,41 @@ function Image_6_2({element}) {
                     </Modal.Header>
                     <Modal.Body>{element.image_desc_6}</Modal.Body>
                     <Modal.Footer>
-                      
+                        <Button variant="secondary" onClick={closeModal6}>
+                            Close
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+                {/* Modal 6_1_6 */}
+                <Modal show={modal7Open} onHide={closeModal7} centered>
+                    <Modal.Header closeButton style={modalHeader7}>
+                        <Modal.Title>{element.image_text_7}</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>{element.image_desc_7}</Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={closeModal7}>
+                            Close
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+                {/* Modal 6_1_6 */}
+                <Modal show={modal8Open} onHide={closeModal8} centered>
+                    <Modal.Header closeButton style={modalHeader8}>
+                        <Modal.Title>{element.image_text_8}</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>{element.image_desc_8}</Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={closeModal8}>
+                            Close
+                        </Button>
                     </Modal.Footer>
                 </Modal>
 
-            {/* Repeat similar structures for other modals (2 to 6) */}
 
         </div>
         <div className="spacer">&nbsp;</div>
-
     </>
     )
 }
 
-export default Image_6_2
+export default Image_8_2

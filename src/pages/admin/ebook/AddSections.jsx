@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import AppHeader from '../../components/includes/AppHeader';
-import AppFooter from '../../components/includes/AppFooter';
+import AppHeader from '../../../components/includes/AppHeader';
+import AppFooter from '../../../components/includes/AppFooter';
 import { Link, useParams } from 'react-router-dom';
 
 import { toast, ToastContainer } from 'react-toastify';
