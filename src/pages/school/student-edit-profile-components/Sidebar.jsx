@@ -3,10 +3,10 @@ import React from "react";
 const Sidebar = ({ currentStep, changeStep }) => {
   const steps = [
     { label: "Personal Details", componentKey: "stepOne" },
-    { label: "Previous Academic Information", componentKey: "stepTwo" },
+    // { label: "Previous Academic Information", componentKey: "stepTwo" },
     { label: "Family Information", componentKey: "stepThree" },
     { label: "Communication Address", componentKey: "stepFour" },
-    { label: "Bank Details", componentKey: "stepFive" },
+
     { label: "About Yourself", componentKey: "stepSix" },
   ];
 

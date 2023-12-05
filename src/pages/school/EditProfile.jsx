@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import FormPageOne from "./student-edit-profile-components/FormPageOne";
-import FormPageTwo from "./student-edit-profile-components/FormPageTwo";
+// import FormPageTwo from "./student-edit-profile-components/FormPageTwo";
 import FormPageThree from "./student-edit-profile-components/FormPageThree";
 import FormPageFour from "./student-edit-profile-components/FormPageFour";
-import FormPageFive from "./student-edit-profile-components/FormPageFive";
+
 import FormPageSix from "./student-edit-profile-components/FormPageSix";
 import Sidebar from "./student-edit-profile-components/Sidebar";
 import Appheader from "../../components/includes/AppHeader";
@@ -15,15 +15,14 @@ const EditProfile = () => {
     switch (currentStep) {
       case 0:
         return <FormPageOne />;
+      // case 1:
+      //   return <FormPageTwo />;
       case 1:
-        return <FormPageTwo />;
-      case 2:
         return <FormPageThree />;
-      case 3:
+      case 2:
         return <FormPageFour />;
-      case 4:
-        return <FormPageFive />;
-      case 5:
+     
+      case 3:
         return <FormPageSix />;
       default:
         return null;

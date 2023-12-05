@@ -12,7 +12,6 @@ import { toast, ToastContainer } from "react-toastify";
 
 import AppHeader from '../../components/includes/AppHeader';
 import { useNavigate } from "react-router-dom";
-import { getUserFromLocalStorage } from '../../pages/util/SessionStorage';
 import { useContext } from 'react';
 import { AuthContext } from "../../lib/AuthContext.js"
 
@@ -33,6 +32,7 @@ function AddStudent() {
   section: "",
 });
 
+console.log("formdata",formData.school) ;
 useEffect(() => {
   getAllSchools();
   getAllClasses();

@@ -96,7 +96,10 @@ function AppHeader() {
           />
         </div>
       </form> */}
-       
+       <div class="navbar">
+  <h1>&nbsp;ATOMS&nbsp; </h1>
+</div>
+
       <ul className="d-flex ml-auto right-menu-icon">
       <Darkbutton />
         <li>

@@ -72,19 +72,27 @@ function SchoolNav({ isSidebarOpen }) {
                 <span>Home</span>
               </NavLink>
             </li>
-
+            <div className="nav-caption fw-600 font-xssss text-grey-500">
+             Home
+            </div>
             <li className="nav-item">
               <NavLink className="navi-link" to="/school/students">
                 <i className="feather-book-open mr-2"></i>
                 <span>Students</span>
               </NavLink>
             </li>
+            <div className="nav-caption fw-600 font-xssss text-grey-500">
+             Student's
+            </div>
             <li className="nav-item">
               <NavLink className="navi-link" to="/school/teachers">
                 <i className="feather-briefcase mr-2"></i>
                 <span>Teachers</span>
               </NavLink>
             </li>
+            <div className="nav-caption fw-600 font-xssss text-grey-500">
+              Teacher's
+            </div>
           </ul>
 
           <div className="nav-caption fw-600 font-xssss text-grey-500">

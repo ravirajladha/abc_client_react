@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function AppFooter() {
   return (
     <div className="app-footer border-0 shadow-lg">
-      <Link to="/default" className="nav-content-bttn nav-center">
+      {/* <Link to="/default" className="nav-content-bttn nav-center">
         <i className="feather-home"></i>
       </Link>
       <Link to="/default-follower" className="nav-content-bttn">
@@ -26,7 +26,7 @@ function AppFooter() {
           alt="user"
           className="w30 shadow-xss"
         />
-      </Link>
+      </Link> */}
     </div>
   );
 }

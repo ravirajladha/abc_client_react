@@ -54,6 +54,16 @@ function SingleTestDetails() {
 
                                                         <h4 className="fw-700 font-xss mt-4">Class: <span className="fw-500">{testDetails.classes.class}</span></h4>
                                                         <h4 className="fw-700 font-xss mt-4">Subject: <span className="fw-500">{testDetails.title}</span></h4>
+                                                        <h4 className="fw-700 font-xss mt-4">
+    Term:  
+    <span className="fw-500">
+        {testDetails.term == '1' && ' Term 1'}
+        {testDetails.term == '2' && ' Term 2'}
+        {testDetails.term == '3' && ' Term 3'}
+        {/* Add more conditions here if you have more terms */}
+    </span>
+</h4>
+
                                                     </div>
                                                     :
                                                     ""

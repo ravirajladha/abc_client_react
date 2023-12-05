@@ -34,10 +34,10 @@ function FormPageThree() {
             </div>
 
             {/* Father/Guardian Details */}
-            <h5 className="font-weight-bold mt-4">Father/Guardian Details</h5>
+            <h5 className="font-weight-bold mt-4">Parents/Guardian Details</h5>
             <div className="row mb-4">
               <div className="col-lg-6">
-                <label className="font-weight-bold">Name as per Aadhar</label>
+                <label className="font-weight-bold">Father Name as per Aadhar</label>
                 <input
                   type="text"
                   name="father_name"
@@ -45,15 +45,7 @@ function FormPageThree() {
                   placeholder="Enter father's name"
                 />
               </div>
-              <div className="col-lg-6">
-                <label className="font-weight-bold">Aadhar Number</label>
-                <input
-                  type="text"
-                  name="f_aadhar"
-                  className="form-control"
-                  placeholder="Enter Aadhar number"
-                />
-              </div>
+              
               <div className="col-lg-4">
                 <label className="font-weight-bold">Mobile Number</label>
                 <input
@@ -63,14 +55,7 @@ function FormPageThree() {
                   placeholder="Enter mobile number"
                 />
               </div>
-              <div className="col-lg-4">
-                <label className="font-weight-bold">Upload Aadhar Card</label>
-                <input
-                  type="file"
-                  name="father_aadhar_doc"
-                  className="form-control"
-                />
-              </div>
+             
               <div className="col-lg-4">
                 <label className="font-weight-bold">Email Id</label>
                 <input
@@ -94,15 +79,7 @@ function FormPageThree() {
                   placeholder="Enter mother's name"
                 />
               </div>
-              <div className="col-lg-6">
-                <label className="font-weight-bold">Aadhar Number</label>
-                <input
-                  type="text"
-                  name="m_aadhar"
-                  className="form-control"
-                  placeholder="Enter Aadhar number"
-                />
-              </div>
+              
               <div className="col-lg-4">
                 <label className="font-weight-bold">Mobile Number</label>
                 <input
@@ -112,23 +89,8 @@ function FormPageThree() {
                   placeholder="Enter mobile number"
                 />
               </div>
-              <div className="col-lg-4">
-                <label className="font-weight-bold">Upload Aadhar Card</label>
-                <input
-                  type="file"
-                  name="mother_aadhar_doc"
-                  className="form-control"
-                />
-              </div>
-              <div className="col-lg-4">
-                <label className="font-weight-bold">Email Id</label>
-                <input
-                  type="email"
-                  name="m_email_id"
-                  className="form-control"
-                  placeholder="Enter email id"
-                />
-              </div>
+              
+              
             </div>
 
             {/* Save Button */}

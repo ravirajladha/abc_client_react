@@ -72,19 +72,27 @@ function TeacherNav() {
                 <span>Home</span>
               </NavLink>
             </li>
-            
+            <div className="nav-caption fw-600 font-xssss text-grey-500">
+              Home
+            </div>
             <li className="nav-item">
               <NavLink className="navi-link" to="/qnas">
                 <i className="feather-book-open mr-2"></i>
-                <span>Qnas</span>
+                <span>Qna'ss</span>
               </NavLink>
             </li>
+            <div className="nav-caption fw-600 font-xssss text-grey-500">
+              Qna's
+            </div>
             <li className="nav-item">
               <NavLink className="navi-link" to="/chats">
-                <i className="feather-briefcase mr-2"></i>
+                <i className="feather-message-square mr-2"></i>
                 <span>Chats</span>
               </NavLink>
             </li>
+            <div className="nav-caption fw-600 font-xssss text-grey-500">
+              Chats
+            </div>
           </ul>
 
           <div className="nav-caption fw-600 font-xssss text-grey-500">

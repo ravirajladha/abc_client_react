@@ -13469,7 +13469,7 @@ strong,
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  height: 96px;
+  height: 70px;
   padding: 0 15px;
   background: #ffffff;
   border-bottom: 2px #eee solid;
@@ -18564,4 +18564,23 @@ body.theme-dark .page-item .page-link i {
   .nav-tabs.profile li button {
     padding: 1rem 0 !important;
   }
+}
+
+.navbar {
+  display: flex; /* Use flexbox for alignment */
+  justify-content: center; /* Center items horizontally */
+  align-items: center; /* Center items vertically */
+  height: 70px; /* Increase the height as needed */
+  background-color: #ffa629; /* Use your navbar's background color */
+  border-bottom: solid 1px #ddd; /* Optional: adds a subtle border */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: adds shadow for depth */
+}
+
+.navbar h1 {
+  margin: 0; /* Remove default margin */
+  font-size: 2rem; /* Adjust size as needed */
+  font-weight: bold; /* Optional: makes the text bold */
+  color: #333; /* Change the color as needed */
+  text-transform: uppercase; /* Optional: uppercase styling */
+  letter-spacing: 4px; /* Adjust spacing between letters */
 }

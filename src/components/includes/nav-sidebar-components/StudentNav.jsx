@@ -64,6 +64,9 @@ function StudentNav() {
                 <span>Course Feed</span>
               </NavLink>
             </li>
+            <div className="nav-caption fw-600 font-xssss text-grey-500">
+              Home
+            </div>
             <li>
               <NavLink
                 activeClassName="active"
@@ -75,6 +78,9 @@ function StudentNav() {
                 <span>Subjects</span>
               </NavLink>
             </li>
+            <div className="nav-caption fw-600 font-xssss text-grey-500">
+              Subjects
+            </div>
             <li>
               <NavLink
                 activeClassName="active"
@@ -86,6 +92,9 @@ function StudentNav() {
                 <span>Qna</span>
               </NavLink>
             </li>
+            <div className="nav-caption fw-600 font-xssss text-grey-500">
+              Qna
+            </div>
             <li>
               <NavLink
                 activeClassName="active"
@@ -97,6 +106,9 @@ function StudentNav() {
                 <span>Forums</span>
               </NavLink>
             </li>
+            <div className="nav-caption fw-600 font-xssss text-grey-500">
+              Forums
+            </div>
             <li>
               <NavLink
                 activeClassName="active"
@@ -108,6 +120,9 @@ function StudentNav() {
                 <span>Video Features</span>
               </NavLink>
             </li>
+            <div className="nav-caption fw-600 font-xssss text-grey-500">
+              Video Features
+            </div>
           </ul>
 
           <div className="nav-caption fw-600 font-xssss text-grey-500">
