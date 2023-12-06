@@ -50,38 +50,10 @@ function ParentHome() {
       });
   };
 
-    // const userDetails = getUserFromLocalStorage()
-    return (
-        <>
-            <div className="main-wrapper">
-                <div className="main-content">
-                    <AppHeader />
-                    <div className="middle-sidebar-bottom theme-dark-bg">
-                        <div className="custom-middle-sidebar-left">
-                            <div className="container p-2">
-                                <div className="row mb-2">
-                                    <h1>Welcome, {userDetails.user.name}! {parentCode}</h1> <br />
-                                </div>
-                                <div className="row">
-                                <div className="col-lg-6 d-flex mb-4 justify float-right">
-                                        <h2 className="text-grey-900 font-md fw-700">Parent Code:  {parentCode} </h2>
-                                    </div>
-                                    <div className="col-lg-6 d-flex mb-4 justify float-right">
-                                        <select
-                                            className="form-select ml-auto float-right border-0 font-xssss fw-600 text-grey-700 bg-transparent"
-                                            aria-label="Default select example"
-                                        >
-                                            <option>Sort by latest</option>
-                                            <option defaultValue="1">Sort by popularity</option>
-                                            <option defaultValue="2">
-                                            Sort by score : low to high
-                      </option>
-                      <option defaultValue="3">
-                        Sort by score : high to low
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
+  useEffect(() => {
+    fetchUserDetails();
+    getChildren();
+  }, [userDetails]);
 
   return (
     <>
