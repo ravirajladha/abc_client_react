@@ -4,15 +4,16 @@ import 'video.js/dist/video-js.css';
 import { AuthContext } from "../../lib/AuthContext.js"
 
 export const VideoPlayer = (props) => {
-  const  user = useContext(AuthContext).user;
-   
-    const user_id = user.user.id;
-
-
+ 
   const videoRef = React.useRef(null);
   const playerRef = React.useRef(null);
-  const { options, onReady } = props;
-
+  const { options, onReady, onPlayerChange  } = props;
+  const notes = [
+    { timestamp: 10, note: 'Note at 10 seconds' },
+    { timestamp: 30, note: 'Note at 30 seconds' },
+    { timestamp: 50, note: 'Note at 50 seconds' },
+    // Add more notes as needed
+  ];
   React.useEffect(() => {
 
     // Make sure Video.js player is only initialized once
@@ -27,7 +28,10 @@ export const VideoPlayer = (props) => {
       const player = playerRef.current = videojs(videoElement, options, () => {
         videojs.log('player is ready');
         onReady && onReady(player);
+        onPlayerChange && onPlayerChange(player); // Pass the player instance to the parent
       });
+
+      // createMarkers(player, notes);
 
       // You could update an existing player in the `else` block here
       // on prop change, for example:
@@ -38,6 +42,34 @@ export const VideoPlayer = (props) => {
       player.src(options.sources);
     }
   }, [options, videoRef]);
+
+
+  // const createMarkers = (player, notes) => {
+  //   const total = player.duration();
+  //   const progressControl = player.controlBar.progressControl.children_[0].el_;
+  //   console.log(notes);
+
+  //   notes.forEach((note) => {
+  //     console.log(note);
+  //     const left = (note.timestamp / total) * 100 + '%';
+  //     const time = note.timestamp;
+  
+  //     const markerElement = document.createElement('div');
+  //     markerElement.className = 'vjs-marker';
+  //     markerElement.style = `left:${left}`;
+  //     markerElement.setAttribute('data-time', time);
+  //     markerElement.innerHTML = `<span>${note.note}</span>`;
+  
+  //     markerElement.addEventListener('click', () => {
+  //       player.currentTime(time);
+  //     });
+  
+  //     progressControl.appendChild(markerElement);
+  //   });
+
+  // };
+
+
 
   // Dispose the Video.js player when the functional component unmounts
   React.useEffect(() => {
@@ -50,6 +82,17 @@ export const VideoPlayer = (props) => {
       }
     };
   }, [playerRef]);
+
+
+
+  const  user = useContext(AuthContext).user;
+  if (!user) {
+      // Handle the case when there is no user. You might want to redirect
+      // to a login page or return null or some placeholder content.
+      console.log("No user found. User might be logged out.");
+      return <div>User is not logged in</div>;
+    }
+  const user_id = user.user.id;
 
   return (
     <div data-vjs-player>
