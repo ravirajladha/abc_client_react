@@ -65,9 +65,6 @@ import Markers from "./pages/student/Markers";
 import MarkerSingle from "./pages/student/MarkerSingle";
 import VideoWithWaterMark from "./pages/student/VideoWithWaterMark";
 import ViewAssessments from "./pages/admin/ViewAssessments";
-import ParentSubjects from "./pages/parent/ParentSubjects";
-import ParentAssessments from "./pages/parent/ParentAssessments";
-import ParentTests from "./pages/parent/ParentTests";
 import Students from "./pages/school/Students";
 import AddStudent from "./pages/school/AddStudent";
 import ViewStudent from "./pages/school/ViewStudent";
@@ -86,6 +83,9 @@ import PreviewEbook from "./pages/admin/ebook/PreviewEbook.jsx";
 import ClassesResult from "./pages/admin/ClassesResult.jsx";
 import SubjectsResult from "./pages/admin/SubjectsResult.jsx";
 import SubjectResults from "./pages/student/SubjectResults.jsx";
+import StudentDetails from "./pages/parent/StudentDetails.jsx";
+import StudentTestResults from "./pages/parent/StudentTestResults.jsx";
+import StudentAssessmentResults from "./pages/parent/StudentAssessmentResults.jsx";
 
 class Root extends Component {
   render() {
@@ -735,34 +735,35 @@ class Root extends Component {
           />
           <Route
             exact
-            path={`${process.env.PUBLIC_URL}/parent_subjects/:user_id`}
+            path={`${process.env.PUBLIC_URL}/student/:studentId`}
             element={
               <ProtectedRoute
-                element={<ParentSubjects />}
+                element={<StudentDetails />}
                 allowedTypes={["parent"]}
               />
             }
           />
           <Route
             exact
-            path={`${process.env.PUBLIC_URL}/parent_assessments/:user_id`}
+            path={`${process.env.PUBLIC_URL}/student/:studentId/tests/:subjectId`}
             element={
               <ProtectedRoute
-                element={<ParentAssessments />}
+                element={<StudentTestResults />}
                 allowedTypes={["parent"]}
               />
             }
           />
           <Route
             exact
-            path={`${process.env.PUBLIC_URL}/parent_tests/:user_id`}
+            path={`${process.env.PUBLIC_URL}/student/:studentId/assessments/:subjectId/`}
             element={
               <ProtectedRoute
-                element={<ParentTests />}
+                element={<StudentAssessmentResults />}
                 allowedTypes={["parent"]}
               />
             }
           />
+
 
           {/* school */}
           <Route

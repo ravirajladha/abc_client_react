@@ -3,6 +3,7 @@ import AppHeader from "../../components/includes/AppHeader";
 import AppFooter from "../../components/includes/AppFooter";
 import { useParams } from "react-router-dom";
 import BackButton from "../../components/navigation/BackButton";
+import StudentSidebar from "../../components/includes/StudentSidebar";
 
 import $ from "jquery";
 import "datatables.net";
@@ -93,6 +94,7 @@ function SubjectResults() {
                 </div>
               </div>
             </div>
+            <StudentSidebar />
           </div>
         </div>
         <AppFooter />

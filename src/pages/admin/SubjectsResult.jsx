@@ -83,7 +83,7 @@ function SubjectResult() {
                                                                     </td>
                                                                     <td>{result.user.name}</td>
                                                                     <td>{result.score}</td>
-                                                                    <td>view Profile</td>
+                                                                    <td>Profile</td>
 
                                                                 </tr>
                                                             ))

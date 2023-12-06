@@ -82,11 +82,15 @@ function ClassesResult() {
                             results.map((result, index) => (
                               <tr key={index}>
                                 <td>{index + 1}</td>
-                                <td>
+                                <td className="capitalize">
                                   <b>{result.test_title}</b>
                                 </td>
-                                <td>{result.username}</td>
-                                <td>{result.subject_name}</td>
+                                <td className="capitalize">
+                                  {result.username}
+                                </td>
+                                <td className="capitalize">
+                                  {result.subject_name}
+                                </td>
                                 <td>{result.score}</td>
                                 <td>Profile</td>
                               </tr>
