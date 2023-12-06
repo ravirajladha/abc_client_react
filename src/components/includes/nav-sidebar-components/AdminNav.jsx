@@ -112,7 +112,7 @@ function AdminNav() {
               E-Lab
             </div>
             <li className="nav-item">
-              <NavLink className="navi-link" to="/e_books">
+              <NavLink className="navi-link" to="/ebooks">
                 <i className="feather-book mr-2"></i>
                 <span>E-Book</span>
               </NavLink>

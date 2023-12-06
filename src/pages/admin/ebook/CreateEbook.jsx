@@ -3,6 +3,7 @@ import AppHeader from '../../../components/includes/AppHeader';
 import AppFooter from '../../../components/includes/AppFooter';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import BackButton from '../../../components/navigation/BackButton';
 
 function CreateEbook() {
     const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -68,6 +69,9 @@ function CreateEbook() {
                                 <div className="card w-100 border-0 bg-white shadow-lg p-0 mb-4">
                                     <div className="card-body p-4 w-100 border-0 d-flex rounded-lg justify-content-between">
                                         <h2 className="fw-400 font-lg d-block">Create <b> Ebook</b> </h2>
+                                        <div className="float-right">
+                                            <BackButton/>
+                                        </div>
                                     </div>
                                     <ToastContainer autoClose={3000} />
                                     <div className="card-body p-lg-5 p-4 w-100 border-0 ">
@@ -130,7 +134,11 @@ function CreateEbook() {
                                                             <div className="col-lg-2">
                                                                 <button
                                                                     type="button"
-                                                                    className="btn btn-danger ml-2 mt-5"
+                                                                    className="btn btn-danger ml-2 mt-4"
+                                                                    style={{
+                                                                        backgroundColor: "red",
+                                                                        color: "white",
+                                                                      }}
                                                                     onClick={() => deleteModule(index)}
                                                                 >
                                                                     <i class="feather-minus"></i>

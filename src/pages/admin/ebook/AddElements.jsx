@@ -5,6 +5,9 @@ import { Link, useParams } from 'react-router-dom';
 
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+import BackButton from '../../../components/navigation/BackButton';
+
 function AddElements() {
     const baseUrl = process.env.REACT_APP_BASE_URL;
     const { section_id } = useParams();
@@ -3370,6 +3373,9 @@ formData.append('element_id', selectedElement);
                                 <div className="card w-100 border-0 bg-white shadow-lg p-0 mb-4">
                                     <div className="card-body p-4 w-100 border-0 d-flex rounded-lg justify-content-between">
                                         <h2 className="fw-400 font-lg d-block">Add <b> Elements</b> </h2>
+                                        <div className="float-right">
+                                            <BackButton/>
+                                        </div>
                                     </div>
                                     <ToastContainer autoClose={3000} />
                                     <div className="card-body p-lg-5 p-4 w-100 border-0 ">
