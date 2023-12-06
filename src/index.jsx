@@ -85,6 +85,7 @@ import AddElements from "./pages/admin/ebook/AddElements.jsx";
 import PreviewEbook from "./pages/admin/ebook/PreviewEbook.jsx";
 import ClassesResult from "./pages/admin/ClassesResult.jsx";
 import SubjectsResult from "./pages/admin/SubjectsResult.jsx";
+import SubjectResults from "./pages/student/SubjectResults.jsx";
 
 class Root extends Component {
   render() {
@@ -115,6 +116,16 @@ class Root extends Component {
             element={
               <ProtectedRoute
                 element={<Subjects />}
+                allowedTypes={["school_student"]}
+              />
+            }
+          />
+          <Route
+            exact
+            path={`${process.env.PUBLIC_URL}/subject/:subjectId/results`}
+            element={
+              <ProtectedRoute
+                element={<SubjectResults />}
                 allowedTypes={["school_student"]}
               />
             }

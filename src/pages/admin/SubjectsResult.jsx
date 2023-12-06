@@ -28,11 +28,11 @@ function SubjectResult() {
     }
     useEffect(() => {
         getTestResults();
-            // Cleanup function for DataTables
-    return () => {
-        const table = $(tableRef.current).DataTable();
-        table.destroy();
-      };
+        // Cleanup function for DataTables
+        return () => {
+            const table = $(tableRef.current).DataTable();
+            table.destroy();
+        };
     }, [])
     return (
         <>
