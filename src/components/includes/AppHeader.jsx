@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
-import Darkbutton from '../common/DarkButton.jsx';
+import React, { useEffect, useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import Darkbutton from "../common/DarkButton.jsx";
 
 import AdminNav from "./nav-sidebar-components/AdminNav.jsx";
 import SchoolNav from "./nav-sidebar-components/SchoolNav.jsx";
@@ -8,9 +8,8 @@ import ParentNav from "./nav-sidebar-components/ParentNav.jsx";
 import StudentNav from "./nav-sidebar-components/StudentNav.jsx";
 import TeacherNav from "./nav-sidebar-components/TeacherNav.jsx";
 
-
-import { useContext } from 'react';
-import { AuthContext } from "../../lib/AuthContext.js"
+import { useContext } from "react";
+import { AuthContext } from "../../lib/AuthContext.js";
 function AppHeader() {
   const { user } = useContext(AuthContext);
   const [isActive, setIsActive] = useState(false);
@@ -18,13 +17,13 @@ function AppHeader() {
 
   //Nav toggle
   const handleSidebarToggle = () => {
-    const sidebar = document.querySelector('.navigation');
+    const sidebar = document.querySelector(".navigation");
 
     if (sidebar) {
       if (!isSidebarOpen) {
-        sidebar.classList.add('nav-active');
+        sidebar.classList.add("nav-active");
       } else {
-        sidebar.classList.remove('nav-active');
+        sidebar.classList.remove("nav-active");
       }
     }
 
@@ -52,13 +51,12 @@ function AppHeader() {
 
   const handleLogout = () => {
     // Implement your logout logic here
-    navigate('/login');
+    navigate("/login");
   };
 
   // Use user from context
-  const sidebar = sidebarComponents[user?.user?.type] || sidebarComponents.default;
-
-
+  const sidebar =
+    sidebarComponents[user?.user?.type] || sidebarComponents.default;
 
   return (
     <div className="middle-sidebar-header bg-white">
@@ -96,13 +94,39 @@ function AppHeader() {
           />
         </div>
       </form> */}
-       <div class="navbar">
-  <h1>&nbsp;ATOMS&nbsp; </h1>
-</div>
+      <div className="navbar">
+        <h1>&nbsp;ATOMS&nbsp; </h1>
+      </div>
 
-      <ul className="d-flex ml-auto right-menu-icon">
-      <Darkbutton />
+      <ul className="d-flex ml-auto right-menu-icon px-3 pt-3">
+        <Darkbutton />
         <li>
+          <Link to="#">
+            <img
+              src="/assets/images/user.png"
+              alt="user"
+              className="w40 mt--1 rounded-circle"
+            />
+            <div className="menu-dropdown" style={{ width: "170px" }}>
+              <div className="font-xss text-grey-900 mb-2 mt-1 ml-0 fw-600 d-flex align-items-center">
+                <i className="feather-settings text-grey-900 font-lg mr-2"></i>
+                <Link to="/settings" onClick={() => setIsDropdownOpen(false)}>
+                  Settings
+                </Link>
+              </div>
+              <div className="font-xss text-grey-900 mb-0 py-2 fw-600 ml-0 d-flex align-items-center">
+                <i className="feather-user text-grey-900 font-lg mr-2"></i>
+                <Link
+                  to="/default-user-profile"
+                  onClick={() => setIsDropdownOpen(false)}
+                >
+                  Profile
+                </Link>
+              </div>
+            </div>
+          </Link>
+        </li>
+        {/* <li>
           <Link to="#">
             <span className="dot-count bg-warning"></span>
             <img
@@ -110,30 +134,26 @@ function AppHeader() {
               alt="user"
               className="w40 mt--1 rounded-circle"
             />
-            <div className="menu-dropdown" style={{ width: '170px' }}>
-              {/* <h4 className="fw-700 font-xs mb-4">Notification</h4> */}
-              <li className='font-xsss text-grey-900 mb-1 mt-0 ml-0 fw-700 d-block'>
-              <i className="feather-settings text-grey-900 font-lg mr-2"></i>
-              <Link to="/settings" onClick={() => setIsDropdownOpen(false)}>
-                Settings
-              </Link>
-            </li>
-            <li className='font-xsss text-grey-900 mb-1 mt-0 fw-700 ml-0 d-block'>
-            <i className="feather-user text-grey-900 font-lg mr-2"></i>
-              <Link to="/default-user-profile" onClick={() => setIsDropdownOpen(false)}>
-                Profile
-              </Link>
-            </li>
-           
-
-          
-            
+            <div className="menu-dropdown" style={{ width: "170px" }}>
+              <li className="font-xsss text-grey-900 mb-1 mt-0 ml-0 fw-700 d-block">
+                <i className="feather-settings text-grey-900 font-lg mr-2"></i>
+                <Link to="/settings" onClick={() => setIsDropdownOpen(false)}>
+                  Settings
+                </Link>
+              </li>
+              <li className="font-xsss text-grey-900 mb-1 mt-0 fw-700 ml-0 d-block">
+                <i className="feather-user text-grey-900 font-lg mr-2"></i>
+                <Link
+                  to="/default-user-profile"
+                  onClick={() => setIsDropdownOpen(false)}
+                >
+                  Profile
+                </Link>
+              </li>
             </div>
           </Link>
-        </li>
-      
+        </li> */}
 
-     
         {/* <li>
           <Link to="/default-user-profile">
             <img
@@ -144,16 +164,12 @@ function AppHeader() {
           </Link>
         </li> */}
 
-        
         <li>
           <span onClick={toggleActive} className="menu-search-icon">
             <i className="feather-search text-grey-900 font-lg"></i>
           </span>
         </li>
       </ul>
-
-    
-    
 
       {sidebar}
     </div>

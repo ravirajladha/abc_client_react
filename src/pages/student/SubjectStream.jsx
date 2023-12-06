@@ -11,6 +11,7 @@ import { Tabs, Tab, Accordion } from "react-bootstrap";
 import AppHeader from "../../components/includes/AppHeader";
 import AppFooter from "../../components/includes/AppFooter";
 import StudentSidebar from '../../components/includes/StudentSidebar';
+import { Modal } from 'react-bootstrap';
 
 function SubjectStream() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -77,6 +78,8 @@ function SubjectStream() {
     //     videojs.log('player will dispose');
     // });
   };
+  const [videoPlayer, setVideoPlayer] = useState(null);
+  const [noteTimestamp, setNoteTimestamp] = useState('0:00');
 
   const [assessments, setAssessments] = useState([]);
   const [isTeacherAvailable, setIsTeacherAvailable] = useState(false);
@@ -236,7 +239,7 @@ function SubjectStream() {
   const fetchNotes = async () => {
     try {
       const response = await fetch(
-        baseUrl + "api/get-notes/" + userId + "/" + subjectId,
+        baseUrl + "api/get-notes/" + userId + "/" + activeVideoId,
         {
           method: "GET",
           headers: {
@@ -251,6 +254,9 @@ function SubjectStream() {
       const data = await response.json();
       setNotes(data);
       scrollActiveTabToBottom();
+      console.warn(notes);
+      createMarkers(videoPlayer, notes);
+
     } catch (error) {
       console.error("Error fetching messages:", error);
     }
@@ -261,8 +267,9 @@ function SubjectStream() {
     try {
       const formData = new FormData();
       formData.append("student_id", userId);
-      formData.append("subject_id", subjectId);
+      formData.append("video_id", activeVideoId);
       formData.append("note", newNote);
+      formData.append("timestamp", noteTimestamp);
 
       const response = await fetch(baseUrl + "api/store-notes", {
         method: "POST",
@@ -271,8 +278,8 @@ function SubjectStream() {
       if (!response) {
         throw new Error("Failed to store notes");
       }
+      setModal1Open(false);
       setNewNote("");
-      noteInputRef.current.focus();
 
       fetchNotes();
     } catch (error) {
@@ -292,23 +299,30 @@ function SubjectStream() {
     //fetch Notes on load
     fetchNotes();
 
+
+    //fetch chat messages in each interval
+    fetchMessages();
+    const intervalId = setInterval(fetchMessages, 5000);
+    return () => clearInterval(intervalId);
+  }, [activeTab]);
+
+
+
+  useEffect(() => {
     // Initialize Video.js options
     setVideoJsOptions((prevOptions) => ({
       ...prevOptions,
       sources: [
         {
           src: baseUrl + matchVideo.video_file,
-          type: "video/mp4",
+          type: 'video/mp4',
         },
       ],
     }));
     setMainVideoTitle(matchVideo.video_name);
+    
+  }, [matchVideo]);
 
-    //fetch chat messages in each interval
-    fetchMessages();
-    const intervalId = setInterval(fetchMessages, 5000);
-    return () => clearInterval(intervalId);
-  }, [activeTab, matchVideo]);
 
   const responsive = {
     superLargeDesktop: {
@@ -328,6 +342,91 @@ function SubjectStream() {
       items: 1,
     },
   };
+  // save note modal
+  const [modal1Open, setModal1Open] = useState(false);
+  const closeModal1 = () => setModal1Open(false);
+
+ 
+  const handlePlayerChange = (player) => {
+    setVideoPlayer(player); // Store the player instance in your component state
+  };
+
+  // capture the current time of the video player on clicking on the add note button
+  const handleAddNoteClick = () => {
+    const currentTime = videoPlayer ? videoPlayer.currentTime() : 0;
+    console.log(currentTime);
+    setNoteTimestamp(currentTime);
+    setModal1Open(true);
+
+  };
+  const formatNoteTimestamp = (timestamp) => {
+    const minutes = Math.floor(timestamp / 60);
+    const seconds = Math.floor(timestamp % 60);
+    return `${minutes}:${seconds}`;
+  };
+  // change the video timestamp on clicking on the note
+  const handleNoteClick = (noteTimestamp) => {
+    if (videoPlayer) {
+      videoPlayer.currentTime(noteTimestamp);
+    }
+  };
+
+  const createMarkers = (player, notes) => {
+    player.on("loadedmetadata", () => {
+      // Additional setup if needed
+      const total = player.duration();
+    const progressControl = player.controlBar.progressControl.children_[0].el_;
+    console.log(player);
+    console.warn(total);
+    console.log(notes);
+    notes.notes.forEach((note) => {
+      console.log(note);
+      const left = (note.timestamp / total) * 100 + '%';
+      const time = note.timestamp;
+  
+      const markerElement = document.createElement('div');
+      markerElement.className = 'vjs-marker';
+      markerElement.style = `left:${left}`;
+      markerElement.setAttribute('data-time', time);
+      markerElement.innerHTML = `<span>${note.note}</span>`;
+  
+      markerElement.addEventListener('click', () => {
+        player.currentTime(time);
+      });
+  
+      progressControl.appendChild(markerElement);
+    });
+  });
+    
+
+  };
+//   const setMarkersOnProgressBar = (video, markersData) => {
+//     if(video){
+//       const total = video.duration();
+//       const progressControl = video.controlBar.progressControl.children_[0].el_;
+  
+//       Object.values(markersData).forEach((marker) => {
+//         const left = (marker.timestamp / total) * 100 + '%';
+//         const time = marker.timestamp;
+    
+//         const markerElement = document.createElement('div');
+//         markerElement.className = 'vjs-marker';
+//         markerElement.style = `left:${left}`;
+//         markerElement.setAttribute('data-time', time);
+//         markerElement.innerHTML = `<span>${marker.note}</span>`;
+    
+//         markerElement.addEventListener('click', () => {
+//           video.currentTime(time);
+//         });
+    
+//         progressControl.appendChild(markerElement);
+//       });
+
+
+//     }
+
+// };
+
 
   if (!user) {
     // Handle the case when there is no user. You might want to redirect
@@ -335,7 +434,8 @@ function SubjectStream() {
     console.log("No user found. User might be logged out.");
     return <div>User is not logged in</div>;
   }
-  const userId = user.user.id
+  const userId = user.user.id;
+
 
   return (
     <>
@@ -349,6 +449,8 @@ function SubjectStream() {
                   <VideoPlayer
                     options={videoJsOptions}
                     onReady={handlePlayerReady}
+                    onPlayerChange={handlePlayerChange}
+                    notes={notes}
                   />
                 </div>
 
@@ -436,6 +538,7 @@ function SubjectStream() {
                                                       className="card-body d-flex p-1 video"
                                                       data-id={video.id}
                                                       key={video.id}
+                                                      onClick={() => handleVideoClick(video.id, video.video_file, video.video_name)}
                                                     >
                                                       <i className="feather-play-circle mr-3 font-lg"></i>
                                                       <div className="d-flex flex-column">
@@ -638,42 +741,46 @@ function SubjectStream() {
                                 className="message-item outgoing-message"
                                 key={index}
                               >
-                                <div className="message-wrap">{note.note}</div>
                                 <div className="message-user">
                                   <div>
                                     <div className="time">
-                                      <i className="ti-double-check text-info"></i>
+                                      {formatNoteTimestamp(note.timestamp)}
                                     </div>
                                   </div>
                                 </div>
+                                <div className="message-wrap" onClick={() => handleNoteClick(note.timestamp)}>{note.note}</div>
+
                               </div>
                             ))
                           ) : (
                             <div className="message-item"></div>
                           )}
                         </div>
-                        <form
-                          className="chat-form position-absolute bottom-0 w-100 left-0 bg-white z-index-1 p-3 shadow-xs theme-dark-bg"
-                          onSubmit={storeNotes}
-                        >
-                          <button className="bg-grey float-left">
-                            <i className="ti-microphone text-white"></i>
-                          </button>
-                          <div className="form-group">
-                            <input
-                              type="text"
-                              ref={noteInputRef}
-                              placeholder={newNote ? "" : "New Note"}
-                              value={newNote}
-                              onClick={() => setNewNote("")}
-                              onChange={(e) => setNewNote(e.target.value)}
-                              className="text-grey-500"
-                            />
-                          </div>
-                          <button type="submit" className="bg-current">
-                            <i className="ti-arrow-right text-white"></i>
-                          </button>
-                        </form>
+
+                        <div className="text-center">
+                          <button type="button" className="header-btn bg-current fw-500 text-white font-xsss p-2 lh-32 w100 text-center d-inline-block rounded-xl" onClick={handleAddNoteClick}>Add Note</button>
+                        </div>
+                        <Modal show={modal1Open} onHide={closeModal1} >
+                          <Modal.Header closeButton >
+                            <Modal.Title></Modal.Title>
+                          </Modal.Header>
+                          <Modal.Body>
+                            <div className="header-btn bg-dark fw-500 text-white font-xsss p-1 lh-32 w100 text-center d-inline-block rounded-xl mb-3" id="time">
+                              {formatNoteTimestamp(noteTimestamp)}
+                            </div>
+                            <div className="form-group icon-input mb-3">
+                              <i className="font-sm ti-email text-grey-500 pr-0"></i>
+                              <input type="text" name="note" className="style2-input pl-5 form-control text-grey-900 font-xsss fw-600" placeholder="Enter Note.."
+                                value={newNote}
+                                onChange={(e) => setNewNote(e.target.value)} />
+
+                            </div>
+                            <div className="form-group mb-1"><button type="submit" className="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 " onClick={storeNotes}>Save</button></div>
+                          </Modal.Body>
+                          <Modal.Footer>
+
+                          </Modal.Footer>
+                        </Modal>
                       </Tab>
                     </Tabs>
                   </div>
