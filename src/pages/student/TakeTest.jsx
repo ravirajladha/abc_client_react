@@ -5,7 +5,6 @@ import AppHeader from "../../components/includes/AppHeader";
 import StudentSidebar from "../../components/includes/StudentSidebar";
 
 import { useParams, useNavigate } from "react-router-dom";
-import { getUserFromLocalStorage } from "../util/SessionStorage";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useContext } from "react";
@@ -82,7 +81,7 @@ function TakeTest() {
         .then((resp) => {
             console.warn(resp);
             // toast.success(resp.msg);
-            // navigate('/subject_stream/view_test_score/'+ subject_id +"/"+test_id);
+            navigate('/subject_stream/view_test_score/'+ subject_id +"/"+test_id);
         })
         .catch((err) => {
           console.error("Error submitting answers:", err);

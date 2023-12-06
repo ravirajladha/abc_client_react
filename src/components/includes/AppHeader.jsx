@@ -96,7 +96,7 @@ function AppHeader() {
           />
         </div>
       </form> */}
-       <div class="navbar">
+       <div className="navbar">
   <h1>&nbsp;ATOMS&nbsp; </h1>
 </div>
 
