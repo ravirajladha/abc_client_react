@@ -244,7 +244,7 @@ const fetchUserDetails = async () => {
                 <div className="main-content">
                     <AppHeader />
                     <div className="middle-sidebar-bottom theme-dark-bg">
-                        <div className="middle-sidebar-left">
+                        <div className="custom-middle-sidebar-left">
                             <div className="container p-2">
                                 <div className="row mb-2">
                                     <h1>Welcome, {userDetails.user.name}! {parentCode}</h1> <br />

@@ -13,6 +13,8 @@ import { AuthContext } from "../../lib/AuthContext.js"
 
 function AnswerForum() {
     const navigate = useNavigate();
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
     let { forumId } = useParams();
     const [answer, setAnswer] = useState("");
     const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -27,6 +29,7 @@ function AnswerForum() {
         };
 
         e.preventDefault();
+        setIsSubmitting(true);
 
         if (validate()) {
             fetch(baseUrl + "api/submitSchoolForumAnswer/" + forumId, {
@@ -45,6 +48,8 @@ function AnswerForum() {
 
             }).catch((err) => {
                 toast.error('Could not submit answer :' + err.message);
+            }).finally(() => {
+                setIsSubmitting(false); // Re-enable the submit button
             });
         }
     }
@@ -125,7 +130,7 @@ function AnswerForum() {
                                         </div>
                                         <div className="row">
                                             <div className="col-lg-4">
-                                                <button type="submit" className="btn bg-current text-center text-white font-xsss fw-600 p-3 mt-4 w175 rounded-lg d-inline-block border-0">Submit</button>
+                                                <button type="submit" disabled={isSubmitting}  className="btn bg-current text-center text-white font-xsss fw-600 p-3 mt-4 w175 rounded-lg d-inline-block border-0">Submit</button>
                                             </div>
                                         </div>
                                     </form>

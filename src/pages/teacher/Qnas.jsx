@@ -46,7 +46,7 @@ function Qnas() {
                     <AppHeader />
 
                     <div className="middle-sidebar-bottom theme-dark-bg">
-                        <div className="middle-sidebar-left">
+                        <div className="custom-middle-sidebar-left">
 
                             <div className="row">
                                 <div className="w-100 border-0 p-0 mb-4">

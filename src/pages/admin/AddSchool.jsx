@@ -109,7 +109,7 @@ function AddSchool() {
           </div>
 
           <div className="middle-sidebar-bottom bg-lightblue theme-dark-bg">
-            <div className="middle-sidebar-left">
+            <div className="custom-middle-sidebar-left">
               <div className="mb-3">
                 <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
                   <div className="row">

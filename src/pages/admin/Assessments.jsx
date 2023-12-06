@@ -39,7 +39,7 @@ function Assessments() {
                     <AppHeader />
 
                     <div className="middle-sidebar-bottom theme-dark-bg">
-                        <div className="middle-sidebar-left">
+                        <div className="custom-middle-sidebar-left">
                             <div className="row">
                                 <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
                                     <div>
@@ -57,7 +57,7 @@ function Assessments() {
                                         {classItem.subjects.map(subject => (
                                             <div className="col-xl-4 col-lg-6 col-md-6" key={subject.id}>
                                                 <div className="card mb-4 d-block w-100 shadow-xss rounded-lg p-xxl-5 p-4 border-0 text-center">
-                                                    <a href="" className="position-absolute right-0 mr-4 top-0 mt-3"><i className="ti-more text-grey-500 font-xs"></i></a>
+                                                    {/* <a href="" className="position-absolute right-0 mr-4 top-0 mt-3"><i className="ti-more text-grey-500 font-xs"></i></a> */}
                                                     <a href="#" className="btn-round-xxxl rounded-lg bg-lightblue ml-auto mr-auto">
                                                         <img src={baseUrl + subject.subject_image} alt="icon" className="p-1" />
                                                     </a>

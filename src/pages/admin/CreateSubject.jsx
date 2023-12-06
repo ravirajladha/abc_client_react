@@ -73,7 +73,7 @@ function CreateSubject() {
                 <div className="main-content menu-active">
                     <AppHeader />
                     <div className="middle-sidebar-bottom theme-dark-bg">
-                        <div className="middle-sidebar-left">
+                        <div className="custom-middle-sidebar-left">
                             <div className="row">
                             <ToastContainer autoClose={3000} />
                             <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">

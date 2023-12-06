@@ -2,14 +2,18 @@ import React, { useState, useEffect } from 'react'
 import AppHeader from '../../components/includes/AppHeader';
 import AppFooter from '../../components/includes/AppFooter';
 import Dropdown from '../../components/inputs/Dropdown';
+import {  useNavigate } from "react-router-dom";
+
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 function CreateAssessments() {
+    const navigate = useNavigate();
 
     const baseUrl = process.env.REACT_APP_BASE_URL;
     useEffect(() => {
         getClasses();
     }, [])
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const [classes, setClasses] = useState([]);
     const [selectedClass, setSelectedClass] = useState('');
@@ -120,6 +124,7 @@ function CreateAssessments() {
         formData.append('option4', inputs.option4);
 
         e.preventDefault();
+        setIsSubmitting(true);
 
         console.log(selectedOption);
         fetch(baseUrl + "api/create_assessment", {
@@ -149,8 +154,14 @@ function CreateAssessments() {
 
         }).catch((err) => {
             toast.error('Could not submit question :' + err.message);
+        })
+        .finally(() => {
+            setIsSubmitting(false); // Re-enable the submit button
         });
     }
+    const goBack = () => {
+        navigate(-1);
+      };
     return (
         <>
             <div className="main-wrapper">
@@ -159,13 +170,29 @@ function CreateAssessments() {
                     <AppHeader />
 
                     <div className="middle-sidebar-bottom theme-dark-bg">
-                        <div className="middle-sidebar-left">
+                        <div className="custom-middle-sidebar-left">
                             <div className="row">
+                            <ToastContainer autoClose={3000} />
+                <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
+                  <div>
+                    <h2 className="fw-400 font-lg d-block">
+                      Create <b>Assessment</b>
+                    </h2>
+                  </div>
+                  <div className="float-right">
+                    <button
+                      onClick={goBack}
+                      className="p-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1"
+                    >
+                      Back
+                    </button>
+                  </div>
+                </div>
                                 <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
                                     <div className="card-body p-4 w-100 border-0 d-flex rounded-lg justify-content-between">
-                                        <h2 className="fw-400 font-lg d-block">Create <b> Assessments</b> </h2>
+                                        {/* <h2 className="fw-400 font-lg d-block">Create <b> Assessments</b> </h2> */}
                                     </div>
-                                    <ToastContainer autoClose={3000} />
+                             
 
                                     <div className="card-body p-lg-5 px-4 w-100 border-0 ">
 
@@ -181,6 +208,7 @@ function CreateAssessments() {
                                                         column_name='class'
                                                         value={selectedClass}
                                                         onChange={handleClassChange} />
+                                                        
                                                 </div>
                                                 <div className="col-lg-6">
                                                     <label className="mont-font fw-600 font-xsss">Select
@@ -190,6 +218,7 @@ function CreateAssessments() {
                                                         column_name='subject_name'
                                                         value={selectedSubject}
                                                         onChange={handleSubjectChange} />
+                                                    
                                                 </div>
                                                 <div className="col-lg-6">
                                                     <label className="mont-font fw-600 font-xsss">Select
@@ -211,7 +240,7 @@ function CreateAssessments() {
                                                 </div>
 
                                                 <div className="col-md-12 col-sm-12 mt-2">
-                                                    <div className="d-flex justify-content-start align-items-center">
+                                                    <div className="d-flex justify-content-start align-items-center mb-2">
                                                         <label className="mont-font fw-600 font-xsss">Question</label>
                                                         <p
                                                             className="btn bg-current text-white ml-2"
@@ -234,7 +263,7 @@ function CreateAssessments() {
                                                         <textarea
                                                             rows="4"
                                                             cols="70"
-                                                            className="form-control"
+                                                            className="form-control mt-3"
                                                             placeholder="Enter Code.."
                                                             value={code}
                                                             onChange={(e) => setCode(e.target.value)}
@@ -259,7 +288,7 @@ function CreateAssessments() {
                                                             <textarea
                                                                 className="form-control"
                                                                 name={optionName}
-                                                                placeholder={`Enter ${number}th Option`}
+                                                                placeholder={`Enter Option ${number}`}
                                                                 value={inputs[optionName]}
                                                                 onChange={handleInputChange}
                                                             />
@@ -270,7 +299,7 @@ function CreateAssessments() {
 
                                             <div className="row mt-2">
                                                 <div className="col-lg-4">
-                                                    <button type="submit" className="btn bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0">Submit</button>
+                                                    <button type="submit" className="btn bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0"  disabled={isSubmitting}>Submit</button>
                                                 </div>
                                             </div>
 

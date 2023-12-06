@@ -1,21 +1,105 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
-const FormPageSix = () => {
-  const [description, setDescription] = useState("");
-  const [hobby, setHobby] = useState("");
-  const [achievements, setAchievements] = useState("");
-  const [motherTongue, setMotherTongue] = useState("");
+const FormPageSix = ({ allFormData, onSubmit, goToPreviousForm }) => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  const [formState, setFormState] = useState({
+    description: "",
+    hobby: "",
+    achievements: "",
+    motherTongue: "",
+  });
+
+  const userData = localStorage.getItem("rexkod_user");
+  const userObject = JSON.parse(userData);
+  const createdBy = userObject?.user?.id;
+
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  // Load form data from local storage on component mount
+  useEffect(() => {
+    const savedFormState = localStorage.getItem("formPageSixData");
+    if (savedFormState) {
+      setFormState(JSON.parse(savedFormState));
+    }
+  }, []);
+
+  // Save form data to local storage whenever formState changes
+  useEffect(() => {
+    localStorage.setItem("formPageSixData", JSON.stringify(formState));
+  }, [formState]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormState((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add your logic for form submission here
-    // You can use the state variables: description, hobby, achievements, motherTongue
+    // Combine the data from FormPageSix with allFormData
+    const combinedData = {
+      ...allFormData,
+      formSixData: formState,
+      auth_id: id,
+      address_proof: allFormData.formOneData.address_proof.name,
+      identity_proof: allFormData.formOneData.identity_proof.name,
+      created_by: createdBy,
+    };
+
+    console.log(combinedData["formOneData"]["address_proof"]["name"]);
+    // onSubmit(formData);
+
+    // Send the combined data to the API endpoint using a POST request
+    fetch(baseUrl + "api/school/edit_student_profile/" + id, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json", // Specify the content type as JSON
+      },
+      body: JSON.stringify(combinedData), // Convert the data to JSON format
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("Network response was not ok");
+        }
+      })
+      .then((data) => {
+        console.log("Form submitted successfully:", data);
+        setIsSubmitted(true);
+
+        // Clear the local storage for the form data
+        localStorage.removeItem("formPageOneData");
+        localStorage.removeItem("formPageThreeData");
+        localStorage.removeItem("formPageFourData");
+        localStorage.removeItem("formPageSixData");
+
+        // Use navigate to go to the students page after a delay
+        setTimeout(() => {
+          navigate("/school/students");
+        }, 3000);
+      })
+      .catch((error) => {
+        console.error("Error submitting form:", error);
+      });
+  };
+
+  const handlePrevious = () => {
+    goToPreviousForm();
   };
 
   return (
     <div className="card d-block w-100 border-0 rounded-lg overflow-hidden">
       <div className="card-body mb-3 pb-0">
-        <h2 className="fw-400 font-lg d-block"><b>About yourself</b></h2>
+        <h2 className="fw-400 font-lg d-block">
+          <b>About yourself</b>
+        </h2>
       </div>
       <div className="card-body pb-0">
         <div className="row">
@@ -30,8 +114,8 @@ const FormPageSix = () => {
                     <input
                       type="text"
                       name="description"
-                      value={description}
-                      onChange={(e) => setDescription(e.target.value)}
+                      value={formState.description}
+                      onChange={handleChange}
                       className="form-control"
                     />
                   </div>
@@ -44,10 +128,9 @@ const FormPageSix = () => {
                     <select
                       className="form-control mdl-textfield__input"
                       name="hobby"
-                      id="select_change"
                       placeholder=""
-                      value={hobby}
-                      onChange={(e) => setHobby(e.target.value)}
+                      value={formState.hobby}
+                      onChange={handleChange}
                       required
                     >
                       <option value="">-Select-</option>
@@ -63,8 +146,8 @@ const FormPageSix = () => {
                     <input
                       type="text"
                       name="achievements"
-                      value={achievements}
-                      onChange={(e) => setAchievements(e.target.value)}
+                      value={formState.achievements}
+                      onChange={handleChange}
                       className="form-control"
                     />
                   </div>
@@ -76,21 +159,28 @@ const FormPageSix = () => {
                     </label>
                     <input
                       type="text"
-                      name="mother_tongue"
-                      value={motherTongue}
-                      onChange={(e) => setMotherTongue(e.target.value)}
+                      name="motherTongue"
+                      value={formState.motherTongue}
+                      onChange={handleChange}
                       className="form-control"
                     />
                   </div>
                 </div>
                 <div className="col-lg-12">
                   <button
+                    type="button"
+                    onClick={handlePrevious}
+                    className="btn bg-current text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0"
+                  >
+                    Previous
+                  </button>
+                  <button
                     type="submit"
                     name="about_submit"
                     value="1"
-                    className="btn bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0"
+                    className="btn bg-success text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0 ml-2"
                   >
-                    save
+                    Submit
                   </button>
                 </div>
               </div>

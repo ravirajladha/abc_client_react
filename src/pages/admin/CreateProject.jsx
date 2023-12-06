@@ -13,6 +13,7 @@ function CreateProject() {
     useEffect(() => {
         getClasses();
     }, [])
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const [classes, setClasses] = useState([]);
     const [selectedClass, setSelectedClass] = useState('');
@@ -65,6 +66,7 @@ function CreateProject() {
         formData.append('subject', selectedSubject);
         formData.append('image', image);
         e.preventDefault();
+        setIsSubmitting(true);
 
         fetch(baseUrl + "api/create_project", {
             method: 'POST',
@@ -85,6 +87,9 @@ function CreateProject() {
 
         }).catch((err) => {
             toast.error('Could not submit question :' + err.message);
+        })
+        .finally(() => {
+            setIsSubmitting(false); // Re-enable the submit button
         });
     }
     return (
@@ -95,7 +100,7 @@ function CreateProject() {
                     <AppHeader />
 
                     <div className="middle-sidebar-bottom theme-dark-bg">
-                        <div className="middle-sidebar-left">
+                        <div className="custom-middle-sidebar-left">
                             <div className="row">
                                 <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
                                     <div className="card-body p-4 w-100 border-0 d-flex rounded-lg justify-content-between">
@@ -168,7 +173,7 @@ function CreateProject() {
                                             </div>
                                             <div className="row">
                                                 <div className="col-lg-4">
-                                                    <button type="submit" className="btn bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0">Submit</button>
+                                                    <button type="submit"  disabled={isSubmitting}  className="mt-3 btn bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0">Submit</button>
                                                 </div>
                                             </div>
 

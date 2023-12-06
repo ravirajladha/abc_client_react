@@ -123,7 +123,7 @@ function Login() {
                     />
                     <i className="font-sm ti-lock text-grey-500 pr-0"></i>
                   </div>
-                  <div className="form-check text-left mb-3">
+                  {/* <div className="form-check text-left mb-3">
                     <input
                       type="checkbox"
                       className="form-check-input mt-2"
@@ -136,13 +136,13 @@ function Login() {
                       Remember me
                     </label>
                  
-                    {/* <a
+                    <a
                       href="/forgot"
                       className="fw-600 font-xssss text-grey-700 mt-1 float-right"
                     >
                       Forgot your Password?
-                    </a> */}
-                  </div>
+                    </a>
+                  </div> */}
                   <button type="submit" className="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 ">Login</button>
                 </form>
 

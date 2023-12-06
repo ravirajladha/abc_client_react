@@ -15,7 +15,7 @@ import * as serviceWorker from "./serviceWorker";
 import Home from "./pages/student/Home";
 import Subjects from "./pages/student/Subjects";
 import Qna from "./pages/student/Qna";
-import Forums from "./components/common/Forums.jsx";
+import Forums from "./pages/student/Forums.jsx";
 import ViewForum from "./pages/student/ViewForum";
 import ViewQna from "./pages/student/ViewQna";
 import AnswerForum from "./pages/student/AnswerForum";
@@ -47,6 +47,7 @@ import CreateChapters from "./pages/admin/CreateChapters";
 import CreateVideos from "./pages/admin/CreateVideos";
 import AdminHome from "./pages/admin/AdminHome";
 import AllLabs from "./pages/admin/AllLabs";
+import AllTasks from "./pages/admin/AllTasks";
 import TakeAssessments from "./pages/student/TakeAssessments";
 import Elab from "./pages/student/Elab";
 import TeacherHome from "./pages/teacher/TeacherHome";
@@ -85,7 +86,7 @@ import AddElements from "./pages/admin/ebook/AddElements.jsx";
 import PreviewEbook from "./pages/admin/ebook/PreviewEbook.jsx";
 import ClassesResult from "./pages/admin/ClassesResult.jsx";
 import SubjectsResult from "./pages/admin/SubjectsResult.jsx";
-
+import EditLab from "./pages/admin/EditLab.jsx";
 class Root extends Component {
   render() {
     return (
@@ -625,6 +626,13 @@ class Root extends Component {
           />
           <Route
             exact
+            path={`${process.env.PUBLIC_URL}/all-tasks/:projectId`}
+            element={
+              <ProtectedRoute element={<AllTasks />} allowedTypes={["admin"]} />
+            }
+          />
+          <Route
+            exact
             path={`${process.env.PUBLIC_URL}/tests/test_details/:testId`}
             element={
               <ProtectedRoute
@@ -674,7 +682,16 @@ class Root extends Component {
               />
             }
           />
-
+<Route
+              exact
+              path={`${process.env.PUBLIC_URL}/edit-e-labs/:id`}
+              element={
+                <ProtectedRoute
+                  element={<EditLab />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
           {/* teacher */}
           <Route
             exact
@@ -800,7 +817,7 @@ class Root extends Component {
           />
           <Route
             exact
-            path={`${process.env.PUBLIC_URL}/school/edit-student-profile`}
+            path={`${process.env.PUBLIC_URL}/school/edit-student-profile/:id`}
             element={
               <ProtectedRoute
                 element={<EditStudentProfile />}

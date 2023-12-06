@@ -13651,6 +13651,9 @@ strong,
 .main-content .middle-sidebar-bottom .middle-sidebar-left {
   width: calc(100% - 320px);
 }
+.custom-middle-sidebar-left{
+  width: calc(100%);
+}
 .main-content .middle-sidebar-bottom .middle-sidebar-right {
   z-index: 2;
   overflow-x: hidden;

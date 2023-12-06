@@ -56,7 +56,7 @@ function SchoolNav({ isSidebarOpen }) {
             </span>
           </div>
           <div className="nav-caption fw-600 font-xssss text-grey-500">
-            <span></span>Feeds
+            <span></span>Home
           </div>
           <ul className="mb-3">
             <li className="logo d-none d-xl-block d-lg-block"></li>
@@ -69,11 +69,11 @@ function SchoolNav({ isSidebarOpen }) {
                 to="/school"
               >
                 <i className="feather-home mr-2"></i>
-                <span>Home</span>
+                <span>Students</span>
               </NavLink>
             </li>
             <div className="nav-caption fw-600 font-xssss text-grey-500">
-             Home
+            Students
             </div>
             <li className="nav-item">
               <NavLink className="navi-link" to="/school/students">
@@ -82,7 +82,7 @@ function SchoolNav({ isSidebarOpen }) {
               </NavLink>
             </li>
             <div className="nav-caption fw-600 font-xssss text-grey-500">
-             Student's
+            Teachers
             </div>
             <li className="nav-item">
               <NavLink className="navi-link" to="/school/teachers">
@@ -90,9 +90,7 @@ function SchoolNav({ isSidebarOpen }) {
                 <span>Teachers</span>
               </NavLink>
             </li>
-            <div className="nav-caption fw-600 font-xssss text-grey-500">
-              Teacher's
-            </div>
+           
           </ul>
 
           <div className="nav-caption fw-600 font-xssss text-grey-500">
