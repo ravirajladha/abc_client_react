@@ -4,6 +4,7 @@ import AppFooter from '../../../components/includes/AppFooter';
 import { Link, useParams } from 'react-router-dom';
 import { Accordion } from "react-bootstrap";
 import "../../../css/custom.css";
+import BackButton from '../../../components/navigation/BackButton';
 
 function EbookModules() {
     const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -36,11 +37,13 @@ function EbookModules() {
                                     <div>
                                         <h2 className="fw-400 font-lg d-block">Ebook <b> Modules</b> </h2>
                                     </div>
-
+                                    <div className="float-right">
+                                            <BackButton/>
+                                        </div>
                                 </div>
 
                                 <div className="col-lg-12">
-                                    
+
                                     <Accordion
                                         defaultActiveKey="0"
                                         className="accordian mb-0 accordian-course"
@@ -54,11 +57,16 @@ function EbookModules() {
                                                         eventKey={index}
                                                         className="accordion-item border-0 mb-0 shadow-xss rounded-sm bg-white"
                                                     >
-                                                        <Accordion.Header>
+                                                        {/* <Accordion.Header>
                                                             {module.module_title}
                                                             <Link to={"/ebooks/add_sections/"+module.id} className="p-2 text-white fw-700 rounded-lg text-center font-xsssss bg-current float-right ml-5"><i className="feather-edit"></i></Link>
                                                             
+                                                        </Accordion.Header> */}
+                                                        <Accordion.Header style={{ position: 'relative' }}>
+                                                            {module.module_title}
+                                                            <Link to={"/ebooks/add_sections/" + module.id} className="p-2 text-white fw-700 rounded-lg text-center font-xsssss bg-current position-absolute top-0 right-0 mr-5 mt-3"><i className="feather-edit"></i></Link>
                                                         </Accordion.Header>
+
                                                         <Accordion.Body className="py-0">
                                                             {
                                                                 module.ebook_sections ? (
@@ -66,9 +74,9 @@ function EbookModules() {
                                                                         <div key={i}>
                                                                             <div className="d-flex justify-content-between" >
                                                                                 <h5 className="font-xss fw-500 text-dark-500 ml-2">{section.section_title}</h5>
-                                                                                <Link to={"/ebooks/add_elements/"+section.id} className="p-2 text-white fw-700 rounded-lg text-center font-xsssss bg-current float-right mr-3"><i className="feather-edit"></i></Link>
+                                                                                <Link to={"/ebooks/add_elements/" + section.id} className="p-2 text-white fw-700 rounded-lg text-center font-xsssss bg-current float-right mr-3"><i className="feather-edit"></i></Link>
                                                                             </div>
-                                                                            <hr className='mb-2'/>
+                                                                            <hr className='mb-2' />
                                                                         </div>
                                                                     ))
                                                                 )

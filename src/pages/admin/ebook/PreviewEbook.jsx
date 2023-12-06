@@ -39,6 +39,7 @@ import ExampleImagePractice from './ebook-elements/ExampleImagePractice';
 import Buttons from './ebook-elements/Buttons';
 import TextBox from './ebook-elements/TextBox';
 import SingleButton from './ebook-elements/SingleButton';
+import BackButton from '../../../components/navigation/BackButton';
 
 function PreviewEbook() {
     const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -183,11 +184,18 @@ function PreviewEbook() {
             </nav>
             <div className="page-container">
                 <div className="doc-container">
-                    <h4 id="getting-started" className="doc-main-title">{ebook.title}<a href="#getting-started"><i
-                        className="fas fa-hashtag"></i></a></h4>
+                    <div className='d-flex rounded-lg justify-content-between'>
+                        <h4 id="getting-started" className="doc-main-title">{ebook.title}<a href="#getting-started"><i
+                            className="fas fa-hashtag"></i></a></h4>
+                        <div className="float-right">
+                            <BackButton />
+                        </div>
+                    </div>
+
+
                     <div id="" className="doc-wrapper">
                         <div className="doc-preview d-flex justify-content-center">
-                            <img src={baseUrl + ebook.image} alt="preview" className="introduction-img" style={{width: '60%', height: 'auto'}}/>
+                            <img src={baseUrl + ebook.image} alt="preview" className="introduction-img" style={{ width: '60%', height: 'auto' }} />
                         </div>
                     </div>
                     {ebookModules ? (
@@ -310,10 +318,10 @@ function PreviewEbook() {
                                                                     {element.section_id === section.id && element.element_id === 24 && (
                                                                         <SingleButton element={element} />
                                                                     )}
-                                                                   
-                                                                    
-                                                                    
-                                                                   
+
+
+
+
 
                                                                 </div>
 
