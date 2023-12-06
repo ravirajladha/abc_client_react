@@ -9,27 +9,27 @@ function Profile() {
 
   const baseUrl = process.env.REACT_APP_BASE_URL;
 
-  const [projectTasks, setProjectTasks] = useState([]);
+  // const [projectTasks, setProjectTasks] = useState([]);
 
-  const get_project_tasks = (e) => {
-    fetch(baseUrl + "api/student/project-tasks/" + userDetails.user.id, {
-      method: "GET",
-      headers: {
-        "Content-type": "application/json",
-        Accept: "application/json",
-      },
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((resp) => {
-        setProjectTasks(resp);
-      });
-  };
+  // const get_project_tasks = (e) => {
+  //   fetch(baseUrl + "api/student/project-tasks" + userDetails.user.id, {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-type": "application/json",
+  //       Accept: "application/json",
+  //     },
+  //   })
+  //     .then((res) => {
+  //       return res.json();
+  //     })
+  //     .then((resp) => {
+  //       setProjectTasks(resp);
+  //     });
+  // };
 
-  useEffect(() => {
-    // get_project_tasks();
-  }, []);
+  // useEffect(() => {
+  //   get_project_tasks();
+  // }, []);
 
   if (!userDetails) {
     console.log("No user found. User might be logged out.");

@@ -17,7 +17,6 @@
 //     sessionStorage.removeItem("rexkod_user");
 // };
 
-
 export const saveUserToLocalStorage = (resp) => {
     localStorage.setItem('rexkod_user_id', resp.user.id);
     localStorage.setItem('rexkod_user_type', resp.user.type);

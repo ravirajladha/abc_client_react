@@ -14,6 +14,7 @@ function CreateVideos() {
   useEffect(() => {
     getClasses();
   }, []);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [classes, setClasses] = useState([]);
   const [selectedClass, setSelectedClass] = useState("");
@@ -95,6 +96,7 @@ function CreateVideos() {
     // formData.append('videoFiles', videoFiles);
     videoFiles.forEach((file) => formData.append("videoFiles[]", file));
     e.preventDefault();
+    setIsSubmitting(true);
 
     console.log(videoFiles);
     fetch(baseUrl + "api/create_video", {
@@ -112,6 +114,9 @@ function CreateVideos() {
       })
       .catch((err) => {
         toast.error("Could not submit chapter names: " + err.message);
+      })
+      .finally(() => {
+          setIsSubmitting(false); // Re-enable the submit button
       });
   };
   const goBack = () => {
@@ -247,7 +252,7 @@ function CreateVideos() {
 
                         <div className="col-lg-12">
                           <button
-                            type="submit"
+                            type="submit" disabled={isSubmitting} 
                             className="btn bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0 float-right mt-2"
                           >
                             Submit

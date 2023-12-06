@@ -53,12 +53,12 @@ function Subjects() {
                 {subjects.map((value, index) => (
                   <div className="col-xl-4 col-lg-6 col-md-6" key={index}>
                     <div className="card mb-4 d-block w-100 shadow-xss rounded-lg p-xxl-5 p-4 border-0 text-center">
-                      <Link
+                      {/* <Link
                         to={"#"}
                         className="position-absolute right-0 mr-4 top-0 mt-3"
                       >
                         <i className="ti-more text-grey-500 font-xs"></i>
-                      </Link>
+                      </Link> */}
                       <Link
                         to={"/subject_stream/" + value.id}
                         className="btn-round-xxxl rounded-lg bg-lightblue ml-auto mr-auto"
@@ -74,12 +74,12 @@ function Subjects() {
                           {value.des}
                         </p> */}
                       <div className="clearfix"></div>
-                      <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-success d-inline-block text-success mb-1 mr-1">
+                      {/* <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-success d-inline-block text-success mb-1 mr-1">
                         FULL TIME
                       </span>
                       <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-info d-inline-block text-info mb-1">
                         30 MIN
-                      </span>
+                      </span> */}
 
                       <div className="clearfix"></div>
                       <Link

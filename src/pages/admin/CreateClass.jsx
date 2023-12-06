@@ -10,28 +10,32 @@ function CreateClass() {
   const navigate = useNavigate();
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const [className, setClassName] = useState("");
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const createClass = (e) => {
     e.preventDefault();
+    setIsSubmitting(true); 
 
-    const formData = new FormData();
+     const formData = new FormData();
     formData.append("class_name", className);
 
     fetch(baseUrl + "api/create_class", {
-      method: "POST",
-      body: formData,
+        method: "POST",
+        body: formData,
     })
-      .then((res) => {
+    .then((res) => {
         return res.json();
-      })
-      .then((resp) => {
+    })
+    .then((resp) => {
         setClassName("");
         toast.success(resp.msg);
-      })
-      .catch((err) => {
+    })
+    .catch((err) => {
         toast.error("Could not create class: " + err.message);
-      });
-  };
+    })
+    .finally(() => {
+        setIsSubmitting(false); // Re-enable the submit button
+    });
+};
 
   const goBack = () => {
     navigate(-1);
@@ -86,7 +90,7 @@ function CreateClass() {
                         <div className="col-lg-12">
                           <button
                             type="submit"
-                            className="btn bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0 mt-2"
+                            className="btn bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0 mt-2" disabled={isSubmitting}
                           >
                             Submit
                           </button>
