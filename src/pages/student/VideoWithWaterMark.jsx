@@ -15,7 +15,8 @@ import { AuthContext } from "../../lib/AuthContext.js"
 
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
-import VideoPlayer from './VideoPlayer';
+import VideoPlayer from "./subject-stream-components/VideoPlayer.jsx";
+
 import { Link, useParams } from 'react-router-dom';
 
 function VideoWithWaterMark() {

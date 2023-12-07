@@ -13,7 +13,8 @@ import { getUserFromLocalStorage } from '../util/SessionStorage';
 
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
-import VideoPlayer from './VideoPlayer';
+import VideoPlayer from "./subject-stream-components/VideoPlayer.jsx";
+
 import { Link, useParams } from 'react-router-dom';
 
 import { useContext } from 'react';

@@ -1,7 +1,7 @@
 import React ,{useContext} from 'react';
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
-import { AuthContext } from "../../lib/AuthContext.js"
+import { AuthContext } from "../../../lib/AuthContext.js"
 
 export const VideoPlayer = (props) => {
  
@@ -42,32 +42,6 @@ export const VideoPlayer = (props) => {
       player.src(options.sources);
     }
   }, [options, videoRef]);
-
-
-  // const createMarkers = (player, notes) => {
-  //   const total = player.duration();
-  //   const progressControl = player.controlBar.progressControl.children_[0].el_;
-  //   console.log(notes);
-
-  //   notes.forEach((note) => {
-  //     console.log(note);
-  //     const left = (note.timestamp / total) * 100 + '%';
-  //     const time = note.timestamp;
-  
-  //     const markerElement = document.createElement('div');
-  //     markerElement.className = 'vjs-marker';
-  //     markerElement.style = `left:${left}`;
-  //     markerElement.setAttribute('data-time', time);
-  //     markerElement.innerHTML = `<span>${note.note}</span>`;
-  
-  //     markerElement.addEventListener('click', () => {
-  //       player.currentTime(time);
-  //     });
-  
-  //     progressControl.appendChild(markerElement);
-  //   });
-
-  // };
 
 
 
