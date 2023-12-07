@@ -10,6 +10,8 @@ import { Link, useNavigate  } from "react-router-dom";
 function CreateSubject() {
     const navigate = useNavigate();
     const baseUrl = process.env.REACT_APP_BASE_URL;
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
     useEffect(() => {
         getClasses();
     }, [])
@@ -18,6 +20,7 @@ function CreateSubject() {
     const [selectedClass, setSelectedClass] = useState('');
     const [subject, setSubject] = useState("");
     const [image, setImage] = useState("");
+    
 
 
     function getClasses() {
@@ -34,13 +37,13 @@ function CreateSubject() {
         setSelectedClass(selectedValue);
     };
     const createSubject = (e) => {
-
+        
         const formData = new FormData();
         formData.append('class', selectedClass);
         formData.append('subject', subject);
         formData.append('image', image);
         e.preventDefault();
-
+        setIsSubmitting(true);
         fetch(baseUrl + "api/create_subject", {
             method: 'POST',
             body: formData
@@ -54,6 +57,9 @@ function CreateSubject() {
 
         }).catch((err) => {
             toast.error('Could not submit question :' + err.message);
+        })
+        .finally(() => {
+            setIsSubmitting(false); // Re-enable the submit button
         });
     }
 
@@ -67,7 +73,7 @@ function CreateSubject() {
                 <div className="main-content menu-active">
                     <AppHeader />
                     <div className="middle-sidebar-bottom theme-dark-bg">
-                        <div className="middle-sidebar-left">
+                        <div className="custom-middle-sidebar-left">
                             <div className="row">
                             <ToastContainer autoClose={3000} />
                             <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
@@ -100,17 +106,17 @@ function CreateSubject() {
                                                         onChange={handleClassChange} />
                                                 </div>
                                                 <div className="col-lg-4">
-                                                    <label className="mont-font fw-600 font-xsss">Subject Name</label><br />
+                                                    <label className="mont-font fw-600 font-xsss"> Name</label><br />
                                                     <input type="text" className="form-control" placeholder="Enter Subject Name" value={subject} onChange={(e) => setSubject(e.target.value)} required />
                                                 </div>
                                                 <div className="col-lg-4">
                                                     <div className="">
-                                                        <label className="mont-font fw-600 font-xsss">Subject Image</label><br />
+                                                        <label className="mont-font fw-600 font-xsss"> Image</label><br />
                                                         <input type="file" onChange={(e) => setImage(e.target.files[0])} className="form-control" required />
                                                     </div>
                                                 </div>
                                                 <div className="col-lg-12">
-                                                    <button type="submit" className="btn bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0 float-right mt-2">Submit</button>
+                                                    <button type="submit" disabled={isSubmitting} className="btn bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0 float-right mt-2">Submit</button>
                                                 </div>
                                             </div>
                                         </form>

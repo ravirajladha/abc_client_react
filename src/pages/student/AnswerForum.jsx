@@ -3,6 +3,7 @@ import AppHeader from '../../components/includes/AppHeader';
 import AppFooter from '../../components/includes/AppFooter';
 import StudentSidebar from '../../components/includes/StudentSidebar';
 import BackButton from '../../components/navigation/BackButton';
+import { useNavigate } from 'react-router-dom';
 
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -11,15 +12,15 @@ import { useContext } from 'react';
 import { AuthContext } from "../../lib/AuthContext.js"
 
 function AnswerForum() {
+    const navigate = useNavigate();
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
     let { forumId } = useParams();
     const [answer, setAnswer] = useState("");
     const baseUrl = process.env.REACT_APP_BASE_URL;
     const [forum, setForum] = useState([]);
 
     const user = useContext(AuthContext).user;
-
-
-
 
     const submitSchoolForum = (e) => {
         let inputobj = {
@@ -28,6 +29,7 @@ function AnswerForum() {
         };
 
         e.preventDefault();
+        setIsSubmitting(true);
 
         if (validate()) {
             fetch(baseUrl + "api/submitSchoolForumAnswer/" + forumId, {
@@ -42,9 +44,12 @@ function AnswerForum() {
             }).then((resp) => {
                 setAnswer("");
                 toast.success(resp.msg);
+                navigate(-1); 
 
             }).catch((err) => {
                 toast.error('Could not submit answer :' + err.message);
+            }).finally(() => {
+                setIsSubmitting(false); // Re-enable the submit button
             });
         }
     }
@@ -110,7 +115,7 @@ function AnswerForum() {
                                     <form onSubmit={submitSchoolForum}>
                                         <div className="row mb-6">
                                             <div className="col-lg-12">
-                                                <label className="mont-font fw-600 font-xsss">{forum && forum.forum_question ? (
+                                                <label className="mont-font fw-600 font-xsss">Question: {forum && forum.forum_question ? (
                                                     forum.forum_question.question
                                                 ) : (
                                                     ''
@@ -125,7 +130,7 @@ function AnswerForum() {
                                         </div>
                                         <div className="row">
                                             <div className="col-lg-4">
-                                                <button type="submit" className="btn bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0">Submit</button>
+                                                <button type="submit" disabled={isSubmitting}  className="btn bg-current text-center text-white font-xsss fw-600 p-3 mt-4 w175 rounded-lg d-inline-block border-0">Submit</button>
                                             </div>
                                         </div>
                                     </form>

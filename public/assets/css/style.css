@@ -13651,6 +13651,9 @@ strong,
 .main-content .middle-sidebar-bottom .middle-sidebar-left {
   width: calc(100% - 320px);
 }
+.custom-middle-sidebar-left{
+  width: calc(100%);
+}
 .main-content .middle-sidebar-bottom .middle-sidebar-right {
   z-index: 2;
   overflow-x: hidden;
@@ -18584,3 +18587,23 @@ body.theme-dark .page-item .page-link i {
   text-transform: uppercase; /* Optional: uppercase styling */
   letter-spacing: 4px; /* Adjust spacing between letters */
 }
+
+.question-div {
+  /* Add padding as needed */
+  padding:0 0 0 0 ;
+}
+
+.question-div h4, .question-div h3 {
+  margin-bottom: 0.5rem; /* Adjust space between text elements */
+}
+
+.btn {
+  white-space: nowrap; /* Prevent text wrapping inside buttons */
+}
+
+.text-wrap {
+  white-space: pre-wrap; /* Ensure long text wraps properly */
+  word-wrap: break-word; /* Break words to prevent overflow */
+}
+
+

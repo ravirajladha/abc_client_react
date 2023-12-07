@@ -130,7 +130,7 @@ function AppHeader() {
           <Link to="#">
             <span className="dot-count bg-warning"></span>
             <img
-              src="/assets/images/user.png"
+              src="/avatar.png"
               alt="user"
               className="w40 mt--1 rounded-circle"
             />

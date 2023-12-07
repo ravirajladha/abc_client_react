@@ -119,9 +119,9 @@ function Settings() {
     Object.entries(formData).forEach(([key, value]) => {
         formDataToSend.append(key, value);
     });
-
+console.log("user_id",user.user.id);
     fetch(baseUrl + "api/update-student/" + user.user.id, {
-        method: "PUT",
+        method: "POST",
         headers: {
             'Accept': 'application/json',
             // If you're sending a FormData object, you don't set the 'Content-Type' header.
@@ -132,6 +132,7 @@ function Settings() {
     .then((response) => response.json())
     .then((data) => {
         console.log("User updated successfully", data);
+        toast.success("User password  updated successfully!");
         // Instead of reloading the page, consider using React state to show a message
         // Or redirecting the user using a method from react-router
     })
@@ -182,9 +183,10 @@ function Settings() {
                         Update <b> Password</b>{" "}
                       </h2>
                       <form
-                        onSubmit={formSubmit}
+                        onSubmit={handleFormSubmit}
                         method="post"
                         encType="multipart/form-data"
+                        
                       >
                         <div className="row">
                           <div className="col-lg-12">
@@ -199,7 +201,7 @@ function Settings() {
                                 name="name"
                                 value={formData.name}
                                 onChange={handleInputChange}
-                                required
+                                disabled
                               />
                             </div>
                           </div>
@@ -215,6 +217,7 @@ function Settings() {
                                 name="email"
                                 value={formData.email || ""}
                                 onChange={handleInputChange}
+                                disabled
                               />
                             </div>
                           </div>

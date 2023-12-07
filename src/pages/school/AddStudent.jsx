@@ -22,6 +22,7 @@ function AddStudent() {
   const [classes, setClasses] = useState([]);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const  user = useContext(AuthContext).user;
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
  
  // Define the initial formData state with empty values or derived from user if available
@@ -78,6 +79,7 @@ useEffect(() => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
   
     // Access the form data
     const formDataToSend = new FormData();
@@ -110,7 +112,9 @@ useEffect(() => {
     .catch((error) => {
       setFormSubmitted(false);
       console.error("Error adding student:", error);
-    });
+    }).finally(() => {
+      setIsSubmitting(false); // Re-enable the submit button
+  });
   }
   
 
@@ -136,7 +140,7 @@ useEffect(() => {
         <div className="main-content menu-active">
           <AppHeader />
           <div className="middle-sidebar-bottom">
-            <div className="middle-sidebar-left">
+            <div className="custom-middle-sidebar-left">
               <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
                 <div className="card-body p-4 w-100 border-0 d-flex rounded-lg justify-content-between">
                   <h2 className="fw-400 font-lg d-block">
@@ -163,7 +167,7 @@ useEffect(() => {
                     encType="multipart/form-data"
                   >
                     <div className="row mb-6">
-                      <div className="col-lg-6">
+                      <div className="col-lg-4">
                         <div className="form-group">
                           <label className="mont-font fw-600 font-xsss">
                             Student Name
@@ -180,7 +184,7 @@ useEffect(() => {
                           />
                         </div>
                       </div>
-                      <div className="col-lg-6" hidden>
+                      <div className="col-lg-4" hidden>
                         <div className="form-group">
                           <label className="mont-font fw-600 font-xsss">
                             School Name
@@ -205,7 +209,7 @@ useEffect(() => {
                           </select>
                         </div>
                       </div>
-                      <div className="col-lg-6">
+                      <div className="col-lg-4">
                         <div className="form-group">
                           <label className="mont-font fw-600 font-xsss">
                             Class
@@ -218,7 +222,7 @@ useEffect(() => {
                             value={formData.className}
                             onChange={handleChange}
                           >
-                            <option value="">Select a class</option>
+                            <option value="">Select Class</option>
                             {classes.map((classVal) => (
                               <option
                                 key={classVal.class}
@@ -230,7 +234,7 @@ useEffect(() => {
                           </select>
                         </div>
                       </div>
-                      <div className="col-lg-6">
+                      <div className="col-lg-4">
                         <div className="form-group">
                           <label className="mont-font fw-600 font-xsss">
                             Section
@@ -243,7 +247,7 @@ useEffect(() => {
                             value={formData.section}
                             onChange={handleChange}
                           >
-                            <option value="">Select a section</option>
+                            <option value="">Select Section</option>
                             <option value="1">A</option>
                             <option value="2">B</option>
                           </select>
@@ -269,14 +273,14 @@ useEffect(() => {
                       <div className="col-lg-12">
                         &nbsp;&nbsp;&nbsp;
                         <button
-                          type="submit"
+                          type="submit" disabled={isSubmitting} 
                           className="btn bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0"
                           style={{
                             marginTop: "2rem !important",
                             float: "right",
                           }}
                         >
-                          save
+                          Submit
                         </button>
                       </div>
                     </div>

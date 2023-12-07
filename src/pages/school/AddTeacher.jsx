@@ -5,6 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 
 function AddTeacher() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [fields, setFields] = useState([{ className: "", subject: "" }]);
   const [classList, setClassList] = useState([]);
@@ -67,6 +68,7 @@ function AddTeacher() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
     // Access the form data
     const formDataToSend = new FormData();
@@ -136,7 +138,9 @@ function AddTeacher() {
       .catch((error) => {
         console.error("Error adding teacher:", error);
         toast.error(error.message); // Display the error m
-      });
+      }).finally(() => {
+        setIsSubmitting(false); // Re-enable the submit button
+    });
   };
 
   return (
@@ -144,7 +148,7 @@ function AddTeacher() {
       <div className="main-content menu-active">
         <AppHeader />
         <div className="middle-sidebar-bottom bg-lightblue theme-dark-bg">
-          <div className="middle-sidebar-left">
+          <div className="custom-middle-sidebar-left">
             <div className="mb-3">
               <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
                 <div className="card-body p-4 w-100 border-0 d-flex rounded-lg justify-content-between">
@@ -220,12 +224,14 @@ function AddTeacher() {
                           </label>
                           <br />
                           <input
-                            type="number"
+                           type="tel"
                             name="phone"
                             className="form-control"
                             placeholder="Enter Teacher Phone"
                             value={formData.phone}
                             onChange={handleInputChange}
+                            maxLength="10" // This limits the input to 10 characters
+                pattern="\d{10}" // This pattern matches exactly 10 digits
                             required
                           />
                         </div>
@@ -333,11 +339,11 @@ function AddTeacher() {
                     <div className="col-lg-12">
                       &nbsp;&nbsp;&nbsp;
                       <button
-                        type="submit"
+                        type="submit" disabled={isSubmitting} 
                         className="btn bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0"
                         style={{ marginTop: "2rem", float: "right" }}
                       >
-                        Save
+                        Submit
                       </button>
                     </div>
                   </form>

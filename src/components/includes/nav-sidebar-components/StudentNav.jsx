@@ -4,11 +4,10 @@ import {
   clearLocalStorage,
   getUserFromLocalStorage,
 } from "../../../pages/util/SessionStorage.jsx";
-import { useContext } from 'react';
-import { AuthContext } from "../../../lib/AuthContext.js"
-import LogoutButton from "../../common/LogoutButton.jsx"
+import { useContext } from "react";
+import { AuthContext } from "../../../lib/AuthContext.js";
+import LogoutButton from "../../common/LogoutButton.jsx";
 function StudentNav() {
-
   const [isOpen, setIsOpen] = useState(false);
   const toggleOpen = () => setIsOpen(!isOpen);
   const navClass = `${isOpen ? " nav-active" : ""}`;
@@ -41,8 +40,8 @@ function StudentNav() {
             </span>
           </div>
           <div className="nav-caption fw-600 font-xssss text-grey-500">
-            <span></span>Feeds
-          </div>
+              Home
+            </div>
           <ul className="mb-3">
             <li className="logo d-none d-xl-block d-lg-block"></li>
             <li>
@@ -57,7 +56,7 @@ function StudentNav() {
               </NavLink>
             </li>
             <div className="nav-caption fw-600 font-xssss text-grey-500">
-              Home
+              Subjects
             </div>
             <li>
               <NavLink
@@ -71,7 +70,7 @@ function StudentNav() {
               </NavLink>
             </li>
             <div className="nav-caption fw-600 font-xssss text-grey-500">
-              Subjects
+              Qna
             </div>
             <li>
               <NavLink
@@ -85,7 +84,7 @@ function StudentNav() {
               </NavLink>
             </li>
             <div className="nav-caption fw-600 font-xssss text-grey-500">
-              Qna
+              Forums
             </div>
             <li>
               <NavLink
@@ -99,7 +98,7 @@ function StudentNav() {
               </NavLink>
             </li>
             <div className="nav-caption fw-600 font-xssss text-grey-500">
-              Forums
+              Video Features
             </div>
             <li>
               <NavLink
@@ -112,13 +111,11 @@ function StudentNav() {
                 <span>Video Features</span>
               </NavLink>
             </li>
-            <div className="nav-caption fw-600 font-xssss text-grey-500">
-              Video Features
-            </div>
+           
           </ul>
 
           <div className="nav-caption fw-600 font-xssss text-grey-500">
-            <span></span> Account
+            <span></span> -- - --
           </div>
           <ul className="mb-3">
             <li className="logo d-none d-xl-block d-lg-block"></li>
@@ -132,7 +129,6 @@ function StudentNav() {
               </Link>
             </li>
             <li>
-             
               <LogoutButton />
             </li>
           </ul>

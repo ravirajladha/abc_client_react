@@ -10,6 +10,7 @@ import BackButton from "../../components/navigation/BackButton";
 
 function Schools() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   // New state for the form and modal visibility
   const [showModal, setShowModal] = useState(false);
@@ -35,7 +36,7 @@ function Schools() {
 
   const handleShowModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const handleFormChange = (e) => {
     const { name, value } = e.target;
     setForm((prevState) => ({ ...prevState, [name]: value }));
@@ -43,6 +44,9 @@ function Schools() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (isSubmitting) return; // Prevents multiple submissions if already submitting
+
+    setIsSubmitting(true);
     const userData = { ...form };
     console.log("Sending data to the server:", userData);
 
@@ -51,9 +55,12 @@ function Schools() {
       toast.success("School added successfully");
       setShowModal(false);
       getSchools();
+      setForm("");
     } catch (error) {
       toast.error("Failed to add school");
       console.error("Error adding school:", error.response || error);
+    } finally {
+      setIsSubmitting(false); // Re-enable the submit button
     }
   };
 
@@ -77,6 +84,7 @@ function Schools() {
                 value={form.name}
                 onChange={handleFormChange}
                 required
+                placeholder="Enter School Name"
               />
             </Form.Group>
             <Form.Group className="mb-3">
@@ -86,6 +94,7 @@ function Schools() {
                 name="email"
                 value={form.email}
                 onChange={handleFormChange}
+                placeholder="Enter School Email"
                 required
               />
             </Form.Group>
@@ -96,18 +105,32 @@ function Schools() {
                 name="phone"
                 value={form.phone}
                 onChange={handleFormChange}
+                placeholder="Enter Phone Number"
+                maxLength="10" // This limits the input to 10 characters
+                pattern="\d{10}" // This pattern matches exactly 10 digits
+                title="Please enter a 10-digit phone number"
                 required
               />
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Password</Form.Label>
               <Form.Control
-                type="password"
+                type={passwordVisible ? "text" : "password"}
                 name="password"
                 value={form.password}
                 onChange={handleFormChange}
+                placeholder="Enter Password"
                 required
               />
+              <Button onClick={() => setPasswordVisible(!passwordVisible)}>
+                {passwordVisible ? (
+                  // <i className="feather-eye:before"></i>
+                  <i className="feather-eye text-grey-900 font-lg mr-2"></i>
+                ) : (
+                  // <i className="feather-eye-off:before"></i>
+                  <i className="feather-eye-off text-grey-900 font-lg mr-2"></i>
+                )}
+              </Button>
             </Form.Group>
             <div className="d-flex justify-content-between">
               <Button
@@ -119,10 +142,11 @@ function Schools() {
               </Button>
               <Button
                 variant="primary"
+                disabled={isSubmitting}
                 className="p-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current"
                 type="submit"
               >
-                Save Changes
+                {isSubmitting ? "Submitting..." : "Submit"}
               </Button>
             </div>
           </Form>
@@ -134,7 +158,7 @@ function Schools() {
           <AppHeader />
 
           <div className="middle-sidebar-bottom theme-dark-bg">
-            <div className="middle-sidebar-left">
+            <div className="custom-middle-sidebar-left">
               <div className="row">
                 <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
                   <div>
@@ -157,24 +181,24 @@ function Schools() {
                     schools.map((school, index) => (
                       <div className="col-xl-4 col-lg-6 col-md-6" key={index}>
                         <div className="card mb-4 d-block w-100 shadow-xss rounded-lg p-xxl-5 p-4 border-0 text-center">
-                          <a
+                          {/* <a
                             href="#"
                             className="position-absolute right-0 mr-4 top-0 mt-3"
                           >
                             <i className="ti-more text-grey-500 font-xs"></i>
-                          </a>
+                          </a> */}
 
                           <h4 className="fw-700 font-xs mt-4">
                             {school.school_name}
                           </h4>
-                        <div className="card-footer bg-transparent border-top-0">
-                          <Link
-                            to={`/edit-school-profile`}
-                            className="p-2 mt-4  d-inline-block text-white fw-300 lh-30 rounded-lg w100 text-center font-xsssss ls-3 bg-current"
-                          >
-                          Edit School
-                          </Link>
-                        </div>
+                          <div className="card-footer bg-transparent border-top-0">
+                            <Link
+                              to={`/edit-school-profile`}
+                              className="p-2 mt-4  d-inline-block text-white fw-300 lh-30 rounded-lg w100 text-center font-xsssss ls-3 bg-current"
+                            >
+                              Edit School
+                            </Link>
+                          </div>
                         </div>
                       </div>
                     ))

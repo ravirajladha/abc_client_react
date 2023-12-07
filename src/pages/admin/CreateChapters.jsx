@@ -9,6 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 function CreateChapters() {
     const navigate = useNavigate();
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const baseUrl = process.env.REACT_APP_BASE_URL;
     useEffect(() => {
@@ -68,7 +69,7 @@ function CreateChapters() {
         formData.append('subject', selectedSubject);
         formData.append('chapterNames', JSON.stringify(chapterNames));
         e.preventDefault();
-
+        setIsSubmitting(true);
         fetch(baseUrl + "api/create_chapter", {
             method: 'POST',
             body: formData
@@ -82,6 +83,9 @@ function CreateChapters() {
             })
             .catch((err) => {
                 toast.error('Could not submit chapter names: ' + err.message);
+            })
+            .finally(() => {
+                setIsSubmitting(false); // Re-enable the submit button
             });
     }
     const goBack = () => {
@@ -93,7 +97,7 @@ function CreateChapters() {
                 <div className="main-content menu-active">
                     <AppHeader />
                     <div className="middle-sidebar-bottom theme-dark-bg">
-                        <div className="middle-sidebar-left">
+                        <div className="custom-middle-sidebar-left">
                             <div className="row">
                                 <ToastContainer autoClose={3000} />
                                 <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
@@ -179,7 +183,7 @@ function CreateChapters() {
                                                 </div>
 
                                                 <div className="col-lg-12">
-                                                    <button type="submit" className="btn bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0 float-right mt-2">Submit</button>
+                                                    <button type="submit" disabled={isSubmitting}  className="mt-3 btn bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0 float-right mt-2">Submit</button>
                                                 </div>
                                             </div>
                                         </form>

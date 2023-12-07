@@ -15,6 +15,7 @@ import { AuthContext } from "../../lib/AuthContext.js"
 function Qna() {
     const baseUrl = process.env.REACT_APP_BASE_URL;
     const { user } = useContext(AuthContext); // Destructure user directly from context
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const [subjects, setSubjects] = useState([]);
     const [question, setQuestion] = useState("");
@@ -25,12 +26,13 @@ function Qna() {
   
 
   
-
+console.log("class_id",user.student.class_id)
 
     const getSubjects = () => {
         if (user && user.student.class_id) {
-            fetch(`${baseUrl}api/get_subjects/${user.student.class_id}`)
+            fetch(`${baseUrl}api/get_student_subjects/${user.student.class_id}`)
                 .then((result) => result.json())
+                
                 .then((jsonbody) => {
                     setSubjects(jsonbody);
                 })
@@ -52,6 +54,7 @@ function Qna() {
         };
 
         e.preventDefault();
+        setIsSubmitting(true);
 
         if (validate()) {
             fetch(baseUrl + "api/submitSchoolQna", {
@@ -70,6 +73,8 @@ function Qna() {
 
             }).catch((err) => {
                 toast.error('Could not submit question :' + err.message);
+            }).finally(() => {
+                setIsSubmitting(false); // Re-enable the submit button
             });
         }
     }
@@ -189,7 +194,7 @@ function Qna() {
                                         </div>
                                         <div className="row">
                                             <div className="col-lg-4">
-                                                <button type="submit"
+                                                <button type="submit"  disabled={isSubmitting} 
                                                     className="btn bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0 mt-4">Submit</button>
                                             </div>
                                         </div>

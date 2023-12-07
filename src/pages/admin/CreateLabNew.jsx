@@ -21,8 +21,8 @@ function CreateLab(props) {
   const [videos, setVideos] = useState([]);
   const [selectedClass, setSelectedClass] = useState("");
   const [selectedSubject, setSelectedSubject] = useState("");
-  const [selectedChapter, setSelectedChapter] = useState("");
-  const [selectedVideo, setSelectedVideo] = useState("");
+  // const [selectedChapter, setSelectedChapter] = useState("");
+  // const [selectedVideo, setSelectedVideo] = useState("");
   const baseUrl = process.env.REACT_APP_BASE_URL;
 
   const fetchClasses = async () => {
@@ -99,12 +99,12 @@ function CreateLab(props) {
     fetchChapters(selectedValue); // Fetch chapters when a subject is selected
     setFormData({ ...formData, subject_id: selectedValue });
   };
-  const handleChapterChange = (e) => {
-    const selectedValue = e.target.value;
-    setSelectedChapter(selectedValue);
-    fetchVideos(selectedValue); // Fetch chapters when a subject is selected
-    setFormData({ ...formData, chapter_id: selectedValue });
-  };
+  // const handleChapterChange = (e) => {
+  //   const selectedValue = e.target.value;
+  //   setSelectedChapter(selectedValue);
+  //   fetchVideos(selectedValue); // Fetch chapters when a subject is selected
+  //   setFormData({ ...formData, chapter_id: selectedValue });
+  // };
 
   // Initial fetch for classes
   useEffect(() => {
@@ -131,8 +131,8 @@ function CreateLab(props) {
     code: "",
     course: "",
     subject_id: "",
-    chapter_id: "",
-    video_id: "",
+    // chapter_id: "",
+    // video_id: "",
     description: "",
     io_format: "",
     constraints: "",
@@ -158,13 +158,7 @@ function CreateLab(props) {
         ...formData,
         [name]: languageDetailsString, // You can keep this if you just want to store the ID
       });
-    } else if (name === "video_id") {
-      setSelectedVideo(value); // Update the selectedVideo state
-      // If you need to update formData with video_id
-      setFormData({
-        ...formData,
-        [name]: value,
-      });
+    
     } else {
       // For all other inputs, handle them as before
       setFormData({
@@ -196,8 +190,8 @@ function CreateLab(props) {
           code: "",
           course: "",
           subject_id: "",
-          chapter_id: "",
-          video_id: "",
+          // chapter_id: "",
+          // video_id: "",
           description: "",
           io_format: "",
           constraints: "",
@@ -259,7 +253,7 @@ function CreateLab(props) {
           <AppHeader />
 
           <div className="middle-sidebar-bottom theme-dark-bg">
-            <div className="middle-sidebar-left">
+            <div className="custom-middle-sidebar-left">
               <div className="row">
                 <div className="card-body p-lg-5 px-4 w-100 border-0 d-flex rounded-lg justify-content-between">
                   <div className="">
@@ -334,7 +328,7 @@ function CreateLab(props) {
                               </select>
                             </div>
                           </div>
-                          <div className="col-lg-6">
+                          {/* <div className="col-lg-6">
                             <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
                               <label className="mont-font fw-600 font-xsss">
                                 Select Chapter
@@ -387,7 +381,7 @@ function CreateLab(props) {
                                 ))}
                               </select>
                             </div>
-                          </div>
+                          </div> */}
                           <div className="col-lg-6">
                             <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
                               <label className="mont-font fw-600 font-xsss">

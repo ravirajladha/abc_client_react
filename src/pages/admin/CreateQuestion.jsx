@@ -7,6 +7,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import BackButton from '../../components/navigation/BackButton';
 
 function CreateQuestion() {
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
     const baseUrl = process.env.REACT_APP_BASE_URL;
     useEffect(() => {
         getClasses();
@@ -88,7 +90,7 @@ function CreateQuestion() {
         formData.append('option4', inputs.option4);
 
         e.preventDefault();
-
+        setIsSubmitting(true);
         console.log(selectedOption);
         fetch(baseUrl + "api/create_question", {
             method: 'POST',
@@ -113,6 +115,9 @@ function CreateQuestion() {
 
         }).catch((err) => {
             toast.error('Could not submit question :' + err.message);
+        })
+        .finally(() => {
+            setIsSubmitting(false); // Re-enable the submit button
         });
     }
     return (
@@ -123,7 +128,7 @@ function CreateQuestion() {
     <AppHeader />
 
     <div className="middle-sidebar-bottom theme-dark-bg">
-        <div className="middle-sidebar-left">
+        <div className="custom-middle-sidebar-left">
             <div className="row">
                 <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
                     <div className="card-body p-4 w-100 border-0 d-flex rounded-lg justify-content-between">
@@ -149,7 +154,8 @@ function CreateQuestion() {
                                         options={classes}
                                         column_name='class'
                                         value={selectedClass}
-                                        onChange={handleClassChange} />
+                                        onChange={handleClassChange} 
+                                        required={true}/>
                                 </div>
                                 <div className="col-lg-6">
                                     <label className="mont-font fw-600 font-xsss">Select
@@ -158,14 +164,15 @@ function CreateQuestion() {
                                         options={subjects}
                                         column_name='subject_name'
                                         value={selectedSubject}
-                                        onChange={handleSubjectChange} />
+                                        onChange={handleSubjectChange}
+                                        required={true} />
                                 </div>
                               
                                 <div className="col-md-12 col-sm-12 mt-2">
                                     <div className="d-flex justify-content-start align-items-center">
                                         <label className="mont-font fw-600 font-xsss">Question</label>
                                         <p
-                                            className="btn bg-current text-white ml-2"
+                                            className="btn bg-current text-white ml-2 mb-2"
                                             onClick={() => setShowCode(!showCode)}
                                         >
                                             {showCode ? 'Hide' : 'Add'} Code
@@ -189,6 +196,7 @@ function CreateQuestion() {
                                             placeholder="Enter Code.."
                                             value={code}
                                             onChange={(e) => setCode(e.target.value)}
+                                            required
                                         // You can manage a separate state for the second textarea's value if needed
                                         ></textarea>
                                     )}
@@ -205,14 +213,16 @@ function CreateQuestion() {
                                                 value={optionName}
                                                 checked={selectedOption === optionName}
                                                 onChange={handleOptionChange}
+                                                
                                             />
                                             <label className="mont-font fw-600 font-xsss ml-2" htmlFor={optionName}>{`Option ${number}*`}</label>
                                             <textarea
                                                 className="form-control"
                                                 name={optionName}
-                                                placeholder={`Enter ${number}th Option`}
+                                                placeholder={`Enter Option ${number}`}
                                                 value={inputs[optionName]}
                                                 onChange={handleInputChange}
+                                                required
                                             />
                                         </div>
                                     );
@@ -221,7 +231,7 @@ function CreateQuestion() {
 
                             <div className="row mt-2">
                                 <div className="col-lg-4">
-                                    <button type="submit" className="btn bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0">Submit</button>
+                                    <button type="submit"  disabled={isSubmitting} className="btn bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0">Submit</button>
                                 </div>
                             </div>
 

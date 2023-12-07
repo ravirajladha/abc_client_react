@@ -45,47 +45,66 @@ function ViewForum() {
 
                             </div>
                             <div className="row">
-                                <div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12">
-                                    <div className="card mb-4 d-block w-100 shadow-xss rounded-lg p-2 border-0 text-left question-div">
-                                        <div className="card-body p-0" id="question">
-                                            <div className="d-flex flex-column p-3">
-                                                <h4 className="font-xssss text-uppercase text-current fw-700 ls-3">QUESTION
-                                                    <Link to={"/school_forums"} id="search-button"
-                                                        className="d-block btn bg-current text-white font-xssss fw-600 ls-3  p-1 border-0 text-uppercase float-right"> <i className='feather-plus'></i>Ask Question</Link>
-                                                </h4>
+                            <div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12">
+  <div className="card mb-4 d-block w-100 shadow-xss rounded-lg p-4 border-0 text-left question-div">
+    <div className="card-body p-0" id="question">
 
-                                                <h3 className="font-sm text-grey-800 fw-700 lh-32 mt-4 mb-4">
-                                                    {forum && forum.forum_question ? (
-                                                        forum.forum_question.question
-                                                    ) : (
-                                                        ''
-                                                    )}
-                                                    <Link to={"/school_forums/answer_forum/" + forumId} id="search-button"
-                                                        className="d-block btn bg-current text-white font-xssss fw-600 ls-3  p-1 border-0 text-uppercase float-right"> <i className='feather-plus'></i>Answer</Link>
-                                                    <hr />
-                                                    {forum && forum.forum_answers ? (
-                                                        forum.forum_answers.map((forum_answers, id) => (
-                                                            <div key={id}>
-                                                                <h4 className="font-xsss fw-600"><i className="feather-user bg-current mr-3 rounded-xl p-1"></i>{forum_answers.student.name}
-                                                                    <span className='float-right'>
-                                                                        <i className="feather-thumbs-up mr-3 rounded-xl p-1"></i>
-                                                                        <i className="feather-thumbs-down mr-3 rounded-xl p-1"></i>
-                                                                    </span>
-                                                                </h4>
+      {/* Flex container for the title and button */}
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <h4 className="font-xssss text-uppercase text-current fw-700 ls-3">
+          QUESTION
+        </h4>
+        <Link to={"/school_forums"} className="btn bg-current text-white font-xssss fw-600 ls-3 p-2 border-0 text-uppercase">
+          <i className='feather-plus'></i> Ask Question
+        </Link>
+      </div>
 
-                                                                <pre className="text-wrap bg-grey p-2" >{forum_answers.answer}</pre>
-                                                            </div>
+          {/* Flex container for the question text and answer button */}
+          <div className="d-flex justify-content-between align-items-center mb-3">
+        <h3 className="font-sm text-grey-800 fw-700 lh-32 flex-grow-1 m-0">
+          {forum && forum.forum_question ? (
+            forum.forum_question.question
+          ) : (
+            'No question provided.'
+          )}
+        </h3>
+        <Link to={"/school_forums/answer_forum/" + forumId} className="btn bg-current text-white font-xssss fw-600 ls-3 p-2 border-0 text-uppercase ms-3">
+          <i className='feather-plus'></i> Answer
+        </Link>
+      </div>
 
-                                                        ))
-                                                    ) : (
-                                                        <pre className="text-wrap bg-grey p-2">Not answered yet!</pre>
-                                                    )}
-                                                </h3>
+      <hr />
 
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+     
+
+      <hr />
+
+      {/* Answers List */}
+      {forum && forum.forum_answers && forum.forum_answers.length > 0 ? (
+    forum.forum_answers.map((forum_answer, index) => (
+        <div key={index} className="mb-3 mt-4">
+            <div className="d-flex align-items-center">
+                <i className="feather-user bg-current rounded-xl p-2 mr-2"></i>
+                <h4 className="font-xsss fw-600">{forum_answer.student.name}</h4>
+            </div>
+            <pre className="text-wrap bg-grey p-3 mt-2">{forum_answer.answer}</pre>
+            {/* Assuming forum_answer.created_at is in ISO format */}
+            <p className="font-xssss text-grey-500 mt-2">
+                {new Date(forum_answer.created_at).toLocaleDateString()}{' '}
+                {new Date(forum_answer.created_at).toLocaleTimeString()}
+            </p>
+        </div>
+    ))
+) : (
+    <div className="text-center p-3">
+        <pre className="text-wrap bg-grey">Not answered yet!</pre>
+    </div>
+)}
+
+    </div>
+  </div>
+</div>
+
                             </div>
                         </div>
                         <StudentSidebar />

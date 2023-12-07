@@ -170,7 +170,7 @@ const Register = () => {
                   </div>
                   <h6 className="text-grey-500 font-xssss fw-500 mt-0 mb-0 lh-32">
                     Already have account{" "}
-                    <Link to="/login" className="fw-700 ml-1">
+                    <Link to="/" className="fw-700 ml-1">
     Login
   </Link>
                   </h6>

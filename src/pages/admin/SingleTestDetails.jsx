@@ -29,7 +29,7 @@ function SingleTestDetails() {
                 <div className="main-content menu-active">
                     <AppHeader />
                     <div className="middle-sidebar-bottom theme-dark-bg">
-                        <div className="middle-sidebar-left">
+                        <div className="custom-middle-sidebar-left">
                             <div className="row">
 
                                 <div className="w-100 border-0 d-flex rounded-lg justify-content-between">

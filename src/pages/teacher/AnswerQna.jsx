@@ -12,6 +12,7 @@ import BackButton from '../../components/navigation/BackButton.jsx';
 
 function AnswerQna() {
     const baseUrl = process.env.REACT_APP_BASE_URL;
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const { qna_id } = useParams();
 
@@ -38,6 +39,8 @@ function AnswerQna() {
         formData.append('qna_id', qna_id);
         formData.append('auth_id', user.user.id);
         e.preventDefault();
+        setIsSubmitting(true);
+
         if (!user) {
             toast.error('You must be logged in to submit an answer.');
             return; // Exit the function if no user
@@ -53,6 +56,8 @@ function AnswerQna() {
 
         }).catch((err) => {
             toast.error('Could not submit question :' + err.message);
+        }).finally(() => {
+            setIsSubmitting(false); // Re-enable the submit button
         });
     }
     if (!user) {
@@ -71,7 +76,7 @@ function AnswerQna() {
                     <AppHeader />
 
                     <div className="middle-sidebar-bottom theme-dark-bg">
-                        <div className="middle-sidebar-left">
+                        <div className="custom-middle-sidebar-left">
                             <ToastContainer autoClose={3000} />
                             <div className="row">
                                 <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
@@ -94,7 +99,7 @@ function AnswerQna() {
                                                 <textarea rows="4" cols="70" className="form-control" placeholder="Enter Answer.." value={answer} onChange={(e) => setAnswer(e.target.value)} required></textarea>
                                             </div>
                                             <div className="col-lg-12">
-                                                <button type="submit" className="btn bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0 mt-2">Submit</button>
+                                                <button type="submit" disabled={isSubmitting}   className="btn bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0 mt-2">Submit</button>
                                             </div>
                                         </form>
 
