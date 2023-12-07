@@ -413,10 +413,13 @@ class Root extends Component {
               />
             }
           />
-
+{/* here type:1, 2 indicates mini project or elab coming from subjects 
+redirecting_id: mini_prjoect_id or subject_id
+type_id: if mini_project then task_id else subject then video_id
+*/}
           <Route
             exact
-            path={`${process.env.PUBLIC_URL}/editor/:labId?`}
+            path={`${process.env.PUBLIC_URL}/editor/:type/:redirecting_id/:type_id/:labId`}
             element={
               <ProtectedRoute
                 element={<Editor1 />}
@@ -686,7 +689,7 @@ class Root extends Component {
 
           <Route
             exact
-            path={`${process.env.PUBLIC_URL}/mini_projects/create_project_task`}
+            path={`${process.env.PUBLIC_URL}/mini_projects/create_project_task/:projectId`}
             element={
               <ProtectedRoute
                 element={<CreateProjectTask />}

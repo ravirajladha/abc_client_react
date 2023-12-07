@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import Split from "react-split";
 import { classnames } from "../utils/general";
+// import "../../../App.css";
 
 import Timer from "./Timer";
 import useLabDetails from "../hooks/useLabDetails";
@@ -26,10 +27,12 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import OutputDetails from "./OutputDetails";
+import { useNavigate } from 'react-router-dom';
 
 import { useParams } from "react-router-dom";
 import Accordion from "./Accordion";
-
+import { useContext } from 'react';
+import { AuthContext } from "../../../lib/AuthContext.js"
 function Editor1() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const [code, setCode] = useState("Editor Loading...");
@@ -38,8 +41,9 @@ function Editor1() {
   // const [testCases, setTestCases] = useState([]);
   // const [harnessCode, setHarnessCode] = useState();
   // const [labs, setLabs] = useState({ testcase: [] });
-
-  let { labId } = useParams();
+  const user_detail = useContext(AuthContext).user.user;
+  const { type,redirecting_id, type_id, labId } = useParams();
+  const navigate = useNavigate();
 
   // If labId is undefined, set a default value
   // const effectiveLabId = labId || "26";
@@ -92,7 +96,7 @@ function Editor1() {
   const [processing, setProcessing] = useState(null);
   const [theme, setTheme] = useState("cobalt");
   const [language, setLanguage] = useState(languageId);
-console.log("langauage", language);
+// console.log("langauage", language);
   const enterPress = useKeyPress("Enter");
   const ctrlPress = useKeyPress("Control");
   const languageMapping = {
@@ -171,6 +175,10 @@ console.log("langauage", language);
       time_taken: timerTime,
       start_timestamp: formattedStartTimestamp,
       end_timestamp: formattedEndTimestamp,
+      type:type,
+      type_id:type_id,
+      user_id:user_detail.id
+
       // The code from the code editor
       // ... include any other data you need to send
     };
@@ -186,15 +194,26 @@ console.log("langauage", language);
           },
         }
       );
-
-      // Handle response here
-      // console.log("Code submitted successfully.", response.data);
-      toast.success("Code submitted successfully."); // Show success toast
       setAllTestCasesPassed(false);
+      console.log("passed")
+      toast.success("Code submitted successfully. You are redirecting back...", {
+        onClose: () => handleRedirection(type), // Redirect after toast closes
+        autoClose: 5000, // Toast will close after 5 seconds
+      });
+  
+      
     } catch (error) {
       // Handle errors here
       console.error("Failed to submit code:", error);
     }
+  };
+
+  const handleRedirection = (type) => {
+    let redirectPath = type === 1
+      ? `/subject_stream/view_project/${redirecting_id}`
+      : `/subject_stream/${redirecting_id}`;
+  
+    navigate(redirectPath);
   };
 
   useEffect(() => {

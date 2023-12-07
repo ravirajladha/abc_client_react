@@ -3,10 +3,10 @@ import AppHeader from "../../components/includes/AppHeader";
 import AppFooter from "../../components/includes/AppFooter";
 import { Link } from "react-router-dom";
 import BackButton from "../../components/navigation/BackButton";
-import { useParams } from 'react-router-dom';
-import moment from 'moment';
+import { useParams } from "react-router-dom";
+import moment from "moment";
 function AllTasks() {
-  const { projectId } = useParams();  // Ensure that the route parameter name matches what's defined in your route
+  const { projectId } = useParams(); // Ensure that the route parameter name matches what's defined in your route
 
   const [tasks, setTasks] = useState([]);
   const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -43,7 +43,12 @@ function AllTasks() {
                     </h2>
                   </div>
                   <div className="float-right">
-                  <Link to={"/mini_projects/create_project_task"} className="p-2 me-2 d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1">CREATE TASK</Link>
+                    <Link
+                      to={`/mini_projects/create_project_task/${projectId}`}
+                      className="p-2 me-2 d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1"
+                    >
+                      CREATE TASK
+                    </Link>
                     <BackButton />
                   </div>
                 </div>
@@ -57,21 +62,20 @@ function AllTasks() {
                           <th className="border-0 p-4">Description</th>
                           <th className="border-0 p-4">Duration</th>
                           <th className="border-0 p-4">Created At</th>
-                        
                         </tr>
                       </thead>
                       <tbody>
-                      {tasks.map((lab, index) => (
-    <tr key={index}>
-      <td className="text-left">{lab.id}</td>
-      <td>{lab.name}</td>
+                        {tasks.map((lab, index) => (
+                          <tr key={index}>
+                            <td className="text-left">{lab.id}</td>
+                            <td>{lab.name}</td>
                             <td>{lab.description}</td>
                             <td>{lab.duration} seconds</td>
-                            <td>{moment(lab.created_at).format('MM/DD/YYYY h:mm:ss a')}</td>
-
-                     
-                           
-                           
+                            <td>
+                              {moment(lab.created_at).format(
+                                "MM/DD/YYYY h:mm:ss a"
+                              )}
+                            </td>
                           </tr>
                         ))}
                       </tbody>

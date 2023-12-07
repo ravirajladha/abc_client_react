@@ -36,6 +36,13 @@ const FormPageOne = ({ formData, onSubmit, goToNextForm }) => {
     const { name, type, checked, value, files } = e.target;
     if (type === "checkbox") {
       setFormState((prev) => ({ ...prev, [name]: checked }));
+      if (!checked) {
+        // Clear the WhatsApp number when unchecking the checkbox
+        setFormState((prev) => ({ ...prev, whatsapp_no: "" }));
+      } else {
+        // Copy the Mobile Number to WhatsApp when checking the checkbox
+        setFormState((prev) => ({ ...prev, whatsapp_no: formState.phone_no }));
+      }
     } else if (type === "file") {
       setFormState((prev) => ({ ...prev, [name]: files[0] }));
     } else {
@@ -159,7 +166,7 @@ const FormPageOne = ({ formData, onSubmit, goToNextForm }) => {
                 <input
                   type="checkbox"
                   name="whatsapp_exist"
-                  className="form-control mt-1"
+                  className="form-check-input p-4"
                   checked={formState.whatsapp_exist} // Populate the value from formState
                   onChange={handleChange}
                 />

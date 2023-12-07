@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify"; // Import toast from react-toastify
+import "react-toastify/dist/ReactToastify.css"; // Import the CSS for toast styles
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const FormPageSix = ({ allFormData, onSubmit, goToPreviousForm }) => {
@@ -42,26 +44,37 @@ const FormPageSix = ({ allFormData, onSubmit, goToPreviousForm }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Combine the data from FormPageSix with allFormData
-    const combinedData = {
-      ...allFormData,
-      formSixData: formState,
-      auth_id: id,
-      address_proof: allFormData.formOneData.address_proof.name,
-      identity_proof: allFormData.formOneData.identity_proof.name,
-      created_by: createdBy,
-    };
 
-    console.log(combinedData["formOneData"]["address_proof"]["name"]);
-    // onSubmit(formData);
+    // Create a FormData object
+    const formData = new FormData();
 
-    // Send the combined data to the API endpoint using a POST request
+    // Add data from FormPageOne
+    for (const key in allFormData.formOneData) {
+      formData.append(key, allFormData.formOneData[key]);
+    }
+
+    // Add data from FormPageThree
+    for (const key in allFormData.formThreeData) {
+      formData.append(key, allFormData.formThreeData[key]);
+    }
+
+    // Add data from FormPageFour
+    for (const key in allFormData.formFourData) {
+      formData.append(key, allFormData.formFourData[key]);
+    }
+
+    // Add data from FormPageSix
+    for (const key in formState) {
+      formData.append(key, formState[key]);
+    }
+
+    formData.append("auth_id", id);
+    formData.append("created_by", createdBy);
+
+    // Send the FormData to the API endpoint using a POST request
     fetch(baseUrl + "api/school/edit_student_profile/" + id, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json", // Specify the content type as JSON
-      },
-      body: JSON.stringify(combinedData), // Convert the data to JSON format
+      body: formData, // Send the FormData object
     })
       .then((response) => {
         if (response.ok) {
@@ -79,6 +92,11 @@ const FormPageSix = ({ allFormData, onSubmit, goToPreviousForm }) => {
         localStorage.removeItem("formPageThreeData");
         localStorage.removeItem("formPageFourData");
         localStorage.removeItem("formPageSixData");
+
+        // Display a success toast message
+        toast.success("Form submitted successfully!", {
+          autoClose: 3000, // Toast will auto-close after 3 seconds
+        });
 
         // Use navigate to go to the students page after a delay
         setTimeout(() => {

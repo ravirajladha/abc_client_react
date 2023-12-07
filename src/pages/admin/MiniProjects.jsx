@@ -39,7 +39,7 @@ function MiniProjects() {
                                     </div>
                                     <div className="float-right">
                                         <Link to={"/mini_projects/create_project"} className="p-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1">CREATE PROJECT</Link>
-                                        <Link to={"/mini_projects/create_project_task"} className="p-2 me-2 d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1">CREATE TASK</Link>
+                                       
                                         <BackButton/>
                                     </div>
                                 </div>

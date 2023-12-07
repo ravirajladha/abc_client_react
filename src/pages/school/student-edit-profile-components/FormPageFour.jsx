@@ -37,11 +37,34 @@ function FormPageFour({ formData, onSubmit, goToNextForm, goToPreviousForm }) {
   }, [formState]);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormState((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    const { name, value, checked } = e.target;
+
+    if (name === "same_as_comm_address" && checked) {
+      // If "same_as_comm_address" checkbox is checked, copy communication address to permanent address fields
+      setFormState((prev) => ({
+        ...prev,
+        perm_address: formState.comm_address,
+        perm_pin_code: formState.comm_pin_code,
+        perm_village: formState.comm_village,
+        perm_block: formState.comm_block,
+        perm_state: formState.comm_state,
+      }));
+    } else if (name === "same_as_comm_address" && !checked) {
+      // If "same_as_comm_address" checkbox is unchecked, clear the copied data
+      setFormState((prev) => ({
+        ...prev,
+        perm_address: "",
+        perm_pin_code: "",
+        perm_village: "",
+        perm_block: "",
+        perm_state: "",
+      }));
+    } else {
+      setFormState((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
   };
 
   const handleSubmit = (e) => {
@@ -97,18 +120,16 @@ function FormPageFour({ formData, onSubmit, goToNextForm, goToPreviousForm }) {
               <div className="col-lg-4 mb-3">
                 <div className="form-group">
                   <label className="mont-font fw-600 font-xsss">
-                    Village/Area/Locality(Select Any)
+                    Village/Area/Locality
                   </label>
-                  <select
+                  <input
+                    type="text"
                     className="form-control"
                     name="comm_village"
+                    placeholder="Enter Village/Area/Locality"
                     value={formState.comm_village}
                     onChange={handleChange}
-                  >
-                    {/* Options would be dynamically populated here */}
-                    <option value="">--select--</option>
-                    <option value="abcd">abcd</option>
-                  </select>
+                  />
                 </div>
               </div>
 
@@ -149,11 +170,8 @@ function FormPageFour({ formData, onSubmit, goToNextForm, goToPreviousForm }) {
                 <div className="form-group">
                   <input
                     type="checkbox"
-                    id="checkbox2"
-                    className="medium"
                     name="same_as_comm_address"
-                    checked={formState.same_as_comm_address}
-                    value={formState.same_as_comm_address}
+                    id="checkbox2"
                     onChange={handleChange}
                   />
                   <label>

@@ -71,7 +71,7 @@ function ViewProject() {
         get_project_task_todo();
     }, []);
 
-    const start_project_task = (task_id, lab_code) => {
+    const start_project_task = (task_id, lab_code,project_id) => {
         fetch(baseUrl + "api/start_project_task/" + user_id + "/" + task_id, {
             method: "PUT",
             headers: {
@@ -83,9 +83,9 @@ function ViewProject() {
                 return res.json();
             })
             .then((resp) => {
-                console.log(resp);
-                window.location.reload();
-                // navigate("/subject_stream/start_project/" + project_id + "/" + task_id + "/" + lab_code);
+                // console.log(resp);
+                // window.location.reload();
+                navigate("/editor/1/"+project_id+"/" + task_id + "/"+ lab_code);
             });
     };
 
@@ -186,16 +186,16 @@ function ViewProject() {
                                                         <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 me-2 alert-info d-inline-block text-info">
                                                             {task.duration}
                                                         </span>
-                                                        {/* <Link
-                                                            to={`/subject_stream/start_project/${project_id}/${task.id}/${task.lab_code}`}
+                                                        <Link
+                                                            to={`/editor/1/${task.project_id}/${task.task_id}/${task.lab_code}`}
                                                         >
                                                             <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-success d-inline-block text-success mr-1">
                                                                 Continue
                                                             </span>
-                                                        </Link> */}
-                                                        <button type="button" onClick={() => complete_task(task.id, task.lab_code)}>
+                                                        </Link>
+                                                        {/* <button type="button" onClick={() => complete_task(task.id, task.lab_code)}>
                                                             <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-success d-inline-block text-success mr-1 border-0">CONTINUE</span>
-                                                        </button>
+                                                        </button> */}
                                                     </div>
                                                 ))
                                             : ""}

@@ -1,7 +1,6 @@
 // EditProfile.js
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-
 import FormPageOne from "./student-edit-profile-components/FormPageOne";
 import FormPageThree from "./student-edit-profile-components/FormPageThree";
 import FormPageFour from "./student-edit-profile-components/FormPageFour";
@@ -33,7 +32,6 @@ const EditProfile = () => {
       [formName]: data,
     }));
     setCurrentStep((prevStep) => prevStep + 1);
-    console.log("Form received:", data); // Log the received data here
   };
 
   console.log("complete form data:", formData);

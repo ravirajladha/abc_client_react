@@ -528,10 +528,10 @@ function SubjectStream() {
                                                         video.id
                                                     );
                                                   const hasEBook = null; //when the ebook will come
-                                                  const hasELab = elabs.some(
-                                                    (elab) =>
-                                                      elab.video_id == video.id
-                                                  );
+                                                  // const hasELab = elabs.some(
+                                                  //   (elab) =>
+                                                  //     elab.video_id == video.id
+                                                  // );
 
                                                   return (
                                                     <div
@@ -583,7 +583,7 @@ function SubjectStream() {
                                                               </Link>
                                                             </div>
                                                           )}
-                                                          {hasELab && (
+                                                          {video.lab_link && (
                                                             <div
                                                               className="border-size-sm rounded-sm px-1 mx-1"
                                                               style={{
@@ -593,7 +593,7 @@ function SubjectStream() {
                                                             >
                                                               <Link
                                                                 className="font-xssss"
-                                                                to={`/editor/${video.id}`}
+                                                                to={`/editor/2/${subjectId}/${video.id}/${video.lab_link}`}
                                                               >
                                                                 ELab
                                                               </Link>
