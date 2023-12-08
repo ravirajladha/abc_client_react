@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
-import { AuthContext } from "../../lib/AuthContext.js"
+import { AuthContext } from "../../lib/AuthContext.js";
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
 import "../../css/custom.css";
@@ -10,9 +10,10 @@ import "react-multi-carousel/lib/styles.css";
 import { Tabs, Tab, Accordion } from "react-bootstrap";
 import AppHeader from "../../components/includes/AppHeader";
 import AppFooter from "../../components/includes/AppFooter";
-import StudentSidebar from '../../components/includes/StudentSidebar';
-import { Modal } from 'react-bootstrap';
+import StudentSidebar from "../../components/includes/StudentSidebar";
+import { Modal } from "react-bootstrap";
 import NoteTab from "./subject-stream-components/NoteTab.jsx";
+import QnaTab from "./subject-stream-components/QnaTab.jsx";
 
 function SubjectStream() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -24,34 +25,18 @@ function SubjectStream() {
   const chatContentRef = useRef(null);
   const noteContentRef = useRef(null);
   const [activeTab, setActiveTab] = useState("course"); //set course as the default active tab
-  const [chat, setChat] = useState([]);
-  const [newMessage, setNewMessage] = useState("");
 
   const [notes, setNotes] = useState([]);
-  const chatInputRef = useRef(null);
   const noteInputRef = useRef(null);
-  function formatTimeFromTimestamp(timestamp) {
-    const date = new Date(timestamp);
-
-    let hours = date.getHours();
-    const minutes = date.getMinutes();
-    const amPm = hours >= 12 ? "PM" : "AM";
-
-    // Convert to 12-hour format
-    hours = hours % 12 || 12;
-
-    const formattedTime = `${hours}:${minutes < 10 ? "0" : ""
-      }${minutes} ${amPm}`;
-    return formattedTime;
-  }
+  
 
   const scrollActiveTabToBottom = () => {
-    chatContentRef.current.scrollTop = chatContentRef.current.scrollHeight;
+    // chatContentRef.current.scrollTop = chatContentRef.current.scrollHeight;
     // noteContentRef.current.scrollTop = noteContentRef.current.scrollHeight;
   };
 
   // video player
-  const [activeVideoId, setActiveVideoId] = useState('');
+  const [activeVideoId, setActiveVideoId] = useState("");
   const [matchVideo, setMatchVideo] = useState({});
   const playerRef = React.useRef(null);
   const [videoJsOptions, setVideoJsOptions] = useState({
@@ -183,60 +168,6 @@ function SubjectStream() {
     });
   };
 
-  const fetchMessages = async () => {
-    try {
-      const response = await fetch(
-        baseUrl + "api/get-messages/" + userId + "/" + subjectId,
-        {
-          method: "GET",
-          headers: {
-            "Content-type": "application/json",
-            Accept: "application/json",
-          },
-        }
-      );
-      if (!response) {
-        throw new Error("Failed to fetch messages");
-      }
-      const data = await response.json();
-      setChat(data);
-      scrollActiveTabToBottom();
-    } catch (error) {
-      console.error("Error fetching messages:", error);
-    }
-  };
-
-  const sendMessage = async (e) => {
-    e.preventDefault();
-    try {
-      const formData = new FormData();
-      formData.append("sender_id", userId);
-      formData.append("receiver_id", receiverId);
-      formData.append("message", newMessage);
-
-      const response = await fetch(baseUrl + "api/send-message", {
-        method: "POST",
-        body: formData,
-      });
-      if (!response) {
-        throw new Error("Failed to send message");
-      }
-      setNewMessage("");
-      chatInputRef.current.focus();
-
-
-      fetchMessages();
-    } catch (error) {
-      console.error("Error sending message:", error);
-    }
-  };
-  useEffect(() => {
-    console.log("New Message after update:", newMessage);
-  }, [newMessage]);
-
-
-
-
 
   useEffect(() => {
     // scrolldown in the chat and notes tab when component is loaded
@@ -250,14 +181,11 @@ function SubjectStream() {
     //fetch Notes on load
     // fetchNotes();
 
-
     //fetch chat messages in each interval
-    fetchMessages();
-    const intervalId = setInterval(fetchMessages, 5000);
-    return () => clearInterval(intervalId);
+    // fetchMessages();
+
+    
   }, []);
-
-
 
   useEffect(() => {
     // Initialize Video.js options
@@ -266,14 +194,12 @@ function SubjectStream() {
       sources: [
         {
           src: baseUrl + matchVideo.video_file,
-          type: 'video/mp4',
+          type: "video/mp4",
         },
       ],
     }));
     setMainVideoTitle(matchVideo.video_name);
-    
   }, [matchVideo]);
-
 
   const responsive = {
     superLargeDesktop: {
@@ -294,14 +220,9 @@ function SubjectStream() {
     },
   };
 
-
- 
   const handlePlayerChange = (player) => {
     setVideoPlayer(player); // Store the player instance in your component state
   };
-
- 
-
 
   if (!user) {
     // Handle the case when there is no user. You might want to redirect
@@ -310,7 +231,6 @@ function SubjectStream() {
     return <div>User is not logged in</div>;
   }
   const userId = user.user.id;
-
 
   return (
     <>
@@ -395,12 +315,12 @@ function SubjectStream() {
                                                   chapter.id
                                                 ) {
                                                   // Check if there's an assessment, ebook, and elab for this video
-                                                  const hasAssessment = true; 
-                                                    // assessments.some(
-                                                    //   (assessment) =>
-                                                    //     assessment.video_id ===
-                                                    //     video.id
-                                                    // );
+                                                  const hasAssessment = true;
+                                                  // assessments.some(
+                                                  //   (assessment) =>
+                                                  //     assessment.video_id ===
+                                                  //     video.id
+                                                  // );
                                                   const hasEBook = null; //when the ebook will come
                                                   // const hasELab = elabs.some(
                                                   //   (elab) =>
@@ -412,7 +332,13 @@ function SubjectStream() {
                                                       className="card-body d-flex p-1 video"
                                                       data-id={video.id}
                                                       key={video.id}
-                                                      onClick={() => handleVideoClick(video.id, video.video_file, video.video_name)}
+                                                      onClick={() =>
+                                                        handleVideoClick(
+                                                          video.id,
+                                                          video.video_file,
+                                                          video.video_name
+                                                        )
+                                                      }
                                                     >
                                                       <i className="feather-play-circle mr-3 font-lg"></i>
                                                       <div className="d-flex flex-column">
@@ -496,107 +422,16 @@ function SubjectStream() {
                       <Tab
                         eventKey="chat"
                         title="QNA"
-                        className="list-inline-item "
+                        className="list-inline-item"
                       >
-                        <div
-                          className="messages-content chat-wrapper scroll-bar p-3"
-                          style={{ height: 400 }}
-                          ref={chatContentRef}
-                        >
-                          {chat && chat.merged_messages ? (
-                            Object.values(chat.merged_messages).map(
-                              (message, index) =>
-                                message.sender_id === userId ? (
-                                  <div
-                                    className="message-item outgoing-message"
-                                    key={index}
-                                  >
-                                    <div className="message-user">
-                                      <figure className="avatar">
-                                        <img
-                                          src="/assets/images/user.png"
-                                          alt="avater"
-                                        />
-                                      </figure>
-                                      <div>
-                                        <h5>You</h5>
-                                        <div className="time">
-                                          {message.created_at &&
-                                            formatTimeFromTimestamp(
-                                              message.created_at
-                                            )}
-                                          <i className="ti-double-check text-info"></i>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div className="message-wrap">
-                                      {message.message}
-                                    </div>
-                                  </div>
-                                ) : (
-                                  <div className="message-item">
-                                    <div className="message-user">
-                                      <figure className="avatar">
-                                        <img
-                                          src="/assets/images/user.png"
-                                          alt="avater"
-                                        />
-                                      </figure>
-                                      <div>
-                                        <h5 className="font-xssss mt-2">
-                                          Teacher
-                                        </h5>
-                                        <div className="time">
-                                          {message.created_at &&
-                                            formatTimeFromTimestamp(
-                                              message.created_at
-                                            )}
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div className="message-wrap shadow-none">
-                                      {message.message}
-                                    </div>
-                                  </div>
-                                )
-                            )
-                          ) : (
-                            <div className="message-item"></div>
-                          )}
-                        </div>
-                        {isTeacherAvailable ? (
-                          <form
-                            className="chat-form position-absolute bottom-0 w-100 left-0 bg-white z-index-1 p-3 shadow-xs theme-dark-bg"
-                            onSubmit={sendMessage}
-                          >
-                            <button className="bg-grey float-left">
-                              <i
-                                className="ti-microphone text-white"
-                                disabled
-                              ></i>
-                            </button>
-                            <div className="form-group">
-                              <input
-                                type="text"
-                                ref={chatInputRef}
-                                // placeholder="start typing"
-                                placeholder={newMessage ? "" : "Start typing.."}
-                                value={newMessage}
-                                onChange={(e) => setNewMessage(e.target.value)}
-                                onClick={() => setNewMessage("")}
-                                className="text-grey-500"
-                              />
-                            </div>
-                            <button type="submit" className="bg-current">
-                              <i className="ti-arrow-right text-white"></i>
-                            </button>
-                          </form>
-                        ) : (
-                          <div className="text-center p-3">
-                            <span>Chat unavailable. No teacher assigned.</span>
-                          </div>
-                        )}
+                        <QnaTab
+                          userId={userId}
+                          isTeacherAvailable={isTeacherAvailable}
+                          subjectId={subjectId}
+                          receiverId={receiverId}
+                        />
                       </Tab>
+                      
 
                       <Tab
                         eventKey="notes"
@@ -604,11 +439,10 @@ function SubjectStream() {
                         className="list-inline-item"
                       >
                         <NoteTab
-              userId={userId}
-              videoPlayer={videoPlayer}
-              activeVideoId={activeVideoId}
-             
-            />
+                          userId={userId}
+                          videoPlayer={videoPlayer}
+                          activeVideoId={activeVideoId}
+                        />
                       </Tab>
                     </Tabs>
                   </div>
@@ -629,16 +463,14 @@ function SubjectStream() {
                         </h2>
                       </div>
                       <div className="col-4 ">
-                    
-                       <h5 className="btn-round ml-3 mb-2 d-inline-block float-right rounded-lg bg-danger p-2 text-white" >Live Doubt Clearing</h5> 
-                     
-                    
+                        <h5 className="btn-round ml-3 mb-2 d-inline-block float-right rounded-lg bg-danger p-2 text-white">
+                          Live Doubt Clearing
+                        </h5>
+
                         <div
                           className="dropdown-menu dropdown-menu-right p-3 border-0 shadow-xss"
                           aria-labelledby="dropdownMenu2"
-                        >
-                      
-                        </div>
+                        ></div>
                       </div>
                     </div>
 
@@ -724,7 +556,7 @@ function SubjectStream() {
                   <div className="card d-block border-0 rounded-lg overflow-hidden p-4 shadow-xss mt-4 bg-lightblue">
                     {allSubjectData && allSubjectData.test ? (
                       allSubjectData.test_result &&
-                        allSubjectData.test_result.score_percentage >= 50 ? (
+                      allSubjectData.test_result.score_percentage >= 50 ? (
                         <a href="">
                           <h2 className="fw-700 font-sm mt-1 pl-1">
                             View certificate.{" "}
@@ -771,8 +603,8 @@ function SubjectStream() {
                     className="owl-carousel category-card owl-theme"
                   >
                     {allSubjectData &&
-                      allSubjectData.mini_projects &&
-                      allSubjectData.mini_projects.length > 0 ? (
+                    allSubjectData.mini_projects &&
+                    allSubjectData.mini_projects.length > 0 ? (
                       allSubjectData &&
                       allSubjectData.mini_projects.map((mini_project, id) => (
                         <div className="item" key={id}>
@@ -831,8 +663,8 @@ function SubjectStream() {
                     className="owl-carousel category-card owl-theme"
                   >
                     {allSubjectData &&
-                      allSubjectData.assesments_given &&
-                      allSubjectData.assesments_given.length > 0 ? (
+                    allSubjectData.assesments_given &&
+                    allSubjectData.assesments_given.length > 0 ? (
                       allSubjectData &&
                       allSubjectData.assesments_given.map((assesment, id) => (
                         <div className="item" key={id}>
