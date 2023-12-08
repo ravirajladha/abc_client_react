@@ -9,14 +9,14 @@ function SchoolDetailsForm() {
   const [state, setState] = useState("");
   const [yearOfEstablishment, setYearOfEstablishment] = useState(2022);
   const [schoolType, setSchoolType] = useState("");
-  const [studentTeacherRatio, setStudentTeacherRatio] = useState("");
+  // const [studentTeacherRatio, setStudentTeacherRatio] = useState("");
   const [legalName, setLegalName] = useState("");
   const [registeredAddress, setRegisteredAddress] = useState("");
-  const [websiteLink, setWebsiteLink] = useState("");
+  // const [websiteLink, setWebsiteLink] = useState("");
   const [accreditedBy, setAccreditedBy] = useState("");
   const [accreditationNo, setAccreditationNo] = useState("");
-  const [recognizedBy, setRecognizedBy] = useState("");
-  const [category, setCategory] = useState("");
+  // const [recognizedBy, setRecognizedBy] = useState("");
+  // const [category, setCategory] = useState("");
   const [schoolInfo, setSchoolInfo] = useState("");
 
   const handleSchoolNameChange = (e) => setSchoolName(e.target.value);
@@ -28,29 +28,25 @@ function SchoolDetailsForm() {
   const handleYearOfEstablishmentChange = (e) =>
     setYearOfEstablishment(e.target.value);
   const handleSchoolTypeChange = (e) => setSchoolType(e.target.value);
-  const handleStudentTeacherRatioChange = (e) =>
-    setStudentTeacherRatio(e.target.value);
+  // const handleStudentTeacherRatioChange = (e) =>
+  //   setStudentTeacherRatio(e.target.value);
   const handleLegalNameChange = (e) => setLegalName(e.target.value);
   const handleRegisteredAddressChange = (e) =>
     setRegisteredAddress(e.target.value);
-  const handleWebsiteLinkChange = (e) => setWebsiteLink(e.target.value);
+  // const handleWebsiteLinkChange = (e) => setWebsiteLink(e.target.value);
   const handleAccreditedByChange = (e) => setAccreditedBy(e.target.value);
   const handleAccreditationNoChange = (e) => setAccreditationNo(e.target.value);
-  const handleRecognizedByChange = (e) => setRecognizedBy(e.target.value);
-  const handleCategoryChange = (e) => setCategory(e.target.value);
+  // const handleRecognizedByChange = (e) => setRecognizedBy(e.target.value);
+  // const handleCategoryChange = (e) => setCategory(e.target.value);
   const handleSchoolInfoChange = (e) => setSchoolInfo(e.target.value);
 
   return (
     <>
       <div className="card-box">
-        <div className="accordion" id="accordionExample">
-          <div className="card-head">
-            <div className="mb-3 pb-0">
-              <h2 className="fw-400 font-lg d-block">
-                <b>Personal Details</b>
-              </h2>
-            </div>
-          </div>
+        <div className="card-head">
+          <h2 className="fw-400 font-lg d-block my-3 ml-3">
+            <b>Personal Details</b>
+          </h2>
         </div>
         <div className="card-body row">
           {/* School Name */}
@@ -213,7 +209,7 @@ function SchoolDetailsForm() {
           </div>
 
           {/* Student : Teacher */}
-          <div className="col-md-6 col-sm-6">
+          {/* <div className="col-md-6 col-sm-6">
             <div className="form-group">
               <label className="mont-font fw-600 font-xsss">
                 Student : Teacher<span>*</span>
@@ -227,7 +223,7 @@ function SchoolDetailsForm() {
                 onChange={handleStudentTeacherRatioChange}
               />
             </div>
-          </div>
+          </div> */}
 
           {/* Legal Name */}
           <div className="col-md-6 col-sm-6">
@@ -264,7 +260,7 @@ function SchoolDetailsForm() {
           </div>
 
           {/* Website Link */}
-          <div className="col-md-6 col-sm-6">
+          {/* <div className="col-md-6 col-sm-6">
             <div className="form-group">
               <label className="mont-font fw-600 font-xsss">
                 Website Link<span>*</span>
@@ -278,7 +274,7 @@ function SchoolDetailsForm() {
                 onChange={handleWebsiteLinkChange}
               />
             </div>
-          </div>
+          </div> */}
 
           {/* Accredited By */}
           <div className="col-md-6 col-sm-6">
@@ -316,7 +312,7 @@ function SchoolDetailsForm() {
           </div>
 
           {/* Recognized By */}
-          <div className="col-md-6 col-md-6">
+          {/* <div className="col-md-6 col-md-6">
             <div className="form-group">
               <label className="">
                 Recognized By<span>*</span>
@@ -331,10 +327,10 @@ function SchoolDetailsForm() {
                 <option value="3">C</option>
               </select>
             </div>
-          </div>
+          </div> */}
 
           {/* Category */}
-          <div className="col-md-6 col-sm-6">
+          {/* <div className="col-md-6 col-sm-6">
             <div className="form-group">
               <label className="">
                 Category (required)<span>*</span>
@@ -352,7 +348,7 @@ function SchoolDetailsForm() {
                 <option value="3">Higher Secondary School</option>
               </select>
             </div>
-          </div>
+          </div> */}
 
           {/* School Info */}
           <div className="col-md-12 col-sm-6">
@@ -370,6 +366,17 @@ function SchoolDetailsForm() {
                 onChange={handleSchoolInfoChange}
               ></textarea>
             </div>
+          </div>
+
+          <div className="col-lg-12">
+            <button
+              type="submit"
+              className="btn bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0 ml-3"
+              style={{ float: "right" }}
+              id="submit"
+            >
+              Save
+            </button>
           </div>
         </div>
       </div>

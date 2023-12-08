@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify"; // Import toast from react-toastify
+import { toast, ToastContainer } from "react-toastify"; // Import toast and ToastContainer from react-toastify
 import "react-toastify/dist/ReactToastify.css"; // Import the CSS for toast styles
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -206,6 +206,7 @@ const FormPageSix = ({ allFormData, onSubmit, goToPreviousForm }) => {
           </div>
         </div>
       </div>
+      <ToastContainer autoClose={3000} />
     </div>
   );
 };

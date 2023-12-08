@@ -67,8 +67,6 @@ function Schools() {
   return (
     <>
       <ToastContainer />
-      {/* ... rest of your component */}
-
       {/* Modal for adding a school */}
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
@@ -198,8 +196,8 @@ function Schools() {
                           </h4>
                           <div className="card-footer bg-transparent border-top-0">
                             <Link
-                              to={`/edit-school-profile`}
-                              className="p-2 px-3 mt-2 d-inline-block me-2 text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current"
+                              to={`/edit-school-profile/${school.auth_id}`}
+                              className="p-2 mt-4  d-inline-block text-white fw-300 lh-30 rounded-lg w100 text-center font-xsssss ls-3 bg-current"
                             >
                               Edit School
                             </Link>

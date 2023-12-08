@@ -70,7 +70,7 @@ import Students from "./pages/school/Students";
 import AddStudent from "./pages/school/AddStudent";
 import ViewStudent from "./pages/school/ViewStudent";
 import EditStudentProfile from "./pages/school/EditProfile";
-import EditSchoolProfile from "./pages/admin/AddSchool";
+import EditSchoolProfile from "./pages/admin/EditSchoolProfile";
 import Teachers from "./pages/school/Teachers";
 import AddTeacher from "./pages/school/AddTeacher";
 import Editor1 from "./pages/e_lab/components/Editor1";
@@ -890,7 +890,7 @@ type_id: if mini_project then task_id else subject then video_id
           
           <Route
             exact
-            path={`${process.env.PUBLIC_URL}/edit-school-profile`}
+            path={`${process.env.PUBLIC_URL}/edit-school-profile/:id`}
             element={
               <ProtectedRoute
                 element={<EditSchoolProfile />}
@@ -898,7 +898,6 @@ type_id: if mini_project then task_id else subject then video_id
               />
             }
           />
-          
 
           <Route
             exact
