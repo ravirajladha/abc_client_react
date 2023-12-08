@@ -67,20 +67,18 @@ function EditSchoolProfile() {
             </div>
           </div>
 
-          <div className="middle-sidebar-bottom bg-lightblue theme-dark-bg">
-            <div className="custom-middle-sidebar-left">
-              <div className="mb-3">
-                <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
-                  <div className="row">
-                    <div className="col-md-3 p-0">
-                      <Sidebar
-                        currentStep={currentStep}
-                        changeStep={setCurrentStep}
-                      />
-                    </div>
-                    <div className="col-md-9 p-0">
-                      <div className="card-body">{getStepComponent()}</div>
-                    </div>
+          <div className="custom-middle-sidebar-left">
+            <div className="mb-3">
+              <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
+                <div className="row">
+                  <div className="col-md-3 p-0">
+                    <Sidebar
+                      currentStep={currentStep}
+                      changeStep={setCurrentStep}
+                    />
+                  </div>
+                  <div className="col-md-9 p-0">
+                    <div className="card-body">{getStepComponent()}</div>
                   </div>
                 </div>
               </div>

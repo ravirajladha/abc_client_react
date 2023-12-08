@@ -1,10 +1,6 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
-import { Link } from "react-router-dom";
-import AppHeader from "../../../components/includes/AppHeader";
-import AppFooter from "../../../components/includes/AppFooter";
+import { useParams, Link } from "react-router-dom";
 import { AuthContext } from "../../../lib/AuthContext";
-import BackButton from "../../../components/navigation/BackButton";
-
 import $ from "jquery";
 import "datatables.net";
 import "datatables.net-dt/css/jquery.dataTables.css";
@@ -15,83 +11,83 @@ import "datatables.net-buttons/js/buttons.print";
 function Students() {
   const userDetails = useContext(AuthContext).user;
   const tableRef = useRef(null);
-
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const [students, setStudents] = useState([]);
 
-  useEffect(() => {
-    getStudents();
-    return () => {
-      const table = $(tableRef.current).DataTable();
-      table.destroy();
-    };
-  }, []);
-
   const getStudents = () => {
-    const schoolId = userDetails.user.id;
-    console.log("school", schoolId);
-    fetch(`${baseUrl}api/school/api_get_school_students?school_id=${schoolId}`)
-      .then((result) => result.json())
-      .then((jsonbody) => {
-        console.warn(jsonbody);
-        setStudents(jsonbody);
-        $(tableRef.current).DataTable();
-      })
-      .catch((error) => {
-        console.error("Error fetching students:", error);
-      });
+    return new Promise((resolve, reject) => {
+      fetch(`${baseUrl}api/admin/api_get_all_students`)
+        .then((result) => result.json())
+        .then((jsonbody) => {
+          setStudents(jsonbody);
+          resolve(jsonbody);
+        })
+        .catch((error) => {
+          console.error("Error fetching student details:", error);
+          reject(error);
+        });
+    });
   };
 
+  useEffect(() => {
+    getStudents().catch((error) => {
+      console.error("Error fetching student details:", error);
+    });
+  }, []);
+
+  useEffect(() => {
+    // This effect runs when students state updates
+    if (students.length > 0 && tableRef.current) {
+      const dataTable = $(tableRef.current).DataTable();
+      return () => {
+        // Destroy the DataTable when the component unmounts or before re-initializing
+        dataTable.destroy();
+      };
+    }
+  }, [students]);
+
+  useEffect(() => {
+    // Initialize or re-initialize the DataTable
+    if (students.length > 0 && tableRef.current) {
+      $(tableRef.current).DataTable();
+    }
+  }, [students]); // This will run every time the students state updates
+
   return (
-    <div className="card-body p-lg-5 p-4 w-100 border-0 ">
+    <div className="card-body p-lg-5 p-4 w-100 border-0">
       <table ref={tableRef} id="myTable" className="table">
         <thead>
           <tr>
             <th scope="col">Sl. No.</th>
-            <th scope="col">Name</th>
             <th scope="col">Roll No</th>
-            <th scope="col">Class</th>
-            <th scope="col">Section</th>
+            <th scope="col">Student Name</th>
+            <th scope="col">Father Name</th>
+            <th scope="col">Mother Name</th>
+            <th scope="col">Student DOB</th>
             <th scope="col" className="text-dark">
               Action
             </th>
           </tr>
         </thead>
         <tbody>
-          {/* {students.map((student, index) => (
+          {students.map((student, index) => (
             <tr key={index}>
               <td>{index + 1}</td>
-              <td>{student.name}</td>
               <td>{student.auth_id}</td>
-
-              <td>{student.class?.class}</td>
-              <td>{student.section_id === 1 ? "A" : "B"}</td>
+              <td>{student.name}</td>
+              <td>{student.user.name}</td>
+              <td>{student.class2 ? student.class2.class : ""}</td>
+              <td>{student.section_id}</td>
               <td className="text-dark">
                 <Link
-                  to={`/school/edit-student-profile/${index + 1}`}
+                  to={`/edit-teacher/${student.id}`}
                   className="p-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current"
                 >
                   Edit
                 </Link>
               </td>
             </tr>
-          ))} */}
-          <tr>
-            <td>1</td>
-            <td>name</td>
-            <td>auth_id</td>
-
-            <td>class</td>
-            <td>A</td>
-            <td className="text-dark">
-              <Link
-                to={`/school/edit-student-profile/`}
-                className="p-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current"
-              >
-                Edit
-              </Link>
-            </td>
-          </tr>
+          ))}
         </tbody>
       </table>
     </div>
