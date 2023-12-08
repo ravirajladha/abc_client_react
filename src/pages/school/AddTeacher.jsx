@@ -142,22 +142,22 @@ function AddTeacher() {
         setIsSubmitting(false); // Re-enable the submit button
     });
   };
-
+  // const goBack = () => {
+  //   navigate(-1);
+  // };
   return (
     <div className="main-wrapper">
       <div className="main-content menu-active">
         <AppHeader />
         <div className="middle-sidebar-bottom bg-lightblue theme-dark-bg">
-          <div className="custom-middle-sidebar-left">
-            <div className="mb-3">
-              <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
-                <div className="card-body p-4 w-100 border-0 d-flex rounded-lg justify-content-between">
-                  <h2 className="fw-400 font-lg d-block">
-                    Add <b> Teacher</b>
-                  </h2>
-                  <ToastContainer autoClose={3000} />
-
-                  <div className="float-right">
+          <div className="middle-sidebar-left">
+          <div className="col-lg-12 pt-0 mb-1 d-flex justify-content-between">
+                  <div>
+                    <h2 className="fw-400 font-lg d-block">
+                      Add <b>Teacher</b>
+                    </h2>
+                  </div>
+          <div className="float-right">
                     <Breadcrumb style={{ padding: "0.25rem 1rem" }}>
                       <Breadcrumb style={{ padding: "0.25rem 1rem" }}>
                         <Breadcrumb.Item href="/school">
@@ -172,6 +172,14 @@ function AddTeacher() {
                       </Breadcrumb>
                     </Breadcrumb>
                   </div>
+                  </div>
+            <div className="mb-3">
+              <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
+                <div className="card-body p-4 w-100 border-0 d-flex rounded-lg justify-content-between">
+                
+                  <ToastContainer autoClose={3000} />
+
+               
                 </div>
 
                 <div className="card-body p-lg-5 p-4 w-100 border-0">
@@ -258,6 +266,8 @@ function AddTeacher() {
 
                     <div className="row">
                       <div className="col-lg-12">
+                      <div className="row">
+                      <div className="col-lg-1">
                         <div className="form-group">
                           <button
                             type="button"
@@ -266,12 +276,12 @@ function AddTeacher() {
                             style={{ float: "right" }}
                             onClick={handleAddFields}
                           >
-                            Add
+                            Add Row
                           </button>
                         </div>
                       </div>
-                    </div>
-
+                   
+                    <div className="col-lg-10">
                     <div className="dynamic">
                       {fields.map((field, index) => (
                         <div className="class-subject-fields row" key={index}>
@@ -334,6 +344,10 @@ function AddTeacher() {
                           </div>
                         </div>
                       ))}
+                    </div>
+                    </div>
+                    </div>
+                    </div>
                     </div>
 
                     <div className="col-lg-12">

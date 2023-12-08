@@ -114,7 +114,7 @@ function Chats() {
                 <div className="main-content menu-active">
                     <AppHeader />
                     <div className="middle-sidebar-bottom theme-dark-bg">
-                        <div className="custom-middle-sidebar-left">
+                        <div className="middle-sidebar-left">
                             <ToastContainer autoClose={3000} />
 
                             <div className="row">

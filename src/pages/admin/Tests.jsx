@@ -31,7 +31,7 @@ function Tests() {
                     <AppHeader />
 
                     <div className="middle-sidebar-bottom theme-dark-bg">
-                        <div className="custom-middle-sidebar-left">
+                        <div className="middle-sidebar-left">
 
                             <div className="row">
                                 <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">

@@ -39,7 +39,7 @@ function AllSubjects() {
           <AppHeader />
 
           <div className="middle-sidebar-bottom theme-dark-bg">
-            <div className="custom-middle-sidebar-left">
+            <div className="middle-sidebar-left">
               <div className="row">
                 <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
                   <div>
@@ -48,6 +48,12 @@ function AllSubjects() {
                     </h2>
                   </div>
                   <div className="float-right">
+                  <Link
+                      to={`/all_subjects/create_subject/${class_id}`}
+                      className="px-3 py-1  d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current mx-1"
+                    >
+                      ADD SUBJECT
+                    </Link>
                     <button
                       onClick={goBack}
                       className="p-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1"

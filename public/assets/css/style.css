@@ -13651,7 +13651,7 @@ strong,
 .main-content .middle-sidebar-bottom .middle-sidebar-left {
   width: calc(100% - 320px);
 }
-.custom-middle-sidebar-left{
+.middle-sidebar-left{
   width: calc(100%);
 }
 .main-content .middle-sidebar-bottom .middle-sidebar-right {

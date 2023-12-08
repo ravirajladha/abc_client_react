@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import AppHeader from "../../components/includes/AppHeader";
 import AppFooter from "../../components/includes/AppFooter";
 import Dropdown from "../../components/inputs/Dropdown";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -10,53 +10,26 @@ import "react-toastify/dist/ReactToastify.css";
 function CreateVideos() {
   const navigate = useNavigate();
   const formRef = useRef(null);
+  const { class_id, subject_id, chapter_id } = useParams();
+
   const baseUrl = process.env.REACT_APP_BASE_URL;
-  useEffect(() => {
-    getClasses();
-  }, []);
+
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const [classes, setClasses] = useState([]);
-  const [selectedClass, setSelectedClass] = useState("");
-  const [subjects, setSubjects] = useState([]);
-  const [selectedSubject, setSelectedSubject] = useState("");
-  const [chapters, setChapters] = useState([]);
-  const [selectedChapter, setSelectedChapter] = useState("");
+  const [selectedClass, setSelectedClass] = useState(class_id);
+  const [selectedSubject, setSelectedSubject] = useState(subject_id);
+  const [selectedChapter, setSelectedChapter] = useState(chapter_id);
   const [uploadElab, setUploadElab] = useState(false);
   const [elabOptions, setElabOptions] = useState([]);
 
-  const [videoNames, setVideoNames] = useState([""]); // Array to store video names
-  const [videoFiles, setVideoFiles] = useState([""]); // Array to store video files
-  const [selectedElab, setSelectedElab] =  useState(""); // Array to store video files
 
-  function getClasses() {
-    let result = fetch(baseUrl + "api/get_classes").then(function (result) {
-      result.json().then(function (jsonbody) {
-        console.warn(jsonbody);
-        setClasses(jsonbody);
-      });
-    });
-  }
-  function getSubjects() {
-    let result = fetch(
-      baseUrl + "api/get_subjects_by_class/" + selectedClass
-    ).then(function (result) {
-      result.json().then(function (jsonbody) {
-        console.warn(jsonbody);
-        setSubjects(jsonbody);
-      });
-    });
-  }
-  function getChapters() {
-    let result = fetch(
-      baseUrl + "api/get_chapters_by_subject/" + selectedSubject
-    ).then(function (result) {
-      result.json().then(function (jsonbody) {
-        console.warn(jsonbody);
-        setChapters(jsonbody);
-      });
-    });
-  }
+  const [videoFiles, setVideoFiles] = useState([""]); // Array to store video files
+  const [selectedElab, setSelectedElab] = useState(""); // Array to store video files
+  const [videoName, setVideoName] = useState(""); // State to store video name
+
+  const [videoFile, setVideoFile] = useState(null);
+  const [videoDescription, setVideoDescription] = useState("");
+
   useEffect(() => {
     if (selectedClass && selectedSubject && uploadElab) {
       // API call to fetch eLabs
@@ -82,56 +55,28 @@ function CreateVideos() {
       setElabOptions([]);
     }
   }
-  
 
-  const handleClassChange = (e) => {
-    const selectedValue = e.target.value;
-    setSelectedClass(selectedValue);
-  };
-  const handleSubjectChange = (e) => {
-    const selectedValue = e.target.value;
-    setSelectedSubject(selectedValue);
-  };
-  const handleChapterChange = (e) => {
-    const selectedValue = e.target.value;
-    setSelectedChapter(selectedValue);
-  };
   const handleElabChange = (e) => {
     // 'e.target.value' will be the selected eLab ID
     setSelectedElab(e.target.value);
   };
-  useEffect(() => {
-    getSubjects();
-  }, [selectedClass]);
-  useEffect(() => {
-    getChapters();
-  }, [selectedSubject]);
 
-  const addVideoField = () => {
-    setVideoNames([...videoNames, ""]);
-    setVideoFiles([...videoFiles, ""]);
-  };
-
-  const deleteVideoField = (index) => {
-    const updatedVideoNames = [...videoNames];
-    const updatedVideoFiles = [...videoFiles];
-    updatedVideoNames.splice(index, 1);
-    setVideoNames(updatedVideoNames);
-    updatedVideoFiles.splice(index, 1);
-    setVideoFiles(updatedVideoFiles);
-  };
   const createVideo = (e) => {
     const formData = new FormData();
     formData.append("class", selectedClass);
     formData.append("subject", selectedSubject);
     formData.append("chapter", selectedChapter);
     formData.append("elab", selectedElab);
-    formData.append("videoNames", JSON.stringify(videoNames));
-    // formData.append('videoFiles', videoFiles);
-    videoFiles.forEach((file) => formData.append("videoFiles[]", file));
-    e.preventDefault();
-    setIsSubmitting(true);
+    formData.append("videoDescription", videoDescription);
+    formData.append("videoName", videoName); // Change the key to match Laravel's expected request field
 
+    // formData.append('videoFiles', videoFiles);
+    if (videoFile) {
+      formData.append("videoFile", videoFile);
+    }
+    setIsSubmitting(true);
+    e.preventDefault();
+console.log(formData)
     console.log(videoFiles);
     fetch(baseUrl + "api/create_video", {
       method: "POST",
@@ -139,12 +84,10 @@ function CreateVideos() {
     })
       .then((res) => res.json())
       .then((resp) => {
-        setSelectedClass("");
-        setSelectedSubject("");
-        setSelectedChapter("");
         setSelectedElab("");
-        setVideoNames([""]);
+        setVideoName([""]);
         setVideoFiles([""]);
+        setVideoDescription("");
         toast.success(resp.msg);
         if (formRef.current) {
           formRef.current.reset(); // This will reset the file input
@@ -166,7 +109,7 @@ function CreateVideos() {
         <div className="main-content menu-active">
           <AppHeader />
           <div className="middle-sidebar-bottom theme-dark-bg">
-            <div className="custom-custom-middle-sidebar-left">
+            <div className="middle-sidebar-left">
               <div className="row">
                 <ToastContainer autoClose={3000} />
                 <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
@@ -192,35 +135,55 @@ function CreateVideos() {
                       ref={formRef}
                     >
                       <div className="row mb-6">
-                        <div className="col-lg-4">
+                     
+
+                        <div className="col-lg-12">
+                          <div className="row">
+                            <div className="col-lg-4">
+                              <label className="mont-font fw-600 font-xsss">
+                                Video Name
+                              </label>
+                              <br />
+
+                              <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Enter Name"
+                                value={videoName} // Bind the input to the videoName state
+                                onChange={(e) => setVideoName(e.target.value)} // Update the state when input changes
+                                required
+                              />
+                            </div>
+                            <div className="col-lg-8">
+                              <label className="mont-font fw-600 font-xsss">
+                                Video File
+                              </label>
+                              <br />
+                              <input
+                                type="file"
+                                className="form-control"
+                                onChange={(e) =>
+                                  setVideoFile(e.target.files[0])
+                                }
+                                required
+                              />
+                            </div>
+                            <div className="col-lg-12">
+  <label className="mont-font fw-600 font-xsss">Video Description</label>
+  <textarea
+    className="form-control"
+    placeholder="Enter Description"
+    value={videoDescription}
+    onChange={(e) => setVideoDescription(e.target.value)}
+    required
+  />
+</div>
+
+                          <div className="col-lg-2">
                           <label className="mont-font fw-600 font-xsss">
-                            Select Class
+                            Has eLab
                           </label>
-                          <br />
-                          <Dropdown
-                            options={classes}
-                            column_name="class"
-                            value={selectedClass}
-                            onChange={handleClassChange}
-                          />
-                        </div>
-                        <div className="col-lg-4">
-                          <label className="mont-font fw-600 font-xsss">
-                            Select Subject
-                          </label>
-                          <br />
-                          <Dropdown
-                            options={subjects}
-                            column_name="subject_name"
-                            value={selectedSubject}
-                            onChange={handleSubjectChange}
-                          />
-                        </div>
-                        <div className="col-lg-4">
-                          <label className="mont-font fw-600 font-xsss">
-                            Upload eLab
-                          </label>
-                          <br />
+                         &ensp;
                           <input
                             type="checkbox"
                             checked={uploadElab}
@@ -228,108 +191,32 @@ function CreateVideos() {
                           />
                         </div>
                         {uploadElab && (
-                          <div className="col-lg-12">
+                          <div className="col-lg-6">
                             <label className="mont-font fw-600 font-xsss">
                               Select eLab
                             </label>
                             <br />
                             <Dropdown
-  options={elabOptions}
-  column_name="elab" // This is the property to be displayed in the dropdown
-  value={selectedElab}
-  onChange={handleElabChange}
-/>
-
-
+                              options={elabOptions}
+                              column_name="elab" // This is the property to be displayed in the dropdown
+                              value={selectedElab}
+                              onChange={handleElabChange}
+                            />
                           </div>
                         )}
+                          </div>
+                        
 
-                        <div className="col-lg-12">
-                          <label className="mont-font fw-600 font-xsss">
-                            Select Chapter
-                          </label>
-                          <br />
-                          <Dropdown
-                            options={chapters}
-                            column_name="chapter_name"
-                            value={selectedChapter}
-                            onChange={handleChapterChange}
-                          />
-                        </div>
-                        <div className="col-lg-12">
-                          {videoNames.map((name, index) => (
-                            <div className="row" key={index}>
-                              <div className="col-lg-4">
-                                <label className="mont-font fw-600 font-xsss">
-                                  Video Name
-                                </label>
-                                <br />
-
-                                <input
-                                  type="text"
-                                  className="form-control"
-                                  placeholder="Enter Name"
-                                  value={name}
-                                  onChange={(e) => {
-                                    const updatedVideoNames = [...videoNames];
-                                    updatedVideoNames[index] = e.target.value;
-                                    setVideoNames(updatedVideoNames);
-                                  }}
-                                  required
-                                />
-                              </div>
-                              <div className="col-lg-4">
-                                <label className="mont-font fw-600 font-xsss">
-                                  Video File
-                                </label>
-                                <br />
-                                <input
-                                  type="file"
-                                  className="form-control"
-                                  onChange={(e) => {
-                                    const updatedVideoFiles = [...videoFiles];
-                                    updatedVideoFiles[index] =
-                                      e.target.files[0];
-                                    setVideoFiles(updatedVideoFiles);
-                                  }}
-                                  required
-                                  key={videoFiles.length}
-                                />
-                              </div>
-                              <div className="col-lg-4">
-                                <button
-                                  type="button"
-                                  className="btn btn-danger ml-2 mt-4"
-                                  onClick={() => deleteVideoField(index)}
-                                  style={{
-                                    backgroundColor: "red",
-                                    color: "white",
-                                    marginLeft: "2px",
-                                  }}
-                                >
-                                  <i class="feather-minus"></i>
-                                </button>
-                              </div>
-                            </div>
-                          ))}
-                          <button
-                            type="button"
-                            className="btn bg-current mt-2 text-white"
-                            onClick={addVideoField}
-                          >
-                            Add Video
-                          </button>
-                        </div>
-
-                        <div className="col-lg-12">
-                          <button
-                            type="submit"
-                            className="btn bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0 float-right mt-2"
-                            disabled={isSubmitting}
-                          >
-                            {isSubmitting ? "Uploading..." : "Submit"}
-                            {isSubmitting && <span className="loader"></span>}
-                          </button>
+                          <div className="col-lg-12">
+                            <button
+                              type="submit"
+                              className="btn bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0 float-right mt-2"
+                              disabled={isSubmitting}
+                            >
+                              {isSubmitting ? "Uploading..." : "Submit"}
+                              {isSubmitting && <span className="loader"></span>}
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </form>

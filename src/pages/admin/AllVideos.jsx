@@ -3,21 +3,25 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import AppHeader from "../../components/includes/AppHeader";
 import AppFooter from "../../components/includes/AppFooter";
 
-function AllVideos() {
-  const navigate = useNavigate();
-  const { chapter_id } = useParams();
-  const [videos, setVideos] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const baseUrl = process.env.REACT_APP_BASE_URL;
 
+  function AllVideos() {
+    const navigate = useNavigate();
+    const { chapter_id } = useParams();
+    const [videos, setVideos] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [classId, setClassId] = useState(null); // State variable for class_id
+    const [subjectId, setSubjectId] = useState(null); // State variable for subject_id
+    const baseUrl = process.env.REACT_APP_BASE_URL;
+  
+    useEffect(() => {
+      if (chapter_id) {
+        getVideos(chapter_id);
+        getUniqueClassAndSubjectFromChapter(chapter_id); // Fetch class and subject when component mounts
+      }
+    }, [chapter_id]);
   const goBack = () => {
     navigate(-1); // Use navigate(-1) to go back
   };
-  useEffect(() => {
-    if (chapter_id) {
-      getVideos(chapter_id);
-    }
-  }, [chapter_id]);
 
   function getVideos(chapterId) {
     setIsLoading(true);
@@ -32,6 +36,19 @@ function AllVideos() {
         setIsLoading(false);
       });
   }
+  function getUniqueClassAndSubjectFromChapter(chapterId) {
+    fetch(`${baseUrl}api/getUniqueClassAndSubjectFromChapter/${chapterId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setClassId(data.class_id); // Set the class_id from the fetched data
+        setSubjectId(data.subject_id); // Set the subject_id from the fetched data
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching class and subject:", error);
+        setIsLoading(false);
+      });
+  }
 
   return (
     <>
@@ -40,7 +57,7 @@ function AllVideos() {
           <AppHeader />
 
           <div className="middle-sidebar-bottom theme-dark-bg">
-            <div className="custom-middle-sidebar-left">
+            <div className="middle-sidebar-left">
               <div className="row">
                 <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
                   <div>
@@ -49,6 +66,12 @@ function AllVideos() {
                     </h2>
                   </div>
                   <div className="float-right">
+                  <Link
+          to={`/all_subjects/${classId}/${subjectId}/${chapter_id}/create_videos`} // Updated path with classId and subjectId
+          className="px-3 py-1  d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current mx-1"
+        >
+                      ADD VIDEOS
+                    </Link>
                     <button
                       onClick={goBack}
                       className="p-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1"

@@ -253,7 +253,7 @@ function CreateLab(props) {
           <AppHeader />
 
           <div className="middle-sidebar-bottom theme-dark-bg">
-            <div className="custom-middle-sidebar-left">
+            <div className="middle-sidebar-left">
               <div className="row">
                 <div className="card-body p-lg-5 px-4 w-100 border-0 d-flex rounded-lg justify-content-between">
                   <div className="">

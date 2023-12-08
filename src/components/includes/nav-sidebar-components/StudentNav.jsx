@@ -1,11 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
-import {
-  clearLocalStorage,
-  getUserFromLocalStorage,
-} from "../../../pages/util/SessionStorage.jsx";
-import { useContext } from "react";
-import { AuthContext } from "../../../lib/AuthContext.js";
+import React, {  useState } from "react";
+import { Link, NavLink } from "react-router-dom";
+
 import LogoutButton from "../../common/LogoutButton.jsx";
 function StudentNav() {
   const [isOpen, setIsOpen] = useState(false);
@@ -39,9 +34,7 @@ function StudentNav() {
               <i className="ti-close bg-grey mb-4 btn-round-sm font-xssss fw-700 text-dark ml-auto mr-2 "></i>
             </span>
           </div>
-          <div className="nav-caption fw-600 font-xssss text-grey-500">
-              Home
-            </div>
+      
           <ul className="mb-3">
             <li className="logo d-none d-xl-block d-lg-block"></li>
             <li>
@@ -56,8 +49,9 @@ function StudentNav() {
               </NavLink>
             </li>
             <div className="nav-caption fw-600 font-xssss text-grey-500">
-              Subjects
+              Home
             </div>
+         
             <li>
               <NavLink
                 activeclassname="active"
@@ -70,8 +64,9 @@ function StudentNav() {
               </NavLink>
             </li>
             <div className="nav-caption fw-600 font-xssss text-grey-500">
-              Qna
+              Subjects
             </div>
+          
             <li>
               <NavLink
                 activeclassname="active"
@@ -84,8 +79,9 @@ function StudentNav() {
               </NavLink>
             </li>
             <div className="nav-caption fw-600 font-xssss text-grey-500">
-              Forums
+              Qna
             </div>
+        
             <li>
               <NavLink
                 activeclassname="active"
@@ -98,8 +94,9 @@ function StudentNav() {
               </NavLink>
             </li>
             <div className="nav-caption fw-600 font-xssss text-grey-500">
-              Video Features
+              Forums
             </div>
+       
             <li>
               <NavLink
                 activeclassname="active"
@@ -111,7 +108,9 @@ function StudentNav() {
                 <span>Video Features</span>
               </NavLink>
             </li>
-           
+            <div className="nav-caption fw-600 font-xssss text-grey-500">
+              Video Features
+            </div>
           </ul>
 
           <div className="nav-caption fw-600 font-xssss text-grey-500">

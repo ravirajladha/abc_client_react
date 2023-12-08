@@ -378,14 +378,14 @@ function SubjectStream() {
                           className="video-playlist shadow-xss"
                           style={{ height: 400 }}
                         >
-                          {allSubjectData && allSubjectData.videos ? (
+                          {/* {allSubjectData && allSubjectData.videos ? (
                             <p className="text-dark fw-300 font-xss">
                               {allSubjectData && allSubjectData.videos.length}{" "}
                               &nbsp; Videos
                             </p>
                           ) : (
                             ""
-                          )}
+                          )} */}
                           <div className="videos scroll-bar">
                             <Accordion
                               defaultActiveKey="0"
@@ -520,7 +520,7 @@ function SubjectStream() {
                       </Tab>
                       <Tab
                         eventKey="chat"
-                        title="CHAT"
+                        title="QNA"
                         className="list-inline-item "
                       >
                         <div
@@ -653,59 +653,16 @@ function SubjectStream() {
                           {mainVideoTitle}
                         </h2>
                       </div>
-                      <div className="col-4 save-div">
-                        <a
-                          href="#"
-                          className="btn-round-md ml-3 mb-2 d-inline-block float-right rounded-lg bg-danger"
-                        >
-                          <i className="feather-bookmark font-sm text-white"></i>
-                        </a>
-                        <a
-                          href="#"
-                          className="btn-round-md ml-0 d-inline-block float-right rounded-lg bg-greylight"
-                          id="dropdownMenu2"
-                          data-toggle="dropdown"
-                          aria-haspopup="true"
-                          aria-expanded="false"
-                        >
-                          <i className="feather-share-2 font-sm text-grey-700"></i>
-                        </a>
+                      <div className="col-4 ">
+                    
+                       <h5 className="btn-round ml-3 mb-2 d-inline-block float-right rounded-lg bg-danger p-2 text-white" >Live Doubt Clearing</h5> 
+                     
+                    
                         <div
                           className="dropdown-menu dropdown-menu-right p-3 border-0 shadow-xss"
                           aria-labelledby="dropdownMenu2"
                         >
-                          <ul className="d-flex align-items-center mt-0 float-left">
-                            <li className="mr-2">
-                              <h4 className="fw-600 font-xss text-grey-900  mt-2 mr-3">
-                                Share:{" "}
-                              </h4>
-                            </li>
-                            <li className="mr-2">
-                              <a href="#" className="btn-round-md bg-facebook">
-                                <i className="font-xs ti-facebook text-white"></i>
-                              </a>
-                            </li>
-                            <li className="mr-2">
-                              <a href="#" className="btn-round-md bg-twiiter">
-                                <i className="font-xs ti-twitter-alt text-white"></i>
-                              </a>
-                            </li>
-                            <li className="mr-2">
-                              <a href="#" className="btn-round-md bg-linkedin">
-                                <i className="font-xs ti-linkedin text-white"></i>
-                              </a>
-                            </li>
-                            <li className="mr-2">
-                              <a href="#" className="btn-round-md bg-instagram">
-                                <i className="font-xs ti-instagram text-white"></i>
-                              </a>
-                            </li>
-                            <li className="mr-2">
-                              <a href="#" className="btn-round-md bg-pinterest">
-                                <i className="font-xs ti-pinterest text-white"></i>
-                              </a>
-                            </li>
-                          </ul>
+                      
                         </div>
                       </div>
                     </div>
@@ -725,7 +682,7 @@ function SubjectStream() {
                     </p>
                   </div>
 
-                  <div className="card d-block border-0 rounded-lg overflow-hidden p-4 shadow-xss mt-4 mb-5">
+                  {/* <div className="card d-block border-0 rounded-lg overflow-hidden p-4 shadow-xss mt-4 mb-5">
                     <h2 className="fw-700 font-sm mb-3 mt-1 pl-1 mb-3">
                       Instructor
                     </h2>
@@ -786,7 +743,7 @@ function SubjectStream() {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
                 <div className="col-xl-12 col-xxl-12 col-lg-12">
                   <div className="card d-block border-0 rounded-lg overflow-hidden p-4 shadow-xss mt-4 bg-lightblue">

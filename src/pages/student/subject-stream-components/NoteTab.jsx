@@ -162,7 +162,7 @@ function NoteTab({ userId, videoPlayer, activeVideoId }) {
             </div>
 
             <div className="text-center">
-                <button type="button" className="header-btn bg-current fw-500 text-white font-xsss p-2 lh-32 w100 text-center d-inline-block rounded-xl" onClick={handleAddNoteClick}>Add Note</button>
+                <button type="button" className=" mb-2 header-btn bg-current fw-500 text-white font-xsss p-2 lh-32 w100 text-center d-inline-block rounded-xl " onClick={handleAddNoteClick}>Add Note</button>
             </div>
             <Modal show={modal1Open} onHide={closeModal1} >
                 <Modal.Header closeButton >

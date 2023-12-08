@@ -27,12 +27,15 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import OutputDetails from "./OutputDetails";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 import { useParams } from "react-router-dom";
 import Accordion from "./Accordion";
-import { useContext } from 'react';
-import { AuthContext } from "../../../lib/AuthContext.js"
+import { useContext } from "react";
+
+import { AuthContext } from "../../../lib/AuthContext.js";
+import BackButton from "../../../components/navigation/BackButton";
+
 function Editor1() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const [code, setCode] = useState("Editor Loading...");
@@ -42,7 +45,7 @@ function Editor1() {
   // const [harnessCode, setHarnessCode] = useState();
   // const [labs, setLabs] = useState({ testcase: [] });
   const user_detail = useContext(AuthContext).user.user;
-  const { type,redirecting_id, type_id, labId } = useParams();
+  const { type, redirecting_id, type_id, labId } = useParams();
   const navigate = useNavigate();
 
   // If labId is undefined, set a default value
@@ -74,13 +77,12 @@ function Editor1() {
     }
   };
 
-  const { labs, testCases, harnessCode, languageId,error } = useLabDetails(
+  const { labs, testCases, harnessCode, languageId, error } = useLabDetails(
     effectiveLabId,
     selectedLevel,
     setCode
   );
 
-  
   useEffect(() => {
     if (error) {
       console.error("Error fetching lab details:", error);
@@ -96,13 +98,13 @@ function Editor1() {
   const [processing, setProcessing] = useState(null);
   const [theme, setTheme] = useState("cobalt");
   const [language, setLanguage] = useState(languageId);
-// console.log("langauage", language);
+  // console.log("langauage", language);
   const enterPress = useKeyPress("Enter");
   const ctrlPress = useKeyPress("Control");
   const languageMapping = {
-    "62": "Java",
-    "71": "Python",
-    "75": "C"
+    62: "Java",
+    71: "Python",
+    75: "C",
   };
 
   const [selectedOption1, setSelectedOption1] = useState("Java");
@@ -116,12 +118,11 @@ function Editor1() {
     if (languageId) {
       const languageName = languageMapping[languageId.id]; // Assuming languageId is an object with an 'id' property
       if (languageName) {
-        
         setSelectedOption1(languageName);
       }
     }
   }, [languageId, error]);
-  
+
   useEffect(() => {
     console.log("language", language);
   }, [language]);
@@ -175,9 +176,9 @@ function Editor1() {
       time_taken: timerTime,
       start_timestamp: formattedStartTimestamp,
       end_timestamp: formattedEndTimestamp,
-      type:type,
-      type_id:type_id,
-      user_id:user_detail.id
+      type: type,
+      type_id: type_id,
+      user_id: user_detail.id,
 
       // The code from the code editor
       // ... include any other data you need to send
@@ -195,13 +196,14 @@ function Editor1() {
         }
       );
       setAllTestCasesPassed(false);
-      console.log("passed")
-      toast.success("Code submitted successfully. You are redirecting back...", {
-        onClose: () => handleRedirection(type), // Redirect after toast closes
-        autoClose: 5000, // Toast will close after 5 seconds
-      });
-  
-      
+      console.log("passed");
+      toast.success(
+        "Code submitted successfully. You are redirecting back...",
+        {
+          onClose: () => handleRedirection(type), // Redirect after toast closes
+          autoClose: 5000, // Toast will close after 5 seconds
+        }
+      );
     } catch (error) {
       // Handle errors here
       console.error("Failed to submit code:", error);
@@ -209,10 +211,11 @@ function Editor1() {
   };
 
   const handleRedirection = (type) => {
-    let redirectPath = type === 1
-      ? `/subject_stream/view_project/${redirecting_id}`
-      : `/subject_stream/${redirecting_id}`;
-  
+    let redirectPath =
+      type === 1
+        ? `/subject_stream/view_project/${redirecting_id}`
+        : `/subject_stream/${redirecting_id}`;
+
     navigate(redirectPath);
   };
 
@@ -262,11 +265,11 @@ function Editor1() {
     setProcessing(true);
     setMessages([]);
     const testResults = [];
-    let finalCode = '';
+    let finalCode = "";
     if (language.id == 62) {
       // Prepare code for compilation
       const trimmedCode = code.trim().replace(/}\s*$/, "");
-       finalCode = `
+      finalCode = `
   import java.util.Scanner;
   
   ${trimmedCode} // User's code with the extra brace removed
@@ -277,7 +280,7 @@ function Editor1() {
       const userFunction = code.trim();
 
       // Prepare the full C code for compilation
-       finalCode = `
+      finalCode = `
 #include <stdio.h>
 char roman[1000]; // Global variable to store the Roman numeral
 
@@ -291,12 +294,12 @@ int main() {
     return 0;
 }
 `.trim();
-} else if (language.id == 71) {
-  // Prepare Python code for compilation
-  const userFunction = code.trim();
+    } else if (language.id == 71) {
+      // Prepare Python code for compilation
+      const userFunction = code.trim();
 
-  // Prepare the full Python code for compilation
-  finalCode = `
+      // Prepare the full Python code for compilation
+      finalCode = `
 ${userFunction} # User's code
 
 if __name__ == "__main__":
@@ -304,13 +307,13 @@ if __name__ == "__main__":
   roman = intToRoman(number)
   print(roman)
 `.trim();
-} else {
-  console.log("error in deciding language");
-  setProcessing(false);
-  return; // Exit the function if language is not recognized
-}
+    } else {
+      console.log("error in deciding language");
+      setProcessing(false);
+      return; // Exit the function if language is not recognized
+    }
     const encodedFinalCode = btoa(finalCode);
-    console.log(finalCode)
+    console.log(finalCode);
     // Process test cases
     if (labs && Array.isArray(labs.testcase)) {
       for (const test of labs.testcase) {
@@ -489,8 +492,6 @@ if __name__ == "__main__":
   };
   //end from the manu arora code editor
 
- 
-
   //   const [selectedOption3, setSelectedOption3] = useState("10 px");
   const [selectedFontSize, setSelectedFontSize] = useState("14"); // Default font size
 
@@ -546,7 +547,7 @@ if __name__ == "__main__":
           className={`flex w-full items-center justify-between  "max-w-[1200px] mx-auto" `}
         >
           <Link href="/" className="h-[10px] flex-1">
-            <img src="/logo.png" alt="Logo" height={50} width={50} />
+            <img src="/assets/images/abc_logo.jpg" alt="Logo" height={50} width={50} />
           </Link>
           <div className="flex items-center gap-4 flex-1 justify-center">
             {/* <div
@@ -604,9 +605,11 @@ if __name__ == "__main__":
 								z-40 group-hover:scale-100 scale-0 
 								transition-all duration-300 ease-in-out"
               >
-                <p className="text-sm"></p>
+                <p className="text-sm">
+                </p>
               </div>
             </div>
+                <BackButton />
 
             {/* {user && <Logout />} */}
           </div>

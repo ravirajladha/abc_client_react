@@ -94,8 +94,8 @@ function AppHeader() {
           />
         </div>
       </form> */}
-      <div className="navbar">
-        <h1>&nbsp;ATOMS&nbsp; </h1>
+      <div className="display1-size display2-md-size d-inline-block float-left mb-0 text-grey-900 fw-700 ml-2" >
+      <h1 style={{ letterSpacing: '2px' }}>&nbsp;ATOMS&nbsp;</h1>
       </div>
 
       <ul className="d-flex ml-auto right-menu-icon px-3 pt-3">
@@ -126,43 +126,7 @@ function AppHeader() {
             </div>
           </Link>
         </li>
-        {/* <li>
-          <Link to="#">
-            <span className="dot-count bg-warning"></span>
-            <img
-              src="/avatar.png"
-              alt="user"
-              className="w40 mt--1 rounded-circle"
-            />
-            <div className="menu-dropdown" style={{ width: "170px" }}>
-              <li className="font-xsss text-grey-900 mb-1 mt-0 ml-0 fw-700 d-block">
-                <i className="feather-settings text-grey-900 font-lg mr-2"></i>
-                <Link to="/settings" onClick={() => setIsDropdownOpen(false)}>
-                  Settings
-                </Link>
-              </li>
-              <li className="font-xsss text-grey-900 mb-1 mt-0 fw-700 ml-0 d-block">
-                <i className="feather-user text-grey-900 font-lg mr-2"></i>
-                <Link
-                  to="/default-user-profile"
-                  onClick={() => setIsDropdownOpen(false)}
-                >
-                  Profile
-                </Link>
-              </li>
-            </div>
-          </Link>
-        </li> */}
-
-        {/* <li>
-          <Link to="/default-user-profile">
-            <img
-              src="/assets/images/user.png"
-              alt="user"
-              className="w40 mt--1 rounded-circle"
-            />
-          </Link>
-        </li> */}
+   
 
         <li>
           <span onClick={toggleActive} className="menu-search-icon">

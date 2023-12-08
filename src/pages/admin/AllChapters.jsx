@@ -14,18 +14,30 @@ function AllChapters() {
   };
   useEffect(() => {
     if (subject_id) {
+      getUniqueClassFromSubject(subject_id);
       getChapters(subject_id);
     }
   }, [subject_id]); // Only re-run the effect if subject_id changes
 
   const [chapters, setChapters] = useState([]);
-
+  const [classId, setClassId] = useState(null);
   function getChapters(subject_id) {
     fetch(`${baseUrl}api/get_chapters/${subject_id}`)
       .then((response) => response.json())
       .then((data) => {
-        console.warn(data);
+        console.warn("chapters",data);
         setChapters(data);
+      
+      });
+  }
+  function getUniqueClassFromSubject(subject_id) {
+    fetch(`${baseUrl}api/getUniqueClassFromSubject/${subject_id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.warn("chapters",data);
+        
+        setClassId(data.class_id);
+        console.log("class",data.class_id);
       });
   }
   return (
@@ -35,7 +47,7 @@ function AllChapters() {
           <AppHeader />
 
           <div className="middle-sidebar-bottom theme-dark-bg">
-            <div className="custom-middle-sidebar-left">
+            <div className="middle-sidebar-left">
               <div className="row">
                 <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
                   <div>
@@ -44,6 +56,12 @@ function AllChapters() {
                     </h2>
                   </div>
                   <div className="float-right">
+                  <Link
+                      to={`/all_subjects/create_chapters/${classId}/${subject_id}`}
+                      className="px-3 py-1  d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current mx-1"
+                    >
+                      ADD CHAPTERS
+                    </Link>
                     <button
                       onClick={goBack}
                       className="p-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1"

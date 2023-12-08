@@ -57,113 +57,23 @@ const latestList = [
 ];
 
 
-const classesList = [
-  {
-    imageUrl: 'user.png',
-    title: 'Cyber Security',
-    num: '32 Class',
-    bg: '#fcf1eb',
-  },
-  {
-    imageUrl: 'user.png',
-    title: 'Emerging Trends in IT',
-    num: '54 Class',
-    bg: '#fff9eb',
-  },
-  {
-    imageUrl: 'user.png',
-    title: 'Maths',
-    num: '76 Class',
-    bg: '#e5f4fb',
-  },
-  {
-    imageUrl: 'user.png',
-    title: 'C++',
-    num: '76 Class',
-    bg: '#dcf4f8',
-  },
-  {
-    imageUrl: 'user.png',
-    title: 'CS',
-    num: '23 Class',
-    bg: '#fcf1eb',
-  },
 
-  {
-    imageUrl: 'user.png',
-    title: 'DS',
-    num: '78 Class',
-    bg: '#fff9eb',
-  },
-  {
-    imageUrl: 'user.png',
-    title: 'Probability',
-    num: '65 Class',
-    bg: '#e5f4fb',
-  },
-  {
-    imageUrl: 'user.png',
-    title: 'MongoDB',
-    num: '11 Class',
-    bg: '#fcf1eb',
-  },
-  {
-    imageUrl: 'user.png',
-    title: 'Bootstrap',
-    num: '32 Class',
-    bg: '#fcf1eb',
-  },
-  {
-    imageUrl: 'user.png',
-    title: 'Bootstrap',
-    num: '32 Class',
-    bg: '#fff9eb',
-  },
-];
 
 const memberList = [
   {
     imageUrl: 'user.png',
-    name: 'Member1 ',
+    name: 'English ',
     email: 'support@gmail.com',
     bgimage: 'course.png',
   },
   {
     imageUrl: 'user.png',
-    name: 'Member2 ',
+    name: 'Mathermatics ',
     email: 'support@gmail.com',
     bgimage: 'course.png',
   },
-  {
-    imageUrl: 'user.png',
-    name: 'Member3 ',
-    email: 'support@gmail.com',
-    bgimage: 'course.png',
-  },
-  {
-    imageUrl: 'user.png',
-    name: 'Member4',
-    email: 'support@gmail.com',
-    bgimage: 'course.png',
-  },
-  {
-    imageUrl: 'user.png',
-    name: 'Member5 ',
-    email: 'support@gmail.com',
-    bgimage: 'course.png',
-  },
-  {
-    imageUrl: 'user.png',
-    name: 'Member6',
-    email: 'support@gmail.com',
-    bgimage: 'course.png',
-  },
-  {
-    imageUrl: 'user.png',
-    name: 'Member7',
-    email: 'support@gmail.com',
-    bgimage: 'course.png',
-  },
+
+ 
 ];
 
 function Home() {
@@ -194,7 +104,7 @@ function Home() {
   const memberSlider = {
     arrows: false,
     dots: false,
-    infinite: true,
+    infinite: false,
     speed: 300,
     centerMode: false,
     variableWidth: true,
@@ -213,15 +123,17 @@ function Home() {
     }
   }, [user])
 
+ 
   const [subjects, setSubjects] = useState([]);
   function getSubjects() {
-    let result = fetch(baseUrl + 'api/get_subjects/' + user.student.class_id).then(function (result) {
+    let result = fetch(baseUrl + 'api/get_student_subjects/' + user.student.class_id).then(function (result) {
       result.json().then(function (jsonbody) {
-        console.warn(jsonbody);
+        console.warn("get_subjects",jsonbody);
         setSubjects(jsonbody);
       })
     });
   }
+
   if (!user) {
     console.log("No user found. User might be logged out.");
     // Handle the redirect to login or return placeholder content here
@@ -242,10 +154,10 @@ function Home() {
               <div className="row">
                 <div className="col-lg-12">
                   <div className="card w-100 bg-lightblue p-lg-5 p-4 border-0 rounded-lg d-block float-left">
-                    <img src="https://via.placeholder.com/70x70.png" alt="icon" className="sm-mt-2 w75 position-relative top--10 float-left mr-2 mt--1 " />
+                    <img src="/avatar.png" alt="icon" className="sm-mt-2 w75 position-relative top--10 float-left mr-2 mt--1 " />
                     <h2 className="display1-size display2-md-size d-inline-block float-left mb-0 text-grey-900 fw-700"><span className="font-xssss fw-600 text-grey-500 d-block mb-2 ml-1">Welcome back!</span>
                       Hi, {user.user.name} have got 123 points!</h2>
-                    <img src="https://via.placeholder.com/250x150.png" alt="icon" className="w250 right-15 top-0 position-absolute d-none d-xl-block" />
+                    {/* <img src="https://via.placeholder.com/250x150.png" alt="icon" className="w250 right-15 top-0 position-absolute d-none d-xl-block" /> */}
                   </div>
                 </div>
                 <div className="col-xl-4 col-lg-12 ">
@@ -253,10 +165,10 @@ function Home() {
                     <div className="card-body p-4">
                       <div className="row">
                         <div className="col">
-                          <h4 className="fw-700 text-success font-xssss mt-0 mb-0 ">+45 %</h4>
+                          {/* <h4 className="fw-700 text-success font-xssss mt-0 mb-0 ">+45 %</h4> */}
                           <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">455 </h2>
                           <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
-                          Average Test Marks
+                          Class Rank
                           </h4>
                         </div>
                       </div>
@@ -268,9 +180,9 @@ function Home() {
                     <div className="card-body p-4">
                       <div className="row">
                         <div className="col">
-                          <h4 className="fw-700 text-success font-xssss mt-0 mb-0 ">+25 %</h4>
+                          {/* <h4 className="fw-700 text-success font-xssss mt-0 mb-0 ">+25 %</h4> */}
                           <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">105 </h2>
-                          <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0"> Average Assessment Marks</h4>
+                          <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">Section Rank</h4>
                         </div>
                       </div>
                     </div>
@@ -281,9 +193,9 @@ function Home() {
                     <div className="card-body p-4">
                       <div className="row">
                         <div className="col">
-                          <h4 className="fw-700 text-success font-xssss mt-0 mb-0 ">+45 %</h4>
+                          {/* <h4 className="fw-700 text-success font-xssss mt-0 mb-0 ">+45 %</h4> */}
                           <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">455 </h2>
-                          <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0"> Class Rank</h4>
+                          <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0"> Average Assessment</h4>
                         </div>
                       </div>
                     </div>
@@ -350,12 +262,12 @@ function Home() {
                   </div> */}
                 <div className="col-lg-12 pt-2">
                   <h2 className="fw-400 font-lg">
-                    Explore <b>Classes</b>
+                    My <b>Subjects</b>
                   </h2>
                 </div>
                 <div className="col-lg-12 mt-3">
                   <Slider {...categorysettings}>
-                    {classesList.map((value, index) => (
+                  {subjects.map((value, index) => (
                       <div
                         key={index}
                         className="card cat-card-hover mr-3 w140 border-0 p-0 text-center"
@@ -366,15 +278,15 @@ function Home() {
                         >
                           <span className="btn-round-xl bg-white">
                             <img
-                              src={`assets/images/${value.imageUrl}`}
+                               src={baseUrl + value.subject_image}
                               alt="icon"
                               className="p-2 w-100"
                             />
                           </span>
                           <h4 className="fw-600 font-xsss mt-3 mb-0">
-                            {value.title}
+                          {value.subject_name}
                             <span className="d-block font-xsssss fw-500 text-grey-500 mt-2">
-                              {value.num}
+                            {value.subject_name}
                             </span>
                           </h4>
                         </div>
@@ -382,105 +294,11 @@ function Home() {
                     ))}
                   </Slider>
                 </div>
-                <div className="col-lg-12 pt-4 mb-3">
+         
+       
+                <div className="col-lg-12 pt-0 mb-1 mt-3 ">
                   <h2 className="fw-400 font-lg d-block">
-                    My <b> Subjects</b>
-                  </h2>
-                </div>
-                <div className="col-lg-12 mt-3">
-                  <Slider {...popularSlider}>
-                    {subjects.map((value, index) => (
-                      <div
-                        className="card course-card w300 p-0 shadow-xss border-0 rounded-lg overflow-hidden mr-3 mb-4"
-                        key={index}
-                      >
-                        <div className="card-image w-100 mb-3">
-                          <Link
-                            to="/course-details"
-                            className="video-bttn position-relative d-block"
-                          >
-                            <img
-                              src={baseUrl + value.subject_image}
-                              alt="course"
-                              className="w-100"
-                            />
-                          </Link>
-                        </div>
-                        <div className="card-body pt-0">
-                          <span
-                            className={`font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 d-inline-block mr-1 ${index}`}
-                          >
-                            {value.tag}
-                          </span>
-                          <h4 className="fw-700 font-xss lh-28 mt-0">
-                            <Link
-                              to="/course-details"
-                              className="text-dark text-grey-900"
-                            >
-                              {value.subject_name}
-                            </Link>
-                          </h4>
-                          <h6 className="font-xssss text-grey-500 fw-600 ml-0 mt-2">
-                            Lesson
-                          </h6>
-                        </div>
-                      </div>
-                    ))}
-                  </Slider>
-                </div>
-                <div className="col-lg-12 pt-0 mb-3">
-                  <h2 className="fw-400 font-lg d-block">
-                    Latest <b> Classes</b>
-                  </h2>
-                </div>
-                <div className="col-lg-12 mt-3">
-                  <Slider {...latestSlider}>
-                    {latestList.map((value, index) => (
-                      <div
-                        className="card course-card w300 p-0 shadow-xss border-0 rounded-lg overflow-hidden mr-3 mb-4"
-                        key={index}
-                      >
-                        <div className="card-image w-100 mb-3">
-                          <Link
-                            to="/course-details"
-                            className="video-bttn position-relative d-block"
-                          >
-                            <img
-                              src={`assets/images/${value.imageUrl}`}
-                              alt="course"
-                              className="w-100"
-                            />
-                          </Link>
-                        </div>
-                        <div className="card-body pt-0">
-                          <span
-                            className={`font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 d-inline-block mr-1 ${value.status}`}
-                          >
-                            {value.tag}
-                          </span>
-                          <span className="font-xss fw-700 pl-3 pr-3 ls-2 lh-32 d-inline-block text-success float-right">
-                            {value.price}
-                            <span className="font-xsssss">Hrs</span>
-                          </span>
-                          <h4 className="fw-700 font-xss mt-3 lh-28 mt-0">
-                            <Link
-                              to="/course-details"
-                              className="text-dark text-grey-900"
-                            >
-                              {value.title}
-                            </Link>
-                          </h4>
-                          <h6 className="font-xssss text-grey-500 fw-600 ml-0 mt-2">
-                            {value.lesson} Lesson
-                          </h6>
-                        </div>
-                      </div>
-                    ))}
-                  </Slider>
-                </div>
-                <div className="col-lg-12 pt-0 mb-3">
-                  <h2 className="fw-400 font-lg d-block">
-                    Live <b> Teachers</b>
+                    Live <b> Classes</b>
                   </h2>
                 </div>
                 <div className="col-lg-12 mt-3">
@@ -497,13 +315,13 @@ function Home() {
                           }}
                         ></div>
                         <div className="card-body d-block w-100 pl-4 pr-4 pb-4 text-center">
-                          <figure className="avatar ml-auto mr-auto mb-0 mt--6 position-relative w75 z-index-1">
+                          {/* <figure className="avatar ml-auto mr-auto mb-0 mt--6 position-relative w75 z-index-1">
                             <img
                               src={`assets/images/${value.imageUrl}`}
                               alt="avater"
                               className="float-right p-1 bg-white rounded-circle w-100"
                             />
-                          </figure>
+                          </figure> */}
                           <div className="clearfix"></div>
                           <h4 className="fw-700 font-xsss mt-3 mb-1">
                             {value.name}
@@ -512,7 +330,7 @@ function Home() {
                             {value.email}
                           </p>
                           <span className="live-tag mt-2 mb-3 bg-danger p-2 z-index-1 rounded-lg text-white font-xsssss text-uppersace fw-700 ls-3">
-                            LIVE
+                            COMING SOON
                           </span>
                         </div>
                       </div>

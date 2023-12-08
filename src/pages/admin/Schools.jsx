@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button, Form } from "react-bootstrap";
+import { Modal, Button, Form, InputGroup } from "react-bootstrap";
 import AppHeader from "../../components/includes/AppHeader";
 import AppFooter from "../../components/includes/AppFooter";
 import { Link } from "react-router-dom";
@@ -112,26 +112,31 @@ function Schools() {
                 required
               />
             </Form.Group>
+
             <Form.Group className="mb-3">
               <Form.Label>Password</Form.Label>
-              <Form.Control
-                type={passwordVisible ? "text" : "password"}
-                name="password"
-                value={form.password}
-                onChange={handleFormChange}
-                placeholder="Enter Password"
-                required
-              />
-              <Button onClick={() => setPasswordVisible(!passwordVisible)}>
-                {passwordVisible ? (
-                  // <i className="feather-eye:before"></i>
-                  <i className="feather-eye text-grey-900 font-lg mr-2"></i>
-                ) : (
-                  // <i className="feather-eye-off:before"></i>
-                  <i className="feather-eye-off text-grey-900 font-lg mr-2"></i>
-                )}
-              </Button>
+              <InputGroup>
+                <Form.Control
+                  type={passwordVisible ? "text" : "password"}
+                  name="password"
+                  value={form.password}
+                  onChange={handleFormChange}
+                  placeholder="Enter Password"
+                  required
+                />
+                <Button
+                  variant="outline-secondary"
+                  onClick={() => setPasswordVisible(!passwordVisible)}
+                >
+                  {passwordVisible ? (
+                    <i className="feather-eye text-grey-900 font-lg"></i>
+                  ) : (
+                    <i className="feather-eye-off text-grey-900 font-lg"></i>
+                  )}
+                </Button>
+              </InputGroup>
             </Form.Group>
+
             <div className="d-flex justify-content-between">
               <Button
                 variant="secondary"
@@ -158,7 +163,7 @@ function Schools() {
           <AppHeader />
 
           <div className="middle-sidebar-bottom theme-dark-bg">
-            <div className="custom-middle-sidebar-left">
+            <div className="middle-sidebar-left">
               <div className="row">
                 <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
                   <div>

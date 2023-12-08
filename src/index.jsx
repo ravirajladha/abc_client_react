@@ -517,7 +517,7 @@ type_id: if mini_project then task_id else subject then video_id
           />
           <Route
             exact
-            path={`${process.env.PUBLIC_URL}/all_subjects/create_subject`}
+            path={`${process.env.PUBLIC_URL}/all_subjects/create_subject/:class_id`}
             element={
               <ProtectedRoute
                 element={<CreateSubject />}
@@ -537,7 +537,7 @@ type_id: if mini_project then task_id else subject then video_id
           />
           <Route
             exact
-            path={`${process.env.PUBLIC_URL}/all_subjects/create_chapters`}
+            path={`${process.env.PUBLIC_URL}/all_subjects/create_chapters/:class_id/:subject_id`}
             element={
               <ProtectedRoute
                 element={<CreateChapters />}
@@ -547,7 +547,7 @@ type_id: if mini_project then task_id else subject then video_id
           />
           <Route
             exact
-            path={`${process.env.PUBLIC_URL}/all_subjects/create_videos`}
+            path={`${process.env.PUBLIC_URL}/all_subjects/:class_id/:subject_id/:chapter_id/create_videos`}
             element={
               <ProtectedRoute
                 element={<CreateVideos />}
