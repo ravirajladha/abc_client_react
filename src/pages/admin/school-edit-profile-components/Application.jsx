@@ -1,9 +1,6 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { useParams, Link } from "react-router-dom";
-import AppHeader from "../../../components/includes/AppHeader";
-import AppFooter from "../../../components/includes/AppFooter";
 import { AuthContext } from "../../../lib/AuthContext";
-import BackButton from "../../../components/navigation/BackButton";
 import $ from "jquery";
 import "datatables.net";
 import "datatables.net-dt/css/jquery.dataTables.css";
@@ -17,37 +14,44 @@ function Application() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const [applications, setApplications] = useState([]);
 
-  useEffect(() => {
-    getApplications();
-  }, []);
-
   const getApplications = () => {
-    fetch(`${baseUrl}api/school/api_get_all_applications`)
-      .then((result) => result.json())
-      .then((jsonbody) => {
-        console.warn(jsonbody);
-        setApplications(jsonbody);
-        console.log(applications);
-
-        // Initialize DataTable after data is available
-        if (tableRef.current) {
-          $(tableRef.current).DataTable();
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching student applications:", error);
-      });
+    return new Promise((resolve, reject) => {
+      fetch(`${baseUrl}api/school/api_get_all_applications`)
+        .then((result) => result.json())
+        .then((jsonbody) => {
+          setApplications(jsonbody);
+          resolve(jsonbody);
+        })
+        .catch((error) => {
+          console.error("Error fetching student applications:", error);
+          reject(error);
+        });
+    });
   };
 
   useEffect(() => {
-    if (tableRef.current) {
+    getApplications().catch((error) => {
+      console.error("Error fetching student applications:", error);
+    });
+  }, []); // This will run only once on component mount.
+
+  useEffect(() => {
+    // This effect runs when applications state updates
+    if (applications.length > 0 && tableRef.current) {
       const dataTable = $(tableRef.current).DataTable();
       return () => {
-        // Destroy the DataTable when the component unmounts
+        // Destroy the DataTable when the component unmounts or before re-initializing
         dataTable.destroy();
       };
     }
-  }, []);
+  }, [applications]);
+
+  useEffect(() => {
+    // Initialize or re-initialize the DataTable
+    if (applications.length > 0 && tableRef.current) {
+      $(tableRef.current).DataTable();
+    }
+  }, [applications]); // This will run every time the applications state updates
 
   return (
     <div className="card-body p-lg-5 p-4 w-100 border-0">
@@ -74,7 +78,7 @@ function Application() {
               <td>{application.student_dob}</td>
               <td className="text-dark">
                 <Link
-                  to={`/school/edit-student-profile/${index + 1}`}
+                  to={`/`}
                   className="p-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current"
                 >
                   Edit
