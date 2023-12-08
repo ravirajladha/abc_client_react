@@ -14,7 +14,7 @@ function StudentAssessmentResults() {
   const [results, setResults] = useState([]);
   const [subjectName, setSubjectName] = useState([]);
 
-  const getTestResults = (e) => {
+  const getAssessmentResults = (e) => {
     fetch(baseUrl + "api/" + studentId + "/subject-results/" + subjectId).then(
       function (result) {
         result.json().then(function (jsonBody) {
@@ -35,7 +35,7 @@ function StudentAssessmentResults() {
   };
 
   useEffect(() => {
-    getTestResults();
+    getAssessmentResults();
     getSubjectName();
   }, []);
 

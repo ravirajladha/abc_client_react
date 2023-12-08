@@ -88,6 +88,11 @@ import SubjectResults from "./pages/student/SubjectResults.jsx";
 import StudentDetails from "./pages/parent/StudentDetails.jsx";
 import StudentTestResults from "./pages/parent/StudentTestResults.jsx";
 import StudentAssessmentResults from "./pages/parent/StudentAssessmentResults.jsx";
+import SubjectAssessmentResults from "./pages/admin/SubjectAssessmentResults.jsx";
+import Results from "./pages/school/Results.jsx";
+import ClassSubjectResults from "./pages/school/ClassSubjectResults.jsx";
+import ClassSubjects from "./pages/school/ClassSubjects.jsx";
+import ClassResults from "./pages/school/ClassResults.jsx";
 
 class Root extends Component {
   render() {
@@ -577,10 +582,20 @@ type_id: if mini_project then task_id else subject then video_id
           />
           <Route
             exact
-            path={`${process.env.PUBLIC_URL}/assessments/view_assessments/:subject_id`}
+            path={`${process.env.PUBLIC_URL}/assessments/:subject_id/list`}
             element={
               <ProtectedRoute
                 element={<ViewAssessments />}
+                allowedTypes={["admin"]}
+              />
+            }
+          />
+          <Route
+            exact
+            path={`${process.env.PUBLIC_URL}/assessments/:subjectId/results`}
+            element={
+              <ProtectedRoute
+                element={<SubjectAssessmentResults />}
                 allowedTypes={["admin"]}
               />
             }
@@ -872,7 +887,51 @@ type_id: if mini_project then task_id else subject then video_id
               />
             }
           />
-    
+
+          <Route
+            exact
+            path={`${process.env.PUBLIC_URL}/school/results`}
+            element={
+              <ProtectedRoute
+                element={<Results />}
+                allowedTypes={["sub_admin"]}
+              />
+            }
+          />
+
+          <Route
+            exact
+            path={`${process.env.PUBLIC_URL}/school/class/:classId/results`}
+            element={
+              <ProtectedRoute
+                element={<ClassResults />}
+                allowedTypes={["sub_admin"]}
+              />
+            }
+          />
+
+          <Route
+            exact
+            path={`${process.env.PUBLIC_URL}/school/class/:classId/subjects`}
+            element={
+              <ProtectedRoute
+                element={<ClassSubjects />}
+                allowedTypes={["sub_admin"]}
+              />
+            }
+          />
+
+          <Route
+            exact
+            path={`${process.env.PUBLIC_URL}/school/class/:classId/subject/:subjectId/results`}
+            element={
+              <ProtectedRoute
+                element={<ClassSubjectResults />}
+                allowedTypes={["sub_admin"]}
+              />
+            }
+          />
+
         </Routes>
         </AuthProvider>
       </HashRouter>

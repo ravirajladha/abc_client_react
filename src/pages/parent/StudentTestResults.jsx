@@ -69,6 +69,9 @@ function StudentTestResults() {
                           <th className="border-0" scope="col">
                             Score
                           </th>
+                          <th className="border-0" scope="col">
+                            Rank
+                          </th>
                         </tr>
                       </thead>
                       <tbody>
@@ -80,6 +83,7 @@ function StudentTestResults() {
                                 <b>{result.test_title}</b>
                               </td>
                               <td>{result.test_score}</td>
+                              <td>{result.test_rank}</td>
                             </tr>
                           ))
                         ) : (

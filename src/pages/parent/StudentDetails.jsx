@@ -62,7 +62,12 @@ function StudentDetails() {
                     {student && (
                       <h2 className="fw-400 font-lg d-block ml-2">
                         Student: <b> {student.name}</b>
-                        <span className="capitalize">({student.class})</span>
+                        <span className="capitalize">
+                          ({student.class} 
+                          {student.class_rank && (
+                            <span> - Rank: {student.class_rank}</span>
+                          )}
+                          )</span>
                       </h2>
                     )}
                   </div>

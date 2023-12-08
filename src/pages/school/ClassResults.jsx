@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
-import AppHeader from "../../components/includes/AppHeader";
-import AppFooter from "../../components/includes/AppFooter";
+import AppFooter from '../../components/includes/AppFooter'
+import BackButton from '../../components/navigation/BackButton'
+import AppHeader from '../../components/includes/AppHeader'
 import { useParams } from "react-router-dom";
-import BackButton from "../../components/navigation/BackButton";
 import { Link } from "react-router-dom";
 
 import $ from "jquery";
@@ -12,7 +12,7 @@ import "datatables.net-buttons/js/dataTables.buttons";
 import "datatables.net-buttons/js/buttons.html5";
 import "datatables.net-buttons/js/buttons.print";
 
-function ClassesResult() {
+const ClassResults = () => {
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const tableRef = useRef(null);
 
@@ -40,13 +40,13 @@ function ClassesResult() {
       <div className="main-wrapper">
         <div className="main-content menu-active">
           <AppHeader />
-          <div className="middle-sidebar-bottom theme-dark-bg">
-            <div className="middle-sidebar-left">
+          <div className="middle-sidebar-bottom">
+            <div className="custom-middle-sidebar-left">
               <div className="row">
-                <div className="card-body p-lg-5 px-4 w-100 border-0 d-flex rounded-lg justify-content-between">
-                  <div className="">
-                    <h2 className="fw-400 font-lg d-block ml-2">
-                      Class <b> Results</b>{" "}
+                <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
+                  <div>
+                    <h2 className="fw-400 font-lg d-block">
+                     Class <b> Results</b>
                     </h2>
                   </div>
                   <div className="float-right">
@@ -54,13 +54,8 @@ function ClassesResult() {
                   </div>
                 </div>
 
-                <div className="row">
-
-                </div>
-
-                <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
-                  <div className="card-body p-lg-5 px-4 w-100 border-0 ">
-                    <div className="table-responsive">
+                <div className="card-body p-2 w-100 border-0 ">
+                <div className="table-responsive">
                       <table ref={tableRef} className="table mb-0">
                         <thead className="bg-greylight rounded-10 ovh">
                           <tr>
@@ -100,7 +95,6 @@ function ClassesResult() {
                         </tbody>
                       </table>
                     </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -109,7 +103,7 @@ function ClassesResult() {
         <AppFooter />
       </div>
     </>
-  );
+  )
 }
 
-export default ClassesResult;
+export default ClassResults

@@ -59,7 +59,7 @@ function AllClasses() {
                   classes.map((singleClass, index) => (
                     <div className="col-xl-4 col-lg-6 col-md-6" key={index}>
                       <div className="card mb-4 shadow-xss rounded-lg p-xxl-5 p-4 border-0 text-center">
-                        <h4 className="fw-700 font-xs mt-4">
+                        <h4 className="fw-700 font-xs mt-4 capitalize">
                           {singleClass.class}
                         </h4>
                         {/* Additional details about the class can be listed here */}

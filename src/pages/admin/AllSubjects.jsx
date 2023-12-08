@@ -90,22 +90,16 @@ function AllSubjects() {
                             30 Min
                           </span>
                         </div>
-                        <div className="card-footer bg-transparent border-top-0">
-                          <Link
-                            to={`/subject/${subject.id}/students`}
-                            className="p-2 mt-4 d-inline-block text-white fw-700 lh-30 rounded-lg w100 text-center font-xsssss ls-3 bg-current"
-                          >
-                            Students
-                          </Link>
+                        <div className="card-footer bg-transparent border-top-0 d-flex align-items-center justify-content-center gap-2">
                           <Link
                             to={`/all_chapters/${subject.id}`}
-                            className="p-2 mt-4 ml-5 d-inline-block text-white fw-700 lh-30 rounded-lg w100 text-center font-xsssss ls-3 bg-current"
+                            className="px-1 py-2 d-inline-block text-white fw-700 lh-30 rounded-lg w100 text-center font-xsssss ls-3 bg-current"
                           >
                             Chapters
                           </Link>
                           <Link
                             to={`/results/${subject.id}`}
-                            className="p-2 mt-4 ml-5 d-inline-block text-white fw-700 lh-30 rounded-lg w100 text-center font-xsssss ls-3 bg-current"
+                            className="px-1 py-2 d-inline-block text-white fw-700 lh-30 rounded-lg w100 text-center font-xsssss ls-3 bg-current"
                           >
                             Results
                           </Link>

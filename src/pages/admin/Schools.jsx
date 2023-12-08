@@ -193,13 +193,13 @@ function Schools() {
                             <i className="ti-more text-grey-500 font-xs"></i>
                           </a> */}
 
-                          <h4 className="fw-700 font-xs mt-4">
+                          <h4 className="fw-700 font-xs mt-4 capitalize">
                             {school.school_name}
                           </h4>
                           <div className="card-footer bg-transparent border-top-0">
                             <Link
                               to={`/edit-school-profile`}
-                              className="p-2 mt-4  d-inline-block text-white fw-300 lh-30 rounded-lg w100 text-center font-xsssss ls-3 bg-current"
+                              className="p-2 px-3 mt-2 d-inline-block me-2 text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current"
                             >
                               Edit School
                             </Link>
