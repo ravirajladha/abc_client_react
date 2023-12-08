@@ -11,7 +11,7 @@ function Teachers() {
     fetch(baseUrl + "api/school/api_all_teachers")
       .then((result) => result.json())
       .then((jsonbody) => {
-        console.warn(jsonbody);
+        console.log(jsonbody);
         setTeachers(jsonbody);
       })
       .catch((error) => {
@@ -23,6 +23,25 @@ function Teachers() {
     getTeachers();
   }, []);
 
+  function formatClassSubject(subjectString) {
+    // Check if subjectString is a truthy value; if not, return a default message
+    if (!subjectString) {
+      return 'No subjects available';
+    }
+    
+    try {
+      // Parse the JSON string into an array of objects
+      const subjects = JSON.parse(subjectString);
+  
+      // Map over the array and format the class and subject into a string
+      return subjects.map(sub => `Class ${sub.class_id}, Subject ${sub.subject_id}`).join(' \n ');
+    } catch (error) {
+      console.error('Error parsing subjects JSON:', error);
+      return 'Invalid subjects data'; // or some other error handling
+    }
+  }
+  
+  
   return (
     <div className="main-wrapper">
       <div className="main-content menu-active">
@@ -53,6 +72,8 @@ function Teachers() {
                     <tr>
                       <th scope="col">Sl. No.</th>
                       <th scope="col">Name</th>
+                      <th scope="col">Subject & Class</th>
+                      
                       <th scope="col" className="text-dark">
                         Action
                       </th>
@@ -63,6 +84,7 @@ function Teachers() {
                       <tr key={teacher.id}>
                         <td>{teacher.id}</td>
                         <td>{teacher.user.name}</td>
+                        <td>{formatClassSubject(teacher.class_and_subject)}</td>
                         <td>
                           <Link
                             to="#"

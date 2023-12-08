@@ -42,7 +42,7 @@ function TestResult() {
         <div className="main-content menu-active">
           <AppHeader />
           <div className="middle-sidebar-bottom theme-dark-bg">
-            <div className="custom-middle-sidebar-left">
+            <div className="middle-sidebar-left">
               <div className="row">
                 <div>
                   <div>

@@ -67,7 +67,7 @@ function StudentNav() {
               Subjects
             </div>
           
-            <li>
+            {/* <li>
               <NavLink
                 activeclassname="active"
                 to="/school_qna"
@@ -80,7 +80,7 @@ function StudentNav() {
             </li>
             <div className="nav-caption fw-600 font-xssss text-grey-500">
               Qna
-            </div>
+            </div> */}
         
             <li>
               <NavLink
@@ -109,13 +109,13 @@ function StudentNav() {
               </NavLink>
             </li>
             <div className="nav-caption fw-600 font-xssss text-grey-500">
-              Video Features
+              Video <br/>Features
             </div>
           </ul>
 
-          <div className="nav-caption fw-600 font-xssss text-grey-500">
+          {/* <div className="nav-caption fw-600 font-xssss text-grey-500">
             <span></span> -- - --
-          </div>
+          </div> */}
           <ul className="mb-3">
             <li className="logo d-none d-xl-block d-lg-block"></li>
             <li>

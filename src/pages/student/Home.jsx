@@ -61,16 +61,17 @@ const latestList = [
 
 const memberList = [
   {
-    imageUrl: 'user.png',
+    imageUrl: 'english.png',
     name: 'English ',
-    email: 'support@gmail.com',
-    bgimage: 'course.png',
+    email: 'Doubt Clearing Session',
+    bgimage: 'subject/english.jpg',
   },
   {
-    imageUrl: 'user.png',
+    imageUrl: 'Maths.png',
     name: 'Mathermatics ',
-    email: 'support@gmail.com',
-    bgimage: 'course.png',
+    email: 'Doubt Clearing Session',
+
+    bgimage: 'subject/Maths.png',
   },
 
  
@@ -80,7 +81,7 @@ function Home() {
   const categorysettings = {
     arrows: false,
     dots: false,
-    infinite: true,
+    infinite: false,
     speed: 300,
     centerMode: false,
     variableWidth: true,
@@ -96,7 +97,7 @@ function Home() {
   const latestSlider = {
     arrows: false,
     dots: false,
-    infinite: true,
+    infinite: false,
     speed: 300,
     centerMode: false,
     variableWidth: true,
@@ -154,10 +155,15 @@ function Home() {
               <div className="row">
                 <div className="col-lg-12">
                   <div className="card w-100 bg-lightblue p-lg-5 p-4 border-0 rounded-lg d-block float-left">
-                    <img src="/avatar.png" alt="icon" className="sm-mt-2 w75 position-relative top--10 float-left mr-2 mt--1 " />
-                    <h2 className="display1-size display2-md-size d-inline-block float-left mb-0 text-grey-900 fw-700"><span className="font-xssss fw-600 text-grey-500 d-block mb-2 ml-1">Welcome back!</span>
-                      Hi, {user.user.name} have got 123 points!</h2>
+                  
+                  <h1 className="display1-size display2-md-size d-inline-block float-left mb-0 text-grey-900 fw-700">
+  <span className="font-xssss fw-600 text-grey-500 d-block mb-2 ml-1" style={{ fontSize: '20px' }}>
+    Welcome back!
+  </span>
+  Hi, {user.user.name} have got 123 points!
+</h1>
                     {/* <img src="https://via.placeholder.com/250x150.png" alt="icon" className="w250 right-15 top-0 position-absolute d-none d-xl-block" /> */}
+                    <img src="/avatar.png" alt="icon" className="w125 right-15 top-0 position-absolute d-none d-xl-block mt-3" />
                   </div>
                 </div>
                 <div className="col-xl-4 col-lg-12 ">

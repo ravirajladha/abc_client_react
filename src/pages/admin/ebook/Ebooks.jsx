@@ -55,7 +55,7 @@ function Ebooks() {
                                                             <Link to={"/ebooks/preview_ebook/" + ebook.id}
                                                                 className="p-2 mt-4 d-inline-block text-white fw-700 lh-30 rounded-lg w100 text-center font-xsssss ls-3 bg-current mx-1">VIEW</Link>
                                                             <Link to={"/ebooks/ebook_modules/" + ebook.id}
-                                                                className="p-2 mt-4 d-inline-block text-white fw-700 lh-30 rounded-lg w100 text-center font-xsssss ls-3 bg-current mx-1">EDIT</Link>
+                                                                className="p-2 mt-4 d-inline-block text-white fw-700 lh-30 rounded-lg w100 text-center font-xsssss ls-3 bg-current mx-1">CONTENT</Link>
                                                         </div>
 
                                                     </div>

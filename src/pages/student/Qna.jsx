@@ -99,7 +99,7 @@ console.log("class_id",user.student.class_id)
             // If the search input is empty or only contains spaces, clear the results
             setAllQnas([]);
         } else {
-            let result = fetch('http://localhost:8000/api/search_school_questions/' + name).then(function (result) {
+            let result =   fetch(baseUrl + "api/search_school_questions/" + name).then(function (result) {
                 result.json().then(function (jsonbody) {
                     console.warn(jsonbody);
                     setAllQnas(jsonbody);

@@ -208,7 +208,7 @@ if (!userDetails) {
                 <div className="main-content menu-active">
                     <AppHeader />
                     <div className="middle-sidebar-bottom theme-dark-bg">
-                        <div className="custom-middle-sidebar-left">
+                        <div className="middle-sidebar-left">
                             <div className="container px-3 py-4">
                                 <div className="row mb-2">
                                     <h1>Welcome, {userDetails.user.name}!</h1> <br />

@@ -94,8 +94,8 @@ function AppHeader() {
           />
         </div>
       </form> */}
-      <div className="display1-size display2-md-size d-inline-block float-left mb-0 text-grey-900 fw-700 ml-2" >
-      <h1 style={{ letterSpacing: '2px' }}>&nbsp;ATOMS&nbsp;</h1>
+      <div className="display1-size display2-sm-size d-inline-block float-left mb-0 text-grey-900 fw-700 ml-2" >
+      <h1 style={{ letterSpacing: '2px',fontSize:'25px' }}>&nbsp;ATOMS&nbsp;</h1>
       </div>
 
       <ul className="d-flex ml-auto right-menu-icon px-3 pt-3">

@@ -45,7 +45,16 @@ function AllClasses() {
                   </div>
                   <div className="float-right">
                
-                   
+                  <Link
+                      to={"/all_subjects/create_class"}
+                      className="p-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current mx-1"
+                    >    Add  Classes
+                    </Link>
+                  <Link
+                      to={"/all_classes"}
+                      className="p-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current mx-1"
+                    >    View  Classes
+                    </Link>
                 
                     <button
                       onClick={goBack}

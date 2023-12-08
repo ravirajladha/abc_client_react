@@ -66,7 +66,7 @@ function AddQuestionsToAssessment() {
                 <div className="main-content menu-active">
                     <AppHeader />
                     <div className="middle-sidebar-bottom theme-dark-bg">
-                        <div className="custom-middle-sidebar-left">
+                        <div className="middle-sidebar-left">
                             <div className="row">
                                 <div className="col-lg-6">
                                     <div className="card w-100 border-0 bg-white shadow-sm p-0 mb-4">

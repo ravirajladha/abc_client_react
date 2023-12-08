@@ -72,7 +72,7 @@ function Forums() {
             // If the search input is empty or only contains spaces, clear the results
             setAllForums([]);
         } else {
-            let result = fetch('http://localhost:8000/api/school_search_forum_questions/' + name).then(function (result) {
+            let result =   fetch(baseUrl + "api/school_search_forum_questions/" + name).then(function (result) {
                 result.json().then(function (jsonbody) {
                     console.warn(jsonbody);
                     setAllForums(jsonbody);

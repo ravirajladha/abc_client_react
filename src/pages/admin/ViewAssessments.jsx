@@ -39,7 +39,7 @@ function ViewAssessments() {
         <div className="main-content menu-active">
           <AppHeader />
           <div className="middle-sidebar-bottom theme-dark-bg">
-            <div className="custom-middle-sidebar-left">
+            <div className="middle-sidebar-left">
               <div className="row">
                 <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
                   <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
