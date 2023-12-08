@@ -15,7 +15,7 @@ function NoteTab({ userId, videoPlayer, activeVideoId }) {
 
     const [noteTimestamp, setNoteTimestamp] = useState('0:00');
     const [newNote, setNewNote] = useState("");
-
+    const [markersCreated, setMarkersCreated] = useState(false);
     // save note modal
     const [modal1Open, setModal1Open] = useState(false);
     const closeModal1 = () => setModal1Open(false);
@@ -53,9 +53,7 @@ function NoteTab({ userId, videoPlayer, activeVideoId }) {
             }
             const data = await response.json();
             setNotes(data);
-            //   scrollActiveTabToBottom();
-            // console.warn(notes);
-            createMarkers(videoPlayer, notes);
+ 
 
         } catch (error) {
             console.error("Error fetching messages:", error);
@@ -82,22 +80,26 @@ function NoteTab({ userId, videoPlayer, activeVideoId }) {
             setModal1Open(false);
             setNewNote("");
 
-            fetchNotes();
         } catch (error) {
             console.error("Error storing notes:", error);
         }
     };
-
+    
     const createMarkers = (player, notes) => {
-        console.log(activeVideoId);
-        player.on("loadedmetadata", () => {
+        console.warn(activeVideoId);
+        console.log(player);
             // Additional setup if needed
+            if (markersCreated) {
+                return;
+            }
             const total = player.duration();
             const progressControl = player.controlBar.progressControl.children_[0].el_;
             clearMarkers(progressControl);
             console.log(player);
             console.warn(total);
             console.log(notes);
+            // Ensure notes.notes is an array before using forEach
+        if (Array.isArray(notes.notes)) {
             notes.notes.forEach((note) => {
                 console.log(note);
                 const left = (note.timestamp / total) * 100 + '%';
@@ -115,7 +117,8 @@ function NoteTab({ userId, videoPlayer, activeVideoId }) {
 
                 progressControl.appendChild(markerElement);
             });
-        });
+            setMarkersCreated(true); 
+        }
     };
     const clearMarkers = (progressControl) => {
         const existingMarkers = progressControl.getElementsByClassName('vjs-marker');
@@ -124,13 +127,32 @@ function NoteTab({ userId, videoPlayer, activeVideoId }) {
         });
       };
 
-    useEffect(() => {
+    
 
-        //fetch Notes on load
+
+// useEffect to execute code after setNotes has completed
+useEffect(() => {
+    // Check if videoPlayer and notes are defined
+    if (videoPlayer && notes) {
+        if (videoPlayer.isReady_) {
+            createMarkers(videoPlayer, notes);
+        } else {
+            // If not ready, wait for the 'ready' event
+            videoPlayer.ready(() => {
+                createMarkers(videoPlayer, notes);
+            });
+        }
+    }
+}, [notes, videoPlayer]);
+
+    useEffect(()=>{
         fetchNotes();
-
-
-    }, [activeVideoId]);
+        return () => {
+            setMarkersCreated(false);
+        };
+    },[activeVideoId]);
+ 
+  
     return (
         <>
             <div

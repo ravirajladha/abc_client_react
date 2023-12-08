@@ -3,32 +3,15 @@ import AppHeader from '../../components/includes/AppHeader';
 import StudentSidebar from '../../components/includes/StudentSidebar';
 import BackButton from '../../components/navigation/BackButton';
 
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import React, { useState, useEffect, useRef } from 'react';
 
 function ViewAssessmentScore() {
     const baseUrl = process.env.REACT_APP_BASE_URL;
-    const { video_id } = useParams();
+    const location = useLocation();
+    const { subjectId, resultData } = location.state || {};
 
-    const [subject_id, setSubjectId] = useState("");
-    const get_subject_by_video = (e) => {
-        fetch(baseUrl + "api/get_subject_by_video/" + video_id, {
-            method: 'GET',
-            headers: {
-                "Content-type": "application/json",
-                "Accept": "application/json"
-            },
-        }).then((res) => {
-            return res.json();
-        }).then((resp) => {
-            // setAllSubjectData(resp);
-            console.log(resp);
-            setSubjectId(resp);
-        });
-    }
-    useEffect(() => {
-        get_subject_by_video();
-    }, [])
+  
     return (
         <>
             <div className="main-wrapper">
@@ -46,10 +29,11 @@ function ViewAssessmentScore() {
                                             <img
                                                 src="/assets/images/star.png" width="100" alt="icon" className="d-inline-block" />
 
-                                            <h3 className="fw-700 mt-5 text-grey-900 font-xxl">Your score : <span>{video_id}</span></h3>
+                                            <h3 className="fw-700 mt-5 text-grey-900 font-xxl">Your score : <span>{resultData && resultData.score}</span></h3>
+                                            <h3 className="fw-700 mt-5 text-grey-900 font-xs">Your Percentage : <span>{resultData && resultData.score_percentage} %</span></h3>
                                             <p className="font-xssss fw-600 lh-30 text-grey-500 mb-0 p-2">Your test is completed, you can find your score above. </p>
 
-                                            <Link to={"/subject_stream/" + subject_id} data-question="question4" className=" p-2 mt-3 d-inline-block text-white fw-700 lh-30 rounded-lg w200 text-center font-xsssss ls-3 bg-current">Go back to course</Link>
+                                            <Link to={"/subject_stream/" + subjectId} data-question="question4" className=" p-2 mt-3 d-inline-block text-white fw-700 lh-30 rounded-lg w200 text-center font-xsssss ls-3 bg-current">Go back to course</Link>
                                         </div>
                                     </div>
                                 </div>

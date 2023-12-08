@@ -15,7 +15,7 @@ function TakeAssessments() {
     const baseUrl = process.env.REACT_APP_BASE_URL;
     const navigate = useNavigate();
 
-    const { video_id } = useParams();
+    const { assessment_id } = useParams();
 
     const [questions, setQuestions] = useState([]);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -31,7 +31,7 @@ function TakeAssessments() {
     const user_id = user.user.id;
 
     const get_assesments = (e) => {
-        fetch(baseUrl + "api/get_assesments_for_video/" + video_id, {
+        fetch(baseUrl + "api/get_assessment/" + assessment_id, {
             method: 'GET',
             headers: {
                 "Content-type": "application/json",
@@ -74,8 +74,11 @@ function TakeAssessments() {
             formData.append('selectedQuestionIds', selectedQuestionIds);
             // formData.append('subject_id', questions[0].subject_id);
             // formData.append('chapter_id', questions[0].chapter_id);
-            formData.append('video_id', video_id);
+            // formData.append('video_id', video_id);
+            formData.append('assessment_id', assessment_id);
             formData.append('user_id', user_id);
+            console.log(selectedAnswers);
+            console.log(selectedQuestionIds);
             fetch(baseUrl + 'api/submit_assessment', {
                 method: 'POST',
                 body: formData,
@@ -85,7 +88,11 @@ function TakeAssessments() {
                     // Handle the API response
                     console.log(resp);
                     // toast.success(resp.msg);
-                    navigate('/subject_stream/view_assessment_score/' + video_id);
+                    const subjectId = resp.subject_id;
+                    const assessmentResultId = resp.id;
+                    navigate("/subject_stream/view_assessment_score", {
+                        state: { subjectId: subjectId, resultData: resp, },
+                      });
                 })
                 .catch((err) => {
                     // Handle errors
@@ -131,7 +138,7 @@ function TakeAssessments() {
                         <div className="middle-sidebar-left">
                             <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
                                 <div>
-                                    <h2 className="fw-400 font-lg d-block"> <b> Forums</b> </h2>
+                                    <h2 className="fw-400 font-lg d-block"> <b> Assessment</b> </h2>
                                 </div>
                                 <div className="float-right">
                                     <BackButton />

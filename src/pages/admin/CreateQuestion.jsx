@@ -78,6 +78,10 @@ function CreateQuestion() {
     };
     const createQuestion = (e) => {
 
+        if (!selectedOption) {
+            toast.warn("select one option");
+
+          }
         const formData = new FormData();
         formData.append('class', selectedClass);
         formData.append('subject', selectedSubject);

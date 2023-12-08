@@ -22,9 +22,17 @@ function CreateVideos() {
   const [uploadElab, setUploadElab] = useState(false);
   const [elabOptions, setElabOptions] = useState([]);
 
+  const [uploadEbook, setUploadEbook] = useState(false);
+  const [ebookOptions, setEbookOptions] = useState([]);
+  
+  const [uploadAssessment, setUploadAssessment] = useState(false);
+  const [assessmentOptions, setAssessmentOptions] = useState([]);
 
+  const [videoNames, setVideoNames] = useState([""]); // Array to store video names
   const [videoFiles, setVideoFiles] = useState([""]); // Array to store video files
   const [selectedElab, setSelectedElab] = useState(""); // Array to store video files
+  const [selectedAssessment, setSelectedAssessment] = useState(""); // Array to store Assessments
+
   const [videoName, setVideoName] = useState(""); // State to store video name
 
   const [videoFile, setVideoFile] = useState(null);
@@ -56,9 +64,51 @@ function CreateVideos() {
     }
   }
 
+  // get assessments for the subject
+  useEffect(() => {
+    if (selectedClass && selectedSubject && uploadAssessment) {
+      // API call to fetch assessmets
+      getAssessments(selectedSubject);
+    }
+  }, [selectedClass, selectedSubject, uploadAssessment]);
+
+  async function getAssessments(selectedSubject) {
+    try {
+      const response = await fetch(
+        `${baseUrl}api/get_assessments/${selectedSubject}`
+      );
+      const jsonbody = await response.json();
+      console.log(jsonbody);
+      // Map through the data array and construct the options array for the dropdown
+      const assessmentDropdownOptions = jsonbody.data.map((assessment) => ({
+        id: assessment.id,
+        assessment: assessment.name, // assuming this is the correct path to the label
+      }));
+      setAssessmentOptions(assessmentDropdownOptions);
+    } catch (error) {
+      console.error("Failed to fetch elabs:", error);
+      setAssessmentOptions([]);
+    }
+  }
+  const handleClassChange = (e) => {
+    const selectedValue = e.target.value;
+    setSelectedClass(selectedValue);
+  };
+  const handleSubjectChange = (e) => {
+    const selectedValue = e.target.value;
+    setSelectedSubject(selectedValue);
+  };
+  const handleChapterChange = (e) => {
+    const selectedValue = e.target.value;
+    setSelectedChapter(selectedValue);
+  };
   const handleElabChange = (e) => {
     // 'e.target.value' will be the selected eLab ID
     setSelectedElab(e.target.value);
+  };
+  const handleAssessmentChange = (e) => {
+    // 'e.target.value' will be the selected eLab ID
+    setSelectedAssessment(e.target.value);
   };
 
   const createVideo = (e) => {
@@ -115,7 +165,7 @@ console.log(formData)
                 <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
                   <div>
                     <h2 className="fw-400 font-lg d-block">
-                      Create <b>Video</b>
+                      Add <b>Content</b>
                     </h2>
                   </div>
                   <div className="float-right">

@@ -51,7 +51,7 @@ function SubjectStream() {
   };
 
   // video player
-  const [activeVideoId, setActiveVideoId] = useState({});
+  const [activeVideoId, setActiveVideoId] = useState('');
   const [matchVideo, setMatchVideo] = useState({});
   const playerRef = React.useRef(null);
   const [videoJsOptions, setVideoJsOptions] = useState({
@@ -235,31 +235,6 @@ function SubjectStream() {
   }, [newMessage]);
 
 
-  const fetchNotes = async () => {
-    try {
-      const response = await fetch(
-        baseUrl + "api/get-notes/" + userId + "/" + activeVideoId,
-        {
-          method: "GET",
-          headers: {
-            "Content-type": "application/json",
-            Accept: "application/json",
-          },
-        }
-      );
-      if (!response) {
-        throw new Error("Failed to fetch messages");
-      }
-      const data = await response.json();
-      setNotes(data);
-      scrollActiveTabToBottom();
-      // console.warn(notes);
-      // createMarkers(videoPlayer, notes);
-
-    } catch (error) {
-      console.error("Error fetching messages:", error);
-    }
-  };
 
 
 
@@ -420,12 +395,12 @@ function SubjectStream() {
                                                   chapter.id
                                                 ) {
                                                   // Check if there's an assessment, ebook, and elab for this video
-                                                  const hasAssessment =
-                                                    assessments.some(
-                                                      (assessment) =>
-                                                        assessment.video_id ===
-                                                        video.id
-                                                    );
+                                                  const hasAssessment = true; 
+                                                    // assessments.some(
+                                                    //   (assessment) =>
+                                                    //     assessment.video_id ===
+                                                    //     video.id
+                                                    // );
                                                   const hasEBook = null; //when the ebook will come
                                                   // const hasELab = elabs.some(
                                                   //   (elab) =>
@@ -460,7 +435,7 @@ function SubjectStream() {
                                                             >
                                                               <Link
                                                                 className="font-xssss"
-                                                                to={`/subject_stream/take_assessments/${video.id}`}
+                                                                to={`/subject_stream/take_assessments/5`} //instead of videoid now its assessment id
                                                               >
                                                                 Assessments
                                                               </Link>

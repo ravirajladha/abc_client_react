@@ -93,6 +93,7 @@ import Results from "./pages/school/Results.jsx";
 import ClassSubjectResults from "./pages/school/ClassSubjectResults.jsx";
 import ClassSubjects from "./pages/school/ClassSubjects.jsx";
 import ClassResults from "./pages/school/ClassResults.jsx";
+import AddQuestionsToAssessment from "./pages/admin/AddQuestionsToAssessment.jsx";
 
 class Root extends Component {
   render() {
@@ -209,7 +210,7 @@ class Root extends Component {
           />
           <Route
             exact
-            path={`${process.env.PUBLIC_URL}/subject_stream/take_assessments/:video_id`}
+            path={`${process.env.PUBLIC_URL}/subject_stream/take_assessments/:assessment_id`}
             element={
               <ProtectedRoute
                 element={<TakeAssessments />}
@@ -219,7 +220,7 @@ class Root extends Component {
           />
           <Route
             exact
-            path={`${process.env.PUBLIC_URL}/subject_stream/view_assessment_score/:video_id`}
+            path={`${process.env.PUBLIC_URL}/subject_stream/view_assessment_score`}
             element={
               <ProtectedRoute
                 element={<ViewAssessmentScore />}
@@ -572,10 +573,40 @@ type_id: if mini_project then task_id else subject then video_id
           />
           <Route
             exact
+            path={`${process.env.PUBLIC_URL}/assessments/create_question`}
+            element={
+              <ProtectedRoute
+                element={<CreateQuestion />}
+                allowedTypes={["admin"]}
+              />
+            }
+          />
+          <Route
+            exact
+            path={`${process.env.PUBLIC_URL}/assessments/all_questions`}
+            element={
+              <ProtectedRoute
+                element={<AllQuestions />}
+                allowedTypes={["admin"]}
+              />
+            }
+          />
+          <Route
+            exact
             path={`${process.env.PUBLIC_URL}/assessments/create_assessments`}
             element={
               <ProtectedRoute
                 element={<CreateAssessments />}
+                allowedTypes={["admin"]}
+              />
+            }
+          />
+          <Route
+            exact
+            path={`${process.env.PUBLIC_URL}/assessments/add-question-to-assessment`}
+            element={
+              <ProtectedRoute
+                element={<AddQuestionsToAssessment />}
                 allowedTypes={["admin"]}
               />
             }
