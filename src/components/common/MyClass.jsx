@@ -1,34 +1,36 @@
-import React, { Component } from 'react';
+import React from "react";
 
 const classList = [
   {
-    imageUrl: 'user.png',
-    title: 'Advanced Python Sass',
-    per: '87',
-    status: 'bg-warning',
+    imageUrl: "user.png",
+    title: "Advanced Python Sass",
+    per: "87",
+    status: "bg-warning",
   },
   {
-    imageUrl: 'user.png',
-    title: 'Bootstrap SASS CSS ',
-    per: '96',
-    status: 'bg-success',
+    imageUrl: "user.png",
+    title: "Bootstrap SASS CSS ",
+    per: "96",
+    status: "bg-success",
   },
   {
-    imageUrl: 'user.png',
-    title: 'Basic JAVA',
-    per: '95',
-    status: 'bg-primary',
+    imageUrl: "user.png",
+    title: "Basic JAVA",
+    per: "95",
+    status: "bg-primary",
   },
   {
-    imageUrl: 'user.png',
-    title: 'React JS',
-    per: '55',
-    status: 'bg-warning',
+    imageUrl: "user.png",
+    title: "React JS",
+    per: "55",
+    status: "bg-warning",
   },
 ];
 
-  function Myclass() {
-    return (
+function Myclass() {
+
+  return (
+    <>
       <div className="card theme-light-bg overflow-hidden rounded-xxl border-0 mb-3">
         <div className="card-body d-flex justify-content-between align-items-end pl-4 pr-4 pt-4 pb-3">
           <h4 className="fw-700 font-xsss">My Subjects</h4>
@@ -72,31 +74,47 @@ const classList = [
             </div>
           </div>
         ))}
-
-<div class="card theme-light-bg overflow-hidden rounded-xxl border-0 mb-3">
-                            <div class="card-body d-flex justify-content-between align-items-end pl-4 pr-4 pt-4 pb-3">
-                                <h4 class="fw-700 font-xsss">Profile Scrore</h4>
-                                <a href="#" class="position-absolute right-0 mr-4"><i class="ti-more-alt text-grey-500 font-xs"></i></a>
-                            </div>
-                            <div id="chart-multipleitem"></div>
-                            <div class="card-body d-block pt-0 pb-0 pl-md-5 pr-md-5">
-                                <div class="row">
-                                    <div class="col-4 text-center mb-3">
-                                        <h4 class="text-warning font-xssss fw-700">HTML <span class="d-block mt-1 font-xsssss fw-500 text-grey-500">67%</span></h4>
-                                    </div>
-                                    <div class="col-4 text-center mb-3">
-                                        <h4 class="text-danger font-xssss fw-700">JAVA <span class="d-block mt-1 font-xsssss fw-500 text-grey-500">55%</span></h4>
-                                    </div>
-                                    <div class="col-4 text-center mb-3">
-                                        <h4 class="text-primary font-xssss fw-700">HTML <span class="d-block mt-1 font-xsssss fw-500 text-grey-500">44%</span></h4>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
       </div>
-    );
-  }
-
+      <div class="card theme-light-bg overflow-hidden rounded-xxl border-0 mb-3">
+        <div class="card-body d-flex justify-content-between align-items-end pl-4 pr-4 pt-4 pb-3">
+          <h4 class="fw-700 font-xsss">Profile Scrore</h4>
+          <a href="#" class="position-absolute right-0 mr-4">
+            <i class="ti-more-alt text-grey-500 font-xs"></i>
+          </a>
+        </div>
+        <div id="chart-multipleitem"></div>
+        <div class="card-body d-block pt-0 pb-0 pl-md-5 pr-md-5">
+          <div class="row">
+            <div class="col-4 text-center mb-3">
+              <h4 class="text-warning font-xssss fw-700">
+                HTML{" "}
+                <span class="d-block mt-1 font-xsssss fw-500 text-grey-500">
+                  67%
+                </span>
+              </h4>
+            </div>
+            <div class="col-4 text-center mb-3">
+              <h4 class="text-danger font-xssss fw-700">
+                JAVA{" "}
+                <span class="d-block mt-1 font-xsssss fw-500 text-grey-500">
+                  55%
+                </span>
+              </h4>
+            </div>
+            <div class="col-4 text-center mb-3">
+              <h4 class="text-primary font-xssss fw-700">
+                HTML{" "}
+                <span class="d-block mt-1 font-xsssss fw-500 text-grey-500">
+                  44%
+                </span>
+              </h4>
+            </div>
+          </div>
+        </div>
+                  
+      </div>
+    </>
+  );
+}
 
 export default Myclass;

@@ -37,7 +37,7 @@ function StudentTestResults() {
   useEffect(() => {
     getTestResults();
     getSubjectName();
-  }, []);
+  });
 
   return (
     <div className="main-wrapper">

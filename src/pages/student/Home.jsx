@@ -1,80 +1,75 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify';
-import { getUserFromLocalStorage } from '../../pages/util/SessionStorage';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import { getUserFromLocalStorage } from "../../pages/util/SessionStorage";
 
-import 'react-toastify/dist/ReactToastify.css';
-import Slider from 'react-slick';
+import "react-toastify/dist/ReactToastify.css";
+import Slider from "react-slick";
 
-import AppFooter from '../../components/includes/AppFooter';
-import AppHeader from '../../components/includes/AppHeader';
-import StudentSidebar from '../../components/includes/StudentSidebar';
+import AppFooter from "../../components/includes/AppFooter";
+import AppHeader from "../../components/includes/AppHeader";
+import StudentSidebar from "../../components/includes/StudentSidebar";
 
-import { AuthContext } from "../../lib/AuthContext.js"
-import { useContext } from 'react';
+import { AuthContext } from "../../lib/AuthContext.js";
+import { useContext } from "react";
 
 const latestList = [
   {
-    imageUrl: 'course.png',
-    title: 'Vector Algebra',
-    price: '6',
-    tag: 'Maths',
-    lesson: '32 ',
-    status: 'alert-warning text-warning',
+    imageUrl: "course.png",
+    title: "Vector Algebra",
+    price: "6",
+    tag: "Maths",
+    lesson: "32 ",
+    status: "alert-warning text-warning",
   },
   {
-    imageUrl: 'course.png',
-    title: 'Three-Dimensional Geometry',
-    price: '4',
-    tag: 'Maths',
-    lesson: '14 ',
-    status: 'alert-primary text-primary',
+    imageUrl: "course.png",
+    title: "Three-Dimensional Geometry",
+    price: "4",
+    tag: "Maths",
+    lesson: "14 ",
+    status: "alert-primary text-primary",
   },
   {
-    imageUrl: 'course.png',
-    title: 'Object-Oriented Programming',
-    price: '3',
-    tag: 'CS',
-    lesson: '23 ',
-    status: 'alert-danger text-danger',
+    imageUrl: "course.png",
+    title: "Object-Oriented Programming",
+    price: "3",
+    tag: "CS",
+    lesson: "23 ",
+    status: "alert-danger text-danger",
   },
   {
-    imageUrl: 'course.png',
-    title: 'Web Application Development',
-    price: '4',
-    tag: 'CS',
-    lesson: '2 ',
-    status: 'alert-warning text-warning',
+    imageUrl: "course.png",
+    title: "Web Application Development",
+    price: "4",
+    tag: "CS",
+    lesson: "2 ",
+    status: "alert-warning text-warning",
   },
   {
-    imageUrl: 'course.png',
-    title: 'Data Structures',
-    price: '1',
-    tag: 'CS',
-    lesson: '24 ',
-    status: 'alert-danger text-danger',
+    imageUrl: "course.png",
+    title: "Data Structures",
+    price: "1",
+    tag: "CS",
+    lesson: "24 ",
+    status: "alert-danger text-danger",
   },
 ];
 
-
-
-
 const memberList = [
   {
-    imageUrl: 'english.png',
-    name: 'English ',
-    email: 'Doubt Clearing Session',
-    bgimage: 'subject/english.jpg',
+    imageUrl: "english.png",
+    name: "English ",
+    email: "Doubt Clearing Session",
+    bgimage: "subject/english.jpg",
   },
   {
-    imageUrl: 'Maths.png',
-    name: 'Mathermatics ',
-    email: 'Doubt Clearing Session',
+    imageUrl: "Maths.png",
+    name: "Mathermatics ",
+    email: "Doubt Clearing Session",
 
-    bgimage: 'subject/Maths.png',
+    bgimage: "subject/Maths.png",
   },
-
- 
 ];
 
 function Home() {
@@ -117,23 +112,27 @@ function Home() {
   // const user = JSON.parse(userString);
 
   useEffect(() => {
+    const getSubjects = () => {
+      if (user) {
+        fetch(
+          baseUrl + "api/get_student_subjects/" + user.student.class_id
+        ).then(function (result) {
+          result.json().then(function (res) {
+            console.warn("get_subjects", res);
+            setSubjects(res);
+          });
+        });
+      }
+    };
+
     if (user) {
       getSubjects();
     } else {
       return;
     }
-  }, [user])
+  }, [user]);
 
- 
   const [subjects, setSubjects] = useState([]);
-  function getSubjects() {
-    let result = fetch(baseUrl + 'api/get_student_subjects/' + user.student.class_id).then(function (result) {
-      result.json().then(function (jsonbody) {
-        console.warn("get_subjects",jsonbody);
-        setSubjects(jsonbody);
-      })
-    });
-  }
 
   if (!user) {
     console.log("No user found. User might be logged out.");
@@ -143,7 +142,6 @@ function Home() {
   return (
     <>
       <div className="main-wrapper">
-
         <div className="main-content menu-active">
           <AppHeader />
 
@@ -155,15 +153,21 @@ function Home() {
               <div className="row">
                 <div className="col-lg-12">
                   <div className="card w-100 bg-lightblue p-lg-5 p-4 border-0 rounded-lg d-block float-left">
-                  
-                  <h1 className="display1-size display2-md-size d-inline-block float-left mb-0 text-grey-900 fw-700">
-  <span className="font-xssss fw-600 text-grey-500 d-block mb-2 ml-1" style={{ fontSize: '20px' }}>
-    Welcome back!
-  </span>
-  Hi, {user.user.name} have got 123 points!
-</h1>
+                    <h1 className="display1-size display2-md-size d-inline-block float-left mb-0 text-grey-900 fw-700">
+                      <span
+                        className="font-xssss fw-600 text-grey-500 d-block mb-2 ml-1"
+                        style={{ fontSize: "20px" }}
+                      >
+                        Welcome back!
+                      </span>
+                      Hi, {user.user.name} have got 123 points!
+                    </h1>
                     {/* <img src="https://via.placeholder.com/250x150.png" alt="icon" className="w250 right-15 top-0 position-absolute d-none d-xl-block" /> */}
-                    <img src="/avatar.png" alt="icon" className="w125 right-15 top-0 position-absolute d-none d-xl-block mt-3" />
+                    <img
+                      src="/avatar.png"
+                      alt="icon"
+                      className="w125 right-15 top-0 position-absolute d-none d-xl-block mt-3"
+                    />
                   </div>
                 </div>
                 <div className="col-xl-4 col-lg-12 ">
@@ -172,9 +176,11 @@ function Home() {
                       <div className="row">
                         <div className="col">
                           {/* <h4 className="fw-700 text-success font-xssss mt-0 mb-0 ">+45 %</h4> */}
-                          <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">455 </h2>
+                          <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
+                            455{" "}
+                          </h2>
                           <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
-                          Class Rank
+                            Class Rank
                           </h4>
                         </div>
                       </div>
@@ -187,8 +193,12 @@ function Home() {
                       <div className="row">
                         <div className="col">
                           {/* <h4 className="fw-700 text-success font-xssss mt-0 mb-0 ">+25 %</h4> */}
-                          <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">105 </h2>
-                          <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">Section Rank</h4>
+                          <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
+                            105{" "}
+                          </h2>
+                          <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
+                            Section Rank
+                          </h4>
                         </div>
                       </div>
                     </div>
@@ -200,8 +210,13 @@ function Home() {
                       <div className="row">
                         <div className="col">
                           {/* <h4 className="fw-700 text-success font-xssss mt-0 mb-0 ">+45 %</h4> */}
-                          <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">455 </h2>
-                          <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0"> Average Assessment</h4>
+                          <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
+                            455{" "}
+                          </h2>
+                          <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
+                            {" "}
+                            Average Assessment
+                          </h4>
                         </div>
                       </div>
                     </div>
@@ -273,7 +288,7 @@ function Home() {
                 </div>
                 <div className="col-lg-12 mt-3">
                   <Slider {...categorysettings}>
-                  {subjects.map((value, index) => (
+                    {subjects.map((value, index) => (
                       <div
                         key={index}
                         className="card cat-card-hover mr-3 w140 border-0 p-0 text-center"
@@ -284,15 +299,15 @@ function Home() {
                         >
                           <span className="btn-round-xl bg-white">
                             <img
-                               src={baseUrl + value.subject_image}
+                              src={baseUrl + value.subject_image}
                               alt="icon"
                               className="p-2 w-100"
                             />
                           </span>
                           <h4 className="fw-600 font-xsss mt-3 mb-0">
-                          {value.subject_name}
-                            <span className="d-block font-xsssss fw-500 text-grey-500 mt-2">
                             {value.subject_name}
+                            <span className="d-block font-xsssss fw-500 text-grey-500 mt-2">
+                              {value.subject_name}
                             </span>
                           </h4>
                         </div>
@@ -300,8 +315,7 @@ function Home() {
                     ))}
                   </Slider>
                 </div>
-         
-       
+
                 <div className="col-lg-12 pt-0 mb-1 mt-3 ">
                   <h2 className="fw-400 font-lg d-block">
                     Live <b> Classes</b>
@@ -354,6 +368,5 @@ function Home() {
     </>
   );
 }
-
 
 export default Home;

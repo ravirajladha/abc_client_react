@@ -55,8 +55,8 @@ function Profile() {
       >
         <figure className="avatar ml-auto mr-auto mb-0 mt-2 w90">
           <img
-            src="assets/images/user.png"
-            alt="avater"
+            src="/avatar.png"
+            alt="avatar"
             className="float-right shadow-sm rounded-circle w-100"
           />
         </figure>
