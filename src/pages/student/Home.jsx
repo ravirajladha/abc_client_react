@@ -118,7 +118,7 @@ function Home() {
           baseUrl + "api/get_student_subjects/" + user.student.class_id
         ).then(function (result) {
           result.json().then(function (res) {
-            console.warn("get_subjects", res);
+            // console.warn("get_subjects", res);
             setSubjects(res);
           });
         });
@@ -127,12 +127,26 @@ function Home() {
 
     if (user) {
       getSubjects();
+      getStudentRanks();
     } else {
       return;
     }
   }, [user]);
 
   const [subjects, setSubjects] = useState([]);
+  
+  const [studentClassRank, setStudentClassRank] = useState([]);
+
+  async function getStudentRanks() {
+    try {
+      const response = await fetch(baseUrl + "api/student/" + user.student.auth_id);
+      const student = await response.json();
+      // console.warn(student.data.class_rank);
+      setStudentClassRank(student.data.class_rank);
+    } catch (error) {
+      console.error("There was a problem fetching student details:", error);
+    }
+  }
 
   if (!user) {
     console.log("No user found. User might be logged out.");
@@ -177,7 +191,7 @@ function Home() {
                         <div className="col">
                           {/* <h4 className="fw-700 text-success font-xssss mt-0 mb-0 ">+45 %</h4> */}
                           <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                            455{" "}
+                            {studentClassRank ? studentClassRank : '-'}
                           </h2>
                           <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
                             Class Rank
