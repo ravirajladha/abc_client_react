@@ -21,7 +21,7 @@ function TestResult() {
     let result = fetch(baseUrl + "api/get_test_results/" + testId).then(
       function (result) {
         result.json().then(function (jsonbody) {
-          console.warn(jsonbody);
+          //console.warn(jsonbody);
           setResults(jsonbody);
           $(tableRef.current).DataTable();
         });

@@ -44,7 +44,7 @@ function Chats() {
 
         let result = fetch(baseUrl + 'api/get_chat_students/' + auth_id).then(function (result) {
             result.json().then(function (jsonbody) {
-                console.warn(jsonbody);
+                //console.warn(jsonbody);
                 setStudents(jsonbody);
             })
         });
@@ -55,7 +55,7 @@ function Chats() {
         fetch(baseUrl + `api/get_messages_for_student/${user.user.id}/${studentId}`)
             .then((result) => result.json())
             .then((jsonbody) => {
-                console.warn(jsonbody);
+                //console.warn(jsonbody);
                 setMessages(jsonbody);
             })
             .catch((error) => {

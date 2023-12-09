@@ -50,9 +50,9 @@ function SubjectResults() {
           <div className="middle-sidebar-bottom theme-dark-bg">
             <div className="middle-sidebar-left">
               <div className="row">
-                <div className="card-body p-lg-5 px-4 w-100 border-0 d-flex rounded-lg justify-content-between">
-                  <div className="">
-                    <h2 className="fw-400 font-lg d-block ml-2">
+              <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
+                  <div>
+                    <h2 className="fw-400 font-lg d-block">
                       <b> Results</b>
                     </h2>
                   </div>

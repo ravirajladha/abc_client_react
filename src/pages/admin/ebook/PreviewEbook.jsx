@@ -56,7 +56,7 @@ function PreviewEbook() {
     function getEbookModules() {
         let result = fetch(baseUrl + 'api/get_ebook_modules/' + ebook_id).then(function (result) {
             result.json().then(function (jsonbody) {
-                // console.warn(jsonbody);
+                // //console.warn(jsonbody);
                 setEbookModules(jsonbody.ebook_modules);
             })
         });
@@ -74,7 +74,7 @@ function PreviewEbook() {
     function getEbookElements() {
         let result = fetch(baseUrl + 'api/get_elements_by_ebook/' + ebook_id).then(function (result) {
             result.json().then(function (jsonbody) {
-                // console.warn(jsonbody);
+                // //console.warn(jsonbody);
                 setEbookElements(jsonbody);
             })
         });

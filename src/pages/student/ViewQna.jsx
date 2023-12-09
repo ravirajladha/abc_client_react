@@ -19,7 +19,7 @@ function ViewQna() {
     function getQna() {
         let result = fetch(baseUrl + 'api/get_school_qna_single/' + qnaId).then(function (result) {
             result.json().then(function (jsonbody) {
-                console.warn(jsonbody);
+                //console.warn(jsonbody);
                 setQna(jsonbody);
             })
         });

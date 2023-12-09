@@ -74,7 +74,7 @@ function Forums() {
         } else {
             let result =   fetch(baseUrl + "api/school_search_forum_questions/" + name).then(function (result) {
                 result.json().then(function (jsonbody) {
-                    console.warn(jsonbody);
+                    //console.warn(jsonbody);
                     setAllForums(jsonbody);
                 })
             })

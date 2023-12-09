@@ -24,7 +24,7 @@ function AllSubjects() {
       result
     ) {
       result.json().then(function (jsonbody) {
-        console.warn(jsonbody);
+        //console.warn(jsonbody);
         setSubjects(jsonbody);
         setIsLoading(false);
 

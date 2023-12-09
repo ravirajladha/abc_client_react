@@ -83,7 +83,7 @@ function AnswerForum() {
     function getForum() {
         let result = fetch(baseUrl + 'api/get_school_forum_single/' + forumId).then(function (result) {
             result.json().then(function (jsonbody) {
-                console.warn(jsonbody);
+                //console.warn(jsonbody);
                 setForum(jsonbody);
             })
         });

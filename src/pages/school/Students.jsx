@@ -36,7 +36,7 @@ function Students() {
     fetch(`${baseUrl}api/school/api_get_school_students?school_id=${schoolId}`) // Pass the school_id as a query parameter
       .then((result) => result.json())
       .then((jsonbody) => {
-        console.warn(jsonbody);
+        //console.warn(jsonbody);
         setStudents(jsonbody);
 
         // Initialize DataTables after data is fetched

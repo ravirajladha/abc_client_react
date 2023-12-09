@@ -18,7 +18,7 @@ function AddQuestionsToTest() {
       baseUrl + "api/get_questions_by_subject/" + subjectId
     ).then(function (result) {
       result.json().then(function (jsonbody) {
-        console.warn(jsonbody);
+        //console.warn(jsonbody);
         setQuestions(jsonbody);
       });
     });

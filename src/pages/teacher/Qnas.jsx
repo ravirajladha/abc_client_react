@@ -21,7 +21,7 @@ function Qnas() {
                 fetch(`${baseUrl}api/get_qnas/${user.user.id}`) // Use template literals for cleaner code
                     .then((result) => result.json())
                     .then((jsonbody) => {
-                        console.warn(jsonbody);
+                        //console.warn(jsonbody);
                         setQnas(jsonbody);
                     })
                     .catch((error) => {

@@ -29,7 +29,7 @@ function CreateProject() {
     function getClasses() {
         let result = fetch(baseUrl + 'api/get_classes').then(function (result) {
             result.json().then(function (jsonbody) {
-                console.warn(jsonbody);
+                //console.warn(jsonbody);
                 setClasses(jsonbody);
             })
         });
@@ -37,7 +37,7 @@ function CreateProject() {
     function getSubjects() {
         let result = fetch(baseUrl + 'api/get_subjects_by_class/' + selectedClass).then(function (result) {
             result.json().then(function (jsonbody) {
-                console.warn(jsonbody);
+                //console.warn(jsonbody);
                 setSubjects(jsonbody);
             })
         });

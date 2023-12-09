@@ -16,7 +16,7 @@ function Tests() {
   function getTests() {
     let result = fetch(baseUrl + "api/get_tests").then(function (result) {
       result.json().then(function (jsonbody) {
-        console.warn(jsonbody);
+        //console.warn(jsonbody);
         setTests(jsonbody);
       });
     });

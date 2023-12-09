@@ -23,7 +23,7 @@ function AnswerQna() {
     const getQna = (e) => {
         let result = fetch(baseUrl + 'api/get_qna/' + qna_id).then(function (result) {
             result.json().then(function (jsonbody) {
-                console.warn(jsonbody);
+                //console.warn(jsonbody);
                 setQuestion(jsonbody);
             })
         });
