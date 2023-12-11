@@ -113,7 +113,6 @@ function CreateVideos() {
         `${baseUrl}api/get-ebook-sections/${selectedEbook}/${selectedEbookModule}`
       );
       const jsonRes = await response.json();
-      console.warn("Hell", jsonRes);
       const eBookSectionDropdownOptions = jsonRes.data.map((eBookSection) => ({
         id: eBookSection.id,
         eBookSection: eBookSection.section_title,
@@ -126,11 +125,9 @@ function CreateVideos() {
     }
   }
 
-  // get assessments for the subject
   useEffect(() => {
     if (selectedClass && selectedSubject && uploadAssessment) {
-      // API call to fetch assessmets
-      getAssessments(selectedSubject);
+      getAssessments(selectedClass, selectedSubject);
     }
     if (selectedClass && selectedSubject && uploadEbook) {
       getEbooks(selectedClass, selectedSubject);
@@ -152,20 +149,19 @@ function CreateVideos() {
     selectedEbookModule,
   ]);
 
-  async function getAssessments(selectedSubject) {
+  async function getAssessments(selectedClass, selectedSubject) {
     try {
       const response = await fetch(
-        `${baseUrl}api/get_assessments/${selectedSubject}`
+        `${baseUrl}api/get-all-assessments/${selectedClass}/${selectedSubject}`
       );
       const jsonRes = await response.json();
-      // Map through the data array and construct the options array for the dropdown
       const assessmentDropdownOptions = jsonRes.data.map((assessment) => ({
         id: assessment.id,
-        assessment: assessment.name, // assuming this is the correct path to the label
+        assessment: assessment.name,
       }));
       setAssessmentOptions(assessmentDropdownOptions);
     } catch (error) {
-      console.error("Failed to fetch elabs:", error);
+      toast.error("Could not fetch assessments " + error);
       setAssessmentOptions([]);
     }
   }
@@ -228,6 +224,7 @@ function CreateVideos() {
     formData.append("subject", selectedSubject);
     formData.append("chapter", selectedChapter);
     formData.append("elab", selectedElab);
+    formData.append("assessmentId", selectedAssessment);
     formData.append("eBookId", selectedEbook);
     if (uploadEbook) {
       selectedEbookSections.forEach((section, index) => {
@@ -255,8 +252,12 @@ function CreateVideos() {
         setVideoName([""]);
         setVideoFiles([""]);
         setVideoDescription("");
-        setUploadEbook(false);
+        setUploadAssessment(false);
+        setSelectedAssessment("");
+        setUploadElab(false);
+        setSelectedElab("");
         setSelectedEbook("");
+        setUploadEbook(false);
         setSelectedEbookModule("");
         setSelectedEbookSections([]);
 
@@ -353,6 +354,39 @@ function CreateVideos() {
                               />
                             </div>
                           </div>
+
+                          <div className="row my-2">
+                            <div className="col-lg-2">
+                              <label className="mono-font fw-600 font-xsss ">
+                                Has Assessment :
+                              </label>{" "}
+                              &nbsp;
+                              <input
+                                type="checkbox"
+                                checked={uploadAssessment}
+                                onChange={(e) =>
+                                  setUploadAssessment(e.target.checked)
+                                }
+                              />
+                            </div>
+                            <div className="col-lg-6">
+                              {uploadAssessment && (
+                                <div>
+                                  <label className="fw-600 font-xsss">
+                                    Select Assessment
+                                  </label>
+                                  <br />
+                                  <Dropdown
+                                    options={assessmentOptions}
+                                    column_name="assessment" // This is the property to be displayed in the dropdown
+                                    value={selectedAssessment}
+                                    onChange={handleAssessmentChange}
+                                  />
+                                </div>
+                              )}
+                            </div>
+                          </div>
+
                           <div className="row my-2">
                             <div className="col-lg-2">
                               <label className="mono-font fw-600 font-xsss ">

@@ -357,7 +357,7 @@ function SubjectStream() {
                                                           </span>
                                                         </div>
                                                         <div className="d-flex justify-content-between">
-                                                          {hasAssessment && (
+                                                          {video.assessment_id && (
                                                             <div
                                                               className="border-size-sm rounded-sm px-1 mx-1"
                                                               style={{
@@ -367,7 +367,7 @@ function SubjectStream() {
                                                             >
                                                               <Link
                                                                 className="font-xssss"
-                                                                to={`/subject_stream/take_assessments/5`} //instead of videoid now its assessment id
+                                                                to={`/subject_stream/take_assessments/${video.assessment_id}`}
                                                               >
                                                                 Assessments
                                                               </Link>
