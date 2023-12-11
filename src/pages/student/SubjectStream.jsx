@@ -28,7 +28,6 @@ function SubjectStream() {
 
   const [notes, setNotes] = useState([]);
   const noteInputRef = useRef(null);
-  
 
   const scrollActiveTabToBottom = () => {
     // chatContentRef.current.scrollTop = chatContentRef.current.scrollHeight;
@@ -168,7 +167,6 @@ function SubjectStream() {
     });
   };
 
-
   useEffect(() => {
     // scrolldown in the chat and notes tab when component is loaded
     if (activeTab === "chat" || activeTab === "notes") {
@@ -183,8 +181,6 @@ function SubjectStream() {
 
     //fetch chat messages in each interval
     // fetchMessages();
-
-    
   }, []);
 
   useEffect(() => {
@@ -231,6 +227,16 @@ function SubjectStream() {
     return <div>User is not logged in</div>;
   }
   const userId = user.user.id;
+
+  function generateId(sectionTitle) {
+    if (sectionTitle) {
+      const title = sectionTitle.replace(/[^a-zA-Z0-9\s]/g, "");
+
+      const sectionId = title.toLowerCase().replace(/\s+/g, "-");
+
+      return sectionId;
+    }
+  }
 
   return (
     <>
@@ -399,6 +405,34 @@ function SubjectStream() {
                                                               </Link>
                                                             </div>
                                                           )}
+                                                          {video.ebook_sections &&
+                                                            video.ebook_sections.map(
+                                                              (
+                                                                section,
+                                                                index
+                                                              ) => (
+                                                                <div
+                                                                  key={index}
+                                                                  className="border-size-sm rounded-sm px-1 mx-1"
+                                                                  style={{
+                                                                    border:
+                                                                      "1px solid #000",
+                                                                  }}
+                                                                >
+                                                                  <Link
+                                                                    className="font-xssss"
+                                                                    to={`/ebooks/preview_ebook/${
+                                                                      video.ebook_id
+                                                                    }#${generateId(
+                                                                      section.section_title
+                                                                    )}`}
+                                                                  >
+                                                                    Ebook{" "}
+                                                                    {index + 1}
+                                                                  </Link>
+                                                                </div>
+                                                              )
+                                                            )}
                                                         </div>
                                                       </div>
                                                     </div>
@@ -431,7 +465,6 @@ function SubjectStream() {
                           receiverId={receiverId}
                         />
                       </Tab>
-                      
 
                       <Tab
                         eventKey="notes"
