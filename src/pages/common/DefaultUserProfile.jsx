@@ -2,11 +2,11 @@ import React, { Fragment } from 'react';
 import AppFooter from '../../components/includes/AppFooter.jsx';
 import AppHeader from '../../components/includes/AppHeader.jsx';
 import Profile from '../../components/common/Profile.jsx';
-import Myclass from '../../components/common/MyClass.jsx';
+import Myclass from '../../components/common/MySubjects.jsx';
 import Subscribe from '../../components/common/Subscribe.jsx';
 import { Link } from 'react-router-dom';
 import { Tab, Tabs } from 'react-bootstrap';
-import { getUserFromLocalStorage } from '../util/SessionStorage.jsx';
+
 import { AuthContext } from "../../lib/AuthContext.js"
 import { useContext } from 'react';
 const memberList = [
@@ -384,7 +384,7 @@ function Defaultuserprofile() {
                 id="uncontrolled-tab-example"
                 className="mb-3 nav nav-tabs profile xs-p-4 d-flex align-items-center justify-content-between product-info-tab border-bottom-0 bg-white shadow-xss rounded-lg"
               >
-                <Tab eventKey="profile" title="Profile">
+                <Tab eventKey="profile" title="ABOUT">
                   <div className="card d-block w-100 border-0 shadow-xss rounded-lg overflow-hidden p-lg-4 p-2">
                     <div className="card-body mb-lg-3 pb-0">
                       <h2 className="fw-400 font-lg d-block">
@@ -469,7 +469,7 @@ function Defaultuserprofile() {
                     </div>
                   </div>
                 </Tab>
-                <Tab eventKey="video" title="VIDEO">
+                <Tab eventKey="video" title="SUBJECT">
                   <div className="card d-block w-100 border-0 shadow-xss rounded-lg overflow-hidden p-lg-4 p-2">
                     <div className="card-body mb-lg-3 pb-0">
                       <h2 className="fw-400 font-lg d-block">
@@ -589,7 +589,7 @@ function Defaultuserprofile() {
                   </div>
                 </Tab>
                 {userDetails.user.type == 'school_student' &&
-                <Tab eventKey="bdage" title="BADGE">
+                <Tab eventKey="bdage" title="RANKS">
                   <div className="card d-block w-100 border-0 shadow-xss rounded-lg overflow-hidden p-lg-4 p-2">
                     <div className="card-body mb-lg-3 pb-0">
                       <h2 className="fw-400 font-lg d-block">
@@ -656,7 +656,7 @@ function Defaultuserprofile() {
                   </div>
                 </Tab>
                 }
-                <Tab eventKey="group" title="GROUP">
+                <Tab eventKey="group" title="QNA">
                   <div className="card d-block w-100 border-0 shadow-xss rounded-lg overflow-hidden p-lg-4 p-2">
                     <div className="card-body mb-lg-3 pb-0">
                       <h2 className="fw-400 font-lg d-block">
@@ -791,7 +791,7 @@ function Defaultuserprofile() {
                   </div>
                 </Tab>
                 {userDetails.user.type == 'school_student' &&
-                <Tab eventKey="friends" title="FRIENDS">
+                <Tab eventKey="friends" title="FORUM">
                   <div className="card d-block w-100 border-0 shadow-xss rounded-lg overflow-hidden p-lg-4 p-2">
                     <div className="card-body mb-lg-3 pb-0">
                       <h2 className="fw-400 font-lg d-block">
@@ -876,126 +876,8 @@ function Defaultuserprofile() {
                   </div>
                 </Tab>
                 }
-                <Tab eventKey="stream" title="STREAM"></Tab>
-                <Tab eventKey="saved" title="SAVED">
-                  <div className="card d-block w-100 border-0 shadow-xss rounded-lg overflow-hidden p-lg-4 p-2">
-                    <div className="card-body mb-lg-3 pb-0">
-                      <h2 className="fw-400 font-lg d-block">
-                        Saved <b>Courses</b>
-                        <a
-                          href="/default-user-profile"
-                          className="float-right"
-                        >
-                          <i className="feather-edit text-grey-500 font-xs"></i>
-                        </a>
-                      </h2>
-                    </div>
-                    <div className="card-body pb-0">
-                      <div className="row">
-                        {courseList.map((value, index) => (
-                          // Strat Single Demo
-                          <div
-                            className="col-xl-4 col-lg-6 col-md-6 col-sm-6 mb-4"
-                            key={index}
-                          >
-                            <div className="card w-100 p-0 shadow-xss border-0 rounded-lg overflow-hidden mr-1 course-card">
-                              <div className="card-image w-100 mb-3">
-                                <Link
-                                  to="/coursedetails"
-                                  className="video-bttn position-relative d-block"
-                                >
-                                  <img
-                                    src={`assets/images/${value.imageUrl}`}
-                                    alt="course"
-                                    className="w-100"
-                                  />
-                                </Link>
-                              </div>
-                              <div className="card-body pt-0">
-                                <span
-                                  className={`font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 d-inline-block mr-1 ${value.status}`}
-                                >
-                                  {value.tag}
-                                </span>
-                                <span className="font-xss fw-700 pl-3 pr-3 ls-2 lh-32 d-inline-block text-success float-right">
-                                  <span className="font-xsssss">$</span>
-                                  {value.price}
-                                </span>
-                                <h4 className="fw-700 font-xss mt-3 lh-28 mt-0">
-                                  <Link
-                                    to="/coursedetails"
-                                    className="text-dark text-grey-900"
-                                  >
-                                    {value.title}
-                                  </Link>
-                                </h4>
-                                <h6 className="font-xssss text-grey-500 fw-600 ml-0 mt-2">
-                                  {value.lesson} Lesson
-                                </h6>
-                                <ul className="memberlist mt-3 mb-2 ml-0 d-block">
-                                  <li>
-                                    <a href="/">
-                                      <img
-                                        src="assets/images/user.png"
-                                        alt="avater"
-                                        className="w30 d-inline-block rounded-circle"
-                                      />
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <a href="/">
-                                      <img
-                                        src="assets/images/user.png"
-                                        alt="avater"
-                                        className="w30 d-inline-block rounded-circle"
-                                      />
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <a href="/">
-                                      <img
-                                        src="assets/images/user.png"
-                                        alt="avater"
-                                        className="w30 d-inline-block rounded-circle"
-                                      />
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <a href="/">
-                                      <img
-                                        src="assets/images/user.png"
-                                        alt="avater"
-                                        className="w30 d-inline-block rounded-circle"
-                                      />
-                                    </a>
-                                  </li>
-                                  <li className="last-member">
-                                    <a
-                                      href="/"
-                                      className="bg-greylight fw-600 text-grey-500 font-xssss ls-3 text-center"
-                                    >
-                                      +2
-                                    </a>
-                                  </li>
-                                  <li className="pl-4 w-auto">
-                                    <a
-                                      href="/"
-                                      className="fw-500 text-grey-500 font-xssss"
-                                    >
-                                      Student apply
-                                    </a>
-                                  </li>
-                                </ul>
-                              </div>
-                            </div>
-                          </div>
-
-                          // End Single Demo
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </Tab>
+              
+               
                 <Tab eventKey="live" title="LIVE">
                   <div className="card d-block w-100 border-0 shadow-xss rounded-lg overflow-hidden p-lg-4 p-2">
                     <div className="card-body mb-lg-3 pb-0">

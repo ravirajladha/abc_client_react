@@ -34,7 +34,7 @@ const Results = () => {
                 <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
                   <div>
                     <h2 className="fw-400 font-lg d-block">
-                      <b> Results</b>
+                      <b>Results</b>
                     </h2>
                   </div>
                   <div className="float-right">

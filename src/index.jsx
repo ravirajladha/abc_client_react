@@ -10,7 +10,8 @@ import Login from "./pages/common/Login.jsx";
 import Register from "./pages/common/Register.jsx";
 import Notfound from "./pages/common/Notfound.jsx";
 import Defaultuserprofile from "./pages/common/DefaultUserProfile.jsx";
-import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom";
+import StudentProfile from "./pages/student/DefaultUserProfile.jsx";
+import { HashRouter, Route, Routes } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
 import Home from "./pages/student/Home";
 import Subjects from "./pages/student/Subjects";
@@ -93,6 +94,7 @@ import Results from "./pages/school/Results.jsx";
 import ClassSubjectResults from "./pages/school/ClassSubjectResults.jsx";
 import ClassSubjects from "./pages/school/ClassSubjects.jsx";
 import ClassResults from "./pages/school/ClassResults.jsx";
+import ClassSubjectWiseResults from "./pages/school/ClassSubjectWiseResults.jsx";
 import AddQuestionsToAssessment from "./pages/admin/AddQuestionsToAssessment.jsx";
 
 class Root extends Component {
@@ -332,6 +334,19 @@ class Root extends Component {
                   "sub_admin",
                   "parent",
                   "teacher",
+                ]}
+              />
+            }
+          />
+          <Route
+            exact
+            path={`${process.env.PUBLIC_URL}/student/default-user-profile`}
+            element={
+              <ProtectedRoute
+                element={<StudentProfile />}
+                allowedTypes={[
+                  "school_student",
+                 
                 ]}
               />
             }
@@ -935,6 +950,17 @@ type_id: if mini_project then task_id else subject then video_id
             element={
               <ProtectedRoute
                 element={<ClassResults />}
+                allowedTypes={["sub_admin"]}
+              />
+            }
+          />
+
+          <Route
+            exact
+            path={`${process.env.PUBLIC_URL}/school/class/:classId/results1`}
+            element={
+              <ProtectedRoute
+                element={<ClassSubjectWiseResults />}
                 allowedTypes={["sub_admin"]}
               />
             }

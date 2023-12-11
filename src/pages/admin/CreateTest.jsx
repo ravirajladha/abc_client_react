@@ -14,7 +14,6 @@ function CreateTest() {
     { id: '3', term: 'Term 3' }
 ];
 
-
   const baseUrl = process.env.REACT_APP_BASE_URL;
   useEffect(() => {
     getClasses();
@@ -38,16 +37,20 @@ function CreateTest() {
       });
     });
   }
-  function getSubjects() {
-    let result = fetch(
-      baseUrl + "api/get_subjects_by_class/" + selectedClass
-    ).then(function (result) {
-      result.json().then(function (jsonbody) {
-        console.warn(jsonbody);
-        setSubjects(jsonbody);
-      });
-    });
+  async function getSubjects() {
+    try {
+      const response = await fetch(baseUrl + "api/get_subjects_by_class/" + selectedClass);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const jsonbody = await response.json();
+      console.warn("subject", jsonbody);
+      setSubjects(jsonbody);
+    } catch (error) {
+      console.error("Failed to fetch subjects:", error);
+    }
   }
+  
 
   const handleClassChange = (e) => {
     const selectedValue = e.target.value;

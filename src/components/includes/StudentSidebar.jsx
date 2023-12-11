@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
 import Profile from '../common/Profile';
-import Myclass from '../common/MyClass';
+import Myclass from '../common/MySubjects';
+import SubjectScore from '../common/SubjectScore';
 
 const StudentSidebar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -28,6 +29,7 @@ const StudentSidebar = () => {
         <div className="middle-sidebar-right-content">
           <Profile />
           <Myclass />
+          <SubjectScore />
         </div>
       </div>
       <button onClick={handleSidebarToggle} className="btn btn-circle text-white btn-neutral sidebar-right">

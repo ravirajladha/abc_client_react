@@ -97,9 +97,10 @@ function AppHeader() {
       <div className="display1-size display2-sm-size d-inline-block float-left mb-0 text-grey-900 fw-700 ml-2" >
       <h1 style={{ letterSpacing: '2px',fontSize:'25px' }}>&nbsp;ATOMS&nbsp;</h1>
       </div>
-
+    
       <ul className="d-flex ml-auto right-menu-icon px-3 pt-3">
         <Darkbutton />
+        {user.user.type == 'school_student' && 
         <li>
           <Link to="#">
             <img
@@ -114,19 +115,24 @@ function AppHeader() {
                   Settings
                 </Link>
               </div>
+              
+             
               <div className="font-xss text-grey-900 mb-0 py-2 fw-600 ml-0 d-flex align-items-center">
                 <i className="feather-user text-grey-900 font-lg mr-2"></i>
                 <Link
-                  to="/default-user-profile"
+                  to="/student/default-user-profile"
                   onClick={() => setIsDropdownOpen(false)}
                 >
                   Profile
                 </Link>
               </div>
+
+
             </div>
           </Link>
         </li>
    
+  }
 
         <li>
           <span onClick={toggleActive} className="menu-search-icon">
@@ -134,7 +140,6 @@ function AppHeader() {
           </span>
         </li>
       </ul>
-
       {sidebar}
     </div>
   );

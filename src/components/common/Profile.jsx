@@ -51,11 +51,11 @@ function Profile() {
     <div className="card overflow-hidden subscribe-widget p-3 mb-3 rounded-xxl border-0">
       <div
         className="card-body p-2 d-block text-center bg-no-repeat bg-image-topcenter"
-        style={{ backgroundImage: `url("assets/images/user-pattern.png")` }}
+        style={{ backgroundImage: `url("assets/images/avatar.png")` }}
       >
         <figure className="avatar ml-auto mr-auto mb-0 mt-2 w90">
           <img
-            src="assets/images/user.png"
+            src="/avatar.png"
             alt="avater"
             className="float-right shadow-sm rounded-circle w-100"
           />
@@ -69,7 +69,7 @@ function Profile() {
           Available
         </h4> */}
         <div className="clearfix"></div>
-        <div className="col-12 text-center mt-4 mb-2">
+        {/* <div className="col-12 text-center mt-4 mb-2">
           <a
             href="/message"
             className="p-0 ml-1 btn btn-round-md rounded-xl bg-current"
@@ -83,7 +83,7 @@ function Profile() {
             <i className="text-current ti-settings font-sm"></i>
           </a>
 
-        </div>
+        </div> */}
         <ul className="list-inline border-0 mt-4">
           <li className="list-inline-item text-center mr-4">
             <h4 className="fw-700 font-md">
@@ -103,27 +103,7 @@ function Profile() {
           </li>
         </ul>
 
-        <div className="col-12 pl-0 mt-4 text-left">
-          <h4 className="text-grey-800 font-xsss fw-700 mb-3 d-block">
-            My Tasks
-            <a href="/">
-              <i className="ti-angle-right font-xsssss text-grey-700 float-right "></i>
-            </a>
-          </h4>
-          {/* <Slider {...skillsettings}>
-            {skillList.map((value, index) => (
-              <div key={index} className="mr-1">
-                <a href="/" className="btn-round-xxxl border bg-greylight">
-                  <img
-                    src={`assets/images/${value.skill}`}
-                    alt="icon"
-                    className="p-3 w-100"
-                  />
-                </a>
-              </div>
-            ))}
-          </Slider> */}
-        </div>
+      
       </div>
     </div>
   );
