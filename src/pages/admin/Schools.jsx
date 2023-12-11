@@ -28,7 +28,7 @@ function Schools() {
   function getSchools() {
     let result = fetch(baseUrl + "api/get_schools").then(function (result) {
       result.json().then(function (jsonbody) {
-        console.warn(jsonbody);
+        //console.warn(jsonbody);
         setSchools(jsonbody);
       });
     });

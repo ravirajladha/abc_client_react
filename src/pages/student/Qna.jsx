@@ -101,7 +101,7 @@ function Qna() {
         baseUrl + "api/search_school_questions/" + name
       ).then(function (result) {
         result.json().then(function (jsonbody) {
-          console.warn(jsonbody);
+          //console.warn(jsonbody);
           setAllQnas(jsonbody);
         });
       });

@@ -1,4 +1,10 @@
 import React, { useState, useEffect } from "react";
+<<<<<<< HEAD
+=======
+import { Link } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import { getUserFromLocalStorage } from "../../pages/util/SessionStorage";
+>>>>>>> c80d62e792f96b9b63adf36e4a7d08ced3e42e7c
 
 import "react-toastify/dist/ReactToastify.css";
 import Slider from "react-slick";
@@ -109,14 +115,29 @@ function Home() {
   // const user = JSON.parse(userString);
 
   useEffect(() => {
+    const getSubjects = () => {
+      if (user) {
+        fetch(
+          baseUrl + "api/get_student_subjects/" + user.student.class_id
+        ).then(function (result) {
+          result.json().then(function (res) {
+            // console.warn("get_subjects", res);
+            setSubjects(res);
+          });
+        });
+      }
+    };
+
     if (user) {
       getSubjects();
+      getStudentRanks();
     } else {
       return;
     }
   }, [user]);
 
   const [subjects, setSubjects] = useState([]);
+<<<<<<< HEAD
   function getSubjects() {
     let result = fetch(
       baseUrl + "api/get_student_subjects/" + user.student.class_id
@@ -126,6 +147,20 @@ function Home() {
         setSubjects(jsonbody);
       });
     });
+=======
+  
+  const [studentClassRank, setStudentClassRank] = useState([]);
+
+  async function getStudentRanks() {
+    try {
+      const response = await fetch(baseUrl + "api/student/" + user.student.auth_id);
+      const student = await response.json();
+      // console.warn(student.data.class_rank);
+      setStudentClassRank(student.data.class_rank);
+    } catch (error) {
+      console.error("There was a problem fetching student details:", error);
+    }
+>>>>>>> c80d62e792f96b9b63adf36e4a7d08ced3e42e7c
   }
 
   if (!user) {
@@ -169,7 +204,11 @@ function Home() {
                         <div className="col">
                           {/* <h4 className="fw-700 text-success font-xssss mt-0 mb-0 ">+45 %</h4> */}
                           <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
+<<<<<<< HEAD
                             455{" "}
+=======
+                            {studentClassRank ? studentClassRank : '-'}
+>>>>>>> c80d62e792f96b9b63adf36e4a7d08ced3e42e7c
                           </h2>
                           <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
                             Class Rank

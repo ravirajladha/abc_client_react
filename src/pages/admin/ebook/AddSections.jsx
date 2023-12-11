@@ -31,7 +31,7 @@ function AddSections() {
     function getEbookModule() {
         let result = fetch(baseUrl + 'api/get_module_by_id/'+module_id).then(function (result) {
             result.json().then(function (jsonbody) {
-                console.warn(jsonbody);
+                //console.warn(jsonbody);
                 setEbookModule(jsonbody);
             })
         });

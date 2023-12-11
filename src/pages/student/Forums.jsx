@@ -74,7 +74,7 @@ function Forums() {
         } else {
             let result =   fetch(baseUrl + "api/school_search_forum_questions/" + name).then(function (result) {
                 result.json().then(function (jsonbody) {
-                    console.warn(jsonbody);
+                    //console.warn(jsonbody);
                     setAllForums(jsonbody);
                 })
             })
@@ -124,7 +124,10 @@ function Forums() {
                                             className="w-100 d-block btn bg-current text-white font-xssss fw-600 ls-3 style1-input p-3 border-0 text-uppercase ">Search</Link>
                                     </div>
                                 </div>
+                                <div>
                                 {allForums && allForums.length > 0 && <SearchResults results={allForums} onResultClick={handleResultClick} />}
+                                </div>
+                                
                             </div>
                             <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
 

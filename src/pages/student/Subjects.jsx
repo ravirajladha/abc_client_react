@@ -51,8 +51,7 @@ function Subjects() {
                     <BackButton />
                   </div>
                 </div>
-                {
-                subjects.map((value, index) => (
+                {subjects.map((value, index) => (
                   <div className="col-xl-4 col-lg-6 col-md-6" key={index}>
                     <div className="card mb-4 d-block w-100 shadow-xss rounded-lg p-xxl-5 p-4 border-0 text-center">
                       {/* <Link
@@ -61,19 +60,51 @@ function Subjects() {
                       >
                         <i className="ti-more text-grey-500 font-xs"></i>
                       </Link> */}
-                      <Link
-                        to={"/subject_stream/" + value.id}
-                        className="btn-round-xxxl rounded-lg bg-lightblue ml-auto mr-auto"
-                      >
-                        <img
-                          src={baseUrl + value.subject_image}
-                          alt="icon"
-                          className="p-1 w-100"
-                        />
-                      </Link>
-                      <h4 className="fw-700 font-xs my-2 text-capitalize">
-                        {value.subject_name}
-                      </h4>
+                      <div className="d-flex justify-content-between align-items-center">
+                        <div>
+                          <Link
+                            to={"/subject_stream/" + value.id}
+                            className="btn-round-xxxl rounded-lg bg-lightblue ml-auto mr-auto"
+                          >
+                            <img
+                              src={baseUrl + value.subject_image}
+                              alt="icon"
+                              className="p-1 w-100"
+                            />
+                          </Link>
+                          <h4 className="fw-700 font-xs my-2 text-capitalize">
+                            {value.subject_name}
+                          </h4>
+                        </div>
+                        <div>
+                          <div>
+                          <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-success d-inline-block text-success mb-1 mr-1">
+                            T1
+                          </span>
+                          <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-info d-inline-block text-info">
+                            Coming Soon
+                          </span>
+                          </div>
+                          <div>
+                          <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-success d-inline-block text-success mb-1 mr-1">
+                            T2
+                          </span>
+                          <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-info d-inline-block text-info">
+                            Coming Soon
+                          </span>
+                          </div>
+                          <div>
+                          <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-success d-inline-block text-success mb-1 mr-1">
+                            T3
+                          </span>
+                          <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-info d-inline-block text-info">
+                            Coming Soon
+                          </span>
+                          </div>
+                          
+                        </div>
+                      </div>
+
                       <div className="clearfix"></div>
                       {/* <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-success d-inline-block text-success mb-1 mr-1">
                         FULL TIME
@@ -85,18 +116,35 @@ function Subjects() {
                       <div className="clearfix"></div>
                       <Link
                         to={"/subject_stream/" + value.id}
-                        className="px-2 py-1 mt-4 mr-2 d-inline-block text-white fw-700 lh-30 rounded-lg w100 text-center font-xsssss ls-3 bg-current" >
+                        className="px-2 py-1 mt-4 mr-2 d-inline-block text-white fw-700 lh-30 rounded-lg w100 text-center font-xsssss ls-3 bg-current"
+                      >
                         LEARN
                       </Link>
-                      <Link 
-                        to={ value.latest_test_id ? `/subject_stream/take_test/${value.id}/${value.latest_test_id}` : "#" }
-                        className={`px-2 py-1 mt-4 d-inline-block fw-700 lh-30 rounded-lg w100 text-center font-xsssss ls-3  ${value.latest_test_id ? "bg-current text-white" : "d-none " }`}
-                        style={ value.latest_test_id ? {} : { pointerEvents: "none", cursor: "not-allowed" } }
+                      <Link
+                        to={
+                          value.latest_test_id
+                            ? `/subject_stream/take_test/${value.id}/${value.latest_test_id}`
+                            : "#"
+                        }
+                        className={`px-2 py-1 mt-4 d-inline-block fw-700 lh-30 rounded-lg w100 text-center font-xsssss ls-3  ${
+                          value.latest_test_id
+                            ? "bg-current text-white"
+                            : "d-none "
+                        }`}
+                        style={
+                          value.latest_test_id
+                            ? {}
+                            : { pointerEvents: "none", cursor: "not-allowed" }
+                        }
                       >
                         {value.latest_test_id ? "TAKE TEST" : "Coming Soon"}
                       </Link>
-                      <Link to={"/subject/" + value.id + "/results"}
-                        className={`px-2 py-1 ml-2 mt-4 d-inline-block fw-700 lh-30 bg-current text-white rounded-lg w100 text-center font-xsssss text-uppercase ls-3 ${value.results ? "" : "d-none " }`} >
+                      <Link
+                        to={"/subject/" + value.id + "/results"}
+                        className={`px-2 py-1 ml-2 mt-4 d-inline-block fw-700 lh-30 bg-current text-white rounded-lg w100 text-center font-xsssss text-uppercase ls-3 ${
+                          value.results ? "" : "d-none "
+                        }`}
+                      >
                         Results
                       </Link>
                     </div>

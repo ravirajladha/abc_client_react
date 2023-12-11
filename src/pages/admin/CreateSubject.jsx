@@ -30,7 +30,7 @@ function CreateSubject() {
 
         let result = fetch(baseUrl + 'api/get_classes').then(function (result) {
             result.json().then(function (jsonbody) {
-                console.warn(jsonbody);
+                //console.warn(jsonbody);
                 setClasses(jsonbody);
             })
         });

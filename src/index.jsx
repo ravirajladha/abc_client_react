@@ -408,7 +408,7 @@ class Root extends Component {
             element={
               <ProtectedRoute
                 element={<PreviewEbook />}
-                allowedTypes={["admin"]}
+                allowedTypes={["admin", "school_student"]}
               />
             }
           />

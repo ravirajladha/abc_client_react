@@ -14,7 +14,7 @@ function Ebooks() {
     function getEbooks() {
         let result = fetch(baseUrl + 'api/get_ebooks').then(function (result) {
             result.json().then(function (jsonbody) {
-                console.warn(jsonbody);
+                //console.warn(jsonbody);
                 setEbooks(jsonbody.ebooks);
             })
         });

@@ -1,11 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
+import SearchResults from "../../../components/common/SearchResults.jsx";
 
-function QnaTab({
-  userId,
-  isTeacherAvailable,
-  subjectId,
-  receiverId,
-}) {
+function QnaTab({ userId, isTeacherAvailable, subjectId, receiverId }) {
   const baseUrl = process.env.REACT_APP_BASE_URL;
 
   function formatTimeFromTimestamp(timestamp) {
@@ -26,8 +22,10 @@ function QnaTab({
   const chatInputRef = useRef(null);
 
   const [chat, setChat] = useState([]);
-  const [newMessage, setNewMessage] = useState("");
-
+  // const [newMessage, setNewMessage] = useState("");
+  const [qnaValue, setQnaValue] = useState("");
+  const [allQnas, setAllQnas] = useState([]);
+  const [qnaId, setQnaId] = useState("");
   const fetchMessages = async () => {
     try {
       const response = await fetch(
@@ -52,12 +50,15 @@ function QnaTab({
   };
 
   const sendMessage = async (e) => {
+    console.log(qnaId);
     e.preventDefault();
     try {
       const formData = new FormData();
       formData.append("sender_id", userId);
       formData.append("receiver_id", receiverId);
-      formData.append("message", newMessage);
+      formData.append("message", qnaValue);
+      formData.append("subject_id", subjectId);
+      // formData.append("qna_id", qnaId);
 
       const response = await fetch(baseUrl + "api/send-message", {
         method: "POST",
@@ -66,7 +67,8 @@ function QnaTab({
       if (!response) {
         throw new Error("Failed to send message");
       }
-      setNewMessage("");
+      // setNewMessage("");
+      setQnaValue("");
       chatInputRef.current.focus();
 
       fetchMessages();
@@ -74,9 +76,53 @@ function QnaTab({
       console.error("Error sending message:", error);
     }
   };
+
+
+
+  // search qna
+  function search(name) {
+    setQnaValue(name);
+    if (name.trim() === "") {
+      // If the search input is empty or only contains spaces, clear the results
+      setAllQnas([]);
+    } else {
+      let result = fetch(baseUrl + "api/search_school_questions/" + name).then(
+        function (result) {
+          result.json().then(function (jsonbody) {
+            console.warn(jsonbody);
+            setAllQnas(jsonbody);
+          });
+        }
+      );
+    }
+  }
+  function handleResultClick(selectedValue, selectedId) {
+    setQnaValue(selectedValue);
+    setQnaId(selectedId);
+    // setNewMessage(selectedValue);
+    setAllQnas([]);
+  }
+
+  function shouldShowInput() {
+   
+    const mergedMessages = chat.merged_messages;
+
+    // Check if chat and merged_messages exist and if merged_messages is not empty
+    if (chat && mergedMessages && mergedMessages.length > 0) {
+      const lastMessage = Object.values(mergedMessages).pop();
+
+      // Check if lastMessage is defined and if it's from the user and hasn't been replied to
+      return (
+        lastMessage &&
+        lastMessage.sender_id !== userId 
+      );
+    }
+    // Default to false if there is no chat or merged_messages
+    return true;
+  }
   useEffect(() => {
-    console.log("New Message after update:", newMessage);
-  }, [newMessage]);
+    console.log("New Message after update:", qnaValue);
+  }, [qnaValue]);
 
   useEffect(() => {
     fetchMessages();
@@ -132,36 +178,44 @@ function QnaTab({
           <div className="message-item"></div>
         )}
         {isTeacherAvailable ? (
-             <form
-             className="chat-form position-absolute bottom-0 w-100 left-0 bg-white z-index-1 p-3 shadow-xs theme-dark-bg"
-             onSubmit={sendMessage}
-           >
-             <button className="bg-grey float-left">
-               <i
-                 className="ti-microphone text-white"
-                 disabled
-               ></i>
-             </button>
-             <div className="form-group">
-               <input
-                 type="text"
-                 ref={chatInputRef}
-                 // placeholder="start typing"
-                 placeholder={newMessage ? "" : "Start typing.."}
-                 value={newMessage}
-                 onChange={(e) => setNewMessage(e.target.value)}
-                 onClick={() => setNewMessage("")}
-                 className="text-grey-500"
-               />
-             </div>
-             <button type="submit" className="bg-current">
-               <i className="ti-arrow-right text-white"></i>
-             </button>
-           </form>
+          <>
+            {shouldShowInput() ? (
+              <form
+                className="chat-form position-absolute bottom-0 w-100 left-0 bg-white z-index-1 p-3 shadow-xs theme-dark-bg"
+                onSubmit={sendMessage}
+              >
+                <button className="bg-grey float-left">
+                  <i className="ti-microphone text-white" disabled></i>
+                </button>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    ref={chatInputRef}
+                    placeholder={qnaValue ? "" : "Start typing.."}
+                    onChange={(e) => search(e.target.value)}
+                    value={qnaValue}
+                    className="text-grey-500"
+                  />
+                </div>
+                <button type="submit" className="bg-current">
+                  <i className="ti-arrow-right text-white"></i>
+                </button>
+              </form>
+            ) : (
+              <div className="text-center p-3">
+                <span>Previous question is not answered yet.</span>
+              </div>
+            )}
+          </>
         ) : (
           <div className="text-center p-3">
             <span>Chat unavailable. No teacher assigned.</span>
           </div>
+        )}
+      </div>
+      <div style={{ width: "100%" }}>
+        {allQnas && allQnas.length > 0 && (
+          <SearchResults results={allQnas} onResultClick={handleResultClick} />
         )}
       </div>
     </>

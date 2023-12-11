@@ -17,7 +17,7 @@ function MiniProjects() {
     function getMiniProjects() {
         let result = fetch(baseUrl + 'api/get_mini_projects').then(function (result) {
             result.json().then(function (jsonbody) {
-                console.warn(jsonbody);
+                //console.warn(jsonbody);
                 setMiniProjects(jsonbody);
             })
         });
