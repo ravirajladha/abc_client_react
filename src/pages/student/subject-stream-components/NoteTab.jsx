@@ -79,6 +79,10 @@ function NoteTab({ userId, videoPlayer, activeVideoId }) {
             }
             setModal1Open(false);
             setNewNote("");
+            fetchNotes();
+            setMarkersCreated(false);
+            createMarkers(videoPlayer, notes);
+
 
         } catch (error) {
             console.error("Error storing notes:", error);
