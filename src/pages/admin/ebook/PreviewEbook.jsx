@@ -128,7 +128,7 @@ function PreviewEbook() {
 
       const interval = setInterval(() => {
         const element = document.getElementById(id);
-        console.log(element); // Logging the element for debugging
+        // console.log(element); // Logging the element for debugging
         if (element) {
           clearInterval(interval); // Clear the interval once the element is found
           element.scrollIntoView({ behavior: "smooth" });
@@ -142,13 +142,14 @@ function PreviewEbook() {
   if (!ebookModules || !Object.keys(moduleRefs).length) {
     return (
       <div className="vh-100">
-        {/* <Spinner
-          animation="border"
-          variant="current"
-          className="d-flex align-items-center"
-        > */}
-        <span className="visually-hidden">Loading...</span>
-        {/* </Spinner> */}
+        <div className="d-flex vh-100 align-items-center justify-content-center">
+          <Spinner
+            animation="border"
+            variant="current"
+          >
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+        </div>
       </div>
     );
   }
