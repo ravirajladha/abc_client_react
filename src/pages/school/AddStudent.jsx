@@ -138,7 +138,9 @@ function AddStudent() {
       setIsSubmitting(false); // Re-enable the submit button
     }
   };
-
+  const goBack = () => {
+    navigate(-1);
+  };
   return (
     <div>
       <div className="main-wrapper">
@@ -146,21 +148,28 @@ function AddStudent() {
           <AppHeader />
           <div className="middle-sidebar-bottom">
             <div className="middle-sidebar-left">
-              <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
-                <div className="card-body p-4 w-100 border-0 d-flex rounded-lg justify-content-between">
+            <div className="card-body p-4 w-100 border-0 d-flex rounded-lg justify-content-between">
                   <h2 className="fw-400 font-lg d-block">
                     Add <b> Student</b>
                     <ToastContainer autoClose={3000} />
                   </h2>
-                  <Breadcrumb style={{ padding: "0.25rem 1rem" }}>
+                  {/* <Breadcrumb style={{ padding: "0.25rem 1rem" }}>
                     <Breadcrumb.Item href="/school">
                       <i className="fa fa-home"></i>&nbsp;Home&nbsp;
                     </Breadcrumb.Item>
                     <Breadcrumb.Item active className="fw-500 text-black">
                       &nbsp;Add Student
                     </Breadcrumb.Item>
-                  </Breadcrumb>
+                  </Breadcrumb> */}
+                     <button
+                      onClick={goBack}
+                      className="px-3 py-1   d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1"
+                    >
+                      Back
+                    </button>
                 </div>
+              <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
+             
                 <div></div>
                 <div className="card-body p-lg-5 p-4 w-100 border-0">
                   <form

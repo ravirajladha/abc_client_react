@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import AppHeader from "../../components/includes/AppHeader";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import { toast, ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 function AddTeacher() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
 
   const [fields, setFields] = useState([{ className: "", subject: "" }]);
   const [classList, setClassList] = useState([]);
@@ -72,50 +74,52 @@ function AddTeacher() {
 
     // Access the form data
     const formDataToSend = new FormData();
-  
+
     Object.entries(formData).forEach(([key, value]) => {
       formDataToSend.append(key, value);
     });
-  
+
     // Collect class and subject data
-    const classAndSubjectData = fields.map(field => ({
+    const classAndSubjectData = fields.map((field) => ({
       class_id: field.className,
       subject_id: field.subject,
     }));
-  
+
     // Filter out any pairs that have empty class_id or subject_id
-    const filteredClassAndSubjectData = classAndSubjectData.filter(field => field.class_id && field.subject_id);
-  
+    const filteredClassAndSubjectData = classAndSubjectData.filter(
+      (field) => field.class_id && field.subject_id
+    );
+
     // Convert the array to a JSON string
     const classAndSubjectJson = JSON.stringify(filteredClassAndSubjectData);
-  
+
     // Append the JSON string to your FormData
-    formDataToSend.append('class_and_subject', classAndSubjectJson);
-  
+    formDataToSend.append("class_and_subject", classAndSubjectJson);
+
     // Log FormData contents
     for (var pair of formDataToSend.entries()) {
-      console.log(pair[0]+ ', ' + pair[1]); 
+      console.log(pair[0] + ", " + pair[1]);
     }
 
     fetch(baseUrl + "api/school/api_add_teacher", {
       method: "POST",
       body: formDataToSend,
     })
-    .then((response) => {
-      if (!response.ok) {
+      .then((response) => {
+        if (!response.ok) {
           // If the response status code is not in the 2xx range
-          return response.json().then(data => {
-              if (response.status === 409) {
-                  // Duplicate email error
-                  throw new Error(data.error || 'Duplicate email found');
-              } else {
-                  // Other errors
-                  throw new Error(data.error || 'Failed to add teacher');
-              }
+          return response.json().then((data) => {
+            if (response.status === 409) {
+              // Duplicate email error
+              throw new Error(data.error || "Duplicate email found");
+            } else {
+              // Other errors
+              throw new Error(data.error || "Failed to add teacher");
+            }
           });
-      }
-      return response.json();
-  })
+        }
+        return response.json();
+      })
       .then((data) => {
         // Handle success
         console.log("Teacher added successfully", data);
@@ -138,49 +142,51 @@ function AddTeacher() {
       .catch((error) => {
         console.error("Error adding teacher:", error);
         toast.error(error.message); // Display the error m
-      }).finally(() => {
+      })
+      .finally(() => {
         setIsSubmitting(false); // Re-enable the submit button
-    });
+      });
   };
-  // const goBack = () => {
-  //   navigate(-1);
-  // };
+  const goBack = () => {
+    navigate(-1);
+  };
   return (
     <div className="main-wrapper">
       <div className="main-content menu-active">
         <AppHeader />
-        <div className="middle-sidebar-bottom bg-lightblue theme-dark-bg">
+        {/* <div className="middle-sidebar-bottom bg-lightblue theme-dark-bg"> */}
+        <div className="middle-sidebar-bottom  ">
           <div className="middle-sidebar-left">
-          <div className="col-lg-12 pt-0 mb-1 d-flex justify-content-between">
-                  <div>
-                    <h2 className="fw-400 font-lg d-block">
-                      Add <b>Teacher</b>
-                    </h2>
-                  </div>
-          <div className="float-right">
-                    <Breadcrumb style={{ padding: "0.25rem 1rem" }}>
+          <div className="card-body p-4 w-100 border-0 d-flex rounded-lg justify-content-between">
+                <h2 className="fw-400 font-lg d-block">
+                  Add <b>Teacher</b>
+                </h2>
+             
+              <div className="float-right">
+                {/* <Breadcrumb style={{ padding: "0.25rem 1rem" }}>
                       <Breadcrumb style={{ padding: "0.25rem 1rem" }}>
                         <Breadcrumb.Item href="/school">
                           <i className="fa fa-home"></i>&nbsp; Home
                         </Breadcrumb.Item>
-                        {/* <Breadcrumb.Item href="/s/all_courses">
-                          &nbsp; Course
-                        </Breadcrumb.Item> */}
+                   
                         <Breadcrumb.Item active className="fw-500 text-black">
                           &nbsp; Add Teacher
                         </Breadcrumb.Item>
                       </Breadcrumb>
-                    </Breadcrumb>
-                  </div>
-                  </div>
-            <div className="mb-3">
+                    </Breadcrumb> */}
+                <button
+                  onClick={goBack}
+                  className="px-3 py-1   d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1"
+                >
+                  Back
+                </button>
+              </div>
+            </div>
+            {/* <div className="mb-3"> */}
               <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
                 <div className="card-body p-4 w-100 border-0 d-flex rounded-lg justify-content-between">
-                
                   <ToastContainer autoClose={3000} />
-
-               
-                </div>
+              
 
                 <div className="card-body p-lg-5 p-4 w-100 border-0">
                   <form
@@ -232,14 +238,14 @@ function AddTeacher() {
                           </label>
                           <br />
                           <input
-                           type="tel"
+                            type="tel"
                             name="phone"
                             className="form-control"
                             placeholder="Enter Teacher Phone"
                             value={formData.phone}
                             onChange={handleInputChange}
                             maxLength="10" // This limits the input to 10 characters
-                pattern="\d{10}" // This pattern matches exactly 10 digits
+                            pattern="\d{10}" // This pattern matches exactly 10 digits
                             required
                           />
                         </div>
@@ -266,94 +272,100 @@ function AddTeacher() {
 
                     <div className="row">
                       <div className="col-lg-12">
-                      <div className="row">
-                      <div className="col-lg-1">
-                        <div className="form-group">
-                          <button
-                            type="button"
-                            id="addFields"
-                            className="btn bg-current text-center text-white font-xsss fw-600 p-1 w80 rounded-lg d-inline-block border-0"
-                            style={{ float: "right" }}
-                            onClick={handleAddFields}
-                          >
-                            Add Row
-                          </button>
+                        <div className="row">
+                          <div className="col-lg-1">
+                            <div className="form-group">
+                              <button
+                                type="button"
+                                id="addFields"
+                                className="btn bg-current text-center text-white font-xsss fw-600 p-1 w80 rounded-lg d-inline-block border-0"
+                                style={{ float: "right" }}
+                                onClick={handleAddFields}
+                              >
+                                Add Row
+                              </button>
+                            </div>
+                          </div>
+
+                          <div className="col-lg-10">
+                            <div className="dynamic">
+                              {fields.map((field, index) => (
+                                <div
+                                  className="class-subject-fields row"
+                                  key={index}
+                                >
+                                  <div className="col-lg-5">
+                                    <div className="form-group">
+                                      <label className="mont-font fw-600 font-xsss">
+                                        Class
+                                      </label>
+                                      <br />
+                                      <select
+                                        name={`className_${index}`}
+                                        value={field.className}
+                                        onChange={(e) =>
+                                          handleClassChange(index, e)
+                                        }
+                                        className="form-control"
+                                      >
+                                        <option value="">-Select-</option>
+                                        {classList.map((classItem) => (
+                                          <option
+                                            key={classItem.id}
+                                            value={classItem.id}
+                                          >
+                                            {classItem.class}
+                                          </option>
+                                        ))}
+                                      </select>
+                                    </div>
+                                  </div>
+                                  <div className="col-lg-5">
+                                    <div className="form-group">
+                                      <label className="mont-font fw-600 font-xsss">
+                                        Subject
+                                      </label>
+                                      <br />
+                                      <select
+                                        name={`subject_${index}`}
+                                        value={field.subject_name}
+                                        onChange={(e) => handleChange(index, e)}
+                                        className="form-control"
+                                      >
+                                        <option value="">-Select-</option>
+                                        {subjectList.map((subject) => (
+                                          <option
+                                            key={subject.id}
+                                            value={subject.id}
+                                          >
+                                            {subject.subject_name}
+                                          </option>
+                                        ))}
+                                      </select>
+                                    </div>
+                                  </div>
+                                  <div className="col-lg-2 my-auto">
+                                    <button
+                                      type="button"
+                                      className="remove-field btn bg-danger text-center text-white font-xsss fw-600 p-1 w80 rounded-lg d-inline-block border-0"
+                                      onClick={() => handleRemoveFields(index)}
+                                    >
+                                      Delete
+                                    </button>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
                         </div>
                       </div>
-                   
-                    <div className="col-lg-10">
-                    <div className="dynamic">
-                      {fields.map((field, index) => (
-                        <div className="class-subject-fields row" key={index}>
-                          <div className="col-lg-5">
-                            <div className="form-group">
-                              <label className="mont-font fw-600 font-xsss">
-                                Class
-                              </label>
-                              <br />
-                              <select
-                                name={`className_${index}`}
-                                value={field.className} 
-                                onChange={(e) => handleClassChange(index, e)}
-                                className="form-control"
-                              >
-                                <option value="">-Select-</option>
-                                {classList.map((classItem) => (
-                                  <option
-                                    key={classItem.id}
-                                    value={classItem.id}
-                                  >
-                                    {classItem.class}
-                                  </option>
-                                ))}
-                              </select>
-                            </div>
-                          </div>
-                          <div className="col-lg-5">
-                            <div className="form-group">
-                              <label className="mont-font fw-600 font-xsss">
-                                Subject
-                              </label>
-                              <br />
-                              <select
-                                name={`subject_${index}`}
-                                value={field.subject_name}
-                                onChange={(e) => handleChange(index, e)}
-                                className="form-control"
-                              >
-                                <option value="">-Select-</option>
-                                {subjectList.map((subject) => (
-                                  <option
-                                    key={subject.id}
-                                    value={subject.id}
-                                  >
-                                    {subject.subject_name}
-                                  </option>
-                                ))}
-                              </select>
-                            </div>
-                          </div>
-                          <div className="col-lg-2 my-auto">
-                            <button
-                              type="button"
-                              className="remove-field btn bg-danger text-center text-white font-xsss fw-600 p-1 w80 rounded-lg d-inline-block border-0"
-                              onClick={() => handleRemoveFields(index)}
-                            >
-                              Delete
-                            </button>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                    </div>
-                    </div>
-                    </div>
                     </div>
 
                     <div className="col-lg-12">
                       &nbsp;&nbsp;&nbsp;
                       <button
-                        type="submit" disabled={isSubmitting} 
+                        type="submit"
+                        disabled={isSubmitting}
                         className="btn bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0"
                         style={{ marginTop: "2rem", float: "right" }}
                       >

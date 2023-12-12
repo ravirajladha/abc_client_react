@@ -1,21 +1,23 @@
 import React, { useState, useEffect } from "react";
 
 const FormPageOne = ({ formData, onSubmit, goToNextForm }) => {
+  console.log("formdata",formData)
   const [formState, setFormState] = useState({
-    f_name: "",
-    l_name: "",
-    email: "",
-    phone_no: "",
-    whatsapp_no: "",
-    whatsapp_exist: false,
-    dob: "",
-    gender: "",
-    religion: "",
-    category: "",
-    physically_challenged: "",
-    aadhar: "",
-    address_proof: null,
-    identity_proof: null,
+    ...formData,
+    // f_name: "",
+    // l_name: "",
+    // email: "",
+    // phone_no: "",
+    // whatsapp_no: "",
+    // whatsapp_exist: false,
+    // dob: "",
+    // gender: "",
+    // religion: "",
+    // category: "",
+    // physically_challenged: "",
+    // aadhar: "",
+    // address_proof: null,
+    // identity_proof: null,
   });
 
   const [options, setOptions] = useState({
@@ -26,12 +28,18 @@ const FormPageOne = ({ formData, onSubmit, goToNextForm }) => {
   });
 
   // Set initial form values based on formData prop when the component mounts
+  // useEffect(() => {
+  //   if (formData) {
+  //     setFormState(formData);
+  //   }
+  // }, [formData]);
   useEffect(() => {
-    if (formData) {
-      setFormState(formData);
-    }
+    // Update form state when formData changes
+    setFormState({
+      ...formData,
+    });
   }, [formData]);
-
+  
   const handleChange = (e) => {
     const { name, type, checked, value, files } = e.target;
     if (type === "checkbox") {

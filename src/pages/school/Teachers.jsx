@@ -34,7 +34,7 @@ function Teachers() {
       const subjects = JSON.parse(subjectString);
   
       // Map over the array and format the class and subject into a string
-      return subjects.map(sub => `Class ${sub.class_id}, Subject ${sub.subject_id}`).join(' \n ');
+      return subjects.map(sub => `Class ${sub.class_id}, Subject ${sub.subject_id}`).join(' ~|~ ');
     } catch (error) {
       console.error('Error parsing subjects JSON:', error);
       return 'Invalid subjects data'; // or some other error handling
@@ -84,7 +84,7 @@ function Teachers() {
                       <tr key={teacher.id}>
                         <td>{teacher.id}</td>
                         <td>{teacher.user.name}</td>
-                        <td>{formatClassSubject(teacher.class_and_subject)}</td>
+                        <td>{formatClassSubject(teacher.class_and_subject)} </td>
                         <td>
                           <Link
                             to="#"

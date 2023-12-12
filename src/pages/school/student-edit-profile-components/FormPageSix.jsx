@@ -6,6 +6,7 @@ const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const FormPageSix = ({ allFormData, onSubmit, goToPreviousForm }) => {
   const { id } = useParams();
+ 
   const navigate = useNavigate();
 
   const [formState, setFormState] = useState({
@@ -50,7 +51,8 @@ const FormPageSix = ({ allFormData, onSubmit, goToPreviousForm }) => {
 
     // Add data from FormPageOne
     for (const key in allFormData.formOneData) {
-      formData.append(key, allFormData.formOneData[key]);
+      const value = allFormData.formOneData[key] ?? ""; // Default to empty string if null/undefined
+      formData.append(key, value);
     }
 
     // Add data from FormPageThree
@@ -70,7 +72,10 @@ const FormPageSix = ({ allFormData, onSubmit, goToPreviousForm }) => {
 
     formData.append("auth_id", id);
     formData.append("created_by", createdBy);
-
+    for (let [key, value] of formData.entries()) {
+      console.log("final:",`${key}: ${value}`);
+    }
+  
     // Send the FormData to the API endpoint using a POST request
     fetch(baseUrl + "api/school/edit_student_profile/" + id, {
       method: "POST",
@@ -143,17 +148,14 @@ const FormPageSix = ({ allFormData, onSubmit, goToPreviousForm }) => {
                     <label className="mont-font fw-600 font-xsss">
                       Hobbies (Select multiple which ever is applicable)
                     </label>
-                    <select
-                      className="form-control mdl-textfield__input"
+                    <input
+                      type="text"
                       name="hobby"
-                      placeholder=""
                       value={formState.hobby}
                       onChange={handleChange}
-                      required
-                    >
-                      <option value="">-Select-</option>
-                      <option value="abcd">abcd</option>
-                    </select>
+                      className="form-control"
+                    />
+                
                   </div>
                 </div>
                 <div className="col-lg-6 mb-3">

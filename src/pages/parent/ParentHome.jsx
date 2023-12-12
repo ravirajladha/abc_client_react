@@ -7,12 +7,15 @@ import "react-toastify/dist/ReactToastify.css";
 import { useContext } from "react";
 import { AuthContext } from "../../lib/AuthContext.js";
 import { Link } from "react-router-dom";
+import ApexChart from "../../components/common/ApexChart.jsx";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
 function ParentHome() {
   const [parentCode, setParentCode] = useState("");
   const [children, setChildren] = useState([]);
+
+  const dynamicSeries = [30, 40];
 
   const userDetails = useContext(AuthContext).user;
   const fetchUserDetails = async () => {
@@ -58,71 +61,180 @@ function ParentHome() {
   return (
     <>
       <div className="main-wrapper">
-        <div className="main-content  menu-active" id="main-content">
+        <div className="main-content menu-active">
           <AppHeader />
+
           <div className="middle-sidebar-bottom theme-dark-bg">
-            <div className="middle-sidebar-left">
-              <div className="container p-2">
-                <div className="row mb-2">
-                  <h1>Welcome, {userDetails.user.name}!</h1>
-                  <br />
-                </div>
-                <div className="row">
-                  <div className="col-lg-6 d-flex mb-4 justify float-right">
-                    <h2 className="text-grey-900 font-md fw-700">
-                      Parent Code: {parentCode}
-                    </h2>
+            <div className="custom-middle-sidebar-left">
+              {/* Intro Message */}
+              <div className="row">
+                <div className="col-lg-12">
+                  <div className="card w-100 bg-lightblue p-lg-5 p-4 border-0 rounded-lg d-block float-left">
+                    <h1 className="display1-size display2-md-size d-inline-block float-left mb-0 text-grey-900 fw-700">
+                      <span
+                        className="font-xssss fw-600 text-grey-500 d-block mb-2"
+                        style={{ fontSize: "20px" }}
+                      >
+                        Welcome back!
+                      </span>
+                      Hi, {userDetails.user.name}
+                      <span
+                        className="font-xsss fw-600 text-grey-700 d-block mt-2"
+                        style={{ fontSize: "20px" }}
+                      >
+                        Parent Code: {parentCode}
+                      </span>
+                    </h1>
+
+                    <img
+                      src="/avatar.png"
+                      alt="icon"
+                      className="w125 right-15 top-0 position-absolute d-none d-xl-block mt-3"
+                    />
                   </div>
                 </div>
-                <div className="row">
-                  {children
-                    ? children.map((child, index) => (
-                        <div
-                          className="col-xl-3 col-lg-6 col-md-6 col-sm-6"
-                          key={index}
-                        >
-                          <div className="card mb-4 d-block w-100 shadow-xss rounded-lg p-4 border-0 text-center">
-                            <div class="ml-auto mr-auto rounded-lg overflow-hidden d-inline-block">
-                              <img
-                                src="https://via.placeholder.com/100x100.png"
-                                alt="icon"
-                                class="p-0 w100 shadow-xss"
-                              />
+              </div>
+
+              {/* <div className="row">
+                <div className="col-lg-12">
+                  <div class="form-group mt-lg-4 p-3 p-2 rounded-lg ">
+                    {children
+                      ? children.map((child, index) => (
+                          <div class="row">
+                            <div class="col-md-3">
+                              <div class="form-group icon-input mb-0">
+                                <i class="ti-user font-xs text-grey-400"></i>
+                                <select
+                                  class="style1-select bg-transparent border-0 pl-5"
+                                  key={index}
+                                >
+                                  <option value="Bootstrap">
+                                    {child.name}
+                                  </option>
+                                </select>
+                              </div>
                             </div>
-                            <Link
-                              to={"/student/" + child.id}
-                              className="nav-link"
-                            >
-                              <h4 className="font-xs mt-3 mb-1">
-                                {child.name}
-                              </h4>
-                            </Link>
-                            <p class="fw-600 font-xssss text-grey-500 mt-0 mb-2">
-                            {child.email}
-                            </p>
-                            <ul class="list-inline border-0 mt-4">
-                              <li class="list-inline-item text-center mr-4">
-                                <h4 class="fw-700 font-md">
-                                  90.3%
-                                  <span class="font-xssss fw-500 mt-1 text-grey-500 d-block">
-                                   Term Tests
-                                  </span>
-                                </h4>
-                              </li>
-                              <li class="list-inline-item text-center mr-4">
-                                <h4 class="fw-700 font-md">
-                                  88.7%
-                                  <span class="font-xssss fw-500 mt-1 text-grey-500 d-block">
-                                    Assessments
-                                  </span>
-                                </h4>
-                              </li>
-                            </ul>
-                            <Link to={"/student/" + child.id} class="btn mt-3 px-4 py-2 d-inline-block rounded-xl bg-current font-xsssss fw-700 ls-lg text-white">Profile</Link>
+                            <div class="col-md-9 d-flex justify-end ">
+                              <Link
+                                to={"/student/" + child.id}
+                                class="px-4 d-block btn bg-current text-white font-xssss fw-600 ls-3 style1-input p-0 border-0 text-uppercase "
+                              >
+                                View Selected
+                                {"'s Profile"}
+                              </Link>
+                            </div>
                           </div>
+                        ))
+                      : ""}
+                  </div>
+                </div>
+              </div> */}
+
+              <div className="row">
+                <div className="col-lg-12">
+                  <div className="card w-100 p-1 border-0 mt-4 rounded-lg bg-white shadow-xs overflow-hidden">
+                    <div className="card-body p-4">
+                      <div className="row">
+                        <div className="col-4">
+                          <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
+                            100
+                          </h2>
+                          <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
+                            Last Login
+                          </h4>
                         </div>
-                      ))
-                    : ""}
+                        <div className="col-4">
+                          <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
+                            100
+                          </h2>
+                          <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
+                            Total Watch Time
+                          </h4>
+                        </div>
+                        <div className="col-4">
+                          <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
+                            100
+                          </h2>
+                          <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
+                            Average Assessment Score
+                          </h4>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="row my-1">
+                <div className="col-lg-12">
+                  <div className="card w-100 p-1 border-0 mt-4 rounded-lg bg-white shadow-xs overflow-hidden">
+                    <div className="card-body p-4">
+                      <div className="row">
+                        <div className="col-4">
+                          <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
+                            100
+                          </h2>
+                          <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
+                            Term 1
+                          </h4>
+                        </div>
+                        <div className="col-4">
+                          <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
+                            100
+                          </h2>
+                          <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
+                            Term 2
+                          </h4>
+                        </div>
+                        <div className="col-4">
+                          <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
+                            100
+                          </h2>
+                          <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
+                            Term 3
+                          </h4>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="col-lg-12">
+                  <div className="card w-100 p-1 border-0 mt-4 rounded-lg bg-white shadow-xs overflow-hidden">
+                    <div className="card-body p-4">
+                      <div className="row">
+                        <div className="col-4">
+                          <ApexChart
+                            seriesData={dynamicSeries}
+                            colorsData={["#FEB019", "#FF4560"]}
+                          />
+                          <h4 className="fw-700 text-end text-grey-600 font-xssss ls-3 mr-4 text-uppercase mb-0 mt-0">
+                            English
+                          </h4>
+                        </div>
+                        <div className="col-4">
+                          <ApexChart
+                            seriesData={dynamicSeries}
+                            colorsData={["#FEB019", "#FF4560"]}
+                          />
+                          <h4 className="fw-700 text-end text-grey-600 font-xssss ls-3 mr-4 text-uppercase mb-0 mt-0">
+                            Maths
+                          </h4>
+                        </div>
+                        <div className="col-4">
+                          <ApexChart
+                            seriesData={dynamicSeries}
+                            colorsData={["#FEB019", "#FF4560"]}
+                          />
+                          <h4 className="fw-700 text-end text-grey-600 font-xssss ls-3 mr-4 text-uppercase mb-0 mt-0">
+                            Science
+                          </h4>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
