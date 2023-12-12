@@ -13651,9 +13651,14 @@ strong,
 .main-content .middle-sidebar-bottom .middle-sidebar-left {
   width: calc(100% - 320px);
 }
-.middle-sidebar-left{
+.middle-sidebar-left {
   width: calc(100%);
 }
+
+.custom-middle-sidebar-left {
+    width: calc(100%)!important;
+}
+
 .main-content .middle-sidebar-bottom .middle-sidebar-right {
   z-index: 2;
   overflow-x: hidden;
@@ -18141,6 +18146,10 @@ body.theme-dark .h6 {
 }
 @media (min-width: 1400px) {
   .middle-sidebar-left {
+    padding-right: 20px;
+  }
+
+  .custom-middle-sidebar-left {
     padding-right: 20px;
   }
 }

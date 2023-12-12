@@ -46,7 +46,7 @@ function Myclass() {
       baseUrl + "api/get_student_subjects/" + user.student.class_id
     ).then(function (result) {
       result.json().then(function (jsonbody) {
-        console.warn("get_subjects", jsonbody);
+        // console.warn("get_subjects", jsonbody);
         setSubjects(jsonbody);
       });
     });
