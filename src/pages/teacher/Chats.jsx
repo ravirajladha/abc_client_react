@@ -29,8 +29,6 @@ function Chats() {
   };
 
   const user = useContext(AuthContext).user;
-
-
   const auth_id = user.user.id;
 
     useEffect(() => {

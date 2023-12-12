@@ -86,7 +86,7 @@ function Forums() {
     function handleResultClick(selectedValue, selectedId) {
         setSearchValue(selectedValue); // Set the input field value to the selected result
         setForumId(selectedId);
-
+        setAllForums([]);
     }
 
     return (

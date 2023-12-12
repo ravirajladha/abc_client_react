@@ -96,6 +96,10 @@ import ClassSubjects from "./pages/school/ClassSubjects.jsx";
 import ClassResults from "./pages/school/ClassResults.jsx";
 import ClassSubjectWiseResults from "./pages/school/ClassSubjectWiseResults.jsx";
 import AddQuestionsToAssessment from "./pages/admin/AddQuestionsToAssessment.jsx";
+import TestDetails from "./pages/student/TestDetails.jsx";
+import Payments from "./pages/admin/Payments.jsx";
+import ParentSettings from "./pages/parent/Settings.jsx";
+import ParentAddStudent from "./pages/parent/AddStudent";
 
 class Root extends Component {
   render() {
@@ -132,10 +136,20 @@ class Root extends Component {
           />
           <Route
             exact
-            path={`${process.env.PUBLIC_URL}/subject/:subjectId/results`}
+            path={`${process.env.PUBLIC_URL}/subjects/:subjectId/results`}
             element={
               <ProtectedRoute
                 element={<SubjectResults />}
+                allowedTypes={["school_student"]}
+              />
+            }
+          />
+          <Route
+            exact
+            path={`${process.env.PUBLIC_URL}/subjects/test_details/:testId`}
+            element={
+              <ProtectedRoute
+                element={<TestDetails />}
                 allowedTypes={["school_student"]}
               />
             }
@@ -768,6 +782,16 @@ type_id: if mini_project then task_id else subject then video_id
                 />
               }
             />
+            <Route
+            exact
+            path={`${process.env.PUBLIC_URL}/payments`}
+            element={
+              <ProtectedRoute
+                element={<Payments />}
+                allowedTypes={["admin"]}
+              />
+            }
+          />
           {/* teacher */}
           <Route
             exact
@@ -841,6 +865,26 @@ type_id: if mini_project then task_id else subject then video_id
             element={
               <ProtectedRoute
                 element={<StudentAssessmentResults />}
+                allowedTypes={["parent"]}
+              />
+            }
+          />
+          <Route
+            exact
+            path={`${process.env.PUBLIC_URL}/parent/settings`}
+            element={
+              <ProtectedRoute
+                element={<ParentSettings />}
+                allowedTypes={["parent"]}
+              />
+            }
+          />
+          <Route
+            exact
+            path={`${process.env.PUBLIC_URL}/parent/add_student`}
+            element={
+              <ProtectedRoute
+                element={<ParentAddStudent />}
                 allowedTypes={["parent"]}
               />
             }

@@ -68,6 +68,8 @@ function TakeTest() {
 
   useEffect(() => {
     if (formIsSubmitting) {
+      console.log(selectedAnswers);
+      console.log(selectedQuestionIds);
       const formData = new FormData();
       formData.append("selectedAnswers", selectedAnswers);
       formData.append("selectedQuestionIds", selectedQuestionIds);

@@ -1,21 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import AppFooter from "../../components/includes/AppFooter";
 import AppHeader from "../../components/includes/AppHeader";
 import StudentSidebar from "../../components/includes/StudentSidebar";
 import BackButton from "../../components/navigation/BackButton";
 
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../lib/AuthContext.js";
 
 function Subjects() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
+  const user = useContext(AuthContext).user;
 
-  const userString = localStorage.getItem("rexkod_user");
-  const user = JSON.parse(userString);
+  // const userString = localStorage.getItem("rexkod_user");
+  // const user = JSON.parse(userString);
   const classId = user.student.class_id;
   const studentId = user.student.auth_id;
 
   useEffect(() => {
     getSubjects();
+    fetchUserTestResults();
   }, []);
 
   const [subjects, setSubjects] = useState([]);
@@ -31,7 +34,44 @@ function Subjects() {
       }
     );
   }
+  // Fetch test details and results for the user to show the term scores
+  const [userTestResults, setUserTestResults] = useState([]);
+  const fetchUserTestResults = async () => {
+    try {
+      const response = await fetch(baseUrl + "api/get_test_results/" + userId);
+      if (!response.ok) {
+        throw new Error("Failed to fetch user test results");
+      }
+      const data = await response.json();
+      setUserTestResults(data);
+      console.log(data);
+    } catch (error) {
+      console.error("Error fetching user test results:", error);
+    }
+  };
+  const getTermScore = (subjectId, term) => {
+    const subjectResult = userTestResults.find(
+      (result) => result.subject_id === subjectId && result.term === term
+    );
+    if (subjectResult) {
+      return `${subjectResult.score}`;
+    }
+    return "N/A";
+  };
+  const getTestIdForTerm = (subjectId, term) => {
+    const result = userTestResults.find(
+      (result) => result.subject_id === subjectId && result.term === term
+    );
+    return result ? result.test_id : null;
+  };
 
+  if (!user) {
+    // Handle the case when there is no user. You might want to redirect
+    // to a login page or return null or some placeholder content.
+    console.log("No user found. User might be logged out.");
+    return <div>User is not logged in</div>;
+  }
+  const userId = user.user.id;
   return (
     <>
       <div className="main-wrapper">
@@ -60,7 +100,8 @@ function Subjects() {
                       >
                         <i className="ti-more text-grey-500 font-xs"></i>
                       </Link> */}
-                      <div className="d-flex justify-content-between align-items-center">
+
+                      <div className="d-flex justify-content-between ">
                         <div>
                           <Link
                             to={"/subject_stream/" + value.id}
@@ -76,77 +117,99 @@ function Subjects() {
                             {value.subject_name}
                           </h4>
                         </div>
+
                         <div>
                           <div>
-                          <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-success d-inline-block text-success mb-1 mr-1">
-                            T1
-                          </span>
-                          <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-info d-inline-block text-info">
-                            Coming Soon
-                          </span>
+                            {[1, 2, 3].map((term) => {
+                              const testId = getTestIdForTerm(value.id, term);
+                              const isLinkDisabled = testId === null;
+                              return (
+                                <div key={term}>
+                                  <Link
+                                    to={
+                                      isLinkDisabled
+                                        ? "#"
+                                        : `/subjects/test_details/${testId}`
+                                    }
+                                    style={
+                                      isLinkDisabled
+                                        ? {
+                                            pointerEvents: "none",
+                                            cursor: "not-allowed",
+                                          }
+                                        : {}
+                                    }
+                                  >
+                                    <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-success d-inline-block text-success mb-1 mr-1">
+                                      {`T${term}`}
+                                    </span>
+                                    <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-info d-inline-block text-info">
+                                      Score: {getTermScore(value.id, term)} {!isLinkDisabled && <i className="feather-arrow-right"></i>}
+                                    </span>
+                                  </Link>
+                                </div>
+                              );
+                            })}
                           </div>
-                          <div>
-                          <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-success d-inline-block text-success mb-1 mr-1">
-                            T2
-                          </span>
-                          <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-info d-inline-block text-info">
-                            Coming Soon
-                          </span>
-                          </div>
-                          <div>
-                          <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-success d-inline-block text-success mb-1 mr-1">
-                            T3
-                          </span>
-                          <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-info d-inline-block text-info">
-                            Coming Soon
-                          </span>
-                          </div>
-                          
                         </div>
                       </div>
-
                       <div className="clearfix"></div>
+                      <div className="d-flex justify-content-between">
+                        <div>
+                          <Link
+                            to={"/subject_stream/" + value.id}
+                            className="px-2 py-1 mt-4 mr-2 d-inline-block text-white fw-700 lh-30 rounded-lg w100 text-center font-xsssss ls-3 bg-current"
+                          >
+                            LEARN
+                          </Link>
+                        </div>
+
+                        <div>
+                          <Link
+                            to={
+                              value.latest_test_id
+                                ? `/subject_stream/take_test/${value.id}/${value.latest_test_id}`
+                                : "#"
+                            }
+                            className={`px-2 py-1 mt-4 d-inline-block fw-700 lh-30 rounded-lg w100 text-center font-xsssss ls-3  ${
+                              value.latest_test_id
+                                ? "bg-current text-white"
+                                : "d-none "
+                            }`}
+                            style={
+                              value.latest_test_id
+                                ? {}
+                                : {
+                                    pointerEvents: "none",
+                                    cursor: "not-allowed",
+                                  }
+                            }
+                          >
+                            {value.latest_test_id &&
+                              (value.latest_term === 1
+                                ? "Term test 1"
+                                : value.latest_term === 2
+                                ? "Term test 2"
+                                : "Term test 3")}
+                          </Link>
+                          <Link
+                            to={"/subject/" + value.id + "/results"}
+                            className={`px-2 py-1 ml-2 mt-4 d-inline-block fw-700 lh-30 bg-current text-white rounded-lg w100 text-center font-xsssss text-uppercase ls-3 ${
+                              value.results ? "" : "d-none "
+                            }`}
+                          >
+                            Results
+                          </Link>
+                        </div>
+                       
+                      </div>
+
                       {/* <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-success d-inline-block text-success mb-1 mr-1">
                         FULL TIME
                       </span>
                       <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-info d-inline-block text-info">
                         30 MIN
                       </span> */}
-
-                      <div className="clearfix"></div>
-                      <Link
-                        to={"/subject_stream/" + value.id}
-                        className="px-2 py-1 mt-4 mr-2 d-inline-block text-white fw-700 lh-30 rounded-lg w100 text-center font-xsssss ls-3 bg-current"
-                      >
-                        LEARN
-                      </Link>
-                      <Link
-                        to={
-                          value.latest_test_id
-                            ? `/subject_stream/take_test/${value.id}/${value.latest_test_id}`
-                            : "#"
-                        }
-                        className={`px-2 py-1 mt-4 d-inline-block fw-700 lh-30 rounded-lg w100 text-center font-xsssss ls-3  ${
-                          value.latest_test_id
-                            ? "bg-current text-white"
-                            : "d-none "
-                        }`}
-                        style={
-                          value.latest_test_id
-                            ? {}
-                            : { pointerEvents: "none", cursor: "not-allowed" }
-                        }
-                      >
-                        {value.latest_test_id ? "TAKE TEST" : "Coming Soon"}
-                      </Link>
-                      <Link
-                        to={"/subject/" + value.id + "/results"}
-                        className={`px-2 py-1 ml-2 mt-4 d-inline-block fw-700 lh-30 bg-current text-white rounded-lg w100 text-center font-xsssss text-uppercase ls-3 ${
-                          value.results ? "" : "d-none "
-                        }`}
-                      >
-                        Results
-                      </Link>
                     </div>
                   </div>
                 ))}
