@@ -46,7 +46,7 @@ const ClassResults = () => {
         // Initialization of DataTables is moved to initDataTable function called after data is set
       })
       .catch((error) => {
-        console.error('Error:', error);
+        console.error("Error:", error);
       });
   };
 
@@ -61,10 +61,10 @@ const ClassResults = () => {
       // Initialize a new DataTable
       $(tableRef.current).DataTable();
     };
-  
+
     // Call getTestResults, then initialize DataTables
     getTestResults().then(initDataTable);
-  
+
     // Cleanup function for DataTables
     return () => {
       if ($.fn.DataTable.isDataTable(tableRef.current)) {
@@ -92,27 +92,34 @@ const ClassResults = () => {
                 </div>
 
                 <div className="card-body p-2 w-100 border-0 ">
-                  <select
-                    value={term}
-                    onChange={(e) => setTerm(e.target.value)}
-                  >
-                    <option value="">Select Term</option>
+                  <div className="my-2 row">
+                    <div className="col-lg-2">
+                      <select
+                        className="form-select "
+                        value={term}
+                        onChange={(e) => setTerm(e.target.value)}
+                      >
+                        <option value="">Select Term</option>
 
-                    <option value="1">Term 1</option>
-                    <option value="2">Term 2</option>
-                    <option value="3">Term 3</option>
-                  </select>
-
-                  {/* Dropdown for selecting section */}
-                  <select
-                    value={section}
-                    onChange={(e) => setSection(e.target.value)}
-                  >
-                    <option value="">Select Section</option>
-                    <option value="1">Section A</option>
-                    <option value="2">Section B</option>
-                    <option value="3">Section C</option>
-                  </select>
+                        <option value="1">Term 1</option>
+                        <option value="2">Term 2</option>
+                        <option value="3">Term 3</option>
+                      </select>
+                    </div>
+                    <div className="col-lg-2">
+                      <select
+                        className="form-select "
+                        value={section}
+                        onChange={(e) => setSection(e.target.value)}
+                      >
+                        <option value="">Select Section</option>
+                        <option value="1">Section A</option>
+                        <option value="2">Section B</option>
+                        <option value="3">Section C</option>
+                      </select>
+                    </div>
+                    {/* Dropdown for selecting section */}
+                  </div>
                   <div className="table-responsive">
                     <table ref={tableRef} className="table mb-0">
                       <thead className="bg-greylight rounded-10 ovh">
@@ -160,7 +167,10 @@ const ClassResults = () => {
                               </td>
                               <td>
                                 <Link
-                                  to={"/school/edit-student-profile/" + result.student_id}
+                                  to={
+                                    "/school/edit-student-profile/" +
+                                    result.student_id
+                                  }
                                   className="px-3 py-1 me-2 d-inline-block text-white fw-700 lh-30 rounded-lg uppercase text-center font-xsssss ls-3 bg-current mx-1"
                                 >
                                   View Profile

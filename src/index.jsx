@@ -345,6 +345,17 @@ class Root extends Component {
               }
             />
 
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/subjects/test_details/:testId`}
+              element={
+                <ProtectedRoute
+                  element={<TestDetails />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
+
             {/* admin */}
             <Route
               exact
@@ -1093,6 +1104,18 @@ class Root extends Component {
                 />
               }
             />
+
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/payments`}
+              element={
+                <ProtectedRoute
+                  element={<Payments />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
+
             {/* teacher */}
             <Route
               exact
@@ -1169,6 +1192,28 @@ class Root extends Component {
               element={
                 <ProtectedRoute
                   element={<StudentAssessmentResults />}
+                  allowedTypes={["parent"]}
+                />
+              }
+            />
+
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/parent/settings`}
+              element={
+                <ProtectedRoute
+                  element={<ParentSettings />}
+                  allowedTypes={["parent"]}
+                />
+              }
+            />
+
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/parent/add_student`}
+              element={
+                <ProtectedRoute
+                  element={<ParentAddStudent />}
                   allowedTypes={["parent"]}
                 />
               }
