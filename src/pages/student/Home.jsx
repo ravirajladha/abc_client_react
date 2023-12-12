@@ -113,7 +113,7 @@ function Home() {
 
   useEffect(() => {
     const getSubjects = () => {
-      if (user) {
+      if (user.student.class_id) {
         fetch(
           baseUrl + "api/get_student_subjects/" + user.student.class_id
         ).then(function (result) {

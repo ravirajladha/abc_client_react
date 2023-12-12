@@ -8,7 +8,7 @@ import Teachers from "./school-edit-profile-components/Teachers";
 import Sidebar from "./school-edit-profile-components/Sidebar";
 
 function EditSchoolProfile() {
-  const [currentStep, setCurrentStep] = useState(0);
+  const [currentStep, setCurrentStep] = useState(1);
   const { id } = useParams();
 
   const getStepComponent = () => {
@@ -25,7 +25,7 @@ function EditSchoolProfile() {
         return <SchoolDetailsForm />;
     }
   };
-  // comment testing by ashutosh
+  
   return (
     <>
       <div className="main-wrapper">
