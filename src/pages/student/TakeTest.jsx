@@ -26,6 +26,7 @@ function TakeTest() {
   const user_id = user.user.id;
   const currentQuestion = questions[currentQuestionIndex];
   const [activeOption, setActiveOption] = useState(null);
+  const [timeTaken, setTimeTaken] = useState(0);
   const hideStyle = {
     display: "none",
   };
@@ -67,26 +68,32 @@ function TakeTest() {
       });
   };
 
+  const updateElapsedTime = (elapsedTime) => {
+    setTimeTaken(elapsedTime);
+  };
+
   const submitForm = () => {
     // if (formIsSubmitting) {
-      const formData = new FormData();
-      formData.append("selectedAnswers", selectedAnswers);
-      formData.append("selectedQuestionIds", selectedQuestionIds);
-      formData.append("test_id", test_id);
-      formData.append("user_id", user_id);
-      fetch(baseUrl + "api/test-submit", {
-        method: "POST",
-        body: formData,
+    const formData = new FormData();
+    formData.append("selectedAnswers", selectedAnswers);
+    formData.append("selectedQuestionIds", selectedQuestionIds);
+    formData.append("test_id", test_id);
+    formData.append("user_id", user_id);
+    formData.append("timeTaken", timeTaken);
+
+    fetch(baseUrl + "api/test-submit", {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((resp) => {
+        console.warn(resp);
+        navigate(`/subject_stream/view_test_score/${subject_id}/${test_id}`);
       })
-        .then((res) => res.json())
-        .then((resp) => {
-          console.warn(resp);
-          navigate(`/subject_stream/view_test_score/${subject_id}/${test_id}`);
-        })
-        .catch((err) => {
-          console.error("Error submitting answers:", err);
-          setFormIsSubmitting(false);
-        });
+      .catch((err) => {
+        console.error("Error submitting answers:", err);
+        setFormIsSubmitting(false);
+      });
     // }
   };
 
@@ -127,17 +134,9 @@ function TakeTest() {
     submitForm();
   };
 
-  const startTest = () => {
-    if (currentQuestionIndex === questions.length - 1) {
-      // Submit the form if not already submitted
-      if (!formIsSubmitting) {
-        handleSubmit();
-      }
-      navigate(`/subject_stream/view_test_score/${subject_id}/${test_id}`);
-    } else {
-      // If not all questions are answered, provide a message or handle it accordingly
-      toast.warning("Please answer all questions before submitting.");
-    }
+  const endTest = () => {
+    handleSubmit();
+    navigate(`/subject_stream/view_test_score/${subject_id}/${test_id}`);
   };
 
   // useEffect(() => {
@@ -227,7 +226,8 @@ function TakeTest() {
                       <span className="timer-card text-end">
                         <Timer
                           initialDuration={testDuration}
-                          onComplete={startTest}
+                          onComplete={endTest}
+                          onUpdate={updateElapsedTime}
                         />
                       </span>
                     ) : (

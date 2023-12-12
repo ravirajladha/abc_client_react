@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function Timer({ initialDuration, onComplete }) {
+function Timer({ initialDuration, onComplete, onUpdate }) {
   const [seconds, setSeconds] = useState(initialDuration);
 
   useEffect(() => {
@@ -9,13 +9,14 @@ function Timer({ initialDuration, onComplete }) {
     if (seconds !== null && seconds > 0) {
       interval = setInterval(() => {
         setSeconds((prevSeconds) => prevSeconds - 1);
+        onUpdate(seconds - 1); // Notify parent component of the updated time
       }, 1000);
     } else if (seconds === 0) {
       onComplete();
     }
 
     return () => clearInterval(interval);
-  }, [seconds, onComplete]);
+  }, [seconds, onComplete, onUpdate]);
 
   const formatTime = (timeInSeconds) => {
     const hours = Math.floor(timeInSeconds / 3600);
