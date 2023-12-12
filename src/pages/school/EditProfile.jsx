@@ -1,5 +1,5 @@
 // EditProfile.js
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useParams } from "react-router-dom";
 import FormPageOne from "./student-edit-profile-components/FormPageOne";
 import FormPageThree from "./student-edit-profile-components/FormPageThree";
@@ -10,14 +10,43 @@ import Appheader from "../../components/includes/AppHeader";
 
 const EditProfile = () => {
   const { id } = useParams();
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
   const [currentStep, setCurrentStep] = useState(0);
+  const [student, setStudent] = useState(null);
+
+
   const [formData, setFormData] = useState({
     formOneData: {},
     formThreeData: {},
     formFourData: {},
     formSixData: {},
   });
+  useEffect(() => {
+    const fetchStudentDetails = async () => {
+      try {
+        const response = await fetch(baseUrl+`api/getStudentMetaDetails/${id}`);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+          // Assume the data object's structure matches your formData structure
+      // Update the formData state with the fetched data
+      // console.log("new all data", data)
+      setFormData({
+        formOneData: data,
+        formThreeData: data,
+        formFourData: data,
+        formSixData: data,
+      });
+        setStudent(data);
+      } catch (error) {
+        console.error("Error fetching student details:", error);
+      }
+    };
 
+    fetchStudentDetails();
+  }, [id]);
   const goToNextForm = () => {
     setCurrentStep(currentStep + 1);
   };

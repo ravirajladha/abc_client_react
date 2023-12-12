@@ -10,7 +10,9 @@ import Login from "./pages/common/Login.jsx";
 import Register from "./pages/common/Register.jsx";
 import Notfound from "./pages/common/Notfound.jsx";
 import Defaultuserprofile from "./pages/common/DefaultUserProfile.jsx";
+
 import StudentProfile from "./pages/student/DefaultUserProfile.jsx";
+import StudentProfile1 from "./pages/student/DefaultUserProfile1.jsx";
 import { HashRouter, Route, Routes } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
 import Home from "./pages/student/Home";
@@ -352,12 +354,26 @@ class Root extends Component {
               />
             }
           />
+          
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/student/default-user-profile`}
             element={
               <ProtectedRoute
                 element={<StudentProfile />}
+                allowedTypes={[
+                  "school_student",
+                 
+                ]}
+              />
+            }
+          />
+          <Route
+            exact
+            path={`${process.env.PUBLIC_URL}/student/default-user-profile1`}
+            element={
+              <ProtectedRoute
+                element={<StudentProfile1 />}
                 allowedTypes={[
                   "school_student",
                  
@@ -486,7 +502,7 @@ type_id: if mini_project then task_id else subject then video_id
             element={
               <ProtectedRoute
                 element={<AllClasses />}
-                allowedTypes={["admin"]}
+                allowedTypes={["admin","teacher"]}
               />
             }
           />
@@ -942,7 +958,7 @@ type_id: if mini_project then task_id else subject then video_id
             element={
               <ProtectedRoute
                 element={<EditStudentProfile />}
-                allowedTypes={["sub_admin"]}
+                allowedTypes={["sub_admin","admin"]}
               />
             }
           />
@@ -1005,7 +1021,7 @@ type_id: if mini_project then task_id else subject then video_id
             element={
               <ProtectedRoute
                 element={<ClassSubjectWiseResults />}
-                allowedTypes={["sub_admin"]}
+                allowedTypes={["sub_admin","admin","teacher"]}
               />
             }
           />

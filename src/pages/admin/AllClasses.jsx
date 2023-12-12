@@ -2,28 +2,41 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import AppHeader from "../../components/includes/AppHeader";
 import AppFooter from "../../components/includes/AppFooter";
-
+import { useContext } from "react";
+import { AuthContext } from "../../lib/AuthContext.js";
 function AllClasses() {
   const navigate = useNavigate();
   const baseUrl = process.env.REACT_APP_BASE_URL;
+  const { user } = useContext(AuthContext);
 
   const [classes, setClasses] = useState([]);
 
   useEffect(() => {
     getClasses();
   }, []);
+// Define the function as async outside of the conditional block
+async function getClasses() {
+  try {
+    // Determine the URL based on the user type
+    const url = user.user.type !== "teacher" 
+      ? `${baseUrl}api/get_classes` 
+      : `${baseUrl}api/getTeacherClasses/${user.user.id}`;
 
-  function getClasses() {
-    fetch(baseUrl + "api/get_classes")
-      .then((response) => response.json())
-      .then((data) => {
-        console.warn(data);
-        setClasses(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching classes:", error);
-      });
+    // Fetch the classes
+    const response = await fetch(url);
+    if (!response.ok) {
+      // If the response is not OK, throw an error to be caught below
+      throw new Error('Network response was not ok.');
+    }
+    const data = await response.json();
+    console.warn(data); // Consider changing to console.log for production
+    setClasses(data);
+  } catch (error) {
+    console.error("Error fetching classes:", error);
   }
+}
+
+// Call the function based on your app's logic, for example in useEffect hook if this is inside a component
 
   const goBack = () => {
     navigate(-1);
@@ -44,18 +57,14 @@ function AllClasses() {
                     </h2>
                   </div>
                   <div className="float-right">
-               
+                  {user.user.type != "teacher" ?
                   <Link
                       to={"/all_subjects/create_class"}
                       className="p-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current mx-1"
-                    >    Add  Classes
+                    >    Add  Classes1
                     </Link>
-                  <Link
-                      to={"/all_classes"}
-                      className="p-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current mx-1"
-                    >    View  Classes
-                    </Link>
-                
+            
+ : ""}
                     <button
                       onClick={goBack}
                       className="px-3 py-1   d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1"
@@ -73,14 +82,16 @@ function AllClasses() {
                         </h4>
                         {/* Additional details about the class can be listed here */}
                         <div className="card-footer bg-transparent border-top-0">
+                        {user.user.type != "teacher" ?
                           <Link
                             to={`/all_subjects/${singleClass.id}`}
                             className="px-2 py-1 mt-4 fw-500 d-inline-block text-white fw-300 lh-30 rounded-lg w100 text-center font-xssss mr-2 ls-3 bg-current"
                           >
                             Subjects
                           </Link>
+                          : ""}
                           <Link
-                            to={`/${singleClass.id}/results`}
+                             to={`/school/class/${singleClass.id}/results1`}
                             className="px-2 py-1 mt-4 fw-500 d-inline-block text-white fw-300 lh-30 rounded-lg w100 text-center font-xssss ls-3 bg-current"
                           >
                             Results

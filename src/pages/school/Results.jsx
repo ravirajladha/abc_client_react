@@ -63,7 +63,13 @@ const Results = () => {
                                 to={`/school/class/${singleClass.id}/results`}
                                 className="px-2 py-1 mt-4 fw-500 d-inline-block text-white fw-600 lh-30 rounded-lg w100 text-center font-xssss ls-3 bg-current"
                               >
-                                Results
+                                 Old Results
+                              </Link>
+                              <Link
+                                to={`/school/class/${singleClass.id}/results1`}
+                                className="px-2 py-1 mt-4 fw-500 d-inline-block text-white fw-600 lh-30 rounded-lg w100 text-center font-xssss ls-3 bg-current"
+                              >
+                                 New Subject_Class Results
                               </Link>
                             </div>
                           </div>

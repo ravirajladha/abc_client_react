@@ -20,7 +20,7 @@ function AllSubjects() {
   };
   const [subjects, setSubjects] = useState([]);
   function getSubjects(class_id) {
-    let result = fetch(baseUrl + "api/admin/get_subjects/" + class_id).then(function (
+    let result = fetch(baseUrl + "api/admin/get_subjects_and_video_count_by_class/" + class_id).then(function (
       result
     ) {
       result.json().then(function (jsonbody) {
@@ -66,9 +66,9 @@ function AllSubjects() {
                   subjects.map((subject, index) => (
                     <div className="col-xl-4 col-lg-6 col-md-6" key={index}>
                       <div className="card mb-4 shadow-xss rounded-lg p-xxl-5 p-4 border-0 text-center">
-                        <div className="position-absolute right-0 mr-4 top-0 mt-3">
+                        {/* <div className="position-absolute right-0 mr-4 top-0 mt-3">
                           <i className="ti-more text-grey-500 font-xs"></i>
-                        </div>
+                        </div> */}
                         <Link
                           to={`/subject/${subject.id}`}
                           className="btn-round-xxxl rounded-lg bg-lightblue ml-auto mr-auto"
@@ -84,10 +84,10 @@ function AllSubjects() {
                         </h4>
                         <div className="card-footer bg-transparent border-top-0">
                           <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-success d-inline-block text-success mb-1 mr-1">
-                            Full Time
+                            Video Count
                           </span>
                           <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-info d-inline-block text-info mb-1">
-                            30 Min
+                            {subject.video_count}
                           </span>
                         </div>
                         <div className="card-footer bg-transparent border-top-0 d-flex align-items-center justify-content-center gap-2">

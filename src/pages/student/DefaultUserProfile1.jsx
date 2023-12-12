@@ -9,7 +9,7 @@ import { Tab, Tabs } from "react-bootstrap";
 import Chart from "react-apexcharts";
 import { AuthContext } from "../../lib/AuthContext.js";
 import { useContext } from "react";
-import SubjectScore from "../../components/common/SubjectScore";
+import SubjectScore from "../../components/common/SubjectScore.jsx";
 const blueChart = {
   series: [
     {
@@ -344,7 +344,7 @@ const courseList = [
   },
 ];
 
-function StudentProfile() {
+function StudentProfile1() {
   const userDetails = useContext(AuthContext).user;
   // Assuming you have an AuthContext that provides user details
   const [studentDetails, setStudentDetails] = useState(null);
@@ -1497,4 +1497,4 @@ function StudentProfile() {
   );
 }
 
-export default StudentProfile;
+export default StudentProfile1;
