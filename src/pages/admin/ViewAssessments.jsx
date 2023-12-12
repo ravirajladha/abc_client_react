@@ -42,57 +42,55 @@ function ViewAssessments() {
             <div className="middle-sidebar-left">
               <div className="row">
                 <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
-                  <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
-                    <div>
-                      <h2 className="fw-400 font-lg d-block">
-                        {subjectName} <b> Assessments</b>
-                      </h2>
-                    </div>
-                    <div className="float-right">
-                      <BackButton />
-                    </div>
-                    <div className="card-body p-lg-5 px-4 w-100 border-0 ">
-                      <div className="table-responsive">
-                        <table className="table table-admin mb-0">
-                          <thead className="bg-greylight rounded-10 ovh">
-                            <tr>
-                              <th className="border-0">Sl no.</th>
-                              <th className="border-0">Class</th>
-                              <th className="border-0" scope="col">
-                                Subject Name
-                              </th>
-                              <th className="border-0" scope="col">
-                                Assessment Name
-                              </th>
-                              <th className="border-0" scope="col">
-                                Action
-                              </th>
+                  <div>
+                    <h2 className="fw-400 font-lg d-block">
+                      {subjectName} <b> Assessments</b>
+                    </h2>
+                  </div>
+                  <div className="float-right">
+                    <BackButton />
+                  </div>
+                </div>
+                <div className="card-body p-lg-5 px-4 w-100 border-0 ">
+                  <div className="table-responsive">
+                    <table className="table table-admin mb-0">
+                      <thead className="bg-greylight rounded-10 ovh">
+                        <tr>
+                          <th className="border-0">Sl no.</th>
+                          <th className="border-0">Class</th>
+                          <th className="border-0" scope="col">
+                            Subject Name
+                          </th>
+                          <th className="border-0" scope="col">
+                            Assessment Name
+                          </th>
+                          <th className="border-0" scope="col">
+                            Action
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {assessments ? (
+                          assessments.map((assessment, index) => (
+                            <tr key={index}>
+                              <td>{index + 1}</td>
+                              <td>
+                                <b>{assessment.class.class}</b>
+                              </td>
+                              <td>
+                                <b>{assessment.subject.subject_name}</b>
+                              </td>
+                              <td>
+                                <b>{assessment.name}</b>
+                              </td>
+                              <td>View</td>
                             </tr>
-                          </thead>
-                          <tbody>
-                            {assessments ? (
-                              assessments.map((assessment, index) => (
-                                <tr key={index}>
-                                  <td>{index + 1}</td>
-                                  <td>
-                                    <b>{assessment.class.class}</b>
-                                  </td>
-                                  <td>
-                                    <b>{assessment.subject.subject_name}</b>
-                                  </td>
-                                  <td>
-                                    <b>{assessment.name}</b>
-                                  </td>
-                                  <td>View</td>
-                                </tr>
-                              ))
-                            ) : (
-                              <h1>No data found</h1>
-                            )}
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
+                          ))
+                        ) : (
+                          <h1>No data found</h1>
+                        )}
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>

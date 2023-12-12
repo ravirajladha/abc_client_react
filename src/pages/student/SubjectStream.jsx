@@ -290,7 +290,7 @@ function SubjectStream() {
                           <div className="videos scroll-bar">
                             <Accordion
                               defaultActiveKey="0"
-                              className="accordian mb-0 accordian-course"
+                              className="accordion mb-0 accordion-course"
                             >
                               {allSubjectData &&
                                 allSubjectData.chapters &&

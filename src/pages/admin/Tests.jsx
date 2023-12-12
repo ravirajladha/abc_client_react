@@ -27,14 +27,13 @@ function Tests() {
       <div className="main-wrapper">
         <div className="main-content menu-active">
           <AppHeader />
-
           <div className="middle-sidebar-bottom theme-dark-bg">
             <div className="middle-sidebar-left">
               <div className="row">
                 <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
                   <div>
                     <h2 className="fw-400 font-lg d-block">
-                      All <b> Tests</b>{" "}
+                      All <b> Tests</b>
                     </h2>
                   </div>
                   <div className="float-right">
@@ -68,16 +67,16 @@ function Tests() {
                       >
                         <div className="item">
                           <div className="card mb-4 w-100 shadow-xss rounded-lg p-xxl-5 p-4 border-0 text-center d-flex align-items-center justify-content-center">
-                              <Link
-                                to=""
-                                className="btn-round-xxxl rounded-lg bg-lightblue ml-auto mr-auto"
-                              >
-                                <img
-                                  src={baseUrl + test.image}
-                                  alt="test"
-                                  className="p-1"
-                                />
-                              </Link>
+                            <Link
+                              to=""
+                              className="btn-round-xxxl rounded-lg bg-lightblue ml-auto mr-auto"
+                            >
+                              <img
+                                src={baseUrl + test.image}
+                                alt="test"
+                                className="p-1"
+                              />
+                            </Link>
                             <div className="card-body pt-0 text-center">
                               {/* <span
                                                                 className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-danger d-inline-block text-danger mr-1">{test.subject.subject_name}</span> */}

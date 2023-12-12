@@ -263,7 +263,7 @@ useEffect(() => {
                                   }}
                                   onClick={() => deleteModule(index)}
                                 >
-                                  <i class="feather-minus"></i>
+                                  <i className="feather-minus"></i>
                                 </button>
                               </div>
                             </div>

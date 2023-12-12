@@ -163,10 +163,14 @@ opacity: 50%;
 }
 
 /* accordion in ebook module */
-.accordian-course .accordion-header {
+.accordion-course .accordion-header {
     padding: 0px 0px;
   }
 
+.accordion-button:focus {
+    box-shadow: none;
+    border-color: rgba(0,0,0,.125);
+}
 
   /* VideoPlayer.css */
 
