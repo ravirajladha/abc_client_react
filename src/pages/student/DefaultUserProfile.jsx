@@ -10,6 +10,12 @@ import Chart from "react-apexcharts";
 import { AuthContext } from "../../lib/AuthContext.js";
 import { useContext } from "react";
 import SubjectScore from "../../components/common/SubjectScore";
+<<<<<<< HEAD
+
+import ProfileCard from "../school/student-edit-profile-components/default-user-profile-components/ProfileCard.jsx";
+
+=======
+>>>>>>> 221059953c114b630c9a4f2fa9eb0ff1e53579e8
 const blueChart = {
   series: [
     {
@@ -32,7 +38,6 @@ const blueChart = {
     },
   },
 };
-
 const purpleChart = {
   series: [
     {
@@ -55,7 +60,6 @@ const purpleChart = {
     },
   },
 };
-
 const pinkChart = {
   series: [
     {
@@ -78,7 +82,10 @@ const pinkChart = {
     },
   },
 };
+<<<<<<< HEAD
+=======
 
+>>>>>>> 221059953c114b630c9a4f2fa9eb0ff1e53579e8
 const memberList = [
   {
     imageUrl: "user.png",
@@ -181,7 +188,6 @@ const liveList = [
     bgimage: "bb-9.png",
   },
 ];
-
 const channelList = [
   {
     imageUrl: "user.png",
@@ -276,7 +282,6 @@ const badgeList = [
     per: "98",
   },
 ];
-
 const courseList = [
   {
     imageUrl: "course.png",
@@ -345,54 +350,9 @@ const courseList = [
 ];
 
 function StudentProfile() {
-  const userDetails = useContext(AuthContext).user;
-  // Assuming you have an AuthContext that provides user details
-  const [studentDetails, setStudentDetails] = useState(null);
-  // When rendering or using the data, check if studentDetails is not null
-
-  if (studentDetails) {
-    console.log(studentDetails.f_name);
-  } else {
-    console.log("studentDetails is null or undefined");
-  }
-
   const baseUrl = process.env.REACT_APP_BASE_URL;
+  const userDetails = useContext(AuthContext).user;
 
-  useEffect(() => {
-    const fetchStudentMeta = async () => {
-      try {
-        // Replace 'student_meta_endpoint' with the actual endpoint for fetching student meta data
-        const response = await fetch(
-          `${baseUrl}api/get_student_meta/${userDetails.user.id}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              // Add your auth token if required, assuming it's stored in userDetails
-            },
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const studentMeta = await response.json();
-        // Handle the student meta data as needed
-        console.log("stufent_detsil", studentMeta);
-        setStudentDetails(studentMeta);
-      } catch (error) {
-        console.error("Failed to fetch student meta:", error);
-      }
-    };
-
-    if (userDetails) {
-      fetchStudentMeta();
-    }
-  }, [userDetails]); // Only re-run the effect if userDetails changes
-  function displayValueOrDefault(value, label, defaultValue = "Not provided") {
-    return `${label}: ${value || defaultValue}`;
-  }
   return (
     <Fragment>
       <div className="main-wrapper">
@@ -503,267 +463,8 @@ function StudentProfile() {
                 id="uncontrolled-tab-example"
                 className="mb-3 nav nav-tabs profile xs-p-4 d-flex align-items-center justify-content-between product-info-tab border-bottom-0 bg-white shadow-xss rounded-lg"
               >
-                <Tab eventKey="profile" title="ABOUT">
-                  <div className="card d-block w-100 border-0 shadow-xss rounded-lg overflow-hidden p-lg-4 p-2">
-                    <div className="card-body mb-lg-3 pb-0">
-                      <h2 className="fw-400 font-lg d-block">
-                        <b>About Me</b>
-                        <a href="/default-user-profile" className="float-right">
-                          <i className="feather-edit text-grey-500 font-xs"></i>
-                        </a>
-                      </h2>
-                    </div>
-                    <div className="card-body pb-0">
-                      <div className="row">
-                        <div className="col-xl-12">
-                          <p className="font-xssss fw-600 lh-28 text-grey-500 pl-0">
-                            <p>
-                              {displayValueOrDefault(
-                                studentDetails?.f_name,
-                                "First Name"
-                              )}
-                            </p>
-                            <p>
-                              {displayValueOrDefault(
-                                studentDetails?.l_name,
-                                "Last Name"
-                              )}
-                            </p>
-                            <p>
-                              {displayValueOrDefault(
-                                studentDetails?.mother_name,
-                                "Mother Name"
-                              )}
-                            </p>
-                            <p>
-                              {displayValueOrDefault(
-                                studentDetails?.father_name,
-                                "Father Name"
-                              )}
-                            </p>
-                            <p>
-                              {displayValueOrDefault(
-                                studentDetails?.dob,
-                                "Date of Birth"
-                              )}
-                            </p>
-                            <p>
-                              {displayValueOrDefault(
-                                studentDetails?.email,
-                                "Email"
-                              )}
-                            </p>
-                            <p>
-                              {displayValueOrDefault(
-                                studentDetails?.whatsapp_no,
-                                "WhatsApp No"
-                              )}
-                            </p>
-                            <p>
-                              {displayValueOrDefault(
-                                studentDetails?.gender,
-                                "Gender"
-                              )}
-                            </p>
-                            <p>
-                              {displayValueOrDefault(
-                                studentDetails?.religion,
-                                "Religion"
-                              )}
-                            </p>
-                            <p>
-                              {displayValueOrDefault(
-                                studentDetails?.category,
-                                "Category"
-                              )}
-                            </p>
-                            <p>
-                              {displayValueOrDefault(
-                                studentDetails?.physically_challenged,
-                                "Physically Challenged"
-                              )}
-                            </p>
-                            <p>
-                              {displayValueOrDefault(
-                                studentDetails?.aadhar,
-                                "Aadhar"
-                              )}
-                            </p>
-                            <p>
-                              {displayValueOrDefault(
-                                studentDetails?.address_proof,
-                                "Address Proof"
-                              )}
-                            </p>
-                            <p>
-                              {displayValueOrDefault(
-                                studentDetails?.identity_proof,
-                                "Identity Proof"
-                              )}
-                            </p>
-                            <p>
-                              {displayValueOrDefault(
-                                studentDetails?.siblings,
-                                "Siblings"
-                              )}
-                            </p>
-                            <p>
-                              {displayValueOrDefault(
-                                studentDetails?.annual_income,
-                                "Annual Income"
-                              )}
-                            </p>
-                            <p>
-                              {displayValueOrDefault(
-                                studentDetails?.f_phone,
-                                "Father Phone"
-                              )}
-                            </p>
-                            <p>
-                              {displayValueOrDefault(
-                                studentDetails?.f_email_id,
-                                "Father Email"
-                              )}
-                            </p>
-                            <p>
-                              {displayValueOrDefault(
-                                studentDetails?.m_phone,
-                                "Mother Phone"
-                              )}
-                            </p>
-                            <p>
-                              {displayValueOrDefault(
-                                studentDetails?.comm_address,
-                                "Communication Address"
-                              )}
-                            </p>
-                            <p>
-                              {displayValueOrDefault(
-                                studentDetails?.comm_pin_code,
-                                "Communication Pin Code"
-                              )}
-                            </p>
-                            <p>
-                              {displayValueOrDefault(
-                                studentDetails?.comm_village,
-                                "Communication Village"
-                              )}
-                            </p>
-                            <p>
-                              {displayValueOrDefault(
-                                studentDetails?.comm_block,
-                                "Communication Block"
-                              )}
-                            </p>
-                            <p>
-                              {displayValueOrDefault(
-                                studentDetails?.comm_state,
-                                "Communication State"
-                              )}
-                            </p>
-                            <p>
-                              {displayValueOrDefault(
-                                studentDetails?.phone_no,
-                                "Phone No"
-                              )}
-                            </p>
-                            <p>
-                              {displayValueOrDefault(
-                                studentDetails?.perm_address,
-                                "Permanent Address"
-                              )}
-                            </p>
-                            <p>
-                              {displayValueOrDefault(
-                                studentDetails?.perm_village,
-                                "Permanent Village"
-                              )}
-                            </p>
-                            <p>
-                              {displayValueOrDefault(
-                                studentDetails?.perm_block,
-                                "Permanent Block"
-                              )}
-                            </p>
-                            <p>
-                              {displayValueOrDefault(
-                                studentDetails?.perm_state,
-                                "Permanent State"
-                              )}
-                            </p>
-                            <p>
-                              {displayValueOrDefault(
-                                studentDetails?.description,
-                                "Description"
-                              )}
-                            </p>
-                            <p>
-                              {displayValueOrDefault(
-                                studentDetails?.hobby,
-                                "Hobby"
-                              )}
-                            </p>
-                            <p>
-                              {displayValueOrDefault(
-                                studentDetails?.motherTongue,
-                                "Mother Tongue"
-                              )}
-                            </p>
-                            <p>
-                              {displayValueOrDefault(
-                                studentDetails?.created_at,
-                                "Created At"
-                              )}
-                            </p>
-                          </p>
+                <Tab eventKey="profile" title="ABOUT"></Tab>
 
-                          <ul className="d-flex align-items-center mt-2 mb-3 float-left">
-                            <li className="mr-2">
-                              <a
-                                href="/default-user-profile"
-                                className="btn-round-md bg-facebook"
-                              >
-                                <i className="font-xs ti-facebook text-white"></i>
-                              </a>
-                            </li>
-                            <li className="mr-2">
-                              <a
-                                href="/default-user-profile"
-                                className="btn-round-md bg-twiiter"
-                              >
-                                <i className="font-xs ti-twitter-alt text-white"></i>
-                              </a>
-                            </li>
-                            <li className="mr-2">
-                              <a
-                                href="/default-user-profile"
-                                className="btn-round-md bg-linkedin"
-                              >
-                                <i className="font-xs ti-linkedin text-white"></i>
-                              </a>
-                            </li>
-                            <li className="mr-2">
-                              <a
-                                href="/default-user-profile"
-                                className="btn-round-md bg-instagram"
-                              >
-                                <i className="font-xs ti-instagram text-white"></i>
-                              </a>
-                            </li>
-                            <li className="mr-2">
-                              <a
-                                href="/default-user-profile"
-                                className="btn-round-md bg-pinterest"
-                              >
-                                <i className="font-xs ti-pinterest text-white"></i>
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </Tab>
                 <Tab eventKey="video" title="SUBJECT">
                   <div className="card d-block w-100 border-0 shadow-xss rounded-lg overflow-hidden p-lg-4 p-2">
                     <div className="card-body mb-lg-3 pb-0">
@@ -880,74 +581,98 @@ function StudentProfile() {
                     </div>
                   </div>
                 </Tab>
+
                 {userDetails.user.type == "school_student" && (
                   <Tab eventKey="bdage" title="RANKS">
-                    <div className="card d-block w-100 border-0 shadow-xss rounded-lg overflow-hidden p-lg-4 p-2">
-                      <div className="card-body mb-lg-3 pb-0">
-                        <h2 className="fw-400 font-lg d-block">
-                          My <b>Badge</b>
-                          <a
-                            href="/default-user-profile"
-                            className="float-right"
-                          >
-                            <i className="feather-edit text-grey-500 font-xs"></i>
-                          </a>
-                        </h2>
-                      </div>
-                      <div className="card-body pb-0">
-                        <div className="row">
-                          {badgeList.map((value, index) => (
-                            // Strat Single Demo
-                            <div
-                              className="col-xl-4 col-lg-6 col-md-6"
-                              key={index}
-                            >
-                              <div className="card mb-4 d-block w-100 shadow-xss rounded-lg p-xxl-5 p-4 border-0 text-center">
-                                <a
-                                  href="/default-user-profile"
-                                  className="position-absolute right-0 mr-4 top-0 mt-3"
-                                >
-                                  <i className="ti-more text-grey-500 font-xs"></i>
-                                </a>
-                                <a
-                                  href="/default-user-profile"
-                                  className="btn-round-xxxl rounded-lg ml-auto mr-auto"
-                                >
-                                  <img
-                                    src={`assets/images/${value.imageUrl}`}
-                                    alt="badge"
-                                    className="w-100"
-                                  />
-                                </a>
-                                <h4 className="fw-700 font-xsss mt-4">
-                                  {value.title}
+                    <div className="row">
+                      <div className="col-xl-4 col-lg-12 ">
+                        <div className="card w-100 p-1 border-0 mt-4 rounded-lg bg-white shadow-xs overflow-hidden">
+                          <div className="card-body p-4">
+                            <div className="row">
+                              <div className="col-7">
+                                <h4 className="fw-700 text-success font-xssss mt-0 mb-0 ">
+                                  +45%
                                 </h4>
-                                <p className="fw-500 font-xssss text-grey-500 mt-3">
-                                  {value.des}
-                                </p>
-                                <div className="clearfix"></div>
-                                <div className="progress mt-3 h10">
-                                  <div
-                                    className="progress-bar progress-bar-striped progress-bar-animated"
-                                    role="progressbar"
-                                    aria-valuemin="0"
-                                    style={{ width: `${value.per}%` }}
-                                  ></div>
-                                </div>
-                                <a
-                                  href="/default-user-profile"
-                                  className="mt-3 d-inline-block text-grey-900 fw-700 rounded-lg text-center font-xssss ls-3"
-                                >
-                                  {value.tag}
-                                </a>
+                                <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
+                                  4563
+                                </h2>
+                                <h4 className="fw-700 text-grey-500 font-xsssss ls-3 text-uppercase mb-0 mt-0">
+                                  LEARNING
+                                </h4>
+                              </div>
+                              <div className="col-5 text-left">
+                                <Chart
+                                  options={blueChart.options}
+                                  series={blueChart.series}
+                                  type="bar"
+                                  width="100%"
+                                  height="50%"
+                                />
                               </div>
                             </div>
-                          ))}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="col-xl-4 col-lg-12 ">
+                        <div className="card w-100 p-1 border-0 mt-4 rounded-lg bg-white shadow-xs overflow-hidden">
+                          <div className="card-body p-4">
+                            <div className="row">
+                              <div className="col-7">
+                                <h4 className="fw-700 text-success font-xssss mt-0 mb-0 ">
+                                  -27%
+                                </h4>
+                                <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
+                                  3325
+                                </h2>
+                                <h4 className="fw-700 text-grey-500 font-xsssss ls-3 text-uppercase mb-0 mt-0">
+                                  PROGRESS
+                                </h4>
+                              </div>
+                              <div className="col-5 text-left">
+                                <Chart
+                                  options={pinkChart.options}
+                                  series={pinkChart.series}
+                                  type="bar"
+                                  width="100%"
+                                  height="50%"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="col-xl-4 col-lg-12 ">
+                        <div className="card w-100 p-1 border-0 mt-4 rounded-lg bg-white shadow-xs overflow-hidden">
+                          <div className="card-body p-4">
+                            <div className="row">
+                              <div className="col-7">
+                                <h4 className="fw-700 text-success font-xssss mt-0 mb-0 ">
+                                  -15%
+                                </h4>
+                                <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
+                                  4455
+                                </h2>
+                                <h4 className="fw-700 text-grey-500 font-xsssss ls-3 text-uppercase mb-0 mt-0">
+                                  PERFORMANCE
+                                </h4>
+                              </div>
+                              <div className="col-5 text-left">
+                                <Chart
+                                  options={purpleChart.options}
+                                  series={purpleChart.series}
+                                  type="bar"
+                                  width="100%"
+                                  height="50%"
+                                />
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </Tab>
                 )}
+
                 <Tab eventKey="group" title="QNA">
                   <div className="card d-block w-100 border-0 shadow-xss rounded-lg overflow-hidden p-lg-4 p-2">
                     <div className="card-body mb-lg-3 pb-0">
@@ -1079,7 +804,12 @@ function StudentProfile() {
                     </div>
                   </div>
                 </Tab>
+<<<<<<< HEAD
+
+                {userDetails.user.type == "school_student" && (
+=======
      
+>>>>>>> 221059953c114b630c9a4f2fa9eb0ff1e53579e8
                   <Tab eventKey="friends" title="FORUM">
                     <div className="card d-block w-100 border-0 shadow-xss rounded-lg overflow-hidden p-lg-4 p-2">
                       <div className="card-body mb-lg-3 pb-0">
@@ -1164,6 +894,20 @@ function StudentProfile() {
                       </div>
                     </div>
                   </Tab>
+<<<<<<< HEAD
+                )}
+
+                {/* 
+                <Tab eventKey="live" title="LIVE">
+                  <div className="card d-block w-100 border-0 shadow-xss rounded-lg overflow-hidden p-lg-4 p-2">
+                    <div className="card-body mb-lg-3 pb-0">
+                      <h2 className="fw-400 font-lg d-block">
+                        My <b>Friend</b>
+                        <a href="/default-user-profile" className="float-right">
+                          <i className="feather-edit text-grey-500 font-xs"></i>
+                        </a>
+                      </h2>
+=======
              
             
                 <Tab eventKey="live" title="REPORT CARD">
@@ -1180,6 +924,7 @@ function StudentProfile() {
                       </h4>
                     <button className="btn btn-primary float-right">Download</button>
                   
+>>>>>>> 221059953c114b630c9a4f2fa9eb0ff1e53579e8
                     </div>
                     <div className="card-body p-lg-5 p-4 w-100 border-0">
                       <div className="row">

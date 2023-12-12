@@ -3,9 +3,6 @@ import { Link } from "react-router-dom";
 import $ from "jquery";
 import "datatables.net";
 import "datatables.net-dt/css/jquery.dataTables.css";
-import "datatables.net-buttons/js/dataTables.buttons";
-import "datatables.net-buttons/js/buttons.html5";
-import "datatables.net-buttons/js/buttons.print";
 
 function Teachers() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -13,12 +10,31 @@ function Teachers() {
   const tableRef = useRef(null);
 
   const fetchTeachers = () => {
+    // Destroy the existing DataTable before fetching new data
+    if ($.fn.DataTable.isDataTable(tableRef.current)) {
+      $(tableRef.current).DataTable().destroy();
+    }
+
     return new Promise((resolve, reject) => {
       fetch(`${baseUrl}api/admin/api_get_all_teachers`)
         .then((result) => result.json())
         .then((jsonbody) => {
           setTeachers(jsonbody);
           resolve(jsonbody);
+
+          // Reinitialize DataTables after data is fetched
+          $(tableRef.current).DataTable({
+            paging: true,
+            searching: true,
+            ordering: true,
+            columns: [
+              { title: "Sl. No." },
+              { title: "Auth ID" },
+              { title: "Email" },
+              { title: "Classes and Subjects" },
+              { title: "Action" },
+            ],
+          });
         })
         .catch((error) => {
           console.error("Error fetching teacher details:", error);
@@ -28,32 +44,8 @@ function Teachers() {
   };
 
   useEffect(() => {
-    // Initialize DataTable
-    $(tableRef.current).DataTable({
-      paging: true,
-      searching: true,
-      ordering: true,
-      columns: [
-        { title: "Sl. No." },
-        { title: "Auth ID" },
-        { title: "Email" },
-        { title: "Classes and Subjects" },
-        { title: "Action" },
-      ],
-    });
-
-    // Destroy the DataTable when the component unmounts to prevent memory leaks
-    return () => {
-      if ($.fn.DataTable.isDataTable(tableRef.current)) {
-        $(tableRef.current).DataTable().destroy();
-      }
-    };
-  }, []); // This effect runs once after initial render
-
-  useEffect(() => {
-    // Fetch teachers data
     fetchTeachers();
-  }, []); // This effect also runs once after initial render
+  }, []); // This effect runs once after initial render
 
   return (
     <div className="card-body p-lg-5 p-4 w-100 border-0">

@@ -9,10 +9,10 @@ import BackButton from "../../components/navigation/BackButton";
 
 function CreateTest() {
   const terms = [
-    { id: '1', term: 'Term 1' },
-    { id: '2', term: 'Term 2' },
-    { id: '3', term: 'Term 3' }
-];
+    { id: "1", term: "Term 1" },
+    { id: "2", term: "Term 2" },
+    { id: "3", term: "Term 3" },
+  ];
 
   const baseUrl = process.env.REACT_APP_BASE_URL;
   useEffect(() => {
@@ -28,6 +28,12 @@ function CreateTest() {
   const [image, setImage] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
+  const [duration, setDuration] = useState("");
+
+  const formattedStartTime = `${startTime}:00`;
+  const formattedEndTime = `${endTime}:00`;
 
   function getClasses() {
     let result = fetch(baseUrl + "api/get_classes").then(function (result) {
@@ -54,9 +60,7 @@ function CreateTest() {
 
   const handleClassChange = (e) => {
     const selectedValue = e.target.value;
-    // console.log(selectedValue);
     setSelectedClass(selectedValue);
-    // getSubjects();
   };
   const handleSubjectChange = (e) => {
     const selectedValue = e.target.value;
@@ -78,7 +82,10 @@ function CreateTest() {
     formData.append("name", name);
     formData.append("description", description);
     formData.append("image", image);
-    formData.append("term", selectedTerm); // Append selected term here
+    formData.append("term", selectedTerm);
+    formData.append("startTime", formattedStartTime);
+    formData.append("endTime", formattedEndTime);
+    formData.append("duration", duration);
 
     e.preventDefault();
 
@@ -90,17 +97,15 @@ function CreateTest() {
         return res.json();
       })
       .then((resp) => {
-        // Additional response handling
         navigate("/tests/add_question_to_test", {
           state: { subjectId: selectedSubject, testId: resp.test.id },
         });
       })
       .catch((err) => {
-        toast.error("Could not submit question :" + err.message);
+        toast.error("Could not submit question: " + err.message);
       });
   };
 
-  // Define the terms array
   return (
     <>
       <div className="main-wrapper">
@@ -109,17 +114,16 @@ function CreateTest() {
           <div className="middle-sidebar-bottom theme-dark-bg">
             <div className="middle-sidebar-left">
               <div className="row">
-                <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
-                  <div className="card-body p-lg-5 px-4 w-100 border-0 d-flex rounded-lg justify-content-between">
-                    <div className="">
-                      <h2 className="fw-400 font-lg d-block ml-2">
-                        Create <b> Test</b>{" "}
-                      </h2>
-                    </div>
-                    <div className="float-right">
-                      <BackButton />
-                    </div>
-                  </div>
+                <div className="col">
+                  <span className="fw-400 font-lg ml-2">
+                    Create <b> Test</b>
+                  </span>
+                  <span className="float-right">
+                    <BackButton />
+                  </span>
+                </div>
+
+                <div className="card w-100 border-0 bg-white shadow-xs p-0 my-4">
                   <div className="card-body p-lg-5 px-4 w-100 border-0 ">
                     <form encType="multipart/form-data" onSubmit={createTest}>
                       <div className="row mb-6">
@@ -179,15 +183,54 @@ function CreateTest() {
                           </label>
                           <br />
                           <Dropdown
-                            options={terms} // Use the terms array here
+                            options={terms}
                             column_name="term"
-                            value={selectedTerm.value}
+                            value={selectedTerm}
                             onChange={handleTermChange}
+                          />
+                        </div>
+                        <div className="col-lg-6">
+                          <label className="mont-font fw-600 font-xsss">
+                            Start Time
+                          </label>
+                          <br />
+                          <input
+                            type="time"
+                            className="form-control"
+                            value={startTime}
+                            onChange={(e) => setStartTime(e.target.value)}
+                            required
+                          />
+                        </div>
+                        <div className="col-lg-6">
+                          <label className="mont-font fw-600 font-xsss">
+                            End Time
+                          </label>
+                          <br />
+                          <input
+                            type="time"
+                            className="form-control"
+                            value={endTime}
+                            onChange={(e) => setEndTime(e.target.value)}
+                            required
+                          />
+                        </div>
+                        <div className="col-lg-6">
+                          <label className="mont-font fw-600 font-xsss">
+                            Duration (in seconds)
+                          </label>
+                          <br />
+                          <input
+                            type="number"
+                            className="form-control"
+                            value={duration}
+                            onChange={(e) => setDuration(e.target.value)}
+                            required
                           />
                         </div>
                         <div className="col-lg-12">
                           <label className="mont-font fw-600 font-xsss">
-                            Decription
+                            Description
                           </label>
                           <br />
                           <textarea
