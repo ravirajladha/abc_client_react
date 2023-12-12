@@ -61,7 +61,7 @@ async function getClasses() {
                   <Link
                       to={"/all_subjects/create_class"}
                       className="p-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current mx-1"
-                    >    Add  Classes1
+                    >    Add  Classes
                     </Link>
             
  : ""}

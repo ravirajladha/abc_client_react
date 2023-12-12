@@ -38,7 +38,7 @@ function Subjects() {
   const [userTestResults, setUserTestResults] = useState([]);
   const fetchUserTestResults = async () => {
     try {
-      const response = await fetch(baseUrl + "api/get_test_results/" + userId);
+      const response = await fetch(baseUrl + "api/get_student_test_results/" + userId);
       if (!response.ok) {
         throw new Error("Failed to fetch user test results");
       }

@@ -52,7 +52,8 @@ const Results = () => {
                               {singleClass.class}
                             </h4>
                             {/* Additional details about the class can be listed here */}
-                            <div className="card-footer bg-transparent border-top-0">
+                            <div className="card-footer bg-transparent border-top-0 row">
+                              <div className="col-lg-12">
                               <Link
                                 to={`/school/class/${singleClass.id}/subjects`}
                                 className="px-2 py-1 mt-4 fw-500 d-inline-block text-white fw-600 lh-30 rounded-lg w100 text-center font-xssss mr-2 ls-3 bg-current"
@@ -65,12 +66,17 @@ const Results = () => {
                               >
                                  Old Results
                               </Link>
+                              </div>
+                              <div className="col-lg-12">
                               <Link
                                 to={`/school/class/${singleClass.id}/results1`}
-                                className="px-2 py-1 mt-4 fw-500 d-inline-block text-white fw-600 lh-30 rounded-lg w100 text-center font-xssss ls-3 bg-current"
+                                className="px-2 py-1 mt-4 fw-500 d-inline-block text-white fw-600 lh-30 rounded-lg text-center font-xssss ls-3 bg-current"
                               >
-                                 New Subject_Class Results
+                                 Subject wise Results
                               </Link>
+                              </div>
+                             
+                              
                             </div>
                           </div>
                         </div>

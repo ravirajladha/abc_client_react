@@ -10,9 +10,6 @@ import Chart from "react-apexcharts";
 import { AuthContext } from "../../lib/AuthContext.js";
 import { useContext } from "react";
 import SubjectScore from "../../components/common/SubjectScore";
-
-import ProfileCard from "../school/student-edit-profile-components/default-user-profile-components/ProfileCard.jsx";
-
 const blueChart = {
   series: [
     {
@@ -882,16 +879,22 @@ function StudentProfile() {
                       </div>
                     </div>
                   </Tab>
-                 
-                <Tab eventKey="live" title="LIVE">
-                  <div className="card d-block w-100 border-0 shadow-xss rounded-lg overflow-hidden p-lg-4 p-2">
-                    <div className="card-body mb-lg-3 pb-0">
-                      <h2 className="fw-400 font-lg d-block">
-                        My <b>Friend</b>
-                        <a href="/default-user-profile" className="float-right">
-                          <i className="feather-edit text-grey-500 font-xs"></i>
-                        </a>
-                      </h2>
+             
+            
+                <Tab eventKey="live" title="REPORT CARD">
+                <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
+                    <div className="card-body p-4 w-100 bg-current border-0 d-flex rounded-lg">
+                      <Link
+                        to="/default-settings"
+                        className="d-inline-block mt-2"
+                      >
+                        <i className="ti-arrow-left font-sm text-white"></i>
+                      </Link>
+                      <h4 className="font-xs text-white fw-600 ml-4 mb-0 mt-2">
+                       REPORT CARD
+                      </h4>
+                    <button className="btn btn-primary float-right">Download</button>
+                  
                     </div>
                     <div className="card-body p-lg-5 p-4 w-100 border-0">
                       <div className="row">
