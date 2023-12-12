@@ -10,7 +10,6 @@ const ClassSubjects = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const baseUrl = process.env.REACT_APP_BASE_URL;
-
   const [subjects, setSubjects] = useState([]);
   function getSubjects(classId) {
     fetch(baseUrl + "api/admin/get_subjects/" + classId).then(function (

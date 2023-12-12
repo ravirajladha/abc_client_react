@@ -103,239 +103,456 @@ import Payments from "./pages/admin/Payments.jsx";
 import ParentSettings from "./pages/parent/Settings.jsx";
 import ParentAddStudent from "./pages/parent/AddStudent";
 
+import Applications from "./pages/school/Applications.jsx";
 class Root extends Component {
   render() {
     return (
-     
       <HashRouter basename={"/"}>
-       <AuthProvider>
-        <Routes>
+        <AuthProvider>
+          <Routes>
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/register`}
+              element={<Register />}
+            />
+            <Route path="*" element={<Notfound />} />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/`}
+              element={<Login />}
+            />
 
-        <Route exact path={`${process.env.PUBLIC_URL}/register`} element={<Register />} />
-        <Route path="*" element={<Notfound />} />
-        <Route exact path={`${process.env.PUBLIC_URL}/`} element={<Login />} />
-      
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/home`}
+              element={
+                <ProtectedRoute
+                  element={<Home />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/subjects`}
+              element={
+                <ProtectedRoute
+                  element={<Subjects />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/subject/:subjectId/results`}
+              element={
+                <ProtectedRoute
+                  element={<SubjectResults />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/school_qna`}
+              element={
+                <ProtectedRoute
+                  element={<Qna />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/school_forums`}
+              element={
+                <ProtectedRoute
+                  element={<Forums />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/school_qna/view_qna/:qnaId`}
+              element={
+                <ProtectedRoute
+                  element={<ViewQna />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/school_forums/view_forum/:forumId`}
+              element={
+                <ProtectedRoute
+                  element={<ViewForum />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/school_forums/answer_forum/:forumId`}
+              element={
+                <ProtectedRoute
+                  element={<AnswerForum />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/settings`}
+              element={
+                <ProtectedRoute
+                  element={<Settings />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/subject_stream/:subjectId`}
+              element={
+                <ProtectedRoute
+                  element={<SubjectStream />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/subject_stream/take_assessments/:assessment_id`}
+              element={
+                <ProtectedRoute
+                  element={<TakeAssessments />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/subject_stream/view_assessment_score`}
+              element={
+                <ProtectedRoute
+                  element={<ViewAssessmentScore />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/subject_stream/take_test/:subject_id/:test_id`}
+              element={
+                <ProtectedRoute
+                  element={<TakeTest />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/subject_stream/view_test_score/:subject_id/:test_id`}
+              element={
+                <ProtectedRoute
+                  element={<ViewTestScore />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/subject_stream/view_project/:project_id`}
+              element={
+                <ProtectedRoute
+                  element={<ViewProject />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/subject_stream/start_project/:project_id/:task_id/:lab_code`}
+              element={
+                <ProtectedRoute
+                  element={<StartProject />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/subject_stream/elab/:video_id`}
+              element={
+                <ProtectedRoute
+                  element={<Elab />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/video_features`}
+              element={
+                <ProtectedRoute
+                  element={<VideoFeatures />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/video_features/markers`}
+              element={
+                <ProtectedRoute
+                  element={<Markers />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/video_features/marker_single`}
+              element={
+                <ProtectedRoute
+                  element={<MarkerSingle />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/video_features/video_with_watermark`}
+              element={
+                <ProtectedRoute
+                  element={<VideoWithWaterMark />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
 
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/home`}
-            element={
-              <ProtectedRoute
-                element={<Home />}
-                allowedTypes={["school_student"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/subjects`}
-            element={
-              <ProtectedRoute
-                element={<Subjects />}
-                allowedTypes={["school_student"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/subjects/:subjectId/results`}
-            element={
-              <ProtectedRoute
-                element={<SubjectResults />}
-                allowedTypes={["school_student"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/subjects/test_details/:testId`}
-            element={
-              <ProtectedRoute
-                element={<TestDetails />}
-                allowedTypes={["school_student"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/school_qna`}
-            element={
-              <ProtectedRoute
-                element={<Qna />}
-                allowedTypes={["school_student"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/school_forums`}
-            element={
-              <ProtectedRoute
-                element={<Forums />}
-                allowedTypes={["school_student"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/school_qna/view_qna/:qnaId`}
-            element={
-              <ProtectedRoute
-                element={<ViewQna />}
-                allowedTypes={["school_student"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/school_forums/view_forum/:forumId`}
-            element={
-              <ProtectedRoute
-                element={<ViewForum />}
-                allowedTypes={["school_student"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/school_forums/answer_forum/:forumId`}
-            element={
-              <ProtectedRoute
-                element={<AnswerForum />}
-                allowedTypes={["school_student"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/settings`}
-            element={
-              <ProtectedRoute
-                element={<Settings />}
-                allowedTypes={["school_student"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/subject_stream/:subjectId`}
-            element={
-              <ProtectedRoute
-                element={<SubjectStream />}
-                allowedTypes={["school_student"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/subject_stream/take_assessments/:assessment_id`}
-            element={
-              <ProtectedRoute
-                element={<TakeAssessments />}
-                allowedTypes={["school_student"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/subject_stream/view_assessment_score`}
-            element={
-              <ProtectedRoute
-                element={<ViewAssessmentScore />}
-                allowedTypes={["school_student"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/subject_stream/take_test/:subject_id/:test_id`}
-            element={
-              <ProtectedRoute
-                element={<TakeTest />}
-                allowedTypes={["school_student"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/subject_stream/view_test_score/:subject_id/:test_id`}
-            element={
-              <ProtectedRoute
-                element={<ViewTestScore />}
-                allowedTypes={["school_student"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/subject_stream/view_project/:project_id`}
-            element={
-              <ProtectedRoute
-                element={<ViewProject />}
-                allowedTypes={["school_student"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/subject_stream/start_project/:project_id/:task_id/:lab_code`}
-            element={
-              <ProtectedRoute
-                element={<StartProject />}
-                allowedTypes={["school_student"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/subject_stream/elab/:video_id`}
-            element={
-              <ProtectedRoute
-                element={<Elab />}
-                allowedTypes={["school_student"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/video_features`}
-            element={
-              <ProtectedRoute
-                element={<VideoFeatures />}
-                allowedTypes={["school_student"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/video_features/markers`}
-            element={
-              <ProtectedRoute
-                element={<Markers />}
-                allowedTypes={["school_student"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/video_features/marker_single`}
-            element={
-              <ProtectedRoute
-                element={<MarkerSingle />}
-                allowedTypes={["school_student"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/video_features/video_with_watermark`}
-            element={
-              <ProtectedRoute
-                element={<VideoWithWaterMark />}
-                allowedTypes={["school_student"]}
-              />
-            }
-          />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/home`}
+              element={
+                <ProtectedRoute
+                  element={<Home />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/subjects`}
+              element={
+                <ProtectedRoute
+                  element={<Subjects />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/subjects/:subjectId/results`}
+              element={
+                <ProtectedRoute
+                  element={<SubjectResults />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/subjects/test_details/:testId`}
+              element={
+                <ProtectedRoute
+                  element={<TestDetails />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/school_qna`}
+              element={
+                <ProtectedRoute
+                  element={<Qna />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/school_forums`}
+              element={
+                <ProtectedRoute
+                  element={<Forums />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/school_qna/view_qna/:qnaId`}
+              element={
+                <ProtectedRoute
+                  element={<ViewQna />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/school_forums/view_forum/:forumId`}
+              element={
+                <ProtectedRoute
+                  element={<ViewForum />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/school_forums/answer_forum/:forumId`}
+              element={
+                <ProtectedRoute
+                  element={<AnswerForum />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/settings`}
+              element={
+                <ProtectedRoute
+                  element={<Settings />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/subject_stream/:subjectId`}
+              element={
+                <ProtectedRoute
+                  element={<SubjectStream />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/subject_stream/take_assessments/:assessment_id`}
+              element={
+                <ProtectedRoute
+                  element={<TakeAssessments />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/subject_stream/view_assessment_score`}
+              element={
+                <ProtectedRoute
+                  element={<ViewAssessmentScore />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/subject_stream/take_test/:subject_id/:test_id`}
+              element={
+                <ProtectedRoute
+                  element={<TakeTest />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/subject_stream/view_test_score/:subject_id/:test_id`}
+              element={
+                <ProtectedRoute
+                  element={<ViewTestScore />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/subject_stream/view_project/:project_id`}
+              element={
+                <ProtectedRoute
+                  element={<ViewProject />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/subject_stream/start_project/:project_id/:task_id/:lab_code`}
+              element={
+                <ProtectedRoute
+                  element={<StartProject />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/subject_stream/elab/:video_id`}
+              element={
+                <ProtectedRoute
+                  element={<Elab />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/video_features`}
+              element={
+                <ProtectedRoute
+                  element={<VideoFeatures />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/video_features/markers`}
+              element={
+                <ProtectedRoute
+                  element={<Markers />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/video_features/marker_single`}
+              element={
+                <ProtectedRoute
+                  element={<MarkerSingle />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/video_features/video_with_watermark`}
+              element={
+                <ProtectedRoute
+                  element={<VideoWithWaterMark />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
 
           {/* admin */}
           <Route
@@ -454,47 +671,50 @@ class Root extends Component {
             }
           />
 
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/create_lab`}
-            element={
-              <ProtectedRoute
-                element={<CreateLab />}
-                allowedTypes={["admin"]}
-              />
-            }
-          />
-{/* here type:1, 2 indicates mini project or elab coming from subjects 
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/create_lab`}
+              element={
+                <ProtectedRoute
+                  element={<CreateLab />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
+            {/* here type:1, 2 indicates mini project or elab coming from subjects 
 redirecting_id: mini_prjoect_id or subject_id
 type_id: if mini_project then task_id else subject then video_id
 */}
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/editor/:type/:redirecting_id/:type_id/:labId`}
-            element={
-              <ProtectedRoute
-                element={<Editor1 />}
-                allowedTypes={["school_student", "admin"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/create_lab_new`}
-            element={
-              <ProtectedRoute
-                element={<CreateLabNew />}
-                allowedTypes={["admin"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/schools`}
-            element={
-              <ProtectedRoute element={<Schools />} allowedTypes={["admin"]} />
-            }
-          />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/editor/:type/:redirecting_id/:type_id/:labId`}
+              element={
+                <ProtectedRoute
+                  element={<Editor1 />}
+                  allowedTypes={["school_student", "admin"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/create_lab_new`}
+              element={
+                <ProtectedRoute
+                  element={<CreateLabNew />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/schools`}
+              element={
+                <ProtectedRoute
+                  element={<Schools />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
 
           <Route
             exact
@@ -778,17 +998,17 @@ type_id: if mini_project then task_id else subject then video_id
             }
           />
 
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/mini_projects/create_project_task/:projectId`}
-            element={
-              <ProtectedRoute
-                element={<CreateProjectTask />}
-                allowedTypes={["admin"]}
-              />
-            }
-          />
-<Route
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/mini_projects/create_project_task/:projectId`}
+              element={
+                <ProtectedRoute
+                  element={<CreateProjectTask />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
+            <Route
               exact
               path={`${process.env.PUBLIC_URL}/edit-e-labs/:id`}
               element={
@@ -798,149 +1018,142 @@ type_id: if mini_project then task_id else subject then video_id
                 />
               }
             />
+            {/* teacher */}
             <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/payments`}
-            element={
-              <ProtectedRoute
-                element={<Payments />}
-                allowedTypes={["admin"]}
-              />
-            }
-          />
-          {/* teacher */}
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/teacher`}
-            element={
-              <ProtectedRoute
-                element={<TeacherHome />}
-                allowedTypes={["teacher"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/qnas`}
-            element={
-              <ProtectedRoute element={<Qnas />} allowedTypes={["teacher"]} />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/qnas/answer_qna/:qna_id`}
-            element={
-              <ProtectedRoute
-                element={<AnswerQna />}
-                allowedTypes={["teacher"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/chats`}
-            element={
-              <ProtectedRoute element={<Chats />} allowedTypes={["teacher"]} />
-            }
-          />
+              exact
+              path={`${process.env.PUBLIC_URL}/teacher`}
+              element={
+                <ProtectedRoute
+                  element={<TeacherHome />}
+                  allowedTypes={["teacher"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/qnas`}
+              element={
+                <ProtectedRoute element={<Qnas />} allowedTypes={["teacher"]} />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/qnas/answer_qna/:qna_id`}
+              element={
+                <ProtectedRoute
+                  element={<AnswerQna />}
+                  allowedTypes={["teacher"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/chats`}
+              element={
+                <ProtectedRoute
+                  element={<Chats />}
+                  allowedTypes={["teacher"]}
+                />
+              }
+            />
 
-          {/* parent */}
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/parent`}
-            element={
-              <ProtectedRoute
-                element={<ParentHome />}
-                allowedTypes={["parent"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/student/:studentId`}
-            element={
-              <ProtectedRoute
-                element={<StudentDetails />}
-                allowedTypes={["parent"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/student/:studentId/tests/:subjectId`}
-            element={
-              <ProtectedRoute
-                element={<StudentTestResults />}
-                allowedTypes={["parent"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/student/:studentId/assessments/:subjectId/`}
-            element={
-              <ProtectedRoute
-                element={<StudentAssessmentResults />}
-                allowedTypes={["parent"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/parent/settings`}
-            element={
-              <ProtectedRoute
-                element={<ParentSettings />}
-                allowedTypes={["parent"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/parent/add_student`}
-            element={
-              <ProtectedRoute
-                element={<ParentAddStudent />}
-                allowedTypes={["parent"]}
-              />
-            }
-          />
+            {/* parent */}
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/parent`}
+              element={
+                <ProtectedRoute
+                  element={<ParentHome />}
+                  allowedTypes={["parent"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/student/:studentId`}
+              element={
+                <ProtectedRoute
+                  element={<StudentDetails />}
+                  allowedTypes={["parent"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/student/:studentId/tests/:subjectId`}
+              element={
+                <ProtectedRoute
+                  element={<StudentTestResults />}
+                  allowedTypes={["parent"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/student/:studentId/assessments/:subjectId/`}
+              element={
+                <ProtectedRoute
+                  element={<StudentAssessmentResults />}
+                  allowedTypes={["parent"]}
+                />
+              }
+            />
 
+            {/* school */}
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/school`}
+              element={
+                <ProtectedRoute
+                  element={<SchoolHome />}
+                  allowedTypes={["sub_admin"]}
+                />
+              }
+            />
 
-          {/* school */}
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/school`}
-            element={
-              <ProtectedRoute
-                element={<SchoolHome />}
-                allowedTypes={["sub_admin"]}
-              />
-            }
-          />
+            {/* Rakshith */}
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/school/students`}
+              element={
+                <ProtectedRoute
+                  element={<Students />}
+                  allowedTypes={["sub_admin"]}
+                />
+              }
+            />
 
-          {/* Rakshith */}
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/school/students`}
-            element={
-              <ProtectedRoute
-                element={<Students />}
-                allowedTypes={["sub_admin"]}
-              />
-            }
-          />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/school/add_student_view`}
+              element={
+                <ProtectedRoute
+                  element={<AddStudent />}
+                  allowedTypes={["sub_admin"]}
+                />
+              }
+            />
 
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/school/add_student_view`}
-            element={
-              <ProtectedRoute
-                element={<AddStudent />}
-                allowedTypes={["sub_admin"]}
-              />
-            }
-          />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/school/view_student`}
+              element={
+                <ProtectedRoute
+                  element={<ViewStudent />}
+                  allowedTypes={["sub_admin"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/school/edit-student-profile/:id`}
+              element={
+                <ProtectedRoute
+                  element={<EditStudentProfile />}
+                  allowedTypes={["sub_admin"]}
+                />
+              }
+            />
 
           <Route
             exact
@@ -974,46 +1187,49 @@ type_id: if mini_project then task_id else subject then video_id
             }
           />
 
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/school/teachers`}
-            element={
-              <ProtectedRoute element={<Teachers />} allowedTypes={["sub_admin"]} />
-            }
-          />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/school/teachers`}
+              element={
+                <ProtectedRoute
+                  element={<Teachers />}
+                  allowedTypes={["sub_admin"]}
+                />
+              }
+            />
 
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/school/add_teacher`}
-            element={
-              <ProtectedRoute
-                element={<AddTeacher />}
-                allowedTypes={["sub_admin"]}
-              />
-            }
-          />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/school/add_teacher`}
+              element={
+                <ProtectedRoute
+                  element={<AddTeacher />}
+                  allowedTypes={["sub_admin"]}
+                />
+              }
+            />
 
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/school/results`}
-            element={
-              <ProtectedRoute
-                element={<Results />}
-                allowedTypes={["sub_admin"]}
-              />
-            }
-          />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/school/results`}
+              element={
+                <ProtectedRoute
+                  element={<Results />}
+                  allowedTypes={["sub_admin"]}
+                />
+              }
+            />
 
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/school/class/:classId/results`}
-            element={
-              <ProtectedRoute
-                element={<ClassResults />}
-                allowedTypes={["sub_admin"]}
-              />
-            }
-          />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/school/class/:classId/results`}
+              element={
+                <ProtectedRoute
+                  element={<ClassResults />}
+                  allowedTypes={["sub_admin"]}
+                />
+              }
+            />
 
           <Route
             exact
@@ -1026,32 +1242,41 @@ type_id: if mini_project then task_id else subject then video_id
             }
           />
 
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/school/class/:classId/subjects`}
-            element={
-              <ProtectedRoute
-                element={<ClassSubjects />}
-                allowedTypes={["sub_admin"]}
-              />
-            }
-          />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/school/class/:classId/subjects`}
+              element={
+                <ProtectedRoute
+                  element={<ClassSubjects />}
+                  allowedTypes={["sub_admin"]}
+                />
+              }
+            />
 
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/school/class/:classId/subject/:subjectId/results`}
-            element={
-              <ProtectedRoute
-                element={<ClassSubjectResults />}
-                allowedTypes={["sub_admin"]}
-              />
-            }
-          />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/school/class/:classId/subject/:subjectId/results`}
+              element={
+                <ProtectedRoute
+                  element={<ClassSubjectResults />}
+                  allowedTypes={["sub_admin"]}
+                />
+              }
+            />
 
-        </Routes>
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/school/applications`}
+              element={
+                <ProtectedRoute
+                  element={<Applications />}
+                  allowedTypes={["sub_admin"]}
+                />
+              }
+            />
+          </Routes>
         </AuthProvider>
       </HashRouter>
-
     );
   }
 }
