@@ -100,8 +100,9 @@ import ClassSubjectWiseResults from "./pages/school/ClassSubjectWiseResults.jsx"
 import AddQuestionsToAssessment from "./pages/admin/AddQuestionsToAssessment.jsx";
 import TestDetails from "./pages/student/TestDetails.jsx";
 import Payments from "./pages/admin/Payments.jsx";
-import ParentSettings from "./pages/parent/Settings.jsx";
-import ParentAddStudent from "./pages/parent/AddStudent";
+import ParentSettings from "./pages/parent/ParentSettings.jsx";
+import ParentAddStudent from "./pages/parent/ParentAddStudent.jsx";
+import AddModule from "./pages/admin/ebook/AddModule.jsx";
 
 import Applications from "./pages/school/Applications.jsx";
 class Root extends Component {
@@ -343,6 +344,42 @@ class Root extends Component {
                 />
               }
             />
+
+            {/* admin */}
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/default-user-profile`}
+              element={
+                <ProtectedRoute
+                  element={<Defaultuserprofile />}
+                  allowedTypes={[
+                    "school_student",
+                    "admin",
+                    "sub_admin",
+                    "parent",
+                    "teacher",
+                  ]}
+                />
+              }
+            />
+            {/* ebook start */}
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/ebooks`}
+              element={
+                <ProtectedRoute element={<Ebooks />} allowedTypes={["admin"]} />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/ebooks/create_ebook`}
+              element={
+                <ProtectedRoute
+                  element={<CreateEbook />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
             <Route
               exact
               path={`${process.env.PUBLIC_URL}/subjects`}
@@ -353,6 +390,18 @@ class Root extends Component {
                 />
               }
             />
+
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/ebooks/:ebookId/create-module`}
+              element={
+                <ProtectedRoute
+                  element={<AddModule />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
+
             <Route
               exact
               path={`${process.env.PUBLIC_URL}/subjects/:subjectId/results`}
@@ -363,6 +412,18 @@ class Root extends Component {
                 />
               }
             />
+
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/ebooks/ebook_modules/:ebook_id`}
+              element={
+                <ProtectedRoute
+                  element={<EbookModules />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
+
             <Route
               exact
               path={`${process.env.PUBLIC_URL}/subjects/test_details/:testId`}
@@ -375,11 +436,31 @@ class Root extends Component {
             />
             <Route
               exact
+              path={`${process.env.PUBLIC_URL}/ebooks/add_sections/:module_id`}
+              element={
+                <ProtectedRoute
+                  element={<AddSections />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
+            <Route
+              exact
               path={`${process.env.PUBLIC_URL}/school_qna`}
               element={
                 <ProtectedRoute
                   element={<Qna />}
                   allowedTypes={["school_student"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/ebooks/add_elements/:section_id`}
+              element={
+                <ProtectedRoute
+                  element={<AddElements />}
+                  allowedTypes={["admin"]}
                 />
               }
             />
@@ -554,122 +635,113 @@ class Root extends Component {
               }
             />
 
-          {/* admin */}
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/default-user-profile`}
-            element={
-              <ProtectedRoute
-                element={<Defaultuserprofile />}
-                allowedTypes={[
-                  "school_student",
-                  "admin",
-                  "sub_admin",
-                  "parent",
-                  "teacher",
-                ]}
-              />
-            }
-          />
-          
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/student/default-user-profile`}
-            element={
-              <ProtectedRoute
-                element={<StudentProfile />}
-                allowedTypes={[
-                  "school_student",
-                 
-                ]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/student/default-user-profile1`}
-            element={
-              <ProtectedRoute
-                element={<StudentProfile1 />}
-                allowedTypes={[
-                  "school_student",
-                 
-                ]}
-              />
-            }
-          />
-{/* ebook start */}
-<Route
-            exact
-            path={`${process.env.PUBLIC_URL}/ebooks`}
-            element={
-              <ProtectedRoute
-                element={<Ebooks />}
-                allowedTypes={["admin"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/ebooks/create_ebook`}
-            element={
-              <ProtectedRoute
-                element={<CreateEbook />}
-                allowedTypes={["admin"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/ebooks/ebook_modules/:ebook_id`}
-            element={
-              <ProtectedRoute
-                element={<EbookModules />}
-                allowedTypes={["admin"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/ebooks/add_sections/:module_id`}
-            element={
-              <ProtectedRoute
-                element={<AddSections />}
-                allowedTypes={["admin"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/ebooks/add_elements/:section_id`}
-            element={
-              <ProtectedRoute
-                element={<AddElements />}
-                allowedTypes={["admin"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/ebooks/preview_ebook/:ebook_id`}
-            element={
-              <ProtectedRoute
-                element={<PreviewEbook />}
-                allowedTypes={["admin", "school_student"]}
-              />
-            }
-          />
-          {/* ebook end */}
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/admin`}
-            element={
-              <ProtectedRoute
-                element={<AdminHome />}
-                allowedTypes={["admin"]}
-              />
-            }
-          />
+            {/* admin */}
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/default-user-profile`}
+              element={
+                <ProtectedRoute
+                  element={<Defaultuserprofile />}
+                  allowedTypes={[
+                    "school_student",
+                    "admin",
+                    "sub_admin",
+                    "parent",
+                    "teacher",
+                  ]}
+                />
+              }
+            />
+
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/student/default-user-profile`}
+              element={
+                <ProtectedRoute
+                  element={<StudentProfile />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/student/default-user-profile1`}
+              element={
+                <ProtectedRoute
+                  element={<StudentProfile1 />}
+                  allowedTypes={["school_student"]}
+                />
+              }
+            />
+            {/* ebook start */}
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/ebooks`}
+              element={
+                <ProtectedRoute element={<Ebooks />} allowedTypes={["admin"]} />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/ebooks/create_ebook`}
+              element={
+                <ProtectedRoute
+                  element={<CreateEbook />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/ebooks/ebook_modules/:ebook_id`}
+              element={
+                <ProtectedRoute
+                  element={<EbookModules />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/ebooks/add_sections/:module_id`}
+              element={
+                <ProtectedRoute
+                  element={<AddSections />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/ebooks/add_elements/:section_id`}
+              element={
+                <ProtectedRoute
+                  element={<AddElements />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/ebooks/preview_ebook/:ebook_id`}
+              element={
+                <ProtectedRoute
+                  element={<PreviewEbook />}
+                  allowedTypes={["admin", "school_student"]}
+                />
+              }
+            />
+            {/* ebook end */}
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/admin`}
+              element={
+                <ProtectedRoute
+                  element={<AdminHome />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
 
             <Route
               exact
@@ -681,10 +753,7 @@ class Root extends Component {
                 />
               }
             />
-            {/* here type:1, 2 indicates mini project or elab coming from subjects 
-redirecting_id: mini_prjoect_id or subject_id
-type_id: if mini_project then task_id else subject then video_id
-*/}
+
             <Route
               exact
               path={`${process.env.PUBLIC_URL}/editor/:type/:redirecting_id/:type_id/:labId`}
@@ -716,287 +785,293 @@ type_id: if mini_project then task_id else subject then video_id
               }
             />
 
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/all_classes`}
-            element={
-              <ProtectedRoute
-                element={<AllClasses />}
-                allowedTypes={["admin","teacher"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/:classId/results`}
-            element={
-              <ProtectedRoute
-                element={<ClassesResult />}
-                allowedTypes={["admin"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/all_subjects/:class_id`}
-            element={
-              <ProtectedRoute
-                element={<AllSubjects />}
-                allowedTypes={["admin"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/results/:subjectId`}
-            element={
-              <ProtectedRoute
-                element={<SubjectsResult />}
-                allowedTypes={["admin"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/all_chapters/:subject_id`}
-            element={
-              <ProtectedRoute
-                element={<AllChapters />}
-                allowedTypes={["admin"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/all_videos/:chapter_id`}
-            element={
-              <ProtectedRoute
-                element={<AllVideos />}
-                allowedTypes={["admin"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/all_subjects/create_class`}
-            element={
-              <ProtectedRoute
-                element={<CreateClass />}
-                allowedTypes={["admin"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/all_subjects/create_subject/:class_id`}
-            element={
-              <ProtectedRoute
-                element={<CreateSubject />}
-                allowedTypes={["admin"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/all_subjects/create_subject`}
-            element={
-              <ProtectedRoute
-                element={<CreateSubject />}
-                allowedTypes={["admin"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/all_subjects/create_chapters/:class_id/:subject_id`}
-            element={
-              <ProtectedRoute
-                element={<CreateChapters />}
-                allowedTypes={["admin"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/all_subjects/:class_id/:subject_id/:chapter_id/create_videos`}
-            element={
-              <ProtectedRoute
-                element={<CreateVideos />}
-                allowedTypes={["admin"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/assessments`}
-            element={
-              <ProtectedRoute
-                element={<Assessments />}
-                allowedTypes={["admin"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/assessments/create_question`}
-            element={
-              <ProtectedRoute
-                element={<CreateQuestion />}
-                allowedTypes={["admin"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/assessments/all_questions`}
-            element={
-              <ProtectedRoute
-                element={<AllQuestions />}
-                allowedTypes={["admin"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/assessments/create_assessments`}
-            element={
-              <ProtectedRoute
-                element={<CreateAssessments />}
-                allowedTypes={["admin"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/assessments/add-question-to-assessment`}
-            element={
-              <ProtectedRoute
-                element={<AddQuestionsToAssessment />}
-                allowedTypes={["admin"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/assessments/:subject_id/list`}
-            element={
-              <ProtectedRoute
-                element={<ViewAssessments />}
-                allowedTypes={["admin"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/assessments/:subjectId/results`}
-            element={
-              <ProtectedRoute
-                element={<SubjectAssessmentResults />}
-                allowedTypes={["admin"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/tests`}
-            element={
-              <ProtectedRoute element={<Tests />} allowedTypes={["admin"]} />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/tests/create_question`}
-            element={
-              <ProtectedRoute
-                element={<CreateQuestion />}
-                allowedTypes={["admin"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/tests/all_questions`}
-            element={
-              <ProtectedRoute
-                element={<AllQuestions />}
-                allowedTypes={["admin"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/tests/create_test`}
-            element={
-              <ProtectedRoute
-                element={<CreateTest />}
-                allowedTypes={["admin"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/tests/add_question_to_test`}
-            element={
-              <ProtectedRoute
-                element={<AddQuestionsToTest />}
-                allowedTypes={["admin"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/all_labs`}
-            element={
-              <ProtectedRoute element={<AllLabs />} allowedTypes={["admin"]} />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/all-tasks/:projectId`}
-            element={
-              <ProtectedRoute element={<AllTasks />} allowedTypes={["admin"]} />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/tests/test_details/:testId`}
-            element={
-              <ProtectedRoute
-                element={<SingleTestDetails />}
-                allowedTypes={["admin"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/tests/test_results/:testId`}
-            element={
-              <ProtectedRoute
-                element={<TestResult />}
-                allowedTypes={["admin"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/mini_projects`}
-            element={
-              <ProtectedRoute
-                element={<MiniProjects />}
-                allowedTypes={["admin"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/mini_projects/create_project`}
-            element={
-              <ProtectedRoute
-                element={<CreateProject />}
-                allowedTypes={["admin"]}
-              />
-            }
-          />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/all_classes`}
+              element={
+                <ProtectedRoute
+                  element={<AllClasses />}
+                  allowedTypes={["admin", "teacher"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/:classId/results`}
+              element={
+                <ProtectedRoute
+                  element={<ClassesResult />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/all_subjects/:class_id`}
+              element={
+                <ProtectedRoute
+                  element={<AllSubjects />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/results/:subjectId`}
+              element={
+                <ProtectedRoute
+                  element={<SubjectsResult />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/all_chapters/:subject_id`}
+              element={
+                <ProtectedRoute
+                  element={<AllChapters />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/all_videos/:chapter_id`}
+              element={
+                <ProtectedRoute
+                  element={<AllVideos />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/all_subjects/create_class`}
+              element={
+                <ProtectedRoute
+                  element={<CreateClass />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/all_subjects/create_subject/:class_id`}
+              element={
+                <ProtectedRoute
+                  element={<CreateSubject />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/all_subjects/create_subject`}
+              element={
+                <ProtectedRoute
+                  element={<CreateSubject />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/all_subjects/create_chapters/:class_id/:subject_id`}
+              element={
+                <ProtectedRoute
+                  element={<CreateChapters />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/all_subjects/:class_id/:subject_id/:chapter_id/create_videos`}
+              element={
+                <ProtectedRoute
+                  element={<CreateVideos />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/assessments`}
+              element={
+                <ProtectedRoute
+                  element={<Assessments />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/assessments/create_question`}
+              element={
+                <ProtectedRoute
+                  element={<CreateQuestion />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/assessments/all_questions`}
+              element={
+                <ProtectedRoute
+                  element={<AllQuestions />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/assessments/create_assessments`}
+              element={
+                <ProtectedRoute
+                  element={<CreateAssessments />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/assessments/add-question-to-assessment`}
+              element={
+                <ProtectedRoute
+                  element={<AddQuestionsToAssessment />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/assessments/:subject_id/list`}
+              element={
+                <ProtectedRoute
+                  element={<ViewAssessments />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/assessments/:subjectId/results`}
+              element={
+                <ProtectedRoute
+                  element={<SubjectAssessmentResults />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/tests`}
+              element={
+                <ProtectedRoute element={<Tests />} allowedTypes={["admin"]} />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/tests/create_question`}
+              element={
+                <ProtectedRoute
+                  element={<CreateQuestion />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/tests/all_questions`}
+              element={
+                <ProtectedRoute
+                  element={<AllQuestions />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/tests/create_test`}
+              element={
+                <ProtectedRoute
+                  element={<CreateTest />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/tests/add_question_to_test`}
+              element={
+                <ProtectedRoute
+                  element={<AddQuestionsToTest />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/all_labs`}
+              element={
+                <ProtectedRoute
+                  element={<AllLabs />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/all-tasks/:projectId`}
+              element={
+                <ProtectedRoute
+                  element={<AllTasks />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/tests/test_details/:testId`}
+              element={
+                <ProtectedRoute
+                  element={<SingleTestDetails />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/tests/test_results/:testId`}
+              element={
+                <ProtectedRoute
+                  element={<TestResult />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/mini_projects`}
+              element={
+                <ProtectedRoute
+                  element={<MiniProjects />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/mini_projects/create_project`}
+              element={
+                <ProtectedRoute
+                  element={<CreateProject />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
 
             <Route
               exact
@@ -1155,37 +1230,47 @@ type_id: if mini_project then task_id else subject then video_id
               }
             />
 
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/school/view_student`}
-            element={
-              <ProtectedRoute
-                element={<ViewStudent />}
-                allowedTypes={["sub_admin"]}
-              />
-            }
-          />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/school/edit-student-profile/:id`}
-            element={
-              <ProtectedRoute
-                element={<EditStudentProfile />}
-                allowedTypes={["sub_admin","admin"]}
-              />
-            }
-          />
-          
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/edit-school-profile/:id`}
-            element={
-              <ProtectedRoute
-                element={<EditSchoolProfile />}
-                allowedTypes={["admin"]}
-              />
-            }
-          />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/school/view_student`}
+              element={
+                <ProtectedRoute
+                  element={<ViewStudent />}
+                  allowedTypes={["sub_admin"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/school/edit-student-profile/:id`}
+              element={
+                <ProtectedRoute
+                  element={<EditStudentProfile />}
+                  allowedTypes={["sub_admin", "admin"]}
+                />
+              }
+            />
+
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/edit-school-profile/:id`}
+              element={
+                <ProtectedRoute
+                  element={<EditSchoolProfile />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/edit-school-profile/:id`}
+              element={
+                <ProtectedRoute
+                  element={<EditSchoolProfile />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
 
             <Route
               exact
@@ -1231,16 +1316,16 @@ type_id: if mini_project then task_id else subject then video_id
               }
             />
 
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL}/school/class/:classId/results1`}
-            element={
-              <ProtectedRoute
-                element={<ClassSubjectWiseResults />}
-                allowedTypes={["sub_admin","admin","teacher"]}
-              />
-            }
-          />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/school/class/:classId/results1`}
+              element={
+                <ProtectedRoute
+                  element={<ClassSubjectWiseResults />}
+                  allowedTypes={["sub_admin", "admin", "teacher"]}
+                />
+              }
+            />
 
             <Route
               exact

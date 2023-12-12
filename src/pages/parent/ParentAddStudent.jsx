@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
-import {Breadcrumb} from "react-bootstrap";
+import { Breadcrumb } from "react-bootstrap";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import AppHeader from "../../components/includes/AppHeader";
+import AppHeader from "../../components/includes/AppHeader.jsx";
 import { useContext } from "react";
 import { AuthContext } from "../../lib/AuthContext.js";
 import BackButton from "../../components/navigation/BackButton.jsx";
 
-function AddStudent() {
+function ParentAddStudent() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const user = useContext(AuthContext).user;
   const [classes, setClasses] = useState([]);
@@ -24,14 +24,13 @@ function AddStudent() {
   };
   useEffect(() => {
     getAllClasses();
-  }, []); 
+  }, []);
   if (!user) {
     console.log("No user found. User might be logged out.");
     // Handle the redirect to login or return placeholder content here
     return <div>User is not logged in</div>;
   }
 
- 
   return (
     <div>
       <div className="main-wrapper">
@@ -43,21 +42,16 @@ function AddStudent() {
                 <div className="card-body p-4 w-100 border-0 d-flex rounded-lg justify-content-between">
                   <h2 className="fw-400 font-lg d-block">
                     Add <b> Student</b>
-                    
                   </h2>
                   <div className="float-right">
-                  
-                  <BackButton />
-                </div>
+                    <BackButton />
+                  </div>
                 </div>
                 <div></div>
                 <div className="card-body p-lg-5 p-4 w-100 border-0">
-                  <form
-                    method="post"
-                    encType="multipart/form-data"
-                  >
+                  <form method="post" encType="multipart/form-data">
                     <div className="row mb-6">
-                    <div className="col-lg-6">
+                      <div className="col-lg-6">
                         <div className="form-group">
                           <label className="mont-font fw-600 font-xsss">
                             School Name
@@ -67,7 +61,6 @@ function AddStudent() {
                             placeholder="School Name"
                             type="text"
                             name="name"
-                            
                             className="form-control"
                             required
                           />
@@ -83,7 +76,6 @@ function AddStudent() {
                             placeholder="Student Name"
                             type="text"
                             name="name"
-                            
                             className="form-control"
                             required
                           />
@@ -99,7 +91,6 @@ function AddStudent() {
                             name="className"
                             id=""
                             className="form-control"
-                            
                           >
                             <option value="">Select Class</option>
                             {classes.map((classVal) => (
@@ -119,12 +110,7 @@ function AddStudent() {
                             Section
                           </label>
                           <br />
-                          <select
-                            name="section"
-                            id=""
-                            className="form-control"
-                           
-                          >
+                          <select name="section" id="" className="form-control">
                             <option value="">Select Section</option>
                             <option value="1">A</option>
                             <option value="2">B</option>
@@ -133,7 +119,9 @@ function AddStudent() {
                       </div>
                       <div className="col-lg-12">
                         &nbsp;&nbsp;&nbsp;
-                        <h4 className="font-md fw-500 text-right text-muted">₹9999/Year</h4>
+                        <h4 className="font-md fw-500 text-right text-muted">
+                          ₹9999/Year
+                        </h4>
                       </div>
                       <div className="col-lg-12">
                         &nbsp;&nbsp;&nbsp;
@@ -160,4 +148,4 @@ function AddStudent() {
   );
 }
 
-export default AddStudent;
+export default ParentAddStudent;

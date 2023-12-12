@@ -1168,7 +1168,7 @@ function StudentProfile() {
                                     <li className="mr-1 list-inline-item">
                                       <a
                                         href="/default-user-profile"
-                                        className="btn-round-md bg-twiiter"
+                                        className="btn-round-md bg-twitter"
                                       >
                                         <i className="font-xs ti-twitter-alt text-white"></i>
                                       </a>
