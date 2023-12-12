@@ -70,7 +70,7 @@ function AllSubjects() {
                           <i className="ti-more text-grey-500 font-xs"></i>
                         </div> */}
                         <Link
-                          to={`/subject/${subject.id}`}
+                          to={`/subject/${subject.subject_id}`}
                           className="btn-round-xxxl rounded-lg bg-lightblue ml-auto mr-auto"
                         >
                           <img
@@ -92,13 +92,13 @@ function AllSubjects() {
                         </div>
                         <div className="card-footer bg-transparent border-top-0 d-flex align-items-center justify-content-center gap-2">
                           <Link
-                            to={`/all_chapters/${subject.id}`}
+                            to={`/all_chapters/${subject.subject_id}`}
                             className="px-1 py-2 d-inline-block text-white fw-700 lh-30 rounded-lg w100 text-center font-xsssss ls-3 bg-current"
                           >
                             Chapters
                           </Link>
                           <Link
-                            to={`/results/${subject.id}`}
+                            to={`/results/${subject.subject_id}`}
                             className="px-1 py-2 d-inline-block text-white fw-700 lh-30 rounded-lg w100 text-center font-xsssss ls-3 bg-current"
                           >
                             Results
