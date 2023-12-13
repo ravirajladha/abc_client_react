@@ -414,7 +414,6 @@ const subjects = [
 function StudentProfile() {
   const userDetails = useContext(AuthContext).user;
   const baseUrl = process.env.REACT_APP_BASE_URL;
-  const [studentDetails, setStudentDetails] = useState(null);
   // Assuming you have an AuthContext that provides user details
   const [studentDetails, setStudentDetails] = useState(null);
   // When rendering or using the data, check if studentDetails is not null
