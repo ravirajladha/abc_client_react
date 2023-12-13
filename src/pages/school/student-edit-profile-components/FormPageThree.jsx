@@ -34,7 +34,6 @@ function FormPageThree({ formData, onSubmit, goToNextForm, goToPreviousForm }) {
 
   const handleSave = (e) => {
     e.preventDefault();
-    console.log(formState);
     onSubmit(formState);
     goToNextForm();
   };
@@ -52,7 +51,9 @@ function FormPageThree({ formData, onSubmit, goToNextForm, goToPreviousForm }) {
             <div className="row mb-4">
               {/* Siblings and Annual Income */}
               <div className="col-lg-6">
-                <label className="font-weight-bold">Number of Siblings</label>
+                <label className="mont-font fw-600 font-xsss">
+                  Number of Siblings
+                </label>
                 <input
                   type="text"
                   name="siblings"
@@ -63,7 +64,9 @@ function FormPageThree({ formData, onSubmit, goToNextForm, goToPreviousForm }) {
                 />
               </div>
               <div className="col-lg-6">
-                <label className="font-weight-bold">Family Annual Income</label>
+                <label className="mont-font fw-600 font-xsss">
+                  Family Annual Income
+                </label>
                 <input
                   type="text"
                   name="annual_income"
@@ -75,11 +78,12 @@ function FormPageThree({ formData, onSubmit, goToNextForm, goToPreviousForm }) {
               </div>
             </div>
 
-            {/* Father/Guardian Details */}
-            <h5 className="font-weight-bold mt-4">Parents/Guardian Details</h5>
+            {/* Father/Mother Details */}
+            <h4 className="font-weight-bold">Father/Mother Details</h4>
+            <br />
             <div className="row mb-4">
               <div className="col-lg-6">
-                <label className="font-weight-bold">
+                <label className="mont-font fw-600 font-xsss">
                   Father Name as per Aadhar
                 </label>
                 <input
@@ -92,8 +96,10 @@ function FormPageThree({ formData, onSubmit, goToNextForm, goToPreviousForm }) {
                 />
               </div>
 
-              <div className="col-lg-4">
-                <label className="font-weight-bold">Mobile Number</label>
+              <div className="col-lg-6">
+                <label className="mont-font fw-600 font-xsss">
+                  Mobile Number
+                </label>
                 <input
                   type="text"
                   name="f_phone"
@@ -105,7 +111,7 @@ function FormPageThree({ formData, onSubmit, goToNextForm, goToPreviousForm }) {
               </div>
 
               <div className="col-lg-4">
-                <label className="font-weight-bold">Email Id</label>
+                <label className="mont-font fw-600 font-xsss">Email Id</label>
                 <input
                   type="email"
                   name="f_email_id"
@@ -117,11 +123,14 @@ function FormPageThree({ formData, onSubmit, goToNextForm, goToPreviousForm }) {
               </div>
             </div>
 
-            {/* Mother/Guardian Details */}
-            <h5 className="font-weight-bold mt-4">Mother/Guardian Details</h5>
+            {/* Guardian Details */}
+            <h5 className="font-weight-bold">Guardian Details</h5>
+            <br />
             <div className="row mb-4">
               <div className="col-lg-6">
-                <label className="font-weight-bold">Name as per Aadhar</label>
+                <label className="mont-font fw-600 font-xsss">
+                  Name as per Aadhar
+                </label>
                 <input
                   type="text"
                   name="mother_name"
@@ -133,7 +142,9 @@ function FormPageThree({ formData, onSubmit, goToNextForm, goToPreviousForm }) {
               </div>
 
               <div className="col-lg-4">
-                <label className="font-weight-bold">Mobile Number</label>
+                <label className="mont-font fw-600 font-xsss">
+                  Mobile Number
+                </label>
                 <input
                   type="text"
                   name="m_phone"

@@ -50,7 +50,7 @@ function PreviewEbook() {
     getEbookModules();
     getEbook();
     getEbookElements();
-  });
+  },[]);
 
   const [ebookModules, setEbookModules] = useState([]);
 

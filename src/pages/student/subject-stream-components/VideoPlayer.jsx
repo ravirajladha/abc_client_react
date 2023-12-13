@@ -1,20 +1,21 @@
-import React ,{useContext} from 'react';
+import React ,{useContext, useEffect, useRef} from 'react';
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
 import { AuthContext } from "../../../lib/AuthContext.js"
 
 export const VideoPlayer = (props) => {
+  const baseUrl = process.env.REACT_APP_BASE_URL;
  
   const videoRef = React.useRef(null);
   const playerRef = React.useRef(null);
-  const { options, onReady, onPlayerChange  } = props;
+  const { options, onReady, onPlayerChange, videoId, subjectId  } = props;
   const notes = [
     { timestamp: 10, note: 'Note at 10 seconds' },
     { timestamp: 30, note: 'Note at 30 seconds' },
     { timestamp: 50, note: 'Note at 50 seconds' },
     // Add more notes as needed
   ];
-  React.useEffect(() => {
+  useEffect(() => {
 
     // Make sure Video.js player is only initialized once
     if (!playerRef.current) {
@@ -46,7 +47,7 @@ export const VideoPlayer = (props) => {
 
 
   // Dispose the Video.js player when the functional component unmounts
-  React.useEffect(() => {
+  useEffect(() => {
     const player = playerRef.current;
 
     return () => {
@@ -57,7 +58,41 @@ export const VideoPlayer = (props) => {
     };
   }, [playerRef]);
 
+// Flag to check if the component is unmounting
+const isUnmounting = useRef(false);
 
+// Save timestamp when component unmounts or options change
+// useEffect(() => {
+//   return () => {
+//     if (playerRef.current) {
+//       const currentTime = playerRef.current.currentTime();
+//       saveTimestamp(currentTime);
+//     }
+//   };
+// }, [options]);
+
+
+// const saveTimestamp = async (currentTime) => {
+//   try {
+//     console.log(videoId);
+//     const formData = new FormData();
+//     formData.append("student_id", user_id);
+//     formData.append("video_id", videoId);
+//     formData.append("subject_id", subjectId);
+//     formData.append("timestamp", currentTime);
+
+//     const response = await fetch(baseUrl + "api/save_video_timestamp", {
+//       method: "POST",
+//       body: formData,
+//     });
+//     if (!response) {
+//       throw new Error("Failed to send message");
+//     }
+
+//   } catch (error) {
+//     console.error("Error sending message:", error);
+//   }
+// };
 
   const  user = useContext(AuthContext).user;
   if (!user) {

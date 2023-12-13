@@ -4,7 +4,7 @@ function FormPageFour({ formData, onSubmit, goToNextForm, goToPreviousForm }) {
   // You can access and use the formData for this page if needed
 
   const [formState, setFormState] = useState(
-    formData.formThreeData || {
+    formData.formFourData || {
       comm_address: "",
       comm_pin_code: "",
       comm_village: "",
@@ -18,10 +18,8 @@ function FormPageFour({ formData, onSubmit, goToNextForm, goToPreviousForm }) {
       perm_state: "",
     }
   );
-  // Add any additional state or event handlers you need for this form
 
   const handlePrevious = () => {
-    // Call the goToPreviousForm function to navigate to the previous form
     goToPreviousForm();
   };
 
@@ -69,7 +67,6 @@ function FormPageFour({ formData, onSubmit, goToNextForm, goToPreviousForm }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formState);
     onSubmit(formState);
     goToNextForm();
   };
@@ -216,16 +213,14 @@ function FormPageFour({ formData, onSubmit, goToNextForm, goToPreviousForm }) {
                   <label className="mont-font fw-600 font-xsss">
                     Village/Area/Locality(Select Any)
                   </label>
-                  <select
-                    className="form-control"
+                  <input
+                    type="text"
                     name="perm_village"
+                    className="form-control"
+                    placeholder="Enter Locality Name"
                     value={formState.perm_village}
                     onChange={handleChange}
-                  >
-                    {/* Options would be dynamically populated here */}
-                    <option value="">--select--</option>
-                    <option value="abcd">abcd</option>
-                  </select>
+                  />
                 </div>
               </div>
 

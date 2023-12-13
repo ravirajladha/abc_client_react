@@ -30,7 +30,7 @@ function ViewAssessmentScore() {
                                                 src="/assets/images/star.png" width="100" alt="icon" className="d-inline-block" />
 
                                             <h3 className="fw-700 mt-5 text-grey-900 font-xxl">Your score : <span>{resultData && resultData.score}</span></h3>
-                                            <h3 className="fw-700 mt-5 text-grey-900 font-xs">Your Percentage : <span>{resultData && resultData.score_percentage} %</span></h3>
+                                            <h3 className="fw-700 mt-5 text-grey-900 font-xs">Your Percentage : <span>{resultData && resultData.score_percentage.toFixed(2)} %</span></h3>
                                             <p className="font-xssss fw-600 lh-30 text-grey-500 mb-0 p-2">Your test is completed, you can find your score above. </p>
 
                                             <Link to={"/subject_stream/" + subjectId} data-question="question4" className=" p-2 mt-3 d-inline-block text-white fw-700 lh-30 rounded-lg w200 text-center font-xsssss ls-3 bg-current">Go back to course</Link>
