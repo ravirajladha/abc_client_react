@@ -67,8 +67,8 @@ function AllLabs() {
                           <th className="border-0 p-4">Problem</th>
                           <th className="border-0 p-4">Class</th>
                           <th className="border-0 p-4">Subject</th>
-                          <th className="border-0 p-4">Chapter</th>
-                          <th className="border-0 p-4">Video</th>
+                          
+                       
                           <th className="border-0 p-4">Language</th>
                           <th className="border-0 p-4">Action</th>
                         </tr>
@@ -79,12 +79,11 @@ function AllLabs() {
                             <td className="text-left">{lab.id}</td>
                             <td>{lab.name}</td>
                             <td>{lab.class_name}</td>{" "}
-                            {/* Directly using the chapter_name property */}
-                            <td>{lab.chapter_name}</td>{" "}
+                       
+                          
                             {/* Directly using the chapter_name property */}
                             <td>{lab.subject_name}</td>{" "}
-                            {/* Directly using the chapter_name property */}
-                            <td>{lab.video_name}</td>{" "}
+                           
                             {/* Directly using the chapter_name property */}
                             <td>{parseLanguage(lab.language)}</td>
                             <td>

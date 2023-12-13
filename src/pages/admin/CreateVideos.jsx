@@ -312,7 +312,7 @@ function CreateVideos() {
                           <div className="row">
                             <div className="col-lg-4">
                               <label className="mont-font fw-600 font-xsss">
-                                Video Name
+                                Content Name
                               </label>
                               <br />
 
@@ -327,7 +327,7 @@ function CreateVideos() {
                             </div>
                             <div className="col-lg-8">
                               <label className="mont-font fw-600 font-xsss">
-                                Video File
+                                Content File
                               </label>
                               <br />
                               <input
@@ -341,7 +341,7 @@ function CreateVideos() {
                             </div>
                             <div className="col-lg-12">
                               <label className="mont-font fw-600 font-xsss">
-                                Video Description
+                              Content Description
                               </label>
                               <textarea
                                 className="form-control"

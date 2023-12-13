@@ -24,6 +24,7 @@ function CreateLab(props) {
   // const [selectedChapter, setSelectedChapter] = useState("");
   // const [selectedVideo, setSelectedVideo] = useState("");
   const baseUrl = process.env.REACT_APP_BASE_URL;
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const fetchClasses = async () => {
     try {
@@ -170,7 +171,7 @@ function CreateLab(props) {
   // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setIsSubmitting(true);
     try {
       const response = await fetch(baseUrl + "api/add_lab", {
         method: "POST",
@@ -214,7 +215,10 @@ function CreateLab(props) {
       console.log(data);
     } catch (error) {
       console.error("Error submitting form:", error);
+    } finally {
+      setIsSubmitting(false); // Re-enable the submit button
     }
+    
   };
 
   const handleEditorChange = (name, value) => {
@@ -614,7 +618,7 @@ function CreateLab(props) {
 
                           <div className="col-lg-12">
                             <button
-                              type="submit"
+                              type="submit" disabled={isSubmitting} 
                               className="btn bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0 float-right"
                             >
                               Procced

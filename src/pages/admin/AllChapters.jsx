@@ -86,7 +86,7 @@ function AllChapters() {
                             to={`/all_videos/${chapter.id}`}
                             className="p-2 mt-4  d-inline-block text-white fw-700 lh-30 rounded-lg w100 text-center font-xsssss ls-3 bg-current"
                           >
-                            View Videos
+                            View Contents
                           </Link>
                         </div>
                       </div>

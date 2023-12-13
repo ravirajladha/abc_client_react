@@ -62,7 +62,7 @@ import AppFooter from "../../components/includes/AppFooter";
                 <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
                   <div>
                     <h2 className="fw-400 font-lg d-block">
-                      All <b> Videos</b>{" "}
+                      All <b> Contents</b>{" "}
                     </h2>
                   </div>
                   <div className="float-right">
@@ -70,7 +70,7 @@ import AppFooter from "../../components/includes/AppFooter";
           to={`/all_subjects/${classId}/${subjectId}/${chapter_id}/create_videos`} // Updated path with classId and subjectId
           className="px-3 py-1  d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current mx-1"
         >
-                      ADD VIDEOS
+                      ADD CONTENTS
                     </Link>
                     <button
                       onClick={goBack}
@@ -88,7 +88,7 @@ import AppFooter from "../../components/includes/AppFooter";
                 </div>
 
                 {isLoading ? (
-                  <h2 className="fw-400 font-lg d-block text-center">Loading videos...</h2>
+                  <h2 className="fw-400 font-lg d-block text-center">Loading contents...</h2>
                   ) : videos.length > 0 ? (
                   videos.map((video, index) => (
                     <div className="col-xl-4 col-lg-6 col-md-6" key={index}>

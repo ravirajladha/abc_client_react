@@ -25,7 +25,6 @@ import AnswerForum from "./pages/student/AnswerForum";
 import Settings from "./pages/student/Settings";
 import ProtectedRoute from "./pages/util/ProtectedRoute";
 import SubjectStream from "./pages/student/SubjectStream";
-import CreateLab from "./pages/admin/CreateLab";
 import CreateLabNew from "./pages/admin/CreateLabNew";
 import Schools from "./pages/admin/Schools";
 import AllClasses from "./pages/admin/AllClasses";
@@ -754,16 +753,7 @@ class Root extends Component {
               }
             />
 
-            <Route
-              exact
-              path={`${process.env.PUBLIC_URL}/create_lab`}
-              element={
-                <ProtectedRoute
-                  element={<CreateLab />}
-                  allowedTypes={["admin"]}
-                />
-              }
-            />
+       
 
             <Route
               exact

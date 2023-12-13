@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react'
 import AppHeader from '../../components/includes/AppHeader';
 import AppFooter from '../../components/includes/AppFooter';
 import Dropdown from '../../components/inputs/Dropdown';
-import { toast, ToastContainer } from 'react-toastify';
+import { Link } from "react-router-dom";
+
 import 'react-toastify/dist/ReactToastify.css';
 import BackButton from '../../components/navigation/BackButton';
 
@@ -74,9 +75,15 @@ function AllQuestions() {
                                 <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
                                     <div className="card-body p-lg-5 px-4 w-100 border-0 d-flex rounded-lg justify-content-between">
                                         <div className="">
-                                            <h2 className="fw-400 font-lg d-block">Test <b> Questions</b> </h2>
+                                            <h2 className="fw-400 font-lg d-block">Search <b> Questions</b> </h2>
                                         </div>
                                         <div className="float-right">
+                                        <Link
+                      to={"/assessments/create_question"}
+                      className="px-3 py-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1"
+                    >
+                      ADD QUESTIONS
+                    </Link>
                                             <BackButton />
                                         </div>
                                     </div>

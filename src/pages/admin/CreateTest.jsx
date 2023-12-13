@@ -31,6 +31,7 @@ function CreateTest() {
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
   const [duration, setDuration] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const formattedStartTime = `${startTime}:00`;
   const formattedEndTime = `${endTime}:00`;
@@ -88,6 +89,7 @@ function CreateTest() {
     formData.append("duration", duration);
 
     e.preventDefault();
+    setIsSubmitting(true);
 
     fetch(baseUrl + "api/create_test", {
       method: "POST",
@@ -103,6 +105,9 @@ function CreateTest() {
       })
       .catch((err) => {
         toast.error("Could not submit question: " + err.message);
+      })
+      .finally(() => {
+          setIsSubmitting(false); // Re-enable the submit button
       });
   };
 
@@ -248,7 +253,7 @@ function CreateTest() {
                             <label className="mont-font fw-600 font-xsss"></label>
                             <br />
                             <button
-                              type="submit"
+                              type="submit" disabled={isSubmitting} 
                               className="mt-1 btn bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0"
                             >
                               Next

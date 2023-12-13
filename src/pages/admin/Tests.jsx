@@ -37,12 +37,7 @@ function Tests() {
                     </h2>
                   </div>
                   <div className="float-right">
-                    <Link
-                      to={"/tests/create_question"}
-                      className="p-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1"
-                    >
-                      ADD QUESTIONS
-                    </Link>
+                  
                     <Link
                       to={"/tests/all_questions"}
                       className="p-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1"

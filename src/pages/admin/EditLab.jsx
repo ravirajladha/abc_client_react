@@ -18,6 +18,7 @@ function EditLab() {
   const [subjects, setSubjects] = useState([]);
   const [selectedClass, setSelectedClass] = useState("");
   const [selectedSubject, setSelectedSubject] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const fetchLabDetails = async () => {
     try {
@@ -120,6 +121,7 @@ function EditLab() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
     try {
       const response = await fetch(baseUrl + "api/update_lab/" + id, {
         method: "POST",
@@ -156,6 +158,8 @@ function EditLab() {
       console.log(data);
     } catch (error) {
       console.error("Error submitting form:", error);
+    } finally {
+      setIsSubmitting(false); // Re-enable the submit button
     }
   };
 
@@ -500,7 +504,7 @@ function EditLab() {
 
                             <div className="col-lg-12">
                               <button
-                                type="submit"
+                                type="submit" disabled={isSubmitting} 
                                 className="btn bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0 float-right"
                               >
                                 Proceed

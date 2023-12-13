@@ -48,11 +48,11 @@ function Assessments() {
                     </h2>
                   </div>
                   <div className="float-right">
-                    <Link
-                      to={"/assessments/create_question"}
-                      className="px-3 py-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1"
+                  <Link
+                      to={"/assessments/create_assessments"}
+                      className="px-3 py-2 me-2 d-inline-block text-white fw-700 lh-30 rounded-lg  uppercase text-center font-xsssss ls-3 bg-current"
                     >
-                      ADD QUESTIONS
+                      Create Assesments
                     </Link>
                     <Link
                       to={"/assessments/all_questions"}
@@ -60,12 +60,7 @@ function Assessments() {
                     >
                       ALL QUESTIONS
                     </Link>
-                    <Link
-                      to={"/assessments/create_assessments"}
-                      className="px-3 py-2 me-2 d-inline-block text-white fw-700 lh-30 rounded-lg  uppercase text-center font-xsssss ls-3 bg-current"
-                    >
-                      Create Assesments
-                    </Link>
+               
                     <BackButton />
                   </div>
                 </div>
@@ -73,6 +68,11 @@ function Assessments() {
                   {classesWithSubjects
                     ? classesWithSubjects.map((classItem, index) => (
                         <div className="row" key={classItem.id}>
+                             <div className="row">
+                    <div className="col-12">
+                        <h1>{classItem.class}</h1> {/* Display class name here */}
+                    </div>
+                </div>
                           {classItem.subjects.map((subject) => (
                             <div
                               className="col-xl-4 col-lg-6 col-md-6"
