@@ -15939,7 +15939,7 @@ select.sort {
   font-size: 14px;
   padding: 0 15px;
   line-height: 40px;
-  color: #ddd;
+  color: #000;
   font-weight: 500;
 }
 .chat-form button {
@@ -17771,7 +17771,7 @@ body.theme-dark .h6 {
   font-size: 14px;
   padding: 0 15px;
   line-height: 40px;
-  color: #ddd;
+  color: #000;
   font-weight: 500;
 }
 .chat-form button {

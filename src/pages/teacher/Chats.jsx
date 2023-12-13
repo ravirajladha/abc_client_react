@@ -35,7 +35,7 @@ function Chats() {
         if (user) {
             getChatStudents();
         }
-    }, [user]); // Add user as a dependency
+    }, []); 
 
 
     const getChatStudents = (e) => {
@@ -102,22 +102,6 @@ function Chats() {
     };
 
     
-
-    let result = fetch(baseUrl + "api/get_chat_students/" + auth_id).then(
-      function (result) {
-        result.json().then(function (jsonbody) {
-          console.warn(jsonbody);
-          setStudents(jsonbody);
-        });
-      }
-    );
-
- 
-
-
-
-
-
 //   if the question is already answered it will hide the input field
   function shouldShowInput() {
     if (messages &&  messages.length > 0) {
@@ -145,10 +129,10 @@ function Chats() {
               <ToastContainer autoClose={3000} />
 
               <div className="row">
-                <div className="card-body p-lg-5 px-4 w-100 border-0 d-flex rounded-lg justify-content-between">
+                <div className="card-body px-4 w-100 border-0 d-flex rounded-lg justify-content-between">
                   <div className="">
                     <h2 className="fw-400 font-lg d-block">
-                      Test <b> Questions</b>{" "}
+                      <b> QnA</b>{" "}
                     </h2>
                   </div>
                   <div className="float-right">
@@ -187,12 +171,12 @@ function Chats() {
                                     {student.name}
                                   </a>
                                 </h3>{" "}
-                                <span className="d-block">
+                                {/* <span className="d-block">
                                   What's up, how are you?
                                 </span>{" "}
                                 <span className="badge badge-primary text-white badge-pill">
                                   2 
-                                </span>
+                                </span> */}
                                 {/* this number should be shown if the question is not answered -- pending */}
                               </li>
                             </React.Fragment>
@@ -264,9 +248,9 @@ function Chats() {
                   {shouldShowInput() ? (
                     <div className="chat-bottom dark-bg p-3 shadow-xss">
                       <form onSubmit={sendMessage} className="chat-form">
-                        <button className="bg-grey float-left">
+                        {/* <button className="bg-grey float-left">
                           <i className="ti-microphone text-white"></i>
-                        </button>
+                        </button> */}
                         <div className="form-group">
                           <input
                             name="message"

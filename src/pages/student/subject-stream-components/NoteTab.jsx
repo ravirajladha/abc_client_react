@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Modal } from 'react-bootstrap';
+import { toast, ToastContainer } from "react-toastify";
 
 function NoteTab({ userId, videoPlayer, activeVideoId }) {
     const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -64,26 +65,31 @@ function NoteTab({ userId, videoPlayer, activeVideoId }) {
     const storeNotes = async (e) => {
         e.preventDefault();
         try {
-            const formData = new FormData();
-            formData.append("student_id", userId);
-            formData.append("video_id", activeVideoId);
-            formData.append("note", newNote);
-            formData.append("timestamp", noteTimestamp);
-
-            const response = await fetch(baseUrl + "api/store-notes", {
-                method: "POST",
-                body: formData,
-            });
-            if (!response) {
-                throw new Error("Failed to store notes");
+            if (!newNote.trim()) {
+                // Show toaster message for empty note
+                toast.error("Please enter a note before saving.");
+                return
+            }else{
+                const formData = new FormData();
+                formData.append("student_id", userId);
+                formData.append("video_id", activeVideoId);
+                formData.append("note", newNote);
+                formData.append("timestamp", noteTimestamp);
+    
+                const response = await fetch(baseUrl + "api/store-notes", {
+                    method: "POST",
+                    body: formData,
+                });
+                if (!response) {
+                    throw new Error("Failed to store notes");
+                }
+                setModal1Open(false);
+                setNewNote("");
+                fetchNotes();
+                setMarkersCreated(false);
+                createMarkers(videoPlayer, notes);
             }
-            setModal1Open(false);
-            setNewNote("");
-            fetchNotes();
-            setMarkersCreated(false);
-            createMarkers(videoPlayer, notes);
-
-
+            
         } catch (error) {
             console.error("Error storing notes:", error);
         }
@@ -159,6 +165,7 @@ useEffect(() => {
   
     return (
         <>
+
             <div
                 className="messages-content chat-wrapper scroll-bar p-3"
                 style={{ height: 400 }}
@@ -195,6 +202,8 @@ useEffect(() => {
                     <Modal.Title></Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
+                <ToastContainer autoClose={3000} />
+
                     <div className="header-btn bg-dark fw-500 text-white font-xsss p-1 lh-32 w100 text-center d-inline-block rounded-xl mb-3" id="time">
                         {formatNoteTimestamp(noteTimestamp)}
                     </div>
@@ -202,7 +211,8 @@ useEffect(() => {
                         <i className="font-sm ti-email text-grey-500 pr-0"></i>
                         <input type="text" name="note" className="style2-input pl-5 form-control text-grey-900 font-xsss fw-600" placeholder="Enter Note.."
                             value={newNote}
-                            onChange={(e) => setNewNote(e.target.value)} />
+                            onChange={(e) => setNewNote(e.target.value)}
+                            required   />
 
                     </div>
                     <div className="form-group mb-1"><button type="submit" className="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 " onClick={storeNotes}>Save</button></div>

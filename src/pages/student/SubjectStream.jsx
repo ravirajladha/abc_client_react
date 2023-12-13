@@ -49,6 +49,7 @@ function SubjectStream() {
   const videos = document.querySelectorAll(".video");
   // const main_video_title = document.querySelector('.title');
   const [mainVideoTitle, setMainVideoTitle] = useState("");
+  const [mainVideoDescription, setMainVideoDescription] = useState("");
 
   const handlePlayerReady = (player) => {
     playerRef.current = player;
@@ -117,8 +118,10 @@ function SubjectStream() {
         }
         // console.log(allSubjectData.subject.subject_name);
         if (resp && resp.video_details) {
+          console.log(resp.video_details);
           setActiveVideoId(resp && resp.video_details.id);
           setMainVideoTitle(resp && resp.video_details.video_name);
+          setMainVideoDescription(resp && resp.video_details.description);
           const defaultSources = [
             {
               src: baseUrl + resp.video_details.video_file,
@@ -133,7 +136,7 @@ function SubjectStream() {
       });
   }
 
-  const handleVideoClick = (videoId, videoFile, videoName) => {
+  const handleVideoClick = (videoId, videoFile, videoName, description) => {
     videos.forEach((video) => {
       if (videoId == video.dataset.id) {
         // console.log(videoId);
@@ -164,6 +167,7 @@ function SubjectStream() {
       id: videoId,
       video_file: videoFile,
       video_name: videoName,
+      description: description,
     });
   };
 
@@ -195,6 +199,7 @@ function SubjectStream() {
       ],
     }));
     setMainVideoTitle(matchVideo.video_name);
+    setMainVideoDescription(matchVideo.description);
   }, [matchVideo]);
 
   const responsive = {
@@ -219,6 +224,7 @@ function SubjectStream() {
   const handlePlayerChange = (player) => {
     setVideoPlayer(player); // Store the player instance in your component state
   };
+  
 
   if (!user) {
     // Handle the case when there is no user. You might want to redirect
@@ -251,6 +257,8 @@ function SubjectStream() {
                     options={videoJsOptions}
                     onReady={handlePlayerReady}
                     onPlayerChange={handlePlayerChange}
+                    videoId = {activeVideoId}
+                    subjectId = {subjectId}
                   />
                 </div>
 
@@ -342,7 +350,8 @@ function SubjectStream() {
                                                         handleVideoClick(
                                                           video.id,
                                                           video.video_file,
-                                                          video.video_name
+                                                          video.video_name,
+                                                          video.description
                                                         )
                                                       }
                                                     >
@@ -518,7 +527,7 @@ function SubjectStream() {
                       Description
                     </h2>
                     <p className="font-xssss fw-500 lh-28 text-grey-600 mb-0 pl-2">
-                      description
+                    {mainVideoDescription}
                     </p>
                   </div>
 
