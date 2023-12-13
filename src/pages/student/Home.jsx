@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import Slider from "react-slick";
 
@@ -11,14 +11,6 @@ import { useContext } from "react";
 import ApexChart from "../../components/common/ApexChart.jsx";
 
 const dynamicSeries = [30, 40];
-const dynamicColors = ["#FEB019", "#FF4560"];
-
-const dynamicOptions = {
-  chart: {
-    type: "donut",
-  },
-  labels: ["Started Videos", "Pending Videos"],
-};
 
 const liveClassesList = [
   {
@@ -36,40 +28,40 @@ const liveClassesList = [
   },
 ];
 
-function Home() {
-  const liveClassSlider = {
-    arrows: false,
-    dots: false,
-    infinite: false,
-    speed: 300,
-    centerMode: false,
-    variableWidth: true,
-  };
+const liveClassSlider = {
+  arrows: false,
+  dots: false,
+  infinite: false,
+  speed: 300,
+  centerMode: false,
+  variableWidth: true,
+};
 
+function Home() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const { user } = useContext(AuthContext);
 
-  useEffect(() => {
-    if (user) {
-      getStudentRanks();
-    } else {
-      return;
-    }
-  }, [user, getStudentRanks]);
+  const [dashboardInfo, setDashboardInfo] = useState([]);
 
-  const [studentClassRank, setStudentClassRank] = useState("-");
-
-  async function getStudentRanks() {
+  const getStudentDashboard = useCallback(async () => {
     try {
       const response = await fetch(
-        baseUrl + "api/student/" + user.student.auth_id
+        baseUrl + "api/get-student-dashboard/" + user.student.auth_id
       );
       const student = await response.json();
-      setStudentClassRank(student.data.class_rank);
+      setDashboardInfo(student);
     } catch (error) {
       console.error("There was a problem fetching student details:", error);
     }
-  }
+  }, [user.student.auth_id, baseUrl]);
+
+  useEffect(() => {
+    if (user) {
+      getStudentDashboard();
+    } else {
+      return;
+    }
+  }, [user, getStudentDashboard]);
 
   if (!user) {
     console.log("No user found. User might be logged out.");
@@ -115,7 +107,9 @@ function Home() {
                       <div className="row">
                         <div className="col-4">
                           <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                            {studentClassRank && studentClassRank}
+                            {dashboardInfo.last_login
+                              ? dashboardInfo.last_login
+                              : "0"}
                           </h2>
                           <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
                             Last Login
@@ -123,7 +117,9 @@ function Home() {
                         </div>
                         <div className="col-4">
                           <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                            {studentClassRank && studentClassRank}
+                            {dashboardInfo.total_watch_time
+                              ? dashboardInfo.total_watch_time
+                              : "0"}
                           </h2>
                           <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
                             Total Watch Time
@@ -131,7 +127,9 @@ function Home() {
                         </div>
                         <div className="col-4">
                           <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                            {studentClassRank && studentClassRank}
+                            {dashboardInfo.avg_assessment_score
+                              ? dashboardInfo.avg_assessment_score
+                              : "0"}
                           </h2>
                           <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
                             Average Assessment Score
@@ -150,26 +148,32 @@ function Home() {
                       <div className="row">
                         <div className="col-4">
                           <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                            {studentClassRank && studentClassRank}
+                            {dashboardInfo.first_term_results
+                              ? dashboardInfo.first_term_results  + '/1000'
+                              : "0"}
                           </h2>
                           <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
-                            Term 1
+                            Term 1 Score
                           </h4>
                         </div>
                         <div className="col-4">
                           <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                            {studentClassRank && studentClassRank}
+                            {dashboardInfo.second_term_results
+                              ? dashboardInfo.second_term_results  + '/1000'
+                              : "0"}
                           </h2>
                           <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
-                            Term 2
+                            Term 2 Score
                           </h4>
                         </div>
                         <div className="col-4">
                           <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                            {studentClassRank && studentClassRank}
+                            {dashboardInfo.third_term_results
+                              ? dashboardInfo.third_term_results + '/1000'
+                              : "0"}
                           </h2>
                           <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
-                            Term 3
+                            Term 3 Score
                           </h4>
                         </div>
                       </div>
@@ -224,7 +228,7 @@ function Home() {
                         <div className="col">
                           <h4 className="fw-700 text-success font-xssss mt-0 mb-0 ">+45 %</h4>
                           <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                            {studentClassRank && studentClassRank}
+                            {dashboardInfo.class_rank ? dashboardInfo.class_rank : "0"}
                           </h2>
                           <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
                             Class Rank

@@ -1,48 +1,41 @@
-import React from "react";
-import AppHeader from "../../components/includes/AppHeader";
-import AppFooter from "../../components/includes/AppFooter";
-import "react-toastify/dist/ReactToastify.css";
-
+import React, { useEffect, useState } from "react";
 import { useContext } from "react";
 import { AuthContext } from "../../lib/AuthContext.js";
+import "react-toastify/dist/ReactToastify.css";
 
-const iconlList = [
-  {
-    name: "325",
-    count: "Courses complete",
-    status: "warning",
-    icon: "feather-hard-drive",
-    des: "20% Increase from Last Week",
-  },
-  {
-    name: "43",
-    count: "Active Courses",
-    status: "success",
-    icon: "feather-box",
-    des: "20% Increase from Last Week",
-  },
-  {
-    name: "5444",
-    count: "Enrolled Students",
-    status: "info",
-    icon: "feather-award",
-    des: "20% Increase from Last Week",
-  },
-  {
-    name: "354",
-    count: "Activity Points",
-    status: "secondary",
-    icon: "feather-flag",
-    des: "20% Increase from Last Week",
-  },
-];
+import AppHeader from "../../components/includes/AppHeader";
+import AppFooter from "../../components/includes/AppFooter";
+import DashboardItem from "../../components/common/DashboardItem";
 
 function AdminHome() {
-  const userDetails = useContext(AuthContext).user;
-  if (!userDetails) {
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+  const { user } = useContext(AuthContext);
+
+  const [dashboardInfo, setDashboardInfo] = useState([]);
+
+  useEffect(() => {
+    const getSubjects = () => {
+      if (user) {
+        fetch(baseUrl + "api/get-admin-dashboard/").then(function (result) {
+          result.json().then(function (res) {
+            console.warn("dashboard info", res);
+            setDashboardInfo(res);
+          });
+        });
+      }
+    };
+    if (user) {
+      getSubjects();
+    } else {
+      return;
+    }
+  }, [user, baseUrl]);
+
+  if (!user) {
     console.log("No user found. User might be logged out.");
     return <div>User is not logged in</div>;
   }
+
   return (
     <>
       <div className="main-wrapper">
@@ -62,7 +55,7 @@ function AdminHome() {
                       >
                         Welcome back!
                       </span>
-                      Hi, {userDetails.user.name}
+                      Hi, {user.user.name}
                       <span
                         className="font-xsss fw-600 text-grey-700 d-block mt-2"
                         style={{ fontSize: "20px" }}
@@ -77,185 +70,51 @@ function AdminHome() {
                   </div>
                 </div>
 
-                <div className="col-sm-4">
-                  <div className="card w-100 p-1 border-0 mt-4 rounded-lg bg-white shadow-xs overflow-hidden">
-                    <div className="card-body p-4">
-                      <div className="row">
-                        <div className="col-7">
-                          <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                            4563
-                          </h2>
-                          <h4 className="fw-700 text-grey-500 font-xsss ls-3 text-uppercase mb-0 mt-0">
-                            Schools
-                          </h4>
-                        </div>
-                        <div className="col-5 text-end">
-                          <i className="psor text-white btn-round-md font-xs feather-layers bg-current"></i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="col-sm-4">
-                  <div className="card w-100 p-1 border-0 mt-4 rounded-lg bg-white shadow-xs overflow-hidden">
-                    <div className="card-body p-4">
-                      <div className="row">
-                        <div className="col-7">
-                          <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                            4563
-                          </h2>
-                          <h4 className="fw-700 text-grey-500 font-xsss ls-3 text-uppercase mb-0 mt-0">
-                            Classes
-                          </h4>
-                        </div>
-                        <div className="col-5 text-end">
-                          <i className="psor text-white btn-round-md font-xs feather-package bg-current"></i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="col-sm-4">
-                  <div className="card w-100 p-1 border-0 mt-4 rounded-lg bg-white shadow-xs overflow-hidden">
-                    <div className="card-body p-4">
-                      <div className="row">
-                        <div className="col-7">
-                          <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                            4563
-                          </h2>
-                          <h4 className="fw-700 text-grey-500 font-xsss ls-3 text-uppercase mb-0 mt-0">
-                            Subjects
-                          </h4>
-                        </div>
-                        <div className="col-5 text-end">
-                          <i className="psor text-white btn-round-md font-xs feather-command bg-current"></i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="col-sm-4">
-                  <div className="card w-100 p-1 border-0 mt-4 rounded-lg bg-white shadow-xs overflow-hidden">
-                    <div className="card-body p-4">
-                      <div className="row">
-                        <div className="col-7">
-                          <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                            4563
-                          </h2>
-                          <h4 className="fw-700 text-grey-500 font-xsss ls-3 text-uppercase mb-0 mt-0">
-                            Videos
-                          </h4>
-                        </div>
-                        <div className="col-5 text-end">
-                          <i className="psor text-white btn-round-md font-xs feather-tv bg-current"></i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="col-sm-4">
-                  <div className="card w-100 p-1 border-0 mt-4 rounded-lg bg-white shadow-xs overflow-hidden">
-                    <div className="card-body p-4">
-                      <div className="row">
-                        <div className="col-7">
-                          <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                            4563
-                          </h2>
-                          <h4 className="fw-700 text-grey-500 font-xsss ls-3 text-uppercase mb-0 mt-0">
-                            Assessments
-                          </h4>
-                        </div>
-                        <div className="col-5 text-end">
-                          <i className="psor text-white btn-round-md font-xs feather-help-circle bg-current"></i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="col-sm-4">
-                  <div className="card w-100 p-1 border-0 mt-4 rounded-lg bg-white shadow-xs overflow-hidden">
-                    <div className="card-body p-4">
-                      <div className="row">
-                        <div className="col-7">
-                          <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                            4563
-                          </h2>
-                          <h4 className="fw-700 text-grey-500 font-xsss ls-3 text-uppercase mb-0 mt-0">
-                            Tests
-                          </h4>
-                        </div>
-                        <div className="col-5 text-end">
-                          <i className="psor text-white btn-round-md font-xs feather-help-circle bg-current"></i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="col-sm-4">
-                  <div className="card w-100 p-1 border-0 mt-4 rounded-lg bg-white shadow-xs overflow-hidden">
-                    <div className="card-body p-4">
-                      <div className="row">
-                        <div className="col-7">
-                          <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                            4563
-                          </h2>
-                          <h4 className="fw-700 text-grey-500 font-xsss ls-3 text-uppercase mb-0 mt-0">
-                            eLabs
-                          </h4>
-                        </div>
-                        <div className="col-5 text-end">
-                          <i className="psor text-white btn-round-md font-xs feather-code bg-current"></i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="col-sm-4">
-                  <div className="card w-100 p-1 border-0 mt-4 rounded-lg bg-white shadow-xs overflow-hidden">
-                    <div className="card-body p-4">
-                      <div className="row">
-                        <div className="col-7">
-                          <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                            4563
-                          </h2>
-                          <h4 className="fw-700 text-grey-500 font-xsss ls-3 text-uppercase mb-0 mt-0">
-                            eBooks
-                          </h4>
-                        </div>
-                        <div className="col-5 text-end">
-                          <i className="psor text-white btn-round-md font-xs feather-book bg-current"></i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="col-sm-4">
-                  <div className="card w-100 p-1 border-0 mt-4 rounded-lg bg-white shadow-xs overflow-hidden">
-                    <div className="card-body p-4">
-                      <div className="row">
-                        <div className="col-7">
-                          <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                            4563
-                          </h2>
-                          <h4 className="fw-700 text-grey-500 font-xsss ls-3 text-uppercase mb-0 mt-0">
-                            Mini Projects
-                          </h4>
-                        </div>
-                        <div className="col-5 text-end">
-                          <i className="psor text-white btn-round-md font-xs feather-codepen bg-current"></i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <DashboardItem
+                  dashboardItemIcon="layers"
+                  dashboardInfo={dashboardInfo.schools}
+                  dashboardItemName="Schools"
+                ></DashboardItem>
+                <DashboardItem
+                  dashboardItemIcon="package"
+                  dashboardInfo={dashboardInfo.class}
+                  dashboardItemName="Classes"
+                ></DashboardItem>
+                <DashboardItem
+                  dashboardItemIcon="command"
+                  dashboardInfo={dashboardInfo.subjects}
+                  dashboardItemName="Subjects"
+                ></DashboardItem>
+                <DashboardItem
+                  dashboardItemIcon="tv"
+                  dashboardInfo={dashboardInfo.videos}
+                  dashboardItemName="Videos"
+                ></DashboardItem>
+                <DashboardItem
+                  dashboardItemIcon="help-circle"
+                  dashboardInfo={dashboardInfo.assessments}
+                  dashboardItemName="Assessments"
+                ></DashboardItem>
+                <DashboardItem
+                  dashboardItemIcon="help-circle"
+                  dashboardInfo={dashboardInfo.tests}
+                  dashboardItemName="Tests"
+                ></DashboardItem>
+                <DashboardItem
+                  dashboardItemIcon="code"
+                  dashboardInfo={dashboardInfo.eLabs}
+                  dashboardItemName="eLabs"
+                ></DashboardItem>
+                <DashboardItem
+                  dashboardItemIcon="book"
+                  dashboardInfo={dashboardInfo.eBooks}
+                  dashboardItemName="eBooks"
+                ></DashboardItem>
+                <DashboardItem
+                  dashboardItemIcon="codepen"
+                  dashboardInfo={dashboardInfo.mini_projects}
+                  dashboardItemName=" Mini Projects"
+                ></DashboardItem>
               </div>
             </div>
           </div>

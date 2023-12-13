@@ -1,15 +1,38 @@
-import React from "react";
-import AppHeader from "../../components/includes/AppHeader";
-import AppFooter from "../../components/includes/AppFooter";
-import "react-toastify/dist/ReactToastify.css";
+import React, { useEffect, useState } from "react";
 import { useContext } from "react";
 import { AuthContext } from "../../lib/AuthContext.js";
+import "react-toastify/dist/ReactToastify.css";
+
+import AppHeader from "../../components/includes/AppHeader";
+import AppFooter from "../../components/includes/AppFooter";
+import DashboardItem from "../../components/common/DashboardItem";
 
 function SchoolHome() {
+  const baseUrl = process.env.REACT_APP_BASE_URL;
   const userDetails = useContext(AuthContext).user;
+  const [dashboardInfo, setDashboardInfo] = useState([]);
+
+  useEffect(() => {
+    const getDashboard = () => {
+      if (userDetails) {
+        fetch(baseUrl + "api/get-school-dashboard/" + userDetails.user.id).then(
+          function (result) {
+            result.json().then(function (res) {
+              // console.warn("dashboard info", res);
+              setDashboardInfo(res);
+            });
+          }
+        );
+      }
+    };
+    if (userDetails) {
+      getDashboard();
+    } else {
+      return;
+    }
+  }, [userDetails, baseUrl]);
+
   if (!userDetails) {
-    // Handle the case when there is no user. You might want to redirect
-    // to a login page or return null or some placeholder content.
     console.log("No user found. User might be logged out.");
     return <div>User is not logged in</div>;
   }
@@ -47,85 +70,27 @@ function SchoolHome() {
                   </div>
                 </div>
 
-                <div className="col-sm-4">
-                  <div className="card w-100 p-1 border-0 mt-4 rounded-lg bg-white shadow-xs overflow-hidden">
-                    <div className="card-body p-4">
-                      <div className="row">
-                        <div className="col-7">
-                          <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                            4563
-                          </h2>
-                          <h4 className="fw-700 text-grey-500 font-xsss ls-3 text-uppercase mb-0 mt-0">
-                            Class
-                          </h4>
-                        </div>
-                        <div className="col-5 text-end">
-                          <i className="psor text-white btn-round-md font-xs feather-box bg-current"></i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <DashboardItem
+                  dashboardItemIcon="package"
+                  dashboardInfo={dashboardInfo.class}
+                  dashboardItemName="Classes"
+                ></DashboardItem>
 
-                <div className="col-sm-4">
-                  <div className="card w-100 p-1 border-0 mt-4 rounded-lg bg-white shadow-xs overflow-hidden">
-                    <div className="card-body p-4">
-                      <div className="row">
-                        <div className="col-7">
-                          <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                            4563
-                          </h2>
-                          <h4 className="fw-700 text-grey-500 font-xsss ls-3 text-uppercase mb-0 mt-0">
-                            Students
-                          </h4>
-                        </div>
-                        <div className="col-5 text-end">
-                          <i className="psor text-white btn-round-md font-xs feather-user bg-current"></i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="col-sm-4">
-                  <div className="card w-100 p-1 border-0 mt-4 rounded-lg bg-white shadow-xs overflow-hidden">
-                    <div className="card-body p-4">
-                      <div className="row">
-                        <div className="col-7">
-                          <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                            4563
-                          </h2>
-                          <h4 className="fw-700 text-grey-500 font-xsss ls-3 text-uppercase mb-0 mt-0">
-                            Teachers
-                          </h4>
-                        </div>
-                        <div className="col-5 text-end">
-                          <i className="psor text-white btn-round-md font-xs feather-user bg-current"></i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="col-sm-4">
-                  <div className="card w-100 p-1 border-0 mt-4 rounded-lg bg-white shadow-xs overflow-hidden">
-                    <div className="card-body p-4">
-                      <div className="row">
-                        <div className="col-7">
-                          <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                            4563
-                          </h2>
-                          <h4 className="fw-700 text-grey-500 font-xsss ls-3 text-uppercase mb-0 mt-0">
-                            Admissions
-                          </h4>
-                        </div>
-                        <div className="col-5 text-end">
-                          <i className="psor text-white btn-round-md font-xs feather-file-text bg-current"></i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <DashboardItem
+                  dashboardItemIcon="user"
+                  dashboardInfo={dashboardInfo.students}
+                  dashboardItemName="Students"
+                ></DashboardItem>
+                <DashboardItem
+                  dashboardItemIcon="user"
+                  dashboardInfo={dashboardInfo.teachers}
+                  dashboardItemName="Teachers"
+                ></DashboardItem>
+                <DashboardItem
+                  dashboardItemIcon="file-text"
+                  dashboardInfo={dashboardInfo.admissions}
+                  dashboardItemName="Admissions"
+                ></DashboardItem>
               </div>
             </div>
           </div>
