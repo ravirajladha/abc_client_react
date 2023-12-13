@@ -415,6 +415,46 @@ function StudentProfile() {
   const userDetails = useContext(AuthContext).user;
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const [studentDetails, setStudentDetails] = useState(null);
+  // Assuming you have an AuthContext that provides user details
+  const [studentDetails, setStudentDetails] = useState(null);
+  // When rendering or using the data, check if studentDetails is not null
+
+  useEffect(() => {
+    const fetchStudentMeta = async () => {
+      try {
+        // Replace 'student_meta_endpoint' with the actual endpoint for fetching student meta data
+        const response = await fetch(
+          `${baseUrl}api/get_student_meta/${userDetails.user.id}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              // Add your auth token if required, assuming it's stored in userDetails
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const studentMeta = await response.json();
+        // Handle the student meta data as needed
+        console.log("stufent_detsil", studentMeta);
+        setStudentDetails(studentMeta);
+      } catch (error) {
+        console.error("Failed to fetch student meta:", error);
+      }
+    };
+
+    if (userDetails) {
+      fetchStudentMeta();
+    }
+  }, [userDetails]);
+
+  function displayValueOrDefault(value, label, defaultValue = "Not provided") {
+    return `${label}: ${value || defaultValue}`;
+  }
 
   useEffect(() => {
     const fetchStudentMeta = async () => {
@@ -1143,17 +1183,17 @@ function StudentProfile() {
                                 <div className="card-body d-block w-100 pl-4 pr-4 pb-4 text-center">
                                   <figure className="avatar ml-auto mr-auto mb-0 mt--6 position-relative w75 z-index-1">
                                     <img
-                                      src={`/avatar.png`}
+                                      src={`assets/images/${value.imageUrl}`}
                                       alt="avater"
                                       className="float-right p-1 bg-white rounded-circle w-100"
                                     />
                                   </figure>
                                   <div className="clearfix"></div>
                                   <h4 className="fw-700 font-xsss mt-3 mb-1">
-                                  3
+                                    {value.name}
                                   </h4>
                                   <p className="fw-500 font-xsssss text-grey-500 mt-0 mb-2">
-                                  333@gmail.com
+                                    {value.email}
                                   </p>
                                   <ul className="text-center d-block mt-3 list-inline ml-2 mr-2 mb-3">
                                     <li className="mr-1 list-inline-item">

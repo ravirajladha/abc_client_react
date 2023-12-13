@@ -1,45 +1,50 @@
 import React, { useState, useEffect } from "react";
 
 const FormPageOne = ({ formData, onSubmit, goToNextForm }) => {
-  console.log("formdata",formData)
+  console.log(formData);
+  const [classes, setClasses] = useState([]);
+  const baseUrl = process.env.REACT_APP_BASE_URL;
   const [formState, setFormState] = useState({
-    ...formData,
-    // f_name: "",
-    // l_name: "",
-    // email: "",
-    // phone_no: "",
-    // whatsapp_no: "",
-    // whatsapp_exist: false,
-    // dob: "",
-    // gender: "",
-    // religion: "",
-    // category: "",
-    // physically_challenged: "",
-    // aadhar: "",
-    // address_proof: null,
-    // identity_proof: null,
+    f_name: "",
+    l_name: "",
+    email: "",
+    className: "",
+    phone_no: "",
+    whatsapp_no: "",
+    whatsapp_exist: "",
+    dob: "",
+    gender: "",
+    religion: "",
+    category: "",
+    physically_challenged: "",
+    aadhar: "",
+    address_proof: "",
+    identity_proof: "",
   });
 
   const [options, setOptions] = useState({
     genderOptions: ["Male", "Female", "Other"],
-    religionOptions: ["Religion 1", "Religion 2", "Religion 3"],
-    categoryOptions: ["Category 1", "Category 2", "Category 3"],
+    religionOptions: [
+      "Hinduism",
+      "Buddhism",
+      "Jainism",
+      "Judaism",
+      "Christianity",
+      "Islam",
+      "Sikhism",
+      "Other",
+    ],
+    categoryOptions: ["General", "OBC", "SC", "ST", "EWS", "Other"],
     physicallyChallengedOptions: ["Yes", "No"],
   });
 
   // Set initial form values based on formData prop when the component mounts
-  // useEffect(() => {
-  //   if (formData) {
-  //     setFormState(formData);
-  //   }
-  // }, [formData]);
   useEffect(() => {
-    // Update form state when formData changes
-    setFormState({
-      ...formData,
-    });
+    if (formData) {
+      setFormState(formData);
+    }
   }, [formData]);
-  
+
   const handleChange = (e) => {
     const { name, type, checked, value, files } = e.target;
     if (type === "checkbox") {
@@ -80,6 +85,20 @@ const FormPageOne = ({ formData, onSubmit, goToNextForm }) => {
     return Object.values(formData).every((field) => field !== "");
   };
 
+  const getAllClasses = async () => {
+    try {
+      const response = await fetch(baseUrl + "api/school/api_get_classes");
+      const data = await response.json();
+      setClasses(data);
+    } catch (error) {
+      console.error("Error fetching classes:", error);
+    }
+  };
+
+  useEffect(() => {
+    getAllClasses();
+  }, []);
+
   return (
     <div className="container">
       <div className="mb-3 pb-0">
@@ -107,7 +126,7 @@ const FormPageOne = ({ formData, onSubmit, goToNextForm }) => {
               </div>
             </div>
             {/* Last Name */}
-            <div className="col-lg-4 mb-3">
+            {/* <div className="col-lg-4 mb-3">
               <div className="form-group">
                 <label className="mont-font fw-600 font-xsss">
                   Last Name as per Aadhar
@@ -120,6 +139,25 @@ const FormPageOne = ({ formData, onSubmit, goToNextForm }) => {
                   value={formState.l_name} // Populate the value from formState
                   onChange={handleChange}
                 />
+              </div> */}
+            {/* Class */}
+            <div className="col-lg-4 mb-3">
+              <div className="form-group">
+                <label className="mont-font fw-600 font-xsss">Class</label>
+                <br />
+                <select
+                  name="className"
+                  className="form-control"
+                  value={formState.className}
+                  onChange={handleChange}
+                >
+                  <option value="">Select Class</option>
+                  {classes.map((classVal) => (
+                    <option key={classVal.class} value={classVal.class}>
+                      {classVal.class}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
             {/* Email */}
@@ -293,9 +331,26 @@ const FormPageOne = ({ formData, onSubmit, goToNextForm }) => {
             {/* Address Proof */}
             <div className="col-lg-4 mb-3">
               <div className="form-group">
-                <label className="mont-font fw-600 font-xsss">
+                <label className="mont-font fw-600 font-xsss mr-2">
                   Address Proof
                 </label>
+                {formState.address_proof ? (
+                  <>
+                    <a
+                      href={
+                        baseUrl +
+                        "storage/address_proofs/" +
+                        formState.address_proof
+                      }
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <i class="feather-eye"></i>
+                    </a>
+                  </>
+                ) : (
+                  <i class="feather-eye-off"></i>
+                )}
                 <input
                   type="file"
                   name="address_proof"
@@ -308,9 +363,26 @@ const FormPageOne = ({ formData, onSubmit, goToNextForm }) => {
             {/* Identity Proof */}
             <div className="col-lg-4 mb-3">
               <div className="form-group">
-                <label className="mont-font fw-600 font-xsss">
+                <label className="mont-font fw-600 font-xsss mr-2">
                   Identity Proof
                 </label>
+                {formState.identity_proof ? (
+                  <>
+                    <a
+                      href={
+                        baseUrl +
+                        "storage/identity_proofs/" +
+                        formState.identity_proof
+                      }
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <i class="feather-eye"></i>
+                    </a>
+                  </>
+                ) : (
+                  <i class="feather-eye-off"></i>
+                )}
                 <input
                   type="file"
                   name="identity_proof"

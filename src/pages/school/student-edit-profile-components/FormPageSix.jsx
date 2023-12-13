@@ -4,9 +4,8 @@ import { toast, ToastContainer } from "react-toastify"; // Import toast and Toas
 import "react-toastify/dist/ReactToastify.css"; // Import the CSS for toast styles
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
-const FormPageSix = ({ allFormData, onSubmit, goToPreviousForm }) => {
+const FormPageSix = ({ allFormData, formData, onSubmit, goToPreviousForm }) => {
   const { id } = useParams();
- 
   const navigate = useNavigate();
 
   const [formState, setFormState] = useState({
@@ -22,18 +21,25 @@ const FormPageSix = ({ allFormData, onSubmit, goToPreviousForm }) => {
 
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  // Load form data from local storage on component mount
-  useEffect(() => {
-    const savedFormState = localStorage.getItem("formPageSixData");
-    if (savedFormState) {
-      setFormState(JSON.parse(savedFormState));
-    }
-  }, []);
+  // // Load form data from local storage on component mount
+  // useEffect(() => {
+  //   const savedFormState = localStorage.getItem("formPageSixData");
+  //   if (savedFormState) {
+  //     setFormState(JSON.parse(savedFormState));
+  //   }
+  // }, []);
 
-  // Save form data to local storage whenever formState changes
+  // // Save form data to local storage whenever formState changes
+  // useEffect(() => {
+  //   localStorage.setItem("formPageSixData", JSON.stringify(formState));
+  // }, [formState]);
+
+  // Set initial form values based on formData prop when the component mounts
   useEffect(() => {
-    localStorage.setItem("formPageSixData", JSON.stringify(formState));
-  }, [formState]);
+    if (formData) {
+      setFormState(formData);
+    }
+  }, [formData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -73,9 +79,9 @@ const FormPageSix = ({ allFormData, onSubmit, goToPreviousForm }) => {
     formData.append("auth_id", id);
     formData.append("created_by", createdBy);
     for (let [key, value] of formData.entries()) {
-      console.log("final:",`${key}: ${value}`);
+      console.log("final:", `${key}: ${value}`);
     }
-  
+
     // Send the FormData to the API endpoint using a POST request
     fetch(baseUrl + "api/school/edit_student_profile/" + id, {
       method: "POST",
@@ -140,6 +146,7 @@ const FormPageSix = ({ allFormData, onSubmit, goToPreviousForm }) => {
                       value={formState.description}
                       onChange={handleChange}
                       className="form-control"
+                      placeholder="Enter about yourself"
                     />
                   </div>
                 </div>
@@ -154,8 +161,8 @@ const FormPageSix = ({ allFormData, onSubmit, goToPreviousForm }) => {
                       value={formState.hobby}
                       onChange={handleChange}
                       className="form-control"
+                      placeholder="Enter your hobbies"
                     />
-                
                   </div>
                 </div>
                 <div className="col-lg-6 mb-3">
@@ -169,6 +176,7 @@ const FormPageSix = ({ allFormData, onSubmit, goToPreviousForm }) => {
                       value={formState.achievements}
                       onChange={handleChange}
                       className="form-control"
+                      placeholder="Enter your Achievements"
                     />
                   </div>
                 </div>
@@ -183,10 +191,11 @@ const FormPageSix = ({ allFormData, onSubmit, goToPreviousForm }) => {
                       value={formState.motherTongue}
                       onChange={handleChange}
                       className="form-control"
+                      placeholder="Enter your mother tongue"
                     />
                   </div>
                 </div>
-                <div className="col-lg-12">
+                <div className="col-lg-12 my-4 d-flex justify-content-end">
                   <button
                     type="button"
                     onClick={handlePrevious}
