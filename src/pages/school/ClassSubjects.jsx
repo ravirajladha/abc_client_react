@@ -3,7 +3,7 @@ import AppHeader from "../../components/includes/AppHeader";
 import AppFooter from "../../components/includes/AppFooter";
 import BackButton from "../../components/navigation/BackButton";
 
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 const ClassSubjects = () => {
   const { classId } = useParams();
@@ -55,9 +55,9 @@ const ClassSubjects = () => {
                       subjects.map((subject, index) => (
                         <div className="col-xl-4 col-lg-6 col-md-6" key={index}>
                           <div className="card mb-4 shadow-xss rounded-lg p-xxl-5 p-4 border-0 text-center">
-                            <div className="position-absolute right-0 mr-4 top-0 mt-3">
+                            {/* <div className="position-absolute right-0 mr-4 top-0 mt-3">
                               <i className="ti-more text-grey-500 font-xs"></i>
-                            </div>
+                            </div> */}
                             <Link
                               to={`/subject/${subject.id}`}
                               className="btn-round-xxxl rounded-lg bg-lightblue ml-auto mr-auto"
@@ -73,19 +73,33 @@ const ClassSubjects = () => {
                             </h4>
                             <div className="card-footer bg-transparent border-top-0">
                               <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-success d-inline-block text-success mb-1 mr-1">
-                                Full Time
+                              Chapter Count
                               </span>
                               <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-info d-inline-block text-info mb-1">
-                                30 Min
+                              {subject.chapter_count}
                               </span>
                             </div>
                             <div className="card-footer bg-transparent border-top-0 d-flex align-items-center justify-content-center gap-2">
+                            <Link
+                                    to={"/all_chapters_assessment/" + subject.id }
+                                    className="px-3 py-1 me-2 d-inline-block text-white fw-700 lh-10 rounded-lg text-center font-xsssss bg-current"
+                                  >
+                                    ALL CHAPTERS
+                                  </Link>
                               <Link
                                 to={`/school/class/${classId}/subject/${subject.id}/results/`}
-                                className="px-1 py-2 d-inline-block text-white fw-700 lh-30 rounded-lg w100 text-center font-xssss ls-3 bg-current"
+                                className="px-3 py-1 me-2 d-inline-block text-white fw-700 lh-10 rounded-lg text-center font-xsssss bg-current"
                               >
-                                Results
+                                 TEST RESULTS
                               </Link>
+                              <Link
+                                    to={
+                                      "/assessments/" + subject.id + "/results"
+                                    }
+                                    className="px-3 py-1 me-2 d-inline-block text-white fw-700 lh-10 rounded-lg text-center font-xsssss bg-current"
+                                  >
+                                     ASSESSMENT RESULTS
+                                  </Link>
                             </div>
                           </div>
                         </div>

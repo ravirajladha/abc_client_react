@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import BackButton from "../../components/navigation/BackButton";
 
 
 import AppHeader from "../../components/includes/AppHeader";
 import AppFooter from "../../components/includes/AppFooter";
 import { useParams, Link, useNavigate } from "react-router-dom";
-
-function AllChapters() {
+import BackButton from "../../components/navigation/BackButton";
+function AllChaptersAssessment() {
   const navigate = useNavigate();
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const { subject_id } = useParams();
@@ -57,13 +56,8 @@ function AllChapters() {
                     </h2>
                   </div>
                   <div className="float-right">
-                  <Link
-                      to={`/all_subjects/create_chapters/${classId}/${subject_id}`}
-                      className="p-2 px-3 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current"
-                    >
-                      ADD CHAPTERS
-                    </Link>
-                    <BackButton />
+                 
+                  <BackButton />
                   </div>
                 </div>
                 {chapters && chapters.length > 0 ? (
@@ -79,10 +73,10 @@ function AllChapters() {
                         </div>
                         <div className="card-footer bg-transparent border-top-0">
                           <Link
-                            to={`/all_videos/${chapter.id}`}
+                            to={`/all_assessment_result_video_wise/${chapter.id}`}
                             className="p-2 mt-4  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current"
                           >
-                            View Contents
+                            View Assessment
                           </Link>
                         </div>
                       </div>
@@ -103,4 +97,4 @@ function AllChapters() {
   );
 }
 
-export default AllChapters;
+export default AllChaptersAssessment;

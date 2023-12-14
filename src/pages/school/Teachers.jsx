@@ -74,9 +74,9 @@ function Teachers() {
                       <th scope="col">Name</th>
                       <th scope="col">Subject & Class</th>
                       
-                      <th scope="col" className="text-dark">
+                      {/* <th scope="col" className="text-dark">
                         Action
-                      </th>
+                      </th> */}
                     </tr>
                   </thead>
                   <tbody>
@@ -85,14 +85,14 @@ function Teachers() {
                         <td>{teacher.id}</td>
                         <td>{teacher.user.name}</td>
                         <td>{formatClassSubject(teacher.class_and_subject)} </td>
-                        <td>
+                        {/* <td>
                           <Link
                             to="#"
                             className="btn bg-current text-center text-white font-xsss fw-600 p-2 rounded-lg d-inline-block border-0"
                           >
                             View
                           </Link>
-                        </td>
+                        </td> */}
                       </tr>
                     ))}
                   </tbody>

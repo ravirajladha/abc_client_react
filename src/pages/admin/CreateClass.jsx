@@ -4,7 +4,7 @@ import AppFooter from "../../components/includes/AppFooter";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link, useNavigate } from "react-router-dom";
-
+import BackButton from "../../components/navigation/BackButton";
 
 function CreateClass() {
   const navigate = useNavigate();
@@ -61,12 +61,7 @@ function CreateClass() {
                       className="p-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current mx-1"
                     >    View  Classes
                     </Link>
-                    <button
-                      onClick={goBack}
-                      className="p-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1"
-                    >
-                      Back
-                    </button>
+                    <BackButton />
                   </div>
                 </div>
                 <div className="card w-100 mt-4 border-0 bg-white shadow-xs p-0 mb-4">

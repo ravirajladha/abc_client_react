@@ -5,7 +5,7 @@ import Dropdown from '../../components/inputs/Dropdown';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link, useNavigate ,useParams } from "react-router-dom";
-
+import BackButton from "../../components/navigation/BackButton";
 
 function CreateSubject() {
     const navigate = useNavigate();
@@ -85,12 +85,7 @@ function CreateSubject() {
                   </div>     
                        <div className="float-right">
                    
-                    <button
-                      onClick={goBack}
-                      className="p-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1"
-                    >
-                      Back
-                    </button>
+                       <BackButton />
                   </div>
                   </div>
                                 <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">

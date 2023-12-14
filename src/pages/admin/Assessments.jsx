@@ -107,11 +107,17 @@ function Assessments() {
 
                                 <div className="mt-2">
                                   <Link
+                                    to={"/all_chapters_assessment/" + subject.id }
+                                    className="px-3 py-1 me-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss bg-current"
+                                  >
+                                    ALL CHAPTERS
+                                  </Link>
+                                  {/* <Link
                                     to={"/assessments/" + subject.id + "/list"}
                                     className="px-3 py-1 me-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss bg-current"
                                   >
                                     ALL ASSESSMENTS
-                                  </Link>
+                                  </Link> */}
                                   <Link
                                     to={
                                       "/assessments/" + subject.id + "/results"

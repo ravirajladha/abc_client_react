@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import AppHeader from "../../components/includes/AppHeader";
 import AppFooter from "../../components/includes/AppFooter";
+import BackButton from "../../components/navigation/BackButton";
 
 import { useParams, Link, useNavigate } from "react-router-dom";
 
 function AllSubjects() {
-  const navigate = useNavigate();
+
   const { class_id } = useParams();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -15,9 +16,7 @@ function AllSubjects() {
       getSubjects(class_id);
     }
   }, [class_id]);
-  const goBack = () => {
-    navigate(-1); // Use navigate(-1) to go back
-  };
+
   const [subjects, setSubjects] = useState([]);
   function getSubjects(class_id) {
     let result = fetch(baseUrl + "api/admin/get_subjects_and_video_count_by_class/" + class_id).then(function (
@@ -50,16 +49,12 @@ function AllSubjects() {
                   <div className="float-right">
                   <Link
                       to={`/all_subjects/create_subject/${class_id}`}
-                      className="px-3 py-1  d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current mx-1"
+                      className="p-2 px-3 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current mr-3"
                     >
                       ADD SUBJECT
                     </Link>
-                    <button
-                      onClick={goBack}
-                      className="p-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1"
-                    >
-                      Back
-                    </button>
+
+                    <BackButton />
                   </div>
                 </div>
                 {subjects ? (

@@ -71,9 +71,9 @@ function SubjectAssessmentResults() {
                             <th className="border-0" scope="col">
                               Score
                             </th>
-                            <th className="border-0" scope="col">
+                            {/* <th className="border-0" scope="col">
                               Actions
-                            </th>
+                            </th> */}
                           </tr>
                         </thead>
                         <tbody>
@@ -86,14 +86,14 @@ function SubjectAssessmentResults() {
                                 </td>
                                 <td>{result.subject_rank}</td>
                                 <td>{result.total_score}</td>
-                                <td>
+                                {/* <td>
                                   <Link
                                     to={"/student/" + result.student_id}
                                     className="px-3 py-1 me-2 d-inline-block text-white fw-700 lh-30 rounded-lg uppercase text-center font-xsssss ls-3 bg-current mx-1"
                                   >
                                     Profile
                                   </Link>
-                                </td>
+                                </td> */}
                               </tr>
                             ))
                           ) : (

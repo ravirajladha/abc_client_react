@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AppHeader from "../../components/includes/AppHeader";
-import Breadcrumb from "react-bootstrap/Breadcrumb";
+// import Breadcrumb from "react-bootstrap/Breadcrumb";
+import BackButton from "../../components/navigation/BackButton";
 import { toast, ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
@@ -174,12 +175,7 @@ function AddTeacher() {
                         </Breadcrumb.Item>
                       </Breadcrumb>
                     </Breadcrumb> */}
-                <button
-                  onClick={goBack}
-                  className="px-3 py-1   d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1"
-                >
-                  Back
-                </button>
+                  <BackButton />
               </div>
             </div>
             {/* <div className="mb-3"> */}

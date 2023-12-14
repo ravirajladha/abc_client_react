@@ -1,13 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Breadcrumb,
-  Button,
-  Card,
-  Col,
-  Container,
-  Form,
-  Row,
-} from "react-bootstrap";
+import BackButton from "../../components/navigation/BackButton";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -161,12 +153,7 @@ function AddStudent() {
                       &nbsp;Add Student
                     </Breadcrumb.Item>
                   </Breadcrumb> */}
-                     <button
-                      onClick={goBack}
-                      className="px-3 py-1   d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1"
-                    >
-                      Back
-                    </button>
+                        <BackButton />
                 </div>
               <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
              
