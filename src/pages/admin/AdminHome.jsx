@@ -14,7 +14,7 @@ function AdminHome() {
 
   useEffect(() => {
     const getDashboard = () => {
-      if (user) {
+      if (userDetails) {
         fetch(baseUrl + "api/get-admin-dashboard/").then(function (result) {
           result.json().then(function (res) {
             console.warn("dashboard info", res);
