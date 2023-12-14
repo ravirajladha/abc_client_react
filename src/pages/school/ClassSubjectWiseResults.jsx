@@ -72,6 +72,7 @@ const ClassResults = () => {
       }
     };
   }, [classId, term, section]);
+
   return (
     <>
       <div className="main-wrapper">
@@ -147,26 +148,68 @@ const ClassResults = () => {
                               {/* Dynamically display scores for each subject */}
                               {/* Map over the subjects and display the scores */}
                               {Object.entries(result.results).map(
-                                ([subjectKey, score], index) => {
-                                  // Split the subjectKey back into the subject ID and name
+                                ([subjectKey, scoreObj], index) => {
                                   const [subjectId, subjectName] =
                                     subjectKey.split("_");
+                                  const score = scoreObj ? scoreObj.score : ""; // Access the score property
                                   return (
                                     <td key={index}>
-                                      {score !== null ? score : "-"}
+                                      {score !== "" ? score : "-"}
                                     </td>
                                   );
                                 }
                               )}
+
                               {/* Calculate the total score */}
                               <td>
                                 {Object.values(result.results).reduce(
-                                  (total, score) => total + score,
-                                  0
+                                  (total, scoreObj) => {
+                                    // Check if scoreObj exists and has a 'score' property
+                                    if (scoreObj && scoreObj.score !== null) {
+                                      return total + scoreObj.score; // Add the score to the total
+                                    }
+                                    return total; // Otherwise, return the current total as is
+                                  },
+                                  0 // Initial value for the total
                                 )}
                               </td>
+
                               <td>
-                                <Link
+                                {Object.entries(result.results).map(
+                                  ([subjectKey, scoreObj], index) => {
+                                    const [subjectId, subjectName] =
+                                      subjectKey.split("_");
+                                    const score = scoreObj
+                                      ? scoreObj.score
+                                      : null;
+                                    const testId = scoreObj
+                                      ? scoreObj.test_id
+                                      : null; // Access the test_id property
+
+                                    return (
+                                      <>
+                                        {testId !== null && score !== null ? (
+                                          <Link
+                                            key={index}
+                                            to={
+                                              "/student/" +
+                                              result.student_id +
+                                              "/results/" +
+                                              testId
+                                            }
+                                            className="px-3 py-1 me-2 d-inline-block text-white fw-700 lh-30 rounded-lg uppercase text-center font-xsssss ls-3 bg-current mx-1"
+                                          >
+                                            Details
+                                          </Link>
+                                        ) : (
+                                          ""
+                                        )}
+                                      </>
+                                    );
+                                  }
+                                )}
+
+                                {/* <Link
                                   to={
                                     "/school/edit-student-profile/" +
                                     result.student_id
@@ -174,7 +217,7 @@ const ClassResults = () => {
                                   className="px-3 py-1 me-2 d-inline-block text-white fw-700 lh-30 rounded-lg uppercase text-center font-xsssss ls-3 bg-current mx-1"
                                 >
                                   View Profile
-                                </Link>
+                                </Link> */}
                               </td>
                             </tr>
                           ))

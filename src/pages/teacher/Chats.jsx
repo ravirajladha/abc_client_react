@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import AppHeader from "../../components/includes/AppHeader";
 import AppFooter from "../../components/includes/AppFooter";
-import Dropdown from "../../components/inputs/Dropdown";
+
 
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { getUserFromLocalStorage } from "../util/SessionStorage";
+
 import { useContext } from "react";
 import { AuthContext } from "../../lib/AuthContext.js";
 import BackButton from "../../components/navigation/BackButton.jsx";
@@ -259,6 +259,7 @@ function Chats() {
                             placeholder="Start typing.."
                             value={messageInput}
                             onChange={handleInputChange}
+                            style={{color:"#000"}}
                           />
                         </div>
                         <button type="submit" className="bg-current">

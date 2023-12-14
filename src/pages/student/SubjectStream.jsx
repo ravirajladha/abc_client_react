@@ -33,6 +33,7 @@ function SubjectStream() {
   const [allSubjectData, setAllSubjectData] = useState([]);
   // video player
   const [activeVideoId, setActiveVideoId] = useState("");
+  const [lastTimestamp, setLastTimestamp] = useState("");
   const [matchVideo, setMatchVideo] = useState({});
   const playerRef = React.useRef(null);
   const [videoJsOptions, setVideoJsOptions] = useState({
@@ -111,12 +112,13 @@ function SubjectStream() {
         } else {
           setReceiverId(null);
         }
-        // console.log(allSubjectData.subject.subject_name);
+        console.warn(resp);
         if (resp && resp.video_details) {
-          console.log(resp.video_details);
+          // console.log(resp);
           setActiveVideoId(resp && resp.video_details.id);
           setMainVideoTitle(resp && resp.video_details.video_name);
           setMainVideoDescription(resp && resp.video_details.description);
+          setLastTimestamp(resp && resp.video_timestamp);
           const defaultSources = [
             {
               src: baseUrl + resp.video_details.video_file,
@@ -269,8 +271,9 @@ function SubjectStream() {
                     options={videoJsOptions}
                     onReady={handlePlayerReady}
                     onPlayerChange={handlePlayerChange}
-                    videoId={activeVideoId}
-                    subjectId={subjectId}
+                    videoId = {activeVideoId}
+                    subjectId = {subjectId}
+                    lastTimestamp= {lastTimestamp}
                   />
                 </div>
 

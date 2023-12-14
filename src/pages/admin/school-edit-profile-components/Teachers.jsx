@@ -29,7 +29,7 @@ function Teachers() {
             ordering: true,
             columns: [
               { title: "Sl. No." },
-              { title: "Auth ID" },
+              { title: "Name" },
               { title: "Email" },
               { title: "Classes and Subjects" },
               { title: "Action" },
@@ -53,7 +53,7 @@ function Teachers() {
         <thead>
           <tr>
             <th>Sl. No.</th>
-            <th>Auth ID</th>
+            <th>Name</th>
             <th>Email</th>
             <th>Classes and Subjects</th>
             <th>Action</th>
@@ -63,7 +63,7 @@ function Teachers() {
           {teachers.map((teacher, index) => (
             <tr key={index}>
               <td>{index + 1}</td>
-              <td>{teacher.auth_id}</td>
+              <td>{teacher.name}</td>
               <td>{teacher.email}</td>
               <td>
                 {teacher.class_and_subject.map((item, idx) => (

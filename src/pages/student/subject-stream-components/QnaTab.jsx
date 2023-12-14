@@ -89,7 +89,7 @@ function QnaTab({ userId, isTeacherAvailable, subjectId, receiverId }) {
       let result = fetch(baseUrl + "api/search_school_questions/" + name).then(
         function (result) {
           result.json().then(function (jsonbody) {
-            console.warn(jsonbody);
+            // console.warn(jsonbody);
             setAllQnas(jsonbody);
           });
         }
@@ -195,6 +195,7 @@ function QnaTab({ userId, isTeacherAvailable, subjectId, receiverId }) {
                     onChange={(e) => search(e.target.value)}
                     value={qnaValue}
                     className="text-grey-500"
+                    style={{color:"#000"}}
                   />
                 </div>
                 <button type="submit" className="bg-current">

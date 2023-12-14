@@ -1,4 +1,4 @@
-import React ,{useContext, useEffect, useRef} from 'react';
+import React ,{useState, useContext, useEffect, useRef} from 'react';
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
 import { AuthContext } from "../../../lib/AuthContext.js"
@@ -8,13 +8,12 @@ export const VideoPlayer = (props) => {
  
   const videoRef = React.useRef(null);
   const playerRef = React.useRef(null);
-  const { options, onReady, onPlayerChange, videoId, subjectId  } = props;
-  const notes = [
-    { timestamp: 10, note: 'Note at 10 seconds' },
-    { timestamp: 30, note: 'Note at 30 seconds' },
-    { timestamp: 50, note: 'Note at 50 seconds' },
-    // Add more notes as needed
-  ];
+  const { options, onReady, onPlayerChange, videoId, subjectId, lastTimestamp  } = props;
+
+  const [lastVideoId, setLastVideoId] = useState(0);
+  
+// Flag to check if the component is unmounting
+const isUnmounting = useRef(false);
   useEffect(() => {
 
     // Make sure Video.js player is only initialized once
@@ -30,10 +29,10 @@ export const VideoPlayer = (props) => {
         videojs.log('player is ready');
         onReady && onReady(player);
         onPlayerChange && onPlayerChange(player); // Pass the player instance to the parent
+        player.currentTime(lastTimestamp);
       });
 
-      // createMarkers(player, notes);
-
+      
       // You could update an existing player in the `else` block here
       // on prop change, for example:
     } else {
@@ -41,58 +40,94 @@ export const VideoPlayer = (props) => {
 
       player.autoplay(options.autoplay);
       player.src(options.sources);
+
     }
+
+    const player = playerRef.current;
+// Listen for the 'ended' event
+player.on('ended', () => {
+  // Save timestamp when the video ends
+  const currentTime = player.currentTime();
+  saveTimestamp(lastVideoId, currentTime)
+    .then(() => {
+      // Optionally, you can do something after saving the timestamp
+      console.log("Timestamp saved on video end");
+    })
+    .catch((error) => {
+      console.error("Error saving timestamp:", error);
+    });
+});
+
   }, [options, videoRef]);
 
 
-
-  // Dispose the Video.js player when the functional component unmounts
-  useEffect(() => {
-    const player = playerRef.current;
-
-    return () => {
-      if (player && !player.isDisposed()) {
-        player.dispose();
-        playerRef.current = null;
-      }
-    };
-  }, [playerRef]);
-
-// Flag to check if the component is unmounting
-const isUnmounting = useRef(false);
+  
 
 // Save timestamp when component unmounts or options change
-// useEffect(() => {
-//   return () => {
-//     if (playerRef.current) {
-//       const currentTime = playerRef.current.currentTime();
-//       saveTimestamp(currentTime);
-//     }
-//   };
-// }, [options]);
+useEffect(() => {
+  // if (playerRef.current && options.sources && options.sources.length > 0 && isUnmounting.current) {
+  //   console.log("component unmount");
+  //   const currentTime = playerRef.current.currentTime();
+  //   saveTimestamp(currentTime);
+  // }
+
+  if (playerRef.current && videoId && videoId !== '0') {
+    const currentTime = playerRef.current.currentTime();
+
+    // Save timestamp using the previous state of lastVideoId
+    saveTimestamp(lastVideoId, currentTime)
+      .then(() => {
+        // Update lastVideoId with the new videoId
+        setLastVideoId(videoId);
+      })
+      .catch((error) => {
+        console.error("Error saving timestamp:", error);
+      });
+  }
+}, [options, videoId]);
+
+// Dispose the Video.js player when the functional component unmounts
+useEffect(() => {
+  const player = playerRef.current;
 
 
-// const saveTimestamp = async (currentTime) => {
-//   try {
-//     console.log(videoId);
-//     const formData = new FormData();
-//     formData.append("student_id", user_id);
-//     formData.append("video_id", videoId);
-//     formData.append("subject_id", subjectId);
-//     formData.append("timestamp", currentTime);
+  return () => {
+    if (player && !player.isDisposed()) {
+      // Set the isUnmounting flag to true before unmounting
+      isUnmounting.current = true;
 
-//     const response = await fetch(baseUrl + "api/save_video_timestamp", {
-//       method: "POST",
-//       body: formData,
-//     });
-//     if (!response) {
-//       throw new Error("Failed to send message");
-//     }
+      const currentTime = playerRef.current.currentTime();
+      saveTimestamp(lastVideoId,currentTime);
+      player.dispose();
+      playerRef.current = null;
+    }
+  };
+}, [playerRef]);
 
-//   } catch (error) {
-//     console.error("Error sending message:", error);
-//   }
-// };
+const saveTimestamp = async (videoId,currentTime) => {
+  try {
+    // console.log(videoId);
+    if(videoId == 0){
+      return
+    }
+    const formData = new FormData();
+    formData.append("student_id", user_id);
+    formData.append("video_id", videoId);
+    formData.append("subject_id", subjectId);
+    formData.append("timestamp", currentTime);
+
+    const response = await fetch(baseUrl + "api/save_video_timestamp", {
+      method: "POST",
+      body: formData,
+    });
+    if (!response) {
+      throw new Error("Failed to send message");
+    }
+
+  } catch (error) {
+    console.error("Error sending message:", error);
+  }
+};
 
   const  user = useContext(AuthContext).user;
   if (!user) {

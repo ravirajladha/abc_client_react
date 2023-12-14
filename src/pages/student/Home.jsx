@@ -109,7 +109,7 @@ function Home() {
                           <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
                             {dashboardInfo.last_login
                               ? dashboardInfo.last_login
-                              : "0"}
+                              : " "}
                           </h2>
                           <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
                             Last Login
