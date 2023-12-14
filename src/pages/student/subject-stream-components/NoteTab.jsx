@@ -96,8 +96,8 @@ function NoteTab({ userId, videoPlayer, activeVideoId }) {
     };
     
     const createMarkers = (player, notes) => {
-        console.warn(activeVideoId);
-        console.log(player);
+        // console.warn(activeVideoId);
+        // console.log(player);
             // Additional setup if needed
             if (markersCreated) {
                 return;
@@ -105,13 +105,13 @@ function NoteTab({ userId, videoPlayer, activeVideoId }) {
             const total = player.duration();
             const progressControl = player.controlBar.progressControl.children_[0].el_;
             clearMarkers(progressControl);
-            console.log(player);
-            console.warn(total);
-            console.log(notes);
+            // console.log(player);
+            // console.warn(total);
+            // console.log(notes);
             // Ensure notes.notes is an array before using forEach
         if (Array.isArray(notes.notes)) {
             notes.notes.forEach((note) => {
-                console.log(note);
+                // console.log(note);
                 const left = (note.timestamp / total) * 100 + '%';
                 const time = note.timestamp;
 

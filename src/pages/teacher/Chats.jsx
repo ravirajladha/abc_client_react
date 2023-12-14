@@ -259,6 +259,7 @@ function Chats() {
                             placeholder="Start typing.."
                             value={messageInput}
                             onChange={handleInputChange}
+                            style={{color:"#000"}}
                           />
                         </div>
                         <button type="submit" className="bg-current">
