@@ -45,12 +45,12 @@ function TakeAssessments() {
             setQuestions(resp);
             // setLoading(false);
             // console.log(questions[currentQuestionIndex]);
-
         });
     }
     useEffect(() => {
         get_assesments();
     }, [])
+
     const handleNextQuestion = () => {
         setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
         setSelectedQuestionIds((prevSelectedQuestionIds) => [
@@ -63,7 +63,6 @@ function TakeAssessments() {
         }
         setSelectedOption(null); // Reset selected option for the next question
         // console.log(selectedAnswers);
-
     };
     useEffect(() => {
 

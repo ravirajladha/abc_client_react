@@ -17,23 +17,20 @@ import QnaTab from "./subject-stream-components/QnaTab.jsx";
 
 function SubjectStream() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
-
   let { subjectId } = useParams();
   const user = useContext(AuthContext).user;
   const [receiverId, setReceiverId] = useState();
-
   const chatContentRef = useRef(null);
   const noteContentRef = useRef(null);
   const [activeTab, setActiveTab] = useState("course"); //set course as the default active tab
-
   const [notes, setNotes] = useState([]);
   const noteInputRef = useRef(null);
-
-  const scrollActiveTabToBottom = () => {
-    // chatContentRef.current.scrollTop = chatContentRef.current.scrollHeight;
-    // noteContentRef.current.scrollTop = noteContentRef.current.scrollHeight;
-  };
-
+  const [videoPlayer, setVideoPlayer] = useState(null);
+  const [assessments, setAssessments] = useState([]);
+  const [isTeacherAvailable, setIsTeacherAvailable] = useState(false);
+  const [mainVideoTitle, setMainVideoTitle] = useState("");
+  const [mainVideoDescription, setMainVideoDescription] = useState("");
+  const [allSubjectData, setAllSubjectData] = useState([]);
   // video player
   const [activeVideoId, setActiveVideoId] = useState("");
   const [matchVideo, setMatchVideo] = useState({});
@@ -45,15 +42,18 @@ function SubjectStream() {
     fluid: true,
     sources: [],
   });
+  const userId = user.user.id;
+
+  const scrollActiveTabToBottom = () => {
+    // chatContentRef.current.scrollTop = chatContentRef.current.scrollHeight;
+    // noteContentRef.current.scrollTop = noteContentRef.current.scrollHeight;
+  };
 
   const videos = document.querySelectorAll(".video");
   // const main_video_title = document.querySelector('.title');
-  const [mainVideoTitle, setMainVideoTitle] = useState("");
-  const [mainVideoDescription, setMainVideoDescription] = useState("");
 
   const handlePlayerReady = (player) => {
     playerRef.current = player;
-
     // You can handle player events here, for example:
     // player.on('waiting', () => {
     //     videojs.log('player is waiting');
@@ -63,10 +63,6 @@ function SubjectStream() {
     //     videojs.log('player will dispose');
     // });
   };
-  const [videoPlayer, setVideoPlayer] = useState(null);
-
-  const [assessments, setAssessments] = useState([]);
-  const [isTeacherAvailable, setIsTeacherAvailable] = useState(false);
 
   useEffect(() => {
     // Fetch assessments when the component mounts
@@ -93,7 +89,6 @@ function SubjectStream() {
       });
   }, []);
 
-  const [allSubjectData, setAllSubjectData] = useState([]);
   function subjectDetails() {
     fetch(baseUrl + "api/subject_stream/" + userId + "/" + subjectId, {
       method: "GET",
@@ -224,7 +219,6 @@ function SubjectStream() {
   const handlePlayerChange = (player) => {
     setVideoPlayer(player); // Store the player instance in your component state
   };
-  
 
   if (!user) {
     // Handle the case when there is no user. You might want to redirect
@@ -232,15 +226,33 @@ function SubjectStream() {
     console.log("No user found. User might be logged out.");
     return <div>User is not logged in</div>;
   }
-  const userId = user.user.id;
 
   function generateId(sectionTitle) {
     if (sectionTitle) {
       const title = sectionTitle.replace(/[^a-zA-Z0-9\s]/g, "");
-
       const sectionId = title.toLowerCase().replace(/\s+/g, "-");
-
       return sectionId;
+    }
+  }
+
+  // Function to fetch the latest assessment result for a user
+  async function fetchLatestAssessmentResult(userId) {
+    const apiUrl = `${baseUrl}/api/assessment_results/${userId}/latest`; // Replace with your actual API endpoint
+
+    try {
+      const response = await fetch(apiUrl);
+
+      if (!response.ok) {
+        throw new Error(
+          `Failed to fetch data from the server: ${response.status} ${response.statusText}`
+        );
+      }
+
+      const result = await response.json();
+      return result; // Assuming the API returns the latest assessment result as JSON
+    } catch (error) {
+      console.error("Error fetching assessment result:", error);
+      throw error; // You can handle errors as needed in your application
     }
   }
 
@@ -257,8 +269,8 @@ function SubjectStream() {
                     options={videoJsOptions}
                     onReady={handlePlayerReady}
                     onPlayerChange={handlePlayerChange}
-                    videoId = {activeVideoId}
-                    subjectId = {subjectId}
+                    videoId={activeVideoId}
+                    subjectId={subjectId}
                   />
                 </div>
 
@@ -527,7 +539,16 @@ function SubjectStream() {
                       Description
                     </h2>
                     <p className="font-xssss fw-500 lh-28 text-grey-600 mb-0 pl-2">
-                    {mainVideoDescription}
+                      {mainVideoDescription}
+                    </p>
+                  </div>
+
+                  <div className="card d-block border-0 rounded-lg overflow-hidden p-4 shadow-xss mt-4">
+                    <h2 className="fw-700 font-sm mb-3 mt-1 pl-1 mb-3">
+                      Previous Assesment Score
+                    </h2>
+                    <p className="font-xssss fw-500 lh-28 text-grey-600 mb-0 pl-2">
+                      1
                     </p>
                   </div>
 
