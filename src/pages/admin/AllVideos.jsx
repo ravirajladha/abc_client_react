@@ -3,22 +3,21 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import AppHeader from "../../components/includes/AppHeader";
 import AppFooter from "../../components/includes/AppFooter";
 
+function AllVideos() {
+  const navigate = useNavigate();
+  const { chapter_id } = useParams();
+  const [videos, setVideos] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [classId, setClassId] = useState(null); // State variable for class_id
+  const [subjectId, setSubjectId] = useState(null); // State variable for subject_id
+  const baseUrl = process.env.REACT_APP_BASE_URL;
 
-  function AllVideos() {
-    const navigate = useNavigate();
-    const { chapter_id } = useParams();
-    const [videos, setVideos] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [classId, setClassId] = useState(null); // State variable for class_id
-    const [subjectId, setSubjectId] = useState(null); // State variable for subject_id
-    const baseUrl = process.env.REACT_APP_BASE_URL;
-  
-    useEffect(() => {
-      if (chapter_id) {
-        getVideos(chapter_id);
-        getUniqueClassAndSubjectFromChapter(chapter_id); // Fetch class and subject when component mounts
-      }
-    }, [chapter_id]);
+  useEffect(() => {
+    if (chapter_id) {
+      getVideos(chapter_id);
+      getUniqueClassAndSubjectFromChapter(chapter_id); // Fetch class and subject when component mounts
+    }
+  }, [chapter_id]);
   const goBack = () => {
     navigate(-1); // Use navigate(-1) to go back
   };
@@ -50,6 +49,16 @@ import AppFooter from "../../components/includes/AppFooter";
       });
   }
 
+  function generateId(sectionTitle) {
+    if (sectionTitle) {
+      const title = sectionTitle.replace(/[^a-zA-Z0-9\s]/g, "");
+      const sectionId = title.toLowerCase().replace(/\s+/g, "-");
+      return sectionId;
+    }
+  }
+
+  console.log(videos);
+
   return (
     <>
       <div className="main-wrapper">
@@ -66,10 +75,10 @@ import AppFooter from "../../components/includes/AppFooter";
                     </h2>
                   </div>
                   <div className="float-right">
-                  <Link
-          to={`/all_subjects/${classId}/${subjectId}/${chapter_id}/create_videos`} // Updated path with classId and subjectId
-          className="px-3 py-1  d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current mx-1"
-        >
+                    <Link
+                      to={`/all_subjects/${classId}/${subjectId}/${chapter_id}/create_videos`} // Updated path with classId and subjectId
+                      className="px-3 py-1  d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current mx-1"
+                    >
                       ADD CONTENTS
                     </Link>
                     <button
@@ -88,8 +97,10 @@ import AppFooter from "../../components/includes/AppFooter";
                 </div>
 
                 {isLoading ? (
-                  <h2 className="fw-400 font-lg d-block text-center">Loading contents...</h2>
-                  ) : videos.length > 0 ? (
+                  <h2 className="fw-400 font-lg d-block text-center">
+                    Loading contents...
+                  </h2>
+                ) : videos.length > 0 ? (
                   videos.map((video, index) => (
                     <div className="col-xl-4 col-lg-6 col-md-6" key={index}>
                       <div className="card mb-4 shadow-xss rounded-lg border-0 p-4 text-center">
@@ -114,18 +125,75 @@ import AppFooter from "../../components/includes/AppFooter";
                         <h4 className="fw-700 font-xs mt-4">
                           {video.video_name}
                         </h4>
+                        <div className="row">
+                          <div className="col">
+                            <Link
+                              to={
+                                video.assessment_id
+                                  ? `/assessments/assessment_details/${video.assessment_id}`
+                                  : "#"
+                              }
+                              className={`px-3 py-1 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ${
+                                !video.assessment_id ? "bg-gray" : "bg-current"
+                              }`}
+                              disabled={!video.assessment_id}
+                              target="_blank" // Add this line to open in a new tab or window
+                            >
+                              Assessments
+                            </Link>
+
+                            {video.ebook_sections &&
+                              (Array.isArray(video.ebook_sections)
+                                ? video.ebook_sections.map((section, index) => (
+                                    <div
+                                      key={index}
+                                      className="border-size-sm rounded-sm px-1 mx-1 d-inline-block"
+                                    >
+                                      <Link
+                                        className="px-3 py-1 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss bg-current"
+                                        to={`/ebooks/preview_ebook/${
+                                          video.ebook_id
+                                        }#${generateId(section.section_title)}`}
+                                      >
+                                        Ebook {index + 1}
+                                      </Link>
+                                    </div>
+                                  ))
+                                : JSON.parse(video.ebook_sections).map(
+                                    (section, index) => (
+                                      <div
+                                        key={index}
+                                        className="border-size-sm rounded-sm px-1 mx-1 d-inline-block"
+                                      >
+                                        <Link
+                                          className="px-3 py-1 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss bg-current"
+                                          to={`/ebooks/preview_ebook/${
+                                            video.ebook_id
+                                          }#${generateId(
+                                            section.section_title
+                                          )}`}
+                                        >
+                                          Ebook {index + 1}
+                                        </Link>
+                                      </div>
+                                    )
+                                  ))}
+                          </div>
+                        </div>
+
                         {/* You can add additional chapter details here */}
                         <div className="card-body">
                           {/* Other contents like description, number of videos, etc. */}
                         </div>
-                     
                       </div>
                     </div>
                   ))
-                  ) : (
-                    // If data is loaded and there are no videos, display a message saying so
-                    <h2 className="fw-400 font-lg d-block text-center">No videos</h2>
-                  )}
+                ) : (
+                  // If data is loaded and there are no videos, display a message saying so
+                  <h2 className="fw-400 font-lg d-block text-center">
+                    No videos
+                  </h2>
+                )}
               </div>
             </div>
           </div>

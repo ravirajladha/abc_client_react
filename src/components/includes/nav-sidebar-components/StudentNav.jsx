@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 
 import LogoutButton from "../../common/LogoutButton.jsx";
@@ -34,7 +34,7 @@ function StudentNav() {
               <i className="ti-close bg-grey mb-4 btn-round-sm font-xssss fw-700 text-dark ml-auto mr-2 "></i>
             </span>
           </div>
-      
+
           <ul className="mb-3">
             <li className="logo d-none d-xl-block d-lg-block"></li>
             <li>
@@ -51,7 +51,7 @@ function StudentNav() {
             <div className="nav-caption fw-600 font-xssss text-grey-500">
               Home
             </div>
-         
+
             <li>
               <NavLink
                 activeclassname="active"
@@ -66,7 +66,7 @@ function StudentNav() {
             <div className="nav-caption fw-600 font-xssss text-grey-500">
               Subjects
             </div>
-          
+
             {/* <li>
               <NavLink
                 activeclassname="active"
@@ -81,7 +81,7 @@ function StudentNav() {
             <div className="nav-caption fw-600 font-xssss text-grey-500">
               Qna
             </div> */}
-        
+
             <li>
               <NavLink
                 activeclassname="active"
@@ -96,20 +96,20 @@ function StudentNav() {
             <div className="nav-caption fw-600 font-xssss text-grey-500">
               Forums
             </div>
-       
+
             <li>
               <NavLink
                 activeclassname="active"
-                to="/video_features"
+                to="/internship"
                 className="nav-content-bttn open-font"
                 data-tab="favorites"
               >
                 <i className="feather-play-circle mr-3"></i>
-                <span>Video Features</span>
+                <span>Internship</span>
               </NavLink>
             </li>
             <div className="nav-caption fw-600 font-xssss text-grey-500">
-              Video <br/>Features
+              Internship
             </div>
           </ul>
 

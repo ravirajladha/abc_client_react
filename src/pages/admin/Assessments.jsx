@@ -48,7 +48,7 @@ function Assessments() {
                     </h2>
                   </div>
                   <div className="float-right">
-                  <Link
+                    <Link
                       to={"/assessments/create_assessments"}
                       className="px-3 py-2 me-2 d-inline-block text-white fw-700 lh-30 rounded-lg  uppercase text-center font-xsssss ls-3 bg-current"
                     >
@@ -60,7 +60,7 @@ function Assessments() {
                     >
                       ALL QUESTIONS
                     </Link>
-               
+
                     <BackButton />
                   </div>
                 </div>
@@ -68,11 +68,14 @@ function Assessments() {
                   {classesWithSubjects
                     ? classesWithSubjects.map((classItem, index) => (
                         <div className="row" key={classItem.id}>
-                             <div className="row">
-                    <div className="col-12">
-                        <h1 className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-warning d-inline-block text-success mb-1 mr-1">{classItem.class}</h1> {/* Display class name here */}
-                    </div>
-                </div>
+                          <div className="row">
+                            <div className="col-12">
+                              <h1 className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-warning d-inline-block text-success mb-1 mr-1">
+                                {classItem.class}
+                              </h1>{" "}
+                              {/* Display class name here */}
+                            </div>
+                          </div>
                           {classItem.subjects.map((subject) => (
                             <div
                               className="col-xl-4 col-lg-6 col-md-6"
@@ -98,7 +101,7 @@ function Assessments() {
                                 </span>
 
                                 <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-info d-inline-block text-info mb-1">
-                                  { subject.assessment_count }
+                                  {subject.assessment_count}
                                 </span>
                                 <div className="clearfix"></div>
 

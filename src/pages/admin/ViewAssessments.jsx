@@ -3,6 +3,7 @@ import AppHeader from "../../components/includes/AppHeader";
 import AppFooter from "../../components/includes/AppFooter";
 import { useParams } from "react-router-dom";
 import BackButton from "../../components/navigation/BackButton";
+import { Link } from "react-router-dom";
 
 function ViewAssessments() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -83,7 +84,14 @@ function ViewAssessments() {
                               <td>
                                 <b>{assessment.name}</b>
                               </td>
-                              <td>View</td>
+                              <td>
+                                <Link
+                                  to={`/assessments/assessment_details/${assessment.id}`}
+                                  className="px-3 py-1 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss bg-current"
+                                >
+                                  View Details
+                                </Link>
+                              </td>
                             </tr>
                           ))
                         ) : (

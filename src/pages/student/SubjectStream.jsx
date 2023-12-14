@@ -43,6 +43,9 @@ function SubjectStream() {
     fluid: true,
     sources: [],
   });
+  const [assessmentScore, setAssessmentScore] = useState(
+    "Fetching assessment score"
+  );
   const userId = user.user.id;
 
   const scrollActiveTabToBottom = () => {
@@ -90,6 +93,10 @@ function SubjectStream() {
       });
   }, []);
 
+  // useEffect(() => {
+  //   fetchLatestAssessmentResult(userId);
+  // }, [userId]);
+
   function subjectDetails() {
     fetch(baseUrl + "api/subject_stream/" + userId + "/" + subjectId, {
       method: "GET",
@@ -133,13 +140,39 @@ function SubjectStream() {
       });
   }
 
-  const handleVideoClick = (videoId, videoFile, videoName, description) => {
+  const handleVideoClick = (
+    videoId,
+    videoFile,
+    videoName,
+    description,
+    assesmentId
+  ) => {
     videos.forEach((video) => {
       if (videoId == video.dataset.id) {
-        // console.log(videoId);
         video.classList.add("active");
         video.querySelector("i").classList.remove("feather-play-circle");
         video.querySelector("i").classList.add("feather-pause-circle");
+
+        // Fetch the latest assessment score based on video.assessment_id
+        const videoAssessmentId = assesmentId;
+        fetchLatestAssessmentResult(userId, videoAssessmentId)
+          .then((latestScore) => {
+            if (
+              latestScore &&
+              latestScore.assessmentResults &&
+              latestScore.assessmentResults.score !== null
+            ) {
+              const scoreValue = latestScore.assessmentResults.score;
+              setAssessmentScore(scoreValue);
+            } else {
+              // Handle the case where the assessment result is null
+              setAssessmentScore("Assessment Not Taken");
+            }
+          })
+          .catch((error) => {
+            setAssessmentScore(0);
+            console.error("Error:", error);
+          });
       } else {
         video.classList.remove("active");
         video.querySelector("i").classList.remove("feather-pause-circle");
@@ -237,9 +270,8 @@ function SubjectStream() {
     }
   }
 
-  // Function to fetch the latest assessment result for a user
-  async function fetchLatestAssessmentResult(userId) {
-    const apiUrl = `${baseUrl}/api/assessment_results/${userId}/latest`; // Replace with your actual API endpoint
+  async function fetchLatestAssessmentResult(userId, videoAssessmentId) {
+    const apiUrl = `${baseUrl}api/assessment_results/${userId}/${subjectId}/${videoAssessmentId}`;
 
     try {
       const response = await fetch(apiUrl);
@@ -271,9 +303,9 @@ function SubjectStream() {
                     options={videoJsOptions}
                     onReady={handlePlayerReady}
                     onPlayerChange={handlePlayerChange}
-                    videoId = {activeVideoId}
-                    subjectId = {subjectId}
-                    lastTimestamp= {lastTimestamp}
+                    videoId={activeVideoId}
+                    subjectId={subjectId}
+                    lastTimestamp={lastTimestamp}
                   />
                 </div>
 
@@ -366,7 +398,8 @@ function SubjectStream() {
                                                           video.id,
                                                           video.video_file,
                                                           video.video_name,
-                                                          video.description
+                                                          video.description,
+                                                          video.assessment_id
                                                         )
                                                       }
                                                     >
@@ -489,7 +522,6 @@ function SubjectStream() {
                           receiverId={receiverId}
                         />
                       </Tab>
-
                       <Tab
                         eventKey="notes"
                         title="NOTES"
@@ -536,7 +568,7 @@ function SubjectStream() {
                     </span>
                   </div>
                 </div>
-                <div className="col-xl-12 col-xxl-12 col-lg-12">
+                <div className="col-xl-8 col-xxl-8 col-lg-8">
                   <div className="card d-block border-0 rounded-lg overflow-hidden p-4 shadow-xss mt-4">
                     <h2 className="fw-700 font-sm mb-3 mt-1 pl-1 mb-3">
                       Description
@@ -545,13 +577,14 @@ function SubjectStream() {
                       {mainVideoDescription}
                     </p>
                   </div>
-
+                </div>
+                <div className="col-xl-4 col-xxl-4 col-lg-4">
                   <div className="card d-block border-0 rounded-lg overflow-hidden p-4 shadow-xss mt-4">
                     <h2 className="fw-700 font-sm mb-3 mt-1 pl-1 mb-3">
-                      Previous Assesment Score
+                      Assessment Score
                     </h2>
-                    <p className="font-xssss fw-500 lh-28 text-grey-600 mb-0 pl-2">
-                      1
+                    <p className="font-xssss fw-500 lh-28 text-grey-600 mb-0 pl-2 latest-assessment-score">
+                      {assessmentScore}
                     </p>
                   </div>
 

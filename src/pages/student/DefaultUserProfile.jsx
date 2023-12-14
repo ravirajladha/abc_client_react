@@ -12,7 +12,6 @@ import { useContext } from "react";
 import SubjectScore from "../../components/common/SubjectScore";
 import Slider from "react-slick";
 
-
 const blueChart = {
   series: [
     {
@@ -493,7 +492,7 @@ function StudentProfile() {
       </span>
     );
   }
-  
+
   return (
     <Fragment>
       <div className="main-wrapper">
@@ -502,11 +501,10 @@ function StudentProfile() {
           <div className="middle-sidebar-bottom theme-dark-bg">
             <div className="middle-sidebar-left">
               <Tabs
-                defaultActiveKey="profile"
+                defaultActiveKey="live"
                 id="uncontrolled-tab-example"
                 className="mb-3 nav nav-tabs profile xs-p-4 d-flex align-items-center justify-content-between product-info-tab border-bottom-0 bg-white shadow-xss rounded-lg"
               >
-                
                 <Tab eventKey="live" title="REPORT CARD">
                   <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
                     <div className="card-body p-4 w-100 bg-current border-0 d-flex rounded-lg justify-content-between">
@@ -1236,7 +1234,6 @@ function StudentProfile() {
                       </div> */}
                   </div>
                 </Tab>
-
               </Tabs>
             </div>
             <div className="middle-sidebar-right scroll-bar">

@@ -102,7 +102,8 @@ import Payments from "./pages/admin/Payments.jsx";
 import ParentSettings from "./pages/parent/ParentSettings.jsx";
 import ParentAddStudent from "./pages/parent/ParentAddStudent.jsx";
 import AddModule from "./pages/admin/ebook/AddModule.jsx";
-
+import SingleAssessmentDetails from "./pages/admin/SingleAssessmentDetails.jsx";
+import Internship from "./pages/student/Internship.jsx";
 import Applications from "./pages/school/Applications.jsx";
 import TestResultDetails from "./pages/admin/TestResultDetails.jsx";
 class Root extends Component {
@@ -967,6 +968,16 @@ class Root extends Component {
             />
             <Route
               exact
+              path={`${process.env.PUBLIC_URL}/assessments/assessment_details/:assessmentId`}
+              element={
+                <ProtectedRoute
+                  element={<SingleAssessmentDetails />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
+            <Route
+              exact
               path={`${process.env.PUBLIC_URL}/tests`}
               element={
                 <ProtectedRoute element={<Tests />} allowedTypes={["admin"]} />
@@ -1401,6 +1412,17 @@ class Root extends Component {
                 <ProtectedRoute
                   element={<Applications />}
                   allowedTypes={["sub_admin"]}
+                />
+              }
+            />
+
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/internship`}
+              element={
+                <ProtectedRoute
+                  element={<Internship />}
+                  allowedTypes={["school_student"]}
                 />
               }
             />
