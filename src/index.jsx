@@ -754,8 +754,6 @@ class Root extends Component {
               }
             />
 
-       
-
             <Route
               exact
               path={`${process.env.PUBLIC_URL}/editor/:type/:redirecting_id/:type_id/:labId`}
@@ -1347,7 +1345,7 @@ class Root extends Component {
               element={
                 <ProtectedRoute
                   element={<ClassResults />}
-                  allowedTypes={["sub_admin"]}
+                  allowedTypes={["sub_admin", 'admin']}
                 />
               }
             />
@@ -1362,14 +1360,14 @@ class Root extends Component {
                 />
               }
             />
-            
+
             <Route
               exact
               path={`${process.env.PUBLIC_URL}/student/:studentId/results/:testId`}
               element={
                 <ProtectedRoute
                   element={<TestResultDetails />}
-                  allowedTypes={["sub_admin", "admin", "teacher"]}
+                  allowedTypes={["sub_admin", "admin", "teacher", "parent"]}
                 />
               }
             />

@@ -82,12 +82,12 @@ function StudentDetails() {
                         <div className="mb-2 rounded-lg p-xxl-5 p-2 border-0 text-center">
                           <Link
                             to={`/subject/${subject.id}`}
-                            className="btn-round-xxxl rounded-lg bg-lightblue ml-auto mr-auto"
+                            className="ml-auto mr-auto rounded-lg overflow-hidden d-inline-block"
                           >
                             <img
                               src={baseUrl + subject.subject_image}
                               alt="subject"
-                              className="p-1"
+                              className="p-0 w100 shadow-xss"
                             />
                           </Link>
                           <h4 className="fw-700 font-xs capitalize mt-4">
@@ -96,13 +96,13 @@ function StudentDetails() {
                           <div className="card-footer bg-transparent border-top-0">
                             <Link
                               to={`/student/${student.id}/tests/${subject.id}`}
-                              className="p-2 mt-4 ml-2 d-inline-block text-white fw-700 lh-30 rounded-lg w100 text-center font-xsssss ls-3 bg-current"
+                              className="p-2 mx-2 my-4 text-uppercase d-inline-block text-white fw-700 lh-30 rounded-lg w100 text-center font-xsssss ls-4 bg-current"
                             >
                               Tests
                             </Link>
                             <Link
                               to={`/student/${student.id}/assessments/${subject.id}`}
-                              className="p-2 mt-4 ml-2 d-inline-block text-white fw-700 lh-30 rounded-lg w100 text-center font-xsssss ls-3 bg-current"
+                              className="p-2 mx-2 my-4 text-uppercase d-inline-block text-white fw-700 lh-30 rounded-lg w100 text-center font-xsssss ls-4 bg-current"
                             >
                               Assessments
                             </Link>

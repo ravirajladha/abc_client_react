@@ -78,6 +78,10 @@ function ParentHome() {
       getChildren();
       if (selectedStudent) {
         getStudentItems();
+      } else {
+        if (childrenDropdown.length !== 0) {
+          setSelectedStudent(childrenDropdown[0].id); // Assuming the first item's ID is used as the value
+        }
       }
     } else {
       return;
@@ -88,6 +92,7 @@ function ParentHome() {
     getChildren,
     selectedStudent,
     getStudentItems,
+    childrenDropdown
   ]);
 
   const handleDropdownSelect = (e) => {
@@ -97,7 +102,7 @@ function ParentHome() {
   return (
     <>
       <div className="main-wrapper">
-        <div className="main-content menu-active">
+        <div className="main-content menu-active" id="main-content">
           <AppHeader />
 
           <div className="middle-sidebar-bottom theme-dark-bg">
@@ -131,36 +136,49 @@ function ParentHome() {
                 </div>
               </div>
 
-              <div className="row">
-                <div className="col-lg-12">
-                  <div class="form-group mt-lg-4 py-2 rounded-lg ">
-                    <div class="row">
-                      <div class="col-md-3">
-                        <Dropdown
-                          onChange={handleDropdownSelect}
-                          options={childrenDropdown}
-                          value={selectedStudent}
-                          placeholder="Select a child"
-                          column_name="child"
-                          className="form-select"
-                        />
-                      </div>
-                      {selectedStudent && (
-                        <div class="col-md-9 d-flex justify-end ">
-                          <Link
-                            to={"/student/" + selectedStudent}
-                            class="px-4 d-block btn bg-current text-white font-xssss fw-600 ls-3 style1-input p-0 border-0 text-uppercase "
-                          >
-                            {studentInfo.name}
-                            {"'s Profile"}
-                          </Link>
+              {/* No Student Message */}
+              {childrenDropdown.length === 0 && (
+                <div className="row my-5">
+                  <div className="col-12 text-center">
+                    <span className="font-xss fw-700 py-2 px-4 lh-32  rounded-lg ls-2 d-inline-block mr-1 alert-warning text-current">
+                      Share your Parent Code with your children to veiw their
+                      reports.
+                    </span>
+                  </div>
+                </div>
+              )}
+
+              {childrenDropdown.length !== 0 && (
+                <div className="row">
+                  <div className="col-lg-12">
+                    <div class="form-group mt-lg-4 py-2 rounded-lg ">
+                      <div class="row">
+                        <div class="col-md-3">
+                          <Dropdown
+                            onChange={handleDropdownSelect}
+                            options={childrenDropdown}
+                            value={selectedStudent}
+                            placeholder="Select a child"
+                            column_name="child"
+                            className="form-select"
+                          />
                         </div>
-                      )}
+                        {selectedStudent && (
+                          <div class="col-md-9 d-flex justify-end ">
+                            <Link
+                              to={"/student/" + selectedStudent}
+                              class="px-4 d-block btn bg-current text-white font-xssss fw-600 ls-3 style1-input p-0 border-0 text-uppercase "
+                            >
+                              {studentInfo.name}
+                              {"'s Profile"}
+                            </Link>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-
+              )}
               {selectedStudent && studentInfo ? (
                 <>
                   <div className="row">

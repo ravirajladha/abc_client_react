@@ -199,7 +199,7 @@ const ClassResults = () => {
                                             }
                                             className="px-3 py-1 me-2 d-inline-block text-white fw-700 lh-30 rounded-lg uppercase text-center font-xsssss ls-3 bg-current mx-1"
                                           >
-                                            Details
+                                          {subjectName} Response
                                           </Link>
                                         ) : (
                                           ""

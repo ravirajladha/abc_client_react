@@ -13,9 +13,9 @@ function TestResultDetails() {
   const [userAnswer, setUserAnswer] = useState([]);
   const { testId, studentId } = useParams();
   const getTestDetails = (e) => {
-    fetch(baseUrl + "api/get-test-result-details/" + studentId + "/" + testId).then(function (
-      result
-    ) {
+    fetch(
+      baseUrl + "api/get-test-result-details/" + studentId + "/" + testId
+    ).then(function (result) {
       result.json().then(function (json) {
         console.warn(json);
         setTestDetails(json.test);
@@ -33,15 +33,15 @@ function TestResultDetails() {
   return (
     <>
       <div className="main-wrapper">
-        <div className="main-content menu-active">
+        <div className="main-content menu-active" id="main-content">
           <AppHeader />
           <div className="middle-sidebar-bottom theme-dark-bg">
             <div className="middle-sidebar-left">
               <div className="row">
-                <div className="w-100 border-0 d-flex rounded-lg justify-content-between">
-                  <div className="">
+                <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
+                  <div>
                     <h2 className="fw-400 font-lg d-block">
-                      Test <b> Details</b>{" "}
+                      Test <b> Response</b>
                     </h2>
                   </div>
                   <div className="float-right">
