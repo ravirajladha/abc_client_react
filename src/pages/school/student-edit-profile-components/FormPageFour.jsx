@@ -72,7 +72,7 @@ function FormPageFour({ formData, onSubmit, goToNextForm, goToPreviousForm }) {
   };
 
   return (
-    <div className="container">
+    <>
       <div className="d-block w-100 border-0 rounded-lg overflow-hidden">
         <div className="mb-3 pb-0">
           <h2 className="fw-400 font-lg d-block">
@@ -257,7 +257,7 @@ function FormPageFour({ formData, onSubmit, goToNextForm, goToPreviousForm }) {
               </div>
 
               {/* Save & Previous Button */}
-              <div className="col-lg-12 text-right">
+              <div className="col-lg-12 text-right position-absolute mb-5 fixed-bottom">
                 <button
                   type="button"
                   onClick={handlePrevious} // Call the handlePrevious function
@@ -270,14 +270,14 @@ function FormPageFour({ formData, onSubmit, goToNextForm, goToPreviousForm }) {
                   name="address_submit"
                   className="btn bg-success text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0 ml-2"
                 >
-                  Save & Next
+                  Next
                 </button>
               </div>
             </div>
           </form>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

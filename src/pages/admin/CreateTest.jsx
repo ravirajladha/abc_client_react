@@ -36,6 +36,8 @@ function CreateTest() {
   const formattedStartTime = `${startTime}:00`;
   const formattedEndTime = `${endTime}:00`;
 
+  const [numberOfQuestions, setNumberOfQuestions] = useState(0);
+
   function getClasses() {
     let result = fetch(baseUrl + "api/get_classes").then(function (result) {
       result.json().then(function (jsonbody) {
@@ -46,7 +48,9 @@ function CreateTest() {
   }
   async function getSubjects() {
     try {
-      const response = await fetch(baseUrl + "api/get_subjects_by_class/" + selectedClass);
+      const response = await fetch(
+        baseUrl + "api/get_subjects_by_class/" + selectedClass
+      );
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -57,7 +61,6 @@ function CreateTest() {
       console.error("Failed to fetch subjects:", error);
     }
   }
-  
 
   const handleClassChange = (e) => {
     const selectedValue = e.target.value;
@@ -74,6 +77,34 @@ function CreateTest() {
   useEffect(() => {
     getSubjects();
   }, [selectedClass]);
+
+  useEffect(() => {
+    if (selectedSubject) {
+      fetchNumberOfQuestions(selectedSubject);
+    }
+  }, [selectedSubject]);
+
+  function fetchNumberOfQuestions(subjectId) {
+    fetch(`${baseUrl}api/get_number_of_questions/${subjectId}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data.questionsCount === 0) {
+          setNumberOfQuestions(data.questionsCount);
+          toast.warn("There are no questions for this subject.");
+        } else {
+          setNumberOfQuestions(data.questionsCount);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching number of questions:", error);
+        setNumberOfQuestions(0);
+      });
+  }
 
   const navigate = useNavigate();
   const createTest = (e) => {
@@ -127,12 +158,12 @@ function CreateTest() {
                     <BackButton />
                   </span>
                 </div>
-
+                <ToastContainer autoClose={3000} />
                 <div className="card w-100 border-0 bg-white shadow-xs p-0 my-4">
                   <div className="card-body p-lg-5 px-4 w-100 border-0 ">
                     <form encType="multipart/form-data" onSubmit={createTest}>
                       <div className="row mb-6">
-                        <div className="col-lg-6">
+                        <div className="col-lg-4">
                           <label className="mont-font fw-600 font-xsss">
                             Select Class
                           </label>
@@ -144,7 +175,7 @@ function CreateTest() {
                             onChange={handleClassChange}
                           />
                         </div>
-                        <div className="col-lg-6">
+                        <div className="col-lg-4">
                           <label className="mont-font fw-600 font-xsss">
                             Select Subject
                           </label>
@@ -154,6 +185,17 @@ function CreateTest() {
                             column_name="subject_name"
                             value={selectedSubject}
                             onChange={handleSubjectChange}
+                          />
+                        </div>
+                        <div className="col-lg-4">
+                          <label className="mont-font fw-600 font-xsss">
+                            Number of Questions
+                          </label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            value={numberOfQuestions}
+                            readOnly
                           />
                         </div>
                         <div className="col-lg-6">
@@ -200,7 +242,7 @@ function CreateTest() {
                           </label>
                           <br />
                           <input
-                            type="time"
+                            type="datetime-local"
                             className="form-control"
                             value={startTime}
                             onChange={(e) => setStartTime(e.target.value)}
@@ -213,7 +255,7 @@ function CreateTest() {
                           </label>
                           <br />
                           <input
-                            type="time"
+                            type="datetime-local"
                             className="form-control"
                             value={endTime}
                             onChange={(e) => setEndTime(e.target.value)}

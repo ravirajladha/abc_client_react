@@ -49,6 +49,7 @@ const EditProfile = () => {
           f_name: studentData.f_name || "",
           l_name: studentData.l_name || "",
           email: studentData.email || "",
+          class: studentData.class || "",
           phone_no: studentData.phone_no || "",
           whatsapp_no: studentData.whatsapp_no || "",
           whatsapp_exist: studentData.whatsapp_exist === 1,
@@ -171,15 +172,14 @@ const EditProfile = () => {
                   <BackButton />
                 </div>
               </div>
-              <div className="row" style={{height: "100vh"}}>
-                <div className="col-md-3 p-0">
+              <div className="row">
+                <div className="col-md-3 p-0 vh-100">
                   <Sidebar
                     currentStep={currentStep}
                     changeStep={setCurrentStep}
                   />
                 </div>
-                <div className="col-md-9 p-4">
-                  <div className="card-body">{getStepComponent()}</div>
+                <div className="col-md-9 p-4 vh-100">{getStepComponent()}
                 </div>
               </div>
             </div>

@@ -39,7 +39,7 @@ function FormPageThree({ formData, onSubmit, goToNextForm, goToPreviousForm }) {
   };
 
   return (
-    <div className="container">
+    <>
       <div className="rounded-lg overflow-hidden">
         <div className="mb-4">
           <h2 className="fw-400 font-lg d-block">
@@ -157,7 +157,7 @@ function FormPageThree({ formData, onSubmit, goToNextForm, goToPreviousForm }) {
             </div>
 
             {/* Navigation Buttons */}
-            <div className="text-right">
+            <div className="text-right position-absolute mb-5 fixed-bottom">
               <button
                 type="button"
                 className="btn bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0"
@@ -170,13 +170,13 @@ function FormPageThree({ formData, onSubmit, goToNextForm, goToPreviousForm }) {
                 name="family_submit"
                 className="btn bg-success text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0 ml-2"
               >
-                Save & Next
+                Next
               </button>
             </div>
           </form>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

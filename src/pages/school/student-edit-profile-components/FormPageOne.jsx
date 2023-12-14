@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 
 const FormPageOne = ({ formData, onSubmit, goToNextForm }) => {
-  console.log(formData);
   const [classes, setClasses] = useState([]);
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const [formState, setFormState] = useState({
@@ -100,13 +99,13 @@ const FormPageOne = ({ formData, onSubmit, goToNextForm }) => {
   }, []);
 
   return (
-    <div className="container">
-      <div className="mb-3 pb-0">
+    <>
+      <div className="mb-3">
         <h2 className="fw-400 font-lg d-block">
           <b>Personal Details</b>
         </h2>
       </div>
-      <div className="pb-0">
+      <div className="">
         <form encType="multipart/form-data">
           <div className="row">
             {/* First Name */}
@@ -120,7 +119,7 @@ const FormPageOne = ({ formData, onSubmit, goToNextForm }) => {
                   name="f_name"
                   className="form-control"
                   placeholder="Enter your first name"
-                  value={formState.f_name} // Populate the value from formState
+                  value={formState.f_name}
                   onChange={handleChange}
                 />
               </div>
@@ -136,7 +135,7 @@ const FormPageOne = ({ formData, onSubmit, goToNextForm }) => {
                   name="l_name"
                   className="form-control"
                   placeholder="Enter your last name"
-                  value={formState.l_name} // Populate the value from formState
+                  value={formState.l_name}
                   onChange={handleChange}
                 />
               </div> */}
@@ -148,7 +147,7 @@ const FormPageOne = ({ formData, onSubmit, goToNextForm }) => {
                 <select
                   name="className"
                   className="form-control"
-                  value={formState.className}
+                  value={formState.class}
                   onChange={handleChange}
                 >
                   <option value="">Select Class</option>
@@ -169,7 +168,7 @@ const FormPageOne = ({ formData, onSubmit, goToNextForm }) => {
                   name="email"
                   className="form-control"
                   placeholder="Enter your email"
-                  value={formState.email} // Populate the value from formState
+                  value={formState.email}
                   onChange={handleChange}
                 />
               </div>
@@ -185,7 +184,7 @@ const FormPageOne = ({ formData, onSubmit, goToNextForm }) => {
                   name="phone_no"
                   className="form-control"
                   placeholder="Enter your mobile number"
-                  value={formState.phone_no} // Populate the value from formState
+                  value={formState.phone_no}
                   onChange={handleChange}
                 />
               </div>
@@ -199,23 +198,24 @@ const FormPageOne = ({ formData, onSubmit, goToNextForm }) => {
                   name="whatsapp_no"
                   className="form-control"
                   placeholder="Enter your WhatsApp number"
-                  value={formState.whatsapp_no} // Populate the value from formState
+                  value={formState.whatsapp_no}
                   onChange={handleChange}
                 />
               </div>
             </div>
             {/* Checkbox for WhatsApp*/}
-            <div className="col-lg-1 mb-3">
+            <div className="col-lg-1 mb-3 d-flex align-items-center justify-content-center">
               <div className="form-group">
-                <label className="mont-font fw-600 font-xsss"></label>
-                <br />
-                <input
-                  type="checkbox"
-                  name="whatsapp_exist"
-                  className="form-check-input p-4"
-                  checked={formState.whatsapp_exist} // Populate the value from formState
-                  onChange={handleChange}
-                />
+                <div className="form-check">
+                  <input
+                    type="checkbox"
+                    name="whatsapp_exist"
+                    className="form-check-input mt-2"
+                    style={{ width: "35px", height: "35px" }}
+                    checked={formState.whatsapp_exist}
+                    onChange={handleChange}
+                  />
+                </div>
               </div>
             </div>
             {/* DOB as per Aadhar */}
@@ -228,7 +228,7 @@ const FormPageOne = ({ formData, onSubmit, goToNextForm }) => {
                   type="date"
                   name="dob"
                   className="form-control"
-                  value={formState.dob} // Populate the value from formState
+                  value={formState.dob}
                   onChange={handleChange}
                 />
               </div>
@@ -240,7 +240,7 @@ const FormPageOne = ({ formData, onSubmit, goToNextForm }) => {
                 <select
                   className="form-control"
                   name="gender"
-                  value={formState.gender} // Populate the value from formState
+                  value={formState.gender}
                   onChange={handleChange}
                 >
                   <option value="">-Select-</option>
@@ -278,7 +278,7 @@ const FormPageOne = ({ formData, onSubmit, goToNextForm }) => {
                 <select
                   className="form-control"
                   name="category"
-                  value={formState.category} // Populate the value from formState
+                  value={formState.category}
                   onChange={handleChange}
                 >
                   <option value="">-Select-</option>
@@ -394,25 +394,25 @@ const FormPageOne = ({ formData, onSubmit, goToNextForm }) => {
             </div>
 
             {/* Save & Next Button */}
-            <div className="col-lg-12 text-right">
+            <div className="row d-flex justify-content-end">
               <button
                 onClick={handleNext}
                 className="btn bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0"
               >
                 Next
               </button>
-              <button
+              {/* <button
                 // type="submit"
                 onClick={handleSave}
                 className="btn bg-success text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0 ml-2"
               >
                 Save
-              </button>
+              </button> */}
             </div>
           </div>
         </form>
       </div>
-    </div>
+    </>
   );
 };
 
