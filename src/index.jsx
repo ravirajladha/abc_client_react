@@ -104,6 +104,7 @@ import ParentAddStudent from "./pages/parent/ParentAddStudent.jsx";
 import AddModule from "./pages/admin/ebook/AddModule.jsx";
 
 import Applications from "./pages/school/Applications.jsx";
+import TestResultDetails from "./pages/admin/TestResultDetails.jsx";
 class Root extends Component {
   render() {
     return (
@@ -1357,6 +1358,17 @@ class Root extends Component {
               element={
                 <ProtectedRoute
                   element={<ClassSubjectWiseResults />}
+                  allowedTypes={["sub_admin", "admin", "teacher"]}
+                />
+              }
+            />
+            
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/student/:studentId/results/:testId`}
+              element={
+                <ProtectedRoute
+                  element={<TestResultDetails />}
                   allowedTypes={["sub_admin", "admin", "teacher"]}
                 />
               }
