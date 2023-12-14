@@ -129,6 +129,24 @@ function AdminNav() {
             <div className="nav-caption fw-600 font-xssss text-grey-500">
               Payments
             </div>
+            <li className="nav-item">
+            <a href="https://atomstest.kods.app/admin/project_reports" className="navi-link" target="_blank">
+              <i className="feather-file mr-2 "></i>
+              <span>Project Report</span>
+            </a>
+            </li>
+            <div className="nav-caption fw-600 font-xssss text-grey-500">
+            Project Report
+            </div>
+            <li className="nav-item">
+            <a href="https://atomstest.kods.app/admin/use_cases" className="navi-link" target="_blank">
+              <i className="feather-codepen mr-2"></i>
+              <span>Use cases</span>
+            </a>
+            </li>
+            <div className="nav-caption fw-600 font-xssss text-grey-500">
+            Use cases
+            </div>
           </ul>
 
           <div className="nav-caption fw-600 font-xssss text-grey-500">
@@ -136,7 +154,7 @@ function AdminNav() {
           </div>
           <ul className="mb-3">
             <li className="logo d-none d-xl-block d-lg-block"></li>
-            <li>
+            {/* <li>
               <Link
                 to="/settings"
                 className="nav-content-bttn open-font h-auto pt-2 pb-2"
@@ -144,7 +162,7 @@ function AdminNav() {
                 <i className="font-sm feather-settings mr-3 text-grey-500"></i>
                 <span>Settings</span>
               </Link>
-            </li>
+            </li> */}
             <li>
               <LogoutButton />
             </li>

@@ -8,7 +8,7 @@ export default function BackButton() {
   return (
     <button
       onClick={goBack}
-      className="p-2 px-3 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current"
+      className="ml-2 p-2 px-3 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current"
     >
       BACK
     </button>

@@ -71,10 +71,9 @@ function AllQuestions() {
                     <div className="middle-sidebar-bottom theme-dark-bg">
                         <div className="middle-sidebar-left">
                             <div className="row">
+                            <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
 
-                                <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
-                                    <div className="card-body p-lg-5 px-4 w-100 border-0 d-flex rounded-lg justify-content-between">
-                                        <div className="">
+                            <div className="">
                                             <h2 className="fw-400 font-lg d-block">Search <b> Questions</b> </h2>
                                         </div>
                                         <div className="float-right">
@@ -86,7 +85,12 @@ function AllQuestions() {
                     </Link>
                                             <BackButton />
                                         </div>
-                                    </div>
+                                        </div>
+
+                                <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
+                                    {/* <div className="card-body p-lg-5 px-4 w-100 border-0 d-flex rounded-lg justify-content-between">
+                                       
+                                    </div> */}
                                     <div className="card-body p-lg-5 px-4 w-100 border-0 ">
                                         <div className="row mb-6">
                                             <div className="col-lg-5">
