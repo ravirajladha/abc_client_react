@@ -96,6 +96,12 @@ function Tests() {
                                 >
                                   RESULTS
                                 </Link>
+                                <Link
+                             to={`/school/class/${test.class_id}/results1`}
+                            className="px-2 py-1 mt-2 fw-500 d-inline-block text-white fw-300 lh-10 rounded-lg w100 text-center font-xssss ls-3 bg-current"
+                          >
+                           Overall Results
+                          </Link>
                               </div>
                             </div>
                           </div>

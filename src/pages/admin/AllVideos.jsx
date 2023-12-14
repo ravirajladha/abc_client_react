@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import AppHeader from "../../components/includes/AppHeader";
 import AppFooter from "../../components/includes/AppFooter";
+import BackButton from "../../components/navigation/BackButton";
+import DynamicLink from "../../components/navigation/DynamicLink";
 
 function AllVideos() {
   const navigate = useNavigate();
@@ -75,18 +77,22 @@ function AllVideos() {
                     </h2>
                   </div>
                   <div className="float-right">
-                    <Link
-                      to={`/all_subjects/${classId}/${subjectId}/${chapter_id}/create_videos`} // Updated path with classId and subjectId
-                      className="px-3 py-1  d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current mx-1"
-                    >
+                  {/* <Link
+          to={`/all_subjects/${classId}/${subjectId}/${chapter_id}/create_videos`} // Updated path with classId and subjectId
+          className="px-3 py-1  d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current mx-1"
+        >
                       ADD CONTENTS
-                    </Link>
-                    <button
-                      onClick={goBack}
-                      className="p-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1"
-                    >
-                      Back
-                    </button>
+                    </Link> */}
+
+                    <DynamicLink
+        pathTemplate="/all_subjects/:classId/:subjectId/:chapterId/create_videos"
+        params={{ classId, subjectId, chapterId: chapter_id }} // Make sure the key matches the placeholder in the pathTemplate
+        label="ADD CONTENTS"
+      />
+
+
+
+                    <BackButton />
                     {/* <Link
                       to={"/all_subjects/create_subject"}
                       className="p-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1"

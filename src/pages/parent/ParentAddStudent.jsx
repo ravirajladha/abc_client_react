@@ -13,18 +13,18 @@ function ParentAddStudent() {
   const user = useContext(AuthContext).user;
   const [classes, setClasses] = useState([]);
 
-  const getAllClasses = async () => {
-    try {
-      const response = await fetch(baseUrl + "api/school/api_get_classes");
-      const data = await response.json();
-      setClasses(data);
-    } catch (error) {
-      console.error("Error fetching classes:", error);
-    }
-  };
-  useEffect(() => {
-    getAllClasses();
-  }, []);
+  // const getAllClasses = async () => {
+  //   try {
+  //     const response = await fetch(baseUrl + "api/school/api_get_classes");
+  //     const data = await response.json();
+  //     setClasses(data);
+  //   } catch (error) {
+  //     console.error("Error fetching classes:", error);
+  //   }
+  // };
+  // useEffect(() => {
+  //   getAllClasses();
+  // }, []);
   if (!user) {
     console.log("No user found. User might be logged out.");
     // Handle the redirect to login or return placeholder content here
@@ -87,7 +87,7 @@ function ParentAddStudent() {
                             Class
                           </label>
                           <br />
-                          <select
+                          {/* <select
                             name="className"
                             id=""
                             className="form-control"
@@ -101,7 +101,14 @@ function ParentAddStudent() {
                                 {classVal.class}
                               </option>
                             ))}
-                          </select>
+                          </select> */}
+                          <input
+                            placeholder="Class Name"
+                            type="text"
+                            name="name"
+                            className="form-control"
+                            required
+                          />
                         </div>
                       </div>
                       <div className="col-lg-6">
@@ -109,20 +116,27 @@ function ParentAddStudent() {
                           <label className="mont-font fw-600 font-xsss">
                             Section
                           </label>
-                          <br />
+                          {/* <br />
                           <select name="section" id="" className="form-control">
                             <option value="">Select Section</option>
                             <option value="1">A</option>
                             <option value="2">B</option>
-                          </select>
+                          </select> */}
+                          <input
+                            placeholder="Section Name"
+                            type="text"
+                            name="name"
+                            className="form-control"
+                            required
+                          />
                         </div>
                       </div>
-                      <div className="col-lg-12">
+                      {/* <div className="col-lg-12">
                         &nbsp;&nbsp;&nbsp;
                         <h4 className="font-md fw-500 text-right text-muted">
                           ₹9999/Year
                         </h4>
-                      </div>
+                      </div> */}
                       <div className="col-lg-12">
                         &nbsp;&nbsp;&nbsp;
                         <button
@@ -133,7 +147,7 @@ function ParentAddStudent() {
                             float: "right",
                           }}
                         >
-                          Make Payment
+                          Register Student
                         </button>
                       </div>
                     </div>

@@ -30,6 +30,7 @@ import Schools from "./pages/admin/Schools";
 import AllClasses from "./pages/admin/AllClasses";
 import AllSubjects from "./pages/admin/AllSubjects";
 import AllChapters from "./pages/admin/AllChapters";
+import AllChaptersAssessment from "./pages/admin/AllChaptersAssessment";
 import AllVideos from "./pages/admin/AllVideos";
 import Assessments from "./pages/admin/Assessments";
 import Tests from "./pages/admin/Tests";
@@ -68,6 +69,8 @@ import Markers from "./pages/student/Markers";
 import MarkerSingle from "./pages/student/MarkerSingle";
 import VideoWithWaterMark from "./pages/student/VideoWithWaterMark";
 import ViewAssessments from "./pages/admin/ViewAssessments";
+import AssessmentListVideoWise from "./pages/admin/AssessmentListVideoWise";
+import StudentResultAssessment from "./pages/admin/StudentResultAssessment";
 import Students from "./pages/school/Students";
 import AddStudent from "./pages/school/AddStudent";
 import ViewStudent from "./pages/school/ViewStudent";
@@ -838,6 +841,16 @@ class Root extends Component {
             />
             <Route
               exact
+              path={`${process.env.PUBLIC_URL}/all_chapters_assessment/:subject_id`}
+              element={
+                <ProtectedRoute
+                  element={<AllChaptersAssessment />}
+                  allowedTypes={["admin","sub_admin","teacher"]}
+                />
+              }
+            />
+            <Route
+              exact
               path={`${process.env.PUBLIC_URL}/all_videos/:chapter_id`}
               element={
                 <ProtectedRoute
@@ -958,11 +971,31 @@ class Root extends Component {
             />
             <Route
               exact
+              path={`${process.env.PUBLIC_URL}/all_assessment_result_video_wise/:assessment_id`}
+              element={
+                <ProtectedRoute
+                  element={<AssessmentListVideoWise />}
+                  allowedTypes={["admin","sub_admin","teacher"]}
+                />
+              }
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/student_wise_assessment_result/:assessment_id`}
+              element={
+                <ProtectedRoute
+                  element={<StudentResultAssessment />}
+                  allowedTypes={["admin","sub_admin","teacher"]}
+                />
+              }
+            />
+            <Route
+              exact
               path={`${process.env.PUBLIC_URL}/assessments/:subjectId/results`}
               element={
                 <ProtectedRoute
                   element={<SubjectAssessmentResults />}
-                  allowedTypes={["admin"]}
+                  allowedTypes={["admin","sub_admin"]}
                 />
               }
             />
@@ -1389,7 +1422,7 @@ class Root extends Component {
               element={
                 <ProtectedRoute
                   element={<ClassSubjects />}
-                  allowedTypes={["sub_admin"]}
+                  allowedTypes={["sub_admin","teacher"]}
                 />
               }
             />

@@ -4,8 +4,10 @@ import AppHeader from "../../components/includes/AppHeader";
 import AppFooter from "../../components/includes/AppFooter";
 import { useContext } from "react";
 import { AuthContext } from "../../lib/AuthContext.js";
+import BackButton from "../../components/navigation/BackButton";
+
 function AllClasses() {
-  const navigate = useNavigate();
+
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const { user } = useContext(AuthContext);
 
@@ -38,9 +40,6 @@ async function getClasses() {
 
 // Call the function based on your app's logic, for example in useEffect hook if this is inside a component
 
-  const goBack = () => {
-    navigate(-1);
-  };
 
   return (
     <>
@@ -65,12 +64,8 @@ async function getClasses() {
                     </Link>
             
  : ""}
-                    <button
-                      onClick={goBack}
-                      className="px-3 py-1   d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1"
-                    >
-                      Back
-                    </button>
+                      
+                    <BackButton />
                   </div>
                 </div>
                 {classes.length > 0 ? (
@@ -90,12 +85,14 @@ async function getClasses() {
                             Subjects
                           </Link>
                           : ""}
-                          <Link
-                             to={`/school/class/${singleClass.id}/results1`}
-                            className="px-2 py-1 mt-4 fw-500 d-inline-block text-white fw-300 lh-30 rounded-lg w100 text-center font-xssss ls-3 bg-current"
-                          >
-                            Results
-                          </Link>
+                        <Link
+                                to={`/school/class/${singleClass.id}/subjects`}
+                                className="px-2 py-1 mt-4 fw-500 d-inline-block text-white fw-600 lh-30 rounded-lg w100 text-center font-xssss mr-2 ls-3 bg-current"
+                              >
+                                Subjects
+                              </Link>
+                             
+                          
                         </div>
                       </div>
                     </div>

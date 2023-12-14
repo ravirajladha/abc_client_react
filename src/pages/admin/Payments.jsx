@@ -16,7 +16,7 @@ function Payments() {
                 <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
                   <div>
                     <h2 className="fw-400 font-lg d-block">
-                      All <b> Paymetns</b>
+                      All <b> Payments</b>
                     </h2>
                   </div>
                   <div className="float-right">
@@ -41,7 +41,17 @@ function Payments() {
                         </tr>
                       </thead>
                       <tbody>
-                        
+                        <tr>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          </tr>
                       </tbody>
                     </table>
                   </div>

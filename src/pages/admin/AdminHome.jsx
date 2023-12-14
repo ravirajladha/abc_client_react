@@ -9,12 +9,11 @@ import DashboardItem from "../../components/common/DashboardItem";
 
 function AdminHome() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
-  const { user } = useContext(AuthContext);
-
+  const userDetails = useContext(AuthContext).user;
   const [dashboardInfo, setDashboardInfo] = useState([]);
 
   useEffect(() => {
-    const getSubjects = () => {
+    const getDashboard = () => {
       if (user) {
         fetch(baseUrl + "api/get-admin-dashboard/").then(function (result) {
           result.json().then(function (res) {
@@ -24,14 +23,14 @@ function AdminHome() {
         });
       }
     };
-    if (user) {
-      getSubjects();
+    if (userDetails) {
+      getDashboard();
     } else {
       return;
     }
-  }, [user, baseUrl]);
+  }, [userDetails, baseUrl]);
 
-  if (!user) {
+  if (!userDetails) {
     console.log("No user found. User might be logged out.");
     return <div>User is not logged in</div>;
   }
@@ -55,7 +54,7 @@ function AdminHome() {
                       >
                         Welcome back!
                       </span>
-                      Hi, {user.user.name}
+                      Hi, {userDetails.user.name}
                       <span
                         className="font-xsss fw-600 text-grey-700 d-block mt-2"
                         style={{ fontSize: "20px" }}
