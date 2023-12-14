@@ -195,6 +195,7 @@ function QnaTab({ userId, isTeacherAvailable, subjectId, receiverId }) {
                     onChange={(e) => search(e.target.value)}
                     value={qnaValue}
                     className="text-grey-500"
+                    style={{color:"#000"}}
                   />
                 </div>
                 <button type="submit" className="bg-current">

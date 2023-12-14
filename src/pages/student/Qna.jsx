@@ -192,6 +192,7 @@ function Qna() {
                           className="form-control"
                           value={subject}
                           onChange={(e) => setSubject(e.target.value)}
+                          
                         >
                           <option aria-readonly disabled value="">
                             -Select-

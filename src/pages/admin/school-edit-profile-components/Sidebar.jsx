@@ -15,7 +15,7 @@ const Sidebar = ({ currentStep, changeStep }) => {
         backgroundImage:
           "url(https://multi-step-react.vercel.app/assets/bg-sidebar-desktop-e6d2744a.svg)",
         backgroundSize: "cover",
-        height: "96%",
+        height: "43rem",
         margin: "10px",
         borderRadius: "10px",
       }}
