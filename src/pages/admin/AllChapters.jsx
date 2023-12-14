@@ -84,7 +84,7 @@ function AllChapters() {
                         <div className="card-footer bg-transparent border-top-0">
                           <Link
                             to={`/all_videos/${chapter.id}`}
-                            className="p-2 mt-4  d-inline-block text-white fw-700 lh-30 rounded-lg w100 text-center font-xsssss ls-3 bg-current"
+                            className="p-2 mt-4  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current"
                           >
                             View Contents
                           </Link>
