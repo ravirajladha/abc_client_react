@@ -73,7 +73,7 @@ function TakeTest() {
   };
 
   const submitForm = () => {
-    // if (formIsSubmitting) {
+    if (formIsSubmitting) {
     const formData = new FormData();
     formData.append("selectedAnswers", selectedAnswers);
     formData.append("selectedQuestionIds", selectedQuestionIds);
@@ -94,7 +94,7 @@ function TakeTest() {
         console.error("Error submitting answers:", err);
         setFormIsSubmitting(false);
       });
-    // }
+    }
   };
 
   const handleNextQuestion = () => {
@@ -130,13 +130,13 @@ function TakeTest() {
       setSelectedOption(null);
     }
 
-    // setFormIsSubmitting(true);
-    submitForm();
+    setFormIsSubmitting(true);
+    // submitForm();
   };
 
   const endTest = () => {
     handleSubmit();
-    navigate(`/subject_stream/view_test_score/${subject_id}/${test_id}`);
+    // navigate(`/subject_stream/view_test_score/${subject_id}/${test_id}`);
   };
 
   // useEffect(() => {
