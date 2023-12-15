@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AppHeader from "../../components/includes/AppHeader";
 import AppFooter from "../../components/includes/AppFooter";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import BackButton from "../../components/navigation/BackButton";
 
 function StudentResultAssessment() {
@@ -33,9 +33,7 @@ function StudentResultAssessment() {
     getAssessments();
   }, [assessment_id]);
 
-  useEffect(() => {
-    getAssessments();
-  }, []);
+
 
   return (
     <>

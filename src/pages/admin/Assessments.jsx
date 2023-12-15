@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button } from "react-bootstrap";
+
 
 import AppHeader from "../../components/includes/AppHeader";
 import AppFooter from "../../components/includes/AppFooter";
@@ -107,7 +107,7 @@ function Assessments() {
 
                                 <div className="mt-2">
                                   <Link
-                                    to={"/all_chapters_assessment/" + subject.id }
+                                    to={"/assessments/all_chapters_assessment/" + subject.id }
                                     className="px-3 py-1 me-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss bg-current"
                                   >
                                     ALL CHAPTERS

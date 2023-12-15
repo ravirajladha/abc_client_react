@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from "react";
 
-
+import { AuthContext } from "../../lib/AuthContext.js";
+import { useContext } from "react";
 import AppHeader from "../../components/includes/AppHeader";
 import AppFooter from "../../components/includes/AppFooter";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import BackButton from "../../components/navigation/BackButton";
 function AllChaptersAssessment() {
-  const navigate = useNavigate();
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const { subject_id } = useParams();
-  const goBack = () => {
-    navigate(-1); // Use navigate(-1) to go back
-  };
+  const user = useContext(AuthContext).user;
+
   useEffect(() => {
     if (subject_id) {
       getUniqueClassFromSubject(subject_id);
@@ -25,19 +24,18 @@ function AllChaptersAssessment() {
     fetch(`${baseUrl}api/get_chapters/${subject_id}`)
       .then((response) => response.json())
       .then((data) => {
-        console.warn("chapters",data);
+        console.warn("chapters", data);
         setChapters(data);
-      
       });
   }
   function getUniqueClassFromSubject(subject_id) {
     fetch(`${baseUrl}api/getUniqueClassFromSubject/${subject_id}`)
       .then((response) => response.json())
       .then((data) => {
-        console.warn("chapters",data);
-        
+        console.warn("chapters", data);
+
         setClassId(data.class_id);
-        console.log("class",data.class_id);
+        console.log("class", data.class_id);
       });
   }
   return (
@@ -56,8 +54,7 @@ function AllChaptersAssessment() {
                     </h2>
                   </div>
                   <div className="float-right">
-                 
-                  <BackButton />
+                    <BackButton />
                   </div>
                 </div>
                 {chapters && chapters.length > 0 ? (
@@ -73,8 +70,14 @@ function AllChaptersAssessment() {
                         </div>
                         <div className="card-footer bg-transparent border-top-0">
                           <Link
-                            to={`/all_assessment_result_video_wise/${chapter.id}`}
-                            className="p-2 mt-4  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current"
+                            to={
+                              user.user.type === "admin"
+                                ? `/assessments/results/all_assessment_result_video_wise/${chapter.id}`
+                                : user.user.type === "sub_admin"
+                                ? `/school/results/all_assessment_result_video_wise/${chapter.id}`
+                                : `/teachers/all_classes/all_assessment_result_video_wise/${chapter.id}` // Defaults to teacher if neither admin nor sub_admin
+                            }
+                            className="p-2 mt-4 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current"
                           >
                             View Assessment
                           </Link>

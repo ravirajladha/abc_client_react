@@ -37,7 +37,7 @@ function StudentDetails() {
         baseUrl + "api/admin/get_subjects/" + classId
       );
       const subjectsData = await response.json();
-      console.warn(subjectsData);
+      // console.warn(subjectsData);
 
       setSubjects(subjectsData);
     } catch (error) {
@@ -47,6 +47,7 @@ function StudentDetails() {
 
   useEffect(() => {
     getStudent();
+    getSubjects();
   }, []);
 
   return (
@@ -56,8 +57,7 @@ function StudentDetails() {
         <div className="p-5 theme-dark-bg">
           <div className="middle-sidebar-left">
             <div className="row">
-              <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
-                <div className="col-lg-12 pt-0 my-3 d-flex justify-content-between align-items-center ">
+                 <div className="col-lg-12 pt-0 my-3 d-flex justify-content-between align-items-center ">
                   <div>
                     {student && (
                       <h2 className="fw-400 font-lg d-block ml-2">
@@ -75,11 +75,13 @@ function StudentDetails() {
                     <BackButton />
                   </div>
                 </div>
-                <div className="card-body row">
+              <div className=" w-100 border-0  ">
+             
+                <div className=" row">
                   {subjects ? (
                     subjects.map((subject, index) => (
                       <div className="col-xl-4 col-lg-6 col-md-6" key={index}>
-                        <div className="mb-2 rounded-lg p-xxl-5 p-2 border-0 text-center">
+                        <div className="card mb-4 shadow-xss rounded-lg p-xxl-5 p-4 border-0 text-center">
                           <Link
                             to={`/subject/${subject.id}`}
                             className="ml-auto mr-auto rounded-lg overflow-hidden d-inline-block"

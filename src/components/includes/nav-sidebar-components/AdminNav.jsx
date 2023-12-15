@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import {
-  clearLocalStorage,
-  getUserFromLocalStorage,
-} from "../../../pages/util/SessionStorage";
+
 import LogoutButton from "../../common/LogoutButton";
 
 function AdminNav() {

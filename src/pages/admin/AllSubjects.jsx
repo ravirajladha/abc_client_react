@@ -87,13 +87,13 @@ function AllSubjects() {
                         </div>
                         <div className="card-footer bg-transparent border-top-0 d-flex align-items-center justify-content-center gap-2">
                           <Link
-                            to={`/all_chapters/${subject.subject_id}`}
+                            to={`/all_classes/all_subjects/all_chapters/${subject.subject_id}`}
                             className="px-1 py-2 d-inline-block text-white fw-700 lh-30 rounded-lg w100 text-center font-xsssss ls-3 bg-current"
                           >
                             Chapters
                           </Link>
                           <Link
-                            to={`/results/${subject.subject_id}`}
+                            to={`/all_classes/results/${subject.subject_id}`}
                             className="px-1 py-2 d-inline-block text-white fw-700 lh-30 rounded-lg w100 text-center font-xsssss ls-3 bg-current"
                           >
                             Results

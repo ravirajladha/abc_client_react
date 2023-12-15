@@ -79,7 +79,7 @@ function AllChapters() {
                         </div>
                         <div className="card-footer bg-transparent border-top-0">
                           <Link
-                            to={`/all_videos/${chapter.id}`}
+                            to={`/all_classes/all_subjects/all_chapters/all_videos/${chapter.id}`}
                             className="p-2 mt-4  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current"
                           >
                             View Contents

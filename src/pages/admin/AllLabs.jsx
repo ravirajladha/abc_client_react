@@ -50,7 +50,7 @@ function AllLabs() {
                   </div>
                   <div className="float-right">
                     <Link
-                      to={"/create_lab_new"}
+                      to={"/all_labs/create-lab"}
                       className="p-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1"
                     >
                       ADD E-LAB
@@ -88,7 +88,7 @@ function AllLabs() {
                             <td>{parseLanguage(lab.language)}</td>
                             <td>
                             <Link
-                                to={`/edit-e-labs/${lab.id}`}
+                                to={`/all_labs/edit-e-labs/${lab.id}`}
                                 className="p-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current mx-1"
                               >
                                 Edit

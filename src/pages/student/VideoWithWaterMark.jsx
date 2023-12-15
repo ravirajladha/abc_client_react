@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import AppFooter from '../../components/includes/AppFooter';
 import AppHeader from '../../components/includes/AppHeader';
 
@@ -7,17 +7,17 @@ import StudentSidebar from '../../components/includes/StudentSidebar';
 
 import "../../css/custom.css"
 
-import { Tabs, Tab, Accordion } from 'react-bootstrap';
+
 import { useContext } from 'react';
 import { AuthContext } from "../../lib/AuthContext.js"
 
 
 
-import videojs from 'video.js';
-import 'video.js/dist/video-js.css';
-import VideoPlayer from "./subject-stream-components/VideoPlayer.jsx";
 
-import { Link, useParams } from 'react-router-dom';
+import 'video.js/dist/video-js.css';
+
+
+
 
 function VideoWithWaterMark() {
     const baseUrl = process.env.REACT_APP_BASE_URL;

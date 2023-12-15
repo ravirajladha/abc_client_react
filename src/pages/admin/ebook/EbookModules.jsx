@@ -37,7 +37,7 @@ function EbookModules() {
   }
   useEffect(() => {
     getEbookModules();
-  });
+  },[]);
 
   return (
     <>

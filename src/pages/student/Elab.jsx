@@ -4,7 +4,7 @@ import AppHeader from '../../components/includes/AppHeader';
 import StudentSidebar from '../../components/includes/StudentSidebar';
 import BackButton from '../../components/navigation/BackButton';
 
-import { toast, ToastContainer } from 'react-toastify';
+import {  ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function Elab() {

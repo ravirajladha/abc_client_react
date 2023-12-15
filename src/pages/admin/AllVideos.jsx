@@ -20,9 +20,7 @@ function AllVideos() {
       getUniqueClassAndSubjectFromChapter(chapter_id); // Fetch class and subject when component mounts
     }
   }, [chapter_id]);
-  const goBack = () => {
-    navigate(-1); // Use navigate(-1) to go back
-  };
+
 
   function getVideos(chapterId) {
     setIsLoading(true);
@@ -85,7 +83,7 @@ function AllVideos() {
                     </Link> */}
 
                     <DynamicLink
-        pathTemplate="/all_subjects/:classId/:subjectId/:chapterId/create_videos"
+        pathTemplate="/all_classes/all_subjects/:classId/:subjectId/:chapterId/create_videos"
         params={{ classId, subjectId, chapterId: chapter_id }} // Make sure the key matches the placeholder in the pathTemplate
         label="ADD CONTENTS"
       />

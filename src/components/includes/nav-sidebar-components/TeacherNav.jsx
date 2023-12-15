@@ -77,7 +77,7 @@ function TeacherNav() {
                          <li className="nav-caption fw-600 font-xssss text-grey-500">Home</li>
 
                          <li className="nav-item">
-              <NavLink className="navi-link" to="/all_classes">
+              <NavLink className="navi-link" to="/teachers/all_classes">
                 <i className="feather-book-open mr-2"></i>
                 <span>Classes</span>
               </NavLink>

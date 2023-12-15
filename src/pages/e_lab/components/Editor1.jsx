@@ -7,11 +7,7 @@ import { classnames } from "../utils/general";
 
 import Timer from "./Timer";
 import useLabDetails from "../hooks/useLabDetails";
-import {
-  AiOutlineFullscreen,
-  AiOutlineFullscreenExit,
-  AiOutlineSetting,
-} from "react-icons/ai";
+import { AiOutlineFullscreen, AiOutlineFullscreenExit } from "react-icons/ai";
 
 import SettingsModal from "./SettingsModal";
 import Dropdown from "./Dropdown";
@@ -20,7 +16,7 @@ import useKeyPress from "../hooks/useKeyPress";
 
 import CodeEditorWindow from "./CodeEditorWindow";
 import { defineTheme } from "../lib/defineTheme";
-import { languageOptions } from "../constants/languageOptions";
+
 import axios from "axios";
 import ThemeDropdown from "./ThemeDropdown";
 import { ToastContainer, toast } from "react-toastify";
@@ -52,6 +48,7 @@ function Editor1() {
   // const effectiveLabId = labId || "26";
 
   const effectiveLabId = labId;
+
   const [selectedLevel, setSelectedLevel] = useState("Level 1");
   const handleLevelChange = (level) => {
     setSelectedLevel(level);
@@ -105,6 +102,7 @@ function Editor1() {
     62: "Java",
     71: "Python",
     75: "C",
+    82: "Sql",
   };
 
   const [selectedOption1, setSelectedOption1] = useState("Java");
@@ -307,7 +305,13 @@ if __name__ == "__main__":
   roman = intToRoman(number)
   print(roman)
 `.trim();
-    } else {
+    }  else if (language.id == 82) {
+      // Prepare Python code for compilation
+      const userFunction = code.trim();
+
+      // Prepare the full Python code for compilation
+      finalCode = userFunction ;
+}else {
       console.log("error in deciding language");
       setProcessing(false);
       return; // Exit the function if language is not recognized
@@ -547,7 +551,12 @@ if __name__ == "__main__":
           className={`flex w-full items-center justify-between  "max-w-[1200px] mx-auto" `}
         >
           <Link href="/" className="h-[10px] flex-1">
-            <img src="/assets/images/abc_logo.jpg" alt="Logo" height={50} width={50} />
+            <img
+              src="/assets/images/abc_logo.jpg"
+              alt="Logo"
+              height={50}
+              width={50}
+            />
           </Link>
           <div className="flex items-center gap-4 flex-1 justify-center">
             {/* <div
@@ -605,11 +614,10 @@ if __name__ == "__main__":
 								z-40 group-hover:scale-100 scale-0 
 								transition-all duration-300 ease-in-out"
               >
-                <p className="text-sm">
-                </p>
+                <p className="text-sm"></p>
               </div>
             </div>
-                <BackButton />
+            <BackButton />
 
             {/* {user && <Logout />} */}
           </div>
@@ -637,7 +645,7 @@ if __name__ == "__main__":
                                 </button> */}
 
               <Dropdown
-                options={["Java", "Python", "C"]}
+                options={["Java", "Python", "C", "Sql"]}
                 placeholder="Select Technology"
                 selected={selectedOption1}
                 handleOptionClick={(value) => {

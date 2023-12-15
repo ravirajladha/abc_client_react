@@ -12,7 +12,7 @@ function AdminHome() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const userDetails = useContext(AuthContext).user;
   const [dashboardInfo, setDashboardInfo] = useState([]);
-
+ 
   useEffect(() => {
     const getDashboard = () => {
       if (userDetails) {
@@ -30,7 +30,6 @@ function AdminHome() {
           });
       }
     };
-
     if (userDetails) {
       getDashboard();
     } else {
@@ -132,4 +131,4 @@ function AdminHome() {
   );
 }
 
-export default AdminHome;
+export default AdminHome;

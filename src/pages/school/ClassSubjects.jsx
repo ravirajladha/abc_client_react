@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import AppHeader from "../../components/includes/AppHeader";
 import AppFooter from "../../components/includes/AppFooter";
 import BackButton from "../../components/navigation/BackButton";
-
+import { useContext } from "react";
+import { AuthContext } from "../../lib/AuthContext.js";
 import { useParams, Link } from "react-router-dom";
 
 const ClassSubjects = () => {
   const { classId } = useParams();
   const [isLoading, setIsLoading] = useState(true);
+  const user = useContext(AuthContext).user;
 
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const [subjects, setSubjects] = useState([]);
@@ -27,7 +29,7 @@ const ClassSubjects = () => {
     if (classId) {
       getSubjects(classId);
     }
-  });
+  },[]);
 
 
   return (
@@ -80,26 +82,78 @@ const ClassSubjects = () => {
                               </span>
                             </div>
                             <div className="card-footer bg-transparent border-top-0 d-flex align-items-center justify-content-center gap-2">
-                            <Link
-                                    to={"/all_chapters_assessment/" + subject.id }
+                            {/* <Link
+                                    to={"/school/results/all_chapters_assessment/" + subject.id }
                                     className="px-3 py-1 me-2 d-inline-block text-white fw-700 lh-10 rounded-lg text-center font-xsssss bg-current"
                                   >
                                     ALL CHAPTERS
-                                  </Link>
-                              <Link
-                                to={`/school/class/${classId}/subject/${subject.id}/results/`}
+                                  </Link> */}
+<Link
+  to={
+    user.user.type === "admin"
+      ? `/admin/results/all_chapters_assessment/${subject.id}`
+      : user.user.type === "sub_admin"
+      ? `/school/results/all_chapters_assessment/${subject.id}`
+      : `/teachers/all_classes/results/all_chapters_assessment/${subject.id}` // Defaults to teacher if neither admin nor sub_admin
+  }
+  className="px-3 py-1 me-2 d-inline-block text-white fw-700 lh-10 rounded-lg text-center font-xsssss bg-current"
+>
+  ALL CHAPTERS
+</Link>
+
+
+                              {/* <Link
+                                to={`/school/results/class/${classId}/subject/${subject.id}/results`}
                                 className="px-3 py-1 me-2 d-inline-block text-white fw-700 lh-10 rounded-lg text-center font-xsssss bg-current"
                               >
                                  TEST RESULTS
-                              </Link>
-                              <Link
+                              </Link> */}
+
+
+
+<Link
+  to={
+    user.user.type === "admin"
+      ? `/admin/results/class/${classId}/subject/${subject.id}/results`
+      : user.user.type === "sub_admin"
+      ? `/school/results/class/${classId}/subject/${subject.id}/results`
+      : `/teachers/results/class/${classId}/subject/${subject.id}/results` // Defaults to teacher if neither admin nor sub_admin
+  }
+  className="px-3 py-1 me-2 d-inline-block text-white fw-700 lh-10 rounded-lg text-center font-xsssss bg-current"
+>
+  TEST RESULTS
+</Link>
+
+
+
+
+
+
+                              {/* <Link
                                     to={
-                                      "/assessments/" + subject.id + "/results"
+                                      "/school/results/assessments/" + subject.id + "/results"
                                     }
                                     className="px-3 py-1 me-2 d-inline-block text-white fw-700 lh-10 rounded-lg text-center font-xsssss bg-current"
                                   >
                                      ASSESSMENT RESULTS
-                                  </Link>
+                                  </Link> */}
+
+<Link
+  to={
+    user.user.type === "admin"
+      ? `/admin/results/assessments/${subject.id}/results`
+      : user.user.type === "sub_admin"
+      ? `/school/results/assessments/${subject.id}/results`
+      : `/teachers/results/assessments/${subject.id}/results` // Defaults to teacher if neither admin nor sub_admin
+  }
+  className="px-3 py-1 me-2 d-inline-block text-white fw-700 lh-10 rounded-lg text-center font-xsssss bg-current"
+>
+  ASSESSMENT RESULTS
+</Link>
+
+
+
+
                             </div>
                           </div>
                         </div>

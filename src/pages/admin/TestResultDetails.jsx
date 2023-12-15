@@ -29,7 +29,7 @@ function TestResultDetails() {
   };
   useEffect(() => {
     getTestDetails();
-  });
+  },[]);
   return (
     <>
       <div className="main-wrapper">

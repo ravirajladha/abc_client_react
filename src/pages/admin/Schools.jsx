@@ -7,8 +7,12 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import BackButton from "../../components/navigation/BackButton";
+import { AuthContext } from "../../lib/AuthContext.js";
+import { useContext } from "react";
 
 function Schools() {
+  const user = useContext(AuthContext).user;
+console.log("user_detail form shcool",user.user);
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const [passwordVisible, setPasswordVisible] = useState(false);
 
@@ -196,10 +200,10 @@ function Schools() {
                           </h4>
                           <div className="card-footer bg-transparent border-top-0">
                             <Link
-                              to={`/edit-school-profile/${school.auth_id}`}
+                              to={`/schools/edit-school-profile/${school.auth_id}`}
                               className="p-2 mt-4  d-inline-block text-white fw-300 lh-30 rounded-lg w100 text-center font-xsssss ls-3 bg-current"
                             >
-                              Edit School
+                              View Detail
                             </Link>
                           </div>
                         </div>

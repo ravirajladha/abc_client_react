@@ -188,7 +188,7 @@ function TakeTest() {
     return () => {
       window.removeEventListener("popstate", handleBackButtonClick);
     };
-  });
+  },[]);
 
   // useEffect(() => {
   //   submitForm();

@@ -3,9 +3,12 @@ import AppHeader from "../../components/includes/AppHeader";
 import AppFooter from "../../components/includes/AppFooter";
 import { useParams,Link } from "react-router-dom";
 import BackButton from "../../components/navigation/BackButton";
+import { AuthContext } from "../../lib/AuthContext.js";
+import { useContext } from "react";
 
 function AssessmentListVideoWise() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
+  const user = useContext(AuthContext).user;
 
   const [assessments, setAssessments] = useState([]);
   const { assessment_id } = useParams();
@@ -34,10 +37,7 @@ function AssessmentListVideoWise() {
    
   }, []);
 
-  useEffect(() => {
-    getAssessments();
-   
-  }, []);
+ 
 
   return (
     <>
@@ -92,12 +92,24 @@ function AssessmentListVideoWise() {
                               </td>
                             
                               <td> 
-                              <Link to={`/student_wise_assessment_result/${assessment.assessment_id}`}> <button
-                    
-                      className="p-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1"
-                    >
-                      View
-                    </button></Link></td>
+                             
+                                
+                              <Link
+  to={
+    user.user.type === 'admin' 
+      ? `/assessments/results/student_wise_assessment_result/${assessment.assessment_id}`
+      : user.user.type === 'sub_admin'
+      ? `/school/results/student_wise_assessment_result/${assessment.assessment_id}`
+      : `/teachers/all_classes/results/student_wise_assessment_result/${assessment.assessment_id}` // Defaults to teacher if neither admin nor sub_admin
+  }
+  className="p-2 mt-4 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current"
+>
+  <button className="p-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current mx-1">
+    View
+  </button>
+</Link>
+
+                    </td>
                             </tr>
                           ))
                         ) : (

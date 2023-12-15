@@ -573,7 +573,7 @@ function SubjectStream() {
                     <h2 className="fw-700 font-sm mb-3 mt-1 pl-1 mb-3">
                       Description
                     </h2>
-                    <p className="font-xssss fw-500 lh-28 text-grey-600 mb-0 pl-2">
+                    <p className="font-xs fw-500 lh-28 text-grey-600 mb-0 pl-2">
                       {mainVideoDescription}
                     </p>
                   </div>
@@ -583,7 +583,7 @@ function SubjectStream() {
                     <h2 className="fw-700 font-sm mb-3 mt-1 pl-1 mb-3">
                       Assessment Score
                     </h2>
-                    <p className="font-xssss fw-500 lh-28 text-grey-600 mb-0 pl-2 latest-assessment-score">
+                    <p className="font-xs fw-500 lh-28 text-grey-600 mb-0 pl-2 latest-assessment-score" >
                       {assessmentScore}
                     </p>
                   </div>

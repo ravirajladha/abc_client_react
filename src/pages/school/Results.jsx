@@ -55,7 +55,7 @@ const Results = () => {
                             <div className="card-footer bg-transparent border-top-0 row">
                               <div className="col-lg-12">
                               <Link
-                                to={`/school/class/${singleClass.id}/subjects`}
+                                to={`/school/results/class/${singleClass.id}/subjects`}
                                 className="px-2 py-1 mt-4 fw-500 d-inline-block text-white fw-600 lh-30 rounded-lg w100 text-center font-xssss mr-2 ls-3 bg-current"
                               >
                                 Subjects
@@ -67,9 +67,22 @@ const Results = () => {
                                  Old Results
                               </Link> */}
                               <Link
-                                to={`/school/class/${singleClass.id}/results1`}
+                                to={`/school/results/class/${singleClass.id}/results1`}
                                 className="px-2 py-1 mt-4 fw-500 d-inline-block text-white fw-600 lh-30 rounded-lg w100 text-center font-xssss mr-2 ls-3 bg-current"
                               >
+
+{/* <Link
+                        to={
+                          user.user.type === "admin"
+                            ? `/all_classes/all_subjects/${singleClass.id}`
+                            : user.user.type === "sub_admin"
+                            ? `/school/class/${singleClass.id}/subjects`
+                            : `/teacher/class/${singleClass.id}/subjects` // Defaults to teacher if neither admin nor sub_admin
+                        }
+                        className="p-2 mt-4 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current"
+                      > */}
+
+
                                   Results
                               </Link>
                               </div>

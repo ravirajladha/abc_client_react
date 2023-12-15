@@ -12,6 +12,7 @@ function ViewProject() {
     const user = getUserFromLocalStorage();
     const user_id = user.user.id;
     const { project_id } = useParams();
+    console.log("project+id",project_id)
     const navigate = useNavigate();
 
     const [projectTask, setProjectTask] = useState([]);
@@ -83,7 +84,7 @@ function ViewProject() {
                 return res.json();
             })
             .then((resp) => {
-                // console.log(resp);
+                console.log("inside project_id",project_id,task_id,lab_code);
                 // window.location.reload();
                 navigate("/editor/1/"+project_id+"/" + task_id + "/"+ lab_code);
             });
@@ -148,7 +149,7 @@ function ViewProject() {
                                                     <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-info  me-2 d-inline-block text-info">
                                                         {task.duration}
                                                     </span>
-                                                    <button type="button" onClick={() => start_project_task(task.id, task.lab_code)}>
+                                                    <button type="button" onClick={() => start_project_task(project_id,task.id, task.lab_code)}>
                                                         <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-success d-inline-block text-success mr-1 border-0">Start</span>
                                                     </button>
                                                 </div>

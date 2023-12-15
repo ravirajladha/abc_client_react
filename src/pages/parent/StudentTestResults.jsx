@@ -35,7 +35,7 @@ function StudentTestResults() {
   useEffect(() => {
     getTestResults();
     getSubjectName();
-  });
+  },[]);
 
   return (
     <div className="main-wrapper">
@@ -94,7 +94,7 @@ function StudentTestResults() {
                                     "/results/" +
                                     result.test_id
                                   }
-                                  className="px-3 py-1 d-inline-block text-white fw-700 lh-30 rounded-lg uppercase text-center font-xsssss ls-3 bg-current mx-1"
+                                  className="px-3 py-1 d-inline-block text-white fw-700 lh-10 rounded-lg uppercase text-center font-xsssss ls-3 bg-current mx-1"
                                 >
                                   Test Response
                                 </Link>

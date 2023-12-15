@@ -57,7 +57,7 @@ function Teachers() {
                 </div>
                 <div className="float-right">
                   <Link
-                    to="/school/add_teacher"
+                    to="/school/teachers/add_teacher"
                     className="p-2 d-inline-block text-white me-2 fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current"
                   >
                     Add Teacher

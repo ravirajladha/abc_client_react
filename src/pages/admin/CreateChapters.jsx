@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import AppHeader from '../../components/includes/AppHeader';
 import AppFooter from '../../components/includes/AppFooter';
 import BackButton from "../../components/navigation/BackButton";
 
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Link, useNavigate,useParams  } from "react-router-dom";
+import {  useNavigate,useParams  } from "react-router-dom";
 
 function CreateChapters() {
     const navigate = useNavigate();

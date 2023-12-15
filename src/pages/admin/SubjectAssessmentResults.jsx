@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import AppHeader from "../../components/includes/AppHeader";
 import AppFooter from "../../components/includes/AppFooter";
-import { Link, useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 import BackButton from "../../components/navigation/BackButton";
 
 import $ from "jquery";

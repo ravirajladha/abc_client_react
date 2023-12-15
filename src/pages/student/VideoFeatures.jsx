@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import AppFooter from '../../components/includes/AppFooter';
 import AppHeader from '../../components/includes/AppHeader';
 import StudentSidebar from '../../components/includes/StudentSidebar';
 import BackButton from '../../components/navigation/BackButton';
 
-import { Tabs, Tab, Accordion } from 'react-bootstrap';
+
 import { Link } from 'react-router-dom';
 
 function VideoFeatures() {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect ,useRef} from "react";
 import AppHeader from "../../../components/includes/AppHeader";
 import AppFooter from "../../../components/includes/AppFooter";
 import { toast, ToastContainer } from "react-toastify";
@@ -8,6 +8,9 @@ import Dropdown from "../../../components/inputs/Dropdown";
 
 function CreateEbook() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const imageRef = useRef(null);
+
   const [classes, setClasses] = useState([]);
   const [selectedClass, setSelectedClass] = useState("");
   const [subjects, setSubjects] = useState([]);
@@ -70,6 +73,7 @@ useEffect(() => {
     formData.append("moduleTitles", JSON.stringify(moduleTitles));
     formData.append("moduleDescriptions", JSON.stringify(moduleDescriptions));
     e.preventDefault();
+    setIsSubmitting(true);
   // Logging the formData to the console
   for (let [key, value] of formData.entries()) { 
     console.log(key, value);
@@ -81,11 +85,14 @@ useEffect(() => {
       .then((res) => res.json())
       .then((resp) => {
         setTitle("");
-        setImage("");
+        if (imageRef.current) {
+          imageRef.current.value = ""; // Clears the file input
+        }
         setDescription("");
         setSelectedClass("");
         setSelectedSubject("");
         setModuleTitles([""]);
+     
         setModuleDescriptions([""]);
         toast.success(resp.msg);
       })
@@ -178,6 +185,7 @@ useEffect(() => {
                             <br />
                             <input
                               type="file"
+                              ref={imageRef}
                               onChange={(e) => setImage(e.target.files[0])}
                               className="form-control"
                               required
@@ -237,21 +245,18 @@ useEffect(() => {
                                 </label>
                                 <br />
                                 <input
-                                  type="text"
-                                  className="form-control"
-                                  placeholder="Enter Module Descriptions"
-                                  onChange={(e) => {
-                                    const updatedModuleDescriptions = [
-                                      ...moduleDescriptions,
-                                    ];
-                                    updatedModuleDescriptions[index] =
-                                      e.target.value;
-                                    setModuleDescriptions(
-                                      updatedModuleDescriptions
-                                    );
-                                  }}
-                                  required
-                                />
+  type="text"
+  className="form-control"
+  placeholder="Enter Module Descriptions"
+  value={moduleDescriptions[index]} // Add this line to bind the input field
+  onChange={(e) => {
+    const updatedModuleDescriptions = [...moduleDescriptions];
+    updatedModuleDescriptions[index] = e.target.value;
+    setModuleDescriptions(updatedModuleDescriptions);
+  }}
+  required
+/>
+
                               </div>
                               <div className="col-lg-2">
                                 <button
@@ -279,7 +284,7 @@ useEffect(() => {
                       </div>
                       <div className="col-lg-12">
                         <button
-                          type="submit"
+                          type="submit"    disabled={isSubmitting}
                           className="btn bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0 float-right"
                         >
                           Submit

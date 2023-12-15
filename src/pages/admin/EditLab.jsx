@@ -189,6 +189,12 @@ function EditLab() {
       label: "Python (3.8.1)",
       value: "python",
     },
+    82: {
+      id: 82,
+    name: "SQL (SQLite 3.27.2)",
+    label: "SQL (SQLite 3.27.2)",
+    value: "sql",
+    },
   };
 
   return (

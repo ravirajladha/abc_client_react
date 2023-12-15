@@ -63,7 +63,7 @@ function Students() {
                   </div>
                   <div className="float-right">
                     <Link
-                      to="/school/add_student_view"
+                      to="/school/students/add_student_view"
                       className="p-2 d-inline-block me-2 text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current"
                     >
                       Add student
@@ -98,7 +98,7 @@ function Students() {
                           <td>{student.section_id === 1 ? "A" : "B"}</td>
                           <td className="text-dark">
                             <Link
-                              to={`/school/edit-student-profile/${student.auth_id}`}
+                              to={`/school/students/edit-student-profile/${student.auth_id}`}
                               className="p-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current"
                             >
                               Edit

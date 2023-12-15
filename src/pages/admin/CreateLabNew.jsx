@@ -247,6 +247,12 @@ function CreateLab(props) {
       label: "Python (3.8.1)",
       value: "python",
     },
+    82: {
+      id: 82,
+    name: "SQL (SQLite 3.27.2)",
+    label: "SQL (SQLite 3.27.2)",
+    value: "sql",
+    },
   };
 
   return (
@@ -409,6 +415,9 @@ function CreateLab(props) {
                                 </option>
                                 <option key="71" value={"71"}>
                                   Python
+                                </option>
+                                <option key="82" value={"82"}>
+                                  Sql
                                 </option>
                               </select>
                             </div>
