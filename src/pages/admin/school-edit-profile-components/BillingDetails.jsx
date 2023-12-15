@@ -174,6 +174,7 @@ function BillingDetails() {
                 id="maxStu"
                 name="package_invoice"
                 onChange={handlePackageDetails}
+                accept="image/*,.pdf"
               />
             </div>
           </div>

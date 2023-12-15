@@ -159,6 +159,7 @@ function AddElements() {
                 className="form-control"
                 name="image"
                 onChange={(e) => handleImageChange(e, "image")}
+                accept="image/*"
               />
             </div>
           </div>

@@ -138,7 +138,7 @@ function CreateTest() {
         toast.error("Could not submit question: " + err.message);
       })
       .finally(() => {
-          setIsSubmitting(false); // Re-enable the submit button
+        setIsSubmitting(false); // Re-enable the submit button
       });
   };
 
@@ -222,6 +222,7 @@ function CreateTest() {
                             onChange={(e) => setImage(e.target.files[0])}
                             className="form-control"
                             required
+                            accept="image/*"
                           />
                         </div>
                         <div className="col-lg-6">
@@ -295,7 +296,8 @@ function CreateTest() {
                             <label className="mont-font fw-600 font-xsss"></label>
                             <br />
                             <button
-                              type="submit" disabled={isSubmitting} 
+                              type="submit"
+                              disabled={isSubmitting}
                               className="mt-1 btn bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0"
                             >
                               Next

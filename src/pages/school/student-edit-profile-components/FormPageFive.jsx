@@ -73,6 +73,7 @@ const FormPageFive = () => {
                       name="passbook_statement"
                       className="form-control"
                       style={{ lineHeight: "30px" }}
+                      accept="image/*,.pdf"
                     />
                   </div>
                 </div>

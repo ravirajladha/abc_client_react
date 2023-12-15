@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 
 function Facilities() {
   const [facilityInfo, setFacilityInfo] = useState("");
@@ -75,6 +75,7 @@ function Facilities() {
                 name="facility_images[]"
                 multiple
                 onChange={handleFacilityImagesChange}
+                accept="image/*"
               />
             </div>
           </div>

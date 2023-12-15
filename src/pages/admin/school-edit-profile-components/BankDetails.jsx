@@ -18,7 +18,7 @@ function BankDetails() {
         e.target.type === "file" ? e.target.files[0] : e.target.value,
     });
   };
-  
+
   return (
     <>
       <div className="card-box">
@@ -148,6 +148,7 @@ function BankDetails() {
                 type="file"
                 name="cancelledCheque"
                 onChange={handleInputChange}
+                accept="image/*,.pdf"
               />
             </div>
           </div>

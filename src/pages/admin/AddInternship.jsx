@@ -7,32 +7,29 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import BackButton from "../../components/navigation/BackButton";
 
-function CreateProject() {
+function AddInternship() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
   useEffect(() => {
     getClasses();
   }, []);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
   const [classes, setClasses] = useState([]);
   const [selectedClass, setSelectedClass] = useState("");
   const [subjects, setSubjects] = useState([]);
   const [selectedSubject, setSelectedSubject] = useState([]);
-
   const [image, setImage] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-
   const fileInputRef = useRef();
 
   function getClasses() {
     let result = fetch(baseUrl + "api/get_classes").then(function (result) {
       result.json().then(function (jsonbody) {
-        //console.warn(jsonbody);
         setClasses(jsonbody);
       });
     });
   }
+
   function getSubjects() {
     let result = fetch(
       baseUrl + "api/get_subjects_by_class/" + selectedClass
@@ -43,12 +40,13 @@ function CreateProject() {
       });
     });
   }
+
   const handleClassChange = (e) => {
     const selectedValue = e.target.value;
     console.log(selectedValue);
     setSelectedClass(selectedValue);
-    // getSubjects();
   };
+
   const handleSubjectChange = (e) => {
     const selectedValue = e.target.value;
     setSelectedSubject(selectedValue);
@@ -68,7 +66,7 @@ function CreateProject() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    fetch(baseUrl + "api/create_project", {
+    fetch(baseUrl + "api/create_internship", {
       method: "POST",
       body: formData,
     })
@@ -91,7 +89,7 @@ function CreateProject() {
         toast.error("Could not submit question :" + err.message);
       })
       .finally(() => {
-        setIsSubmitting(false); // Re-enable the submit button
+        setIsSubmitting(false);
       });
   };
   return (
@@ -99,7 +97,6 @@ function CreateProject() {
       <div className="main-wrapper">
         <div className="main-content menu-active">
           <AppHeader />
-
           <div className="middle-sidebar-bottom theme-dark-bg">
             <div className="middle-sidebar-left">
               <div className="row">
@@ -107,7 +104,7 @@ function CreateProject() {
                   <div className="card-body p-4 w-100 border-0 d-flex rounded-lg justify-content-between">
                     <div className="">
                       <h2 className="fw-400 font-lg d-block">
-                        Create <b> Mini Project</b>{" "}
+                        Add <b> Internship</b>
                       </h2>
                     </div>
                     <div className="float-right">
@@ -125,7 +122,7 @@ function CreateProject() {
                         <div className="col-lg-6">
                           <div className="">
                             <label className="mont-font fw-600 font-xsss">
-                              Project Name
+                              Internship Name
                             </label>
                             <br />
                             <input
@@ -141,7 +138,7 @@ function CreateProject() {
                         <div className="col-lg-6">
                           <div className="">
                             <label className="mont-font fw-600 font-xsss">
-                              Project Image
+                              Image
                             </label>
                             <br />
                             <input
@@ -185,7 +182,7 @@ function CreateProject() {
                         <div className="col-lg-12">
                           <div className="">
                             <label className="mont-font fw-600 font-xsss">
-                              Decription
+                              Description
                             </label>
                             <br />
                             <textarea
@@ -224,4 +221,4 @@ function CreateProject() {
   );
 }
 
-export default CreateProject;
+export default AddInternship;

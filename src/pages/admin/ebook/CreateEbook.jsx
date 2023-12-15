@@ -24,11 +24,11 @@ function CreateEbook() {
   const [moduleDescriptions, setModuleDescriptions] = useState([""]);
   useEffect(() => {
     getClasses();
-}, [])
+  }, []);
 
-useEffect(() => {
+  useEffect(() => {
     getSubjects();
-}, [selectedClass]);
+  }, [selectedClass]);
 
   function getClasses() {
     let result = fetch(baseUrl + "api/get_classes").then(function (result) {
@@ -99,7 +99,6 @@ useEffect(() => {
       .catch((err) => {
         toast.error("Could not submit Ebook: " + err.message);
       });
-
   };
   const handleClassChange = (e) => {
     const selectedValue = e.target.value;
@@ -189,6 +188,7 @@ useEffect(() => {
                               onChange={(e) => setImage(e.target.files[0])}
                               className="form-control"
                               required
+                              accept="image/*"
                             />
                           </div>
                         </div>

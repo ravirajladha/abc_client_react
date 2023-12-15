@@ -78,6 +78,7 @@ function SchoolDetailsForm() {
                 type="file"
                 id="maxStu"
                 name="school_image"
+                accept="image/*"
                 required
               />
             </div>

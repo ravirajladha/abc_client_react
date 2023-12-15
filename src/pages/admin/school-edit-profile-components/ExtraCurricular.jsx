@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 
 function ExtraCurricular() {
   const [extraCurricularInfo, setExtraCurricularInfo] = useState("");
@@ -48,6 +48,7 @@ function ExtraCurricular() {
                 name="extra_curricular_images[]"
                 multiple
                 onChange={handleExtraCurricularImagesChange}
+                accept="image/*"
               />
             </div>
           </div>

@@ -5,48 +5,45 @@ import { Link } from "react-router-dom";
 import BackButton from "../../components/navigation/BackButton";
 import { useParams } from "react-router-dom";
 import moment from "moment";
-function AllTasks() {
-  const { projectId } = useParams();
 
+function InternshipTasks() {
+  const { internshipId } = useParams();
   const [tasks, setTasks] = useState([]);
   const baseUrl = process.env.REACT_APP_BASE_URL;
-
   useEffect(() => {
     const fetchTasks = async () => {
-      if (!projectId) return;
-
+      if (!internshipId) return;
       try {
         const response = await fetch(
-          `${baseUrl}api/get_project_tasks/${projectId}`
+          `${baseUrl}api/get_internship_tasks/${internshipId}`
         );
         const data = await response.json();
         console.log("tasks", data);
-        setTasks(data);
+        setTasks(data.data);
       } catch (error) {
         console.error("Error fetching tasks:", error);
       }
     };
-
     fetchTasks();
-  }, [projectId]);
+  }, [internshipId]);
+
   return (
     <>
       <div className="main-wrapper">
         <div className="main-content menu-active">
           <AppHeader />
-
           <div className="middle-sidebar-bottom theme-dark-bg">
             <div className="middle-sidebar-left">
               <div className="row">
                 <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
                   <div>
                     <h2 className="fw-400 font-lg d-block">
-                      All <b> E-Labs</b>
+                      All <b> Internship Tasks</b>
                     </h2>
                   </div>
                   <div className="float-right">
                     <Link
-                      to={`/mini_projects/create_project_task/${projectId}`}
+                      to={`/create_internship_task/${internshipId}`}
                       className="p-2 me-2 d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1"
                     >
                       CREATE TASK
@@ -95,4 +92,4 @@ function AllTasks() {
   );
 }
 
-export default AllTasks;
+export default InternshipTasks;

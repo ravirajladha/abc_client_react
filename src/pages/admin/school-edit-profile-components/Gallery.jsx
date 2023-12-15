@@ -25,6 +25,7 @@ function Gallery() {
                 name="gallery[]"
                 multiple
                 onChange={handleImageChange}
+                accept="image/*"
               />
             </div>
           </div>

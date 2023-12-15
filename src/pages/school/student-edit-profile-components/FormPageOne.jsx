@@ -357,6 +357,7 @@ const FormPageOne = ({ formData, onSubmit, goToNextForm }) => {
                   className="form-control"
                   style={{ lineHeight: "30px" }}
                   onChange={handleChange}
+                  accept="image/*,.pdf"
                 />
               </div>
             </div>
@@ -389,6 +390,7 @@ const FormPageOne = ({ formData, onSubmit, goToNextForm }) => {
                   className="form-control"
                   style={{ lineHeight: "30px" }}
                   onChange={handleChange}
+                  accept="image/*,.pdf"
                 />
               </div>
             </div>

@@ -127,22 +127,39 @@ function AdminNav() {
               Payments
             </div>
             <li className="nav-item">
-            <a href="https://atomstest.kods.app/admin/project_reports" className="navi-link" target="_blank">
-              <i className="feather-file mr-2 "></i>
-              <span>Project Report</span>
-            </a>
+              <a
+                href="https://atomstest.kods.app/admin/project_reports"
+                className="navi-link"
+                target="_blank"
+              >
+                <i className="feather-file mr-2 "></i>
+                <span>Project Report</span>
+              </a>
             </li>
             <div className="nav-caption fw-600 font-xssss text-grey-500">
-            Project Report
+              Project Report
             </div>
             <li className="nav-item">
-            <a href="https://atomstest.kods.app/admin/use_cases" className="navi-link" target="_blank">
-              <i className="feather-codepen mr-2"></i>
-              <span>Use cases</span>
-            </a>
+              <a
+                href="https://atomstest.kods.app/admin/use_cases"
+                className="navi-link"
+                target="_blank"
+              >
+                <i className="feather-codepen mr-2"></i>
+                <span>Use cases</span>
+              </a>
             </li>
             <div className="nav-caption fw-600 font-xssss text-grey-500">
-            Use cases
+              Use cases
+            </div>
+            <li className="nav-item">
+              <NavLink className="navi-link" to="/viewInternship">
+                <i class="feather-file-plus"></i>
+                <span>Internship</span>
+              </NavLink>
+            </li>  
+            <div className="nav-caption fw-600 font-xssss text-grey-500">
+              Internship
             </div>
           </ul>
 

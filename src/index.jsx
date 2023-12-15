@@ -109,6 +109,10 @@ import SingleAssessmentDetails from "./pages/admin/SingleAssessmentDetails.jsx";
 import Internship from "./pages/student/Internship.jsx";
 import Applications from "./pages/school/Applications.jsx";
 import TestResultDetails from "./pages/admin/TestResultDetails.jsx";
+import AddInternship from "./pages/admin/AddInternship.jsx";
+import ViewInternship from "./pages/admin/ViewInternship.jsx";
+import InternshipTasks from "./pages/admin/InternshipTasks.jsx";
+import CreateInternshipTask from "./pages/admin/CreateInternshipTask.jsx";
 class Root extends Component {
   render() {
     return (
@@ -1484,8 +1488,7 @@ class Root extends Component {
               element={
                 <ProtectedRoute
                   element={<ClassResults />}
-                  allowedTypes={["sub_admin"]}
-
+                  allowedTypes={["sub_admin", "admin"]}
                 />
               }
             />
@@ -1636,6 +1639,50 @@ class Root extends Component {
                 <ProtectedRoute
                   element={<Internship />}
                   allowedTypes={["school_student"]}
+                />
+              }
+            />
+
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/addInternship`}
+              element={
+                <ProtectedRoute
+                  element={<AddInternship />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
+
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/viewInternship`}
+              element={
+                <ProtectedRoute
+                  element={<ViewInternship />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
+
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/internshipTasks/:internshipId`}
+              element={
+                <ProtectedRoute
+                  element={<InternshipTasks />}
+                  allowedTypes={["admin"]}
+                />
+              }
+            />
+
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/create_internship_task/:internshipId`}
+              element={
+                <ProtectedRoute
+                  element={<CreateInternshipTask />}
+                  allowedTypes={["admin"]}
                 />
               }
             />

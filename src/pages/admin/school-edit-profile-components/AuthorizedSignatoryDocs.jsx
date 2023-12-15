@@ -34,6 +34,7 @@ function AuthorizedSignatoryDocs() {
                 type="file"
                 name="signatoryAadhar"
                 onChange={handleFileChange}
+                accept="image/*,.pdf"
               />
             </div>
           </div>
@@ -51,6 +52,7 @@ function AuthorizedSignatoryDocs() {
                 type="file"
                 name="authImage"
                 onChange={handleFileChange}
+                accept="image/*,.pdf"
               />
             </div>
           </div>

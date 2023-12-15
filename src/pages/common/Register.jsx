@@ -1,17 +1,20 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import "react-toastify/dist/ReactToastify.css";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-import { saveUserToLocalStorage, getUserFromLocalStorage } from '../util/SessionStorage'
+import {
+  saveUserToLocalStorage,
+  getUserFromLocalStorage,
+} from "../util/SessionStorage";
 
 const Register = () => {
   const usenavigate = useNavigate();
 
   const baseUrl = process.env.REACT_APP_BASE_URL;
-
+  const [passwordVisible, setPasswordVisible] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -19,7 +22,9 @@ const Register = () => {
     password: "",
     acceptTerms: false,
   });
-
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
   const { name, email, phone, password, acceptTerms } = formData;
 
   const handleChange = (e) => {
@@ -33,28 +38,34 @@ const Register = () => {
       alert("Please accept the terms and conditions.");
       return;
     }
-  
-    const user = { name, email, phone, password };
-  
-    console.log('Sending data to the server:', user); // This will log the data you're about to send
-  
-    try {
-      const response = await axios.post(`${baseUrl}api/parent_registration`, user); // Include the correct base URL and endpoint
-      console.log('Response from the server:', response.data);
-      toast.success("Registration successful");
-   // Now perform automatic login
-   const loginResponse = await axios.post(`${baseUrl}api/login`, { email, password });
-   console.log('Response from the server:', loginResponse.data);
-   saveUserToLocalStorage(loginResponse.data);
-   toast.success('Login successful');
 
-   // Redirect to home based on the user type
-   const loggedInUser = getUserFromLocalStorage();
-  if (loggedInUser.user.type === 'parent') {
-    usenavigate('/parent');
-  } else {
-    usenavigate('/');
-  }
+    const user = { name, email, phone, password };
+
+    console.log("Sending data to the server:", user); // This will log the data you're about to send
+
+    try {
+      const response = await axios.post(
+        `${baseUrl}api/parent_registration`,
+        user
+      ); // Include the correct base URL and endpoint
+      console.log("Response from the server:", response.data);
+      toast.success("Registration successful");
+      // Now perform automatic login
+      const loginResponse = await axios.post(`${baseUrl}api/login`, {
+        email,
+        password,
+      });
+      console.log("Response from the server:", loginResponse.data);
+      saveUserToLocalStorage(loginResponse.data);
+      toast.success("Login successful");
+
+      // Redirect to home based on the user type
+      const loggedInUser = getUserFromLocalStorage();
+      if (loggedInUser.user.type === "parent") {
+        usenavigate("/parent");
+      } else {
+        usenavigate("/");
+      }
       // handle success (e.g., redirect to login)
     } catch (error) {
       if (error.response && error.response.status === 409) {
@@ -65,7 +76,6 @@ const Register = () => {
       console.error("Registration error:", error);
     }
   };
-
 
   return (
     <>
@@ -88,7 +98,6 @@ const Register = () => {
                   className=""
                   width={100}
                 />
-             
 
                 <br />
                 <h2 className="fw-700 display1-size display2-md-size mb-4">
@@ -129,16 +138,50 @@ const Register = () => {
                     />
                     <i className="font-sm feather-phone text-grey-500 pr-0"></i>
                   </div>
-                  <div className="form-group icon-input mb-3">
+                  {/* <div className="form-group icon-input mb-3">
                     <input
-                      type="password" // Correct type attribute
-                      name="password" // Add name attribute
-                      value={formData.password} // Bind state value
-                      onChange={handleChange} // Set the event handler
+                      type="password"
+                      name="password"
+                      value={formData.password}
+                      onChange={handleChange}
                       className="style2-input pl-5 form-control text-grey-900 font-xss ls-3"
                       placeholder="Password"
                     />
                     <i className="font-sm ti-lock text-grey-500 pr-0"></i>
+                  </div> */}
+
+                  <div className="form-group my-3">
+                    <div className="input-group">
+                      <div className="input-group-prepend">
+                        <span className="input-group-text" id="basic-addon1">
+                          <i className="font-sm feather-phone text-grey-500 pr-0"></i>
+                        </span>
+                      </div>
+                      <input
+                        type={passwordVisible ? "text" : "password"}
+                        name="password"
+                        value={formData.password}
+                        onChange={handleChange}
+                        className="form-control style2-input"
+                        placeholder="Password"
+                        aria-label="Password"
+                        aria-describedby="password-toggle"
+                      />
+                      <div className="input-group-append">
+                        <button
+                          className="input-group-text"
+                          id="password-toggle"
+                          type="button"
+                          onClick={togglePasswordVisibility}
+                        >
+                          {passwordVisible ? (
+                            <i className="font-sm feather-eye text-grey-500 pr-0"></i>
+                          ) : (
+                            <i className="font-sm feather-eye-off text-grey-500 pr-0"></i>
+                          )}
+                        </button>
+                      </div>
+                    </div>
                   </div>
 
                   <div className="form-check text-left mb-3">
@@ -151,30 +194,29 @@ const Register = () => {
                       id="exampleCheck1"
                     />
                     <label
-                      className="form-check-label font-xssss text-grey-500"
+                      className="form-check-label font-xsss text-grey-500"
                       htmlFor="exampleCheck1"
                     >
                       Accept Term and Conditions
                     </label>
                   </div>
-           
 
-                <div className="col-sm-12 p-0 text-left">
-                  <div className="form-group mb-1">
-                    <button
-                      type="submit"
-                      className="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0"
-                    >
-                      Register
-                    </button>
+                  <div className="col-sm-12 p-0 text-left">
+                    <div className="form-group mb-1">
+                      <button
+                        type="submit"
+                        className="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0"
+                      >
+                        Register
+                      </button>
+                    </div>
+                    <h6 className="text-grey-500 font-xsss fw-500 mt-0 mb-0 lh-32">
+                      Already have account{" "}
+                      <Link to="/" className="fw-700 ml-1">
+                        Login
+                      </Link>
+                    </h6>
                   </div>
-                  <h6 className="text-grey-500 font-xssss fw-500 mt-0 mb-0 lh-32">
-                    Already have account{" "}
-                    <Link to="/" className="fw-700 ml-1">
-    Login
-  </Link>
-                  </h6>
-                </div>
                 </form>
               </div>
             </div>

@@ -50,6 +50,7 @@ function Achievements() {
                 name="achievement_images[]"
                 multiple
                 onChange={handleAchievementImagesChange}
+                accept="image/*"
               />
             </div>
           </div>

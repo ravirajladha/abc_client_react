@@ -48,6 +48,7 @@ function Academics() {
                 name="academic_images[]"
                 multiple
                 onChange={handleAcademicImagesChange}
+                accept="image/*"
               />
             </div>
           </div>

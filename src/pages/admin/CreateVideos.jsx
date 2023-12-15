@@ -219,6 +219,27 @@ function CreateVideos() {
   };
 
   const createVideo = (e) => {
+    // Rakshith
+    e.preventDefault();
+    // Validate the file type
+    if (videoFile) {
+      const allowedVideoTypes = [
+        "video/mp4",
+        "video/mov",
+        "video/avi",
+        "video/wmv",
+        "video/flv",
+        "video/mkv",
+        "video/webm",
+        "video/3gp",
+      ];
+      if (!allowedVideoTypes.includes(videoFile.type)) {
+        toast.error("Please upload a valid video file.");
+        return;
+      }
+    }
+    // Rakshith
+
     const formData = new FormData();
     formData.append("class", selectedClass);
     formData.append("subject", selectedSubject);
@@ -334,7 +355,7 @@ function CreateVideos() {
                             </div>
                             <div className="col-lg-12">
                               <label className="mont-font fw-600 font-xsss">
-                              Content Description
+                                Content Description
                               </label>
                               <textarea
                                 className="form-control"
