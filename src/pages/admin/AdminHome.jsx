@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { useContext } from "react";
-import { AuthContext } from "../../lib/AuthContext.js";
+import React, { useEffect, useState, useContext } from "react";
+import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
+
+import { AuthContext } from "../../lib/AuthContext.js";
 
 import AppHeader from "../../components/includes/AppHeader";
 import AppFooter from "../../components/includes/AppFooter";
@@ -15,20 +16,27 @@ function AdminHome() {
   useEffect(() => {
     const getDashboard = () => {
       if (userDetails) {
-        fetch(baseUrl + "api/get-admin-dashboard/").then(function (result) {
-          result.json().then(function (res) {
-            console.warn("dashboard info", res);
-            setDashboardInfo(res);
+        axios
+          .get(baseUrl + "api/get-admin-dashboard", {
+            headers: {
+              'Access-Control-Allow-Origin': 'https://avatoms.kods.app'
+            }
+          })
+          .then((response) => {
+            setDashboardInfo(response.data);
+          })
+          .catch((error) => {
+            console.error("Error fetching dashboard info:", error);
           });
-        });
       }
     };
+
     if (userDetails) {
       getDashboard();
     } else {
       return;
     }
-  }, [userDetails, baseUrl]);
+  });
 
   if (!userDetails) {
     console.log("No user found. User might be logged out.");

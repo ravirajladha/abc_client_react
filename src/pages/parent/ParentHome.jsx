@@ -18,29 +18,17 @@ function ParentHome() {
   const [childrenDropdown, setChildrenDropdown] = useState([]);
   const [studentInfo, setStudentInfo] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState("");
-  const dynamicSeries = [30, 40];
 
   const userDetails = useContext(AuthContext).user;
 
-  const getParentCode = useCallback(async () => {
-    try {
-      const userId = userDetails.user.id;
-      const response = await axios.get(
-        `${baseUrl}api/get-parent-code?user_id=${userId}`
-      );
-
-      if (response.data.success) {
-        // console.log("Parent code:", response.data.data.parent_code);
-        setParentCode(response.data.data.parent_code);
-      } else {
-        console.error("Failed to fetch user details");
-      }
-    } catch (error) {
-      console.error("Error fetching user details:", error);
+  useEffect(() => {
+    if (userDetails.user.parent_code) {
+      setParentCode(userDetails.user.parent_code);
     }
   }, [userDetails]);
 
   const getChildren = useCallback(async () => {
+    setLoading(true);
     try {
       const response = await fetch(
         baseUrl + `api/get-children/${userDetails.user.id}`
@@ -53,17 +41,27 @@ function ParentHome() {
       setChildrenDropdown(children);
     } catch (error) {
       console.error("Error fetching student:", error.message);
+    } finally {
+      setLoading(false);
     }
   }, [userDetails]);
 
+  useEffect(() => {
+    if (userDetails) {
+      setParentCode(userDetails.user.parent_code);
+      getChildren();
+    } else {
+      return;
+    }
+  }, [userDetails, setParentCode, getChildren]);
+
   const getStudentItems = useCallback(async () => {
+    setLoading(true);
     try {
-      setLoading(true);
       const response = await axios.get(
         baseUrl + "api/get-student-dashboard/" + selectedStudent
       );
       const student = await response.data;
-
       setStudentInfo(student);
     } catch (error) {
       console.error("Error fetching student dashboard:", error.message);
@@ -73,27 +71,14 @@ function ParentHome() {
   }, [selectedStudent]);
 
   useEffect(() => {
-    if (userDetails) {
-      getParentCode();
-      getChildren();
-      if (selectedStudent) {
-        getStudentItems();
-      } else {
-        if (childrenDropdown.length !== 0) {
-          setSelectedStudent(childrenDropdown[0].id); // Assuming the first item's ID is used as the value
-        }
-      }
+    if (selectedStudent) {
+      getStudentItems();
     } else {
-      return;
+      if (childrenDropdown.length !== 0) {
+        setSelectedStudent(childrenDropdown[0].id);
+      }
     }
-  }, [
-    userDetails,
-    getParentCode,
-    getChildren,
-    selectedStudent,
-    getStudentItems,
-    childrenDropdown
-  ]);
+  }, [selectedStudent, getStudentItems, childrenDropdown]);
 
   const handleDropdownSelect = (e) => {
     setSelectedStudent(e.target.value);
@@ -141,7 +126,7 @@ function ParentHome() {
                 <div className="row my-5">
                   <div className="col-12 text-center">
                     <span className="font-xss fw-700 py-2 px-4 lh-32  rounded-lg ls-2 d-inline-block mr-1 alert-warning text-current">
-                      Share your Parent Code with your children to veiw their
+                      Share your Parent Code with your children to view their
                       reports.
                     </span>
                   </div>
@@ -151,9 +136,9 @@ function ParentHome() {
               {childrenDropdown.length !== 0 && (
                 <div className="row">
                   <div className="col-lg-12">
-                    <div class="form-group mt-lg-4 py-2 rounded-lg ">
-                      <div class="row">
-                        <div class="col-md-3">
+                    <div className="form-group mt-lg-4 py-2 rounded-lg ">
+                      <div className="row">
+                        <div className="col-md-3">
                           <Dropdown
                             onChange={handleDropdownSelect}
                             options={childrenDropdown}
@@ -163,16 +148,18 @@ function ParentHome() {
                             className="form-select"
                           />
                         </div>
-                        {selectedStudent && (
-                          <div class="col-md-9 d-flex justify-end ">
+                        {selectedStudent && studentInfo ? (
+                          <div className="col-md-9 d-flex justify-end ">
                             <Link
                               to={"/student/" + selectedStudent}
-                              class="px-4 d-block btn bg-current text-white font-xssss fw-600 ls-3 style1-input p-0 border-0 text-uppercase "
+                              className="px-4 d-block btn bg-current text-white font-xssss fw-600 ls-3 style1-input p-0 border-0 text-uppercase "
                             >
                               {studentInfo.name}
                               {"'s Profile"}
                             </Link>
                           </div>
+                        ) : (
+                          <>{loading && <Spinner animation="border" />}</>
                         )}
                       </div>
                     </div>
@@ -188,9 +175,9 @@ function ParentHome() {
                           <div className="row">
                             <div className="col-4">
                               <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                                {studentInfo.last_login
+                                {studentInfo.last_login !== null
                                   ? studentInfo.last_login
-                                  : "0"}
+                                  : "-"}
                               </h2>
                               <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
                                 Last Login
@@ -198,9 +185,9 @@ function ParentHome() {
                             </div>
                             <div className="col-4">
                               <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                                {studentInfo.total_watch_time
+                                {studentInfo.total_watch_time !== null
                                   ? studentInfo.total_watch_time
-                                  : "0"}
+                                  : "-"}
                               </h2>
                               <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
                                 Total Watch Time
@@ -208,9 +195,8 @@ function ParentHome() {
                             </div>
                             <div className="col-4">
                               <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                                {studentInfo.avg_assessment_score
-                                  ? studentInfo.avg_assessment_score
-                                  : "0"}
+                                {studentInfo.third_term_results &&
+                                  studentInfo.avg_assessment_score}
                               </h2>
                               <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
                                 Average Assessment Score
@@ -229,9 +215,8 @@ function ParentHome() {
                           <div className="row">
                             <div className="col-4">
                               <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                                {studentInfo.first_term_results
-                                  ? studentInfo.first_term_results + "/1000"
-                                  : "0"}
+                                {studentInfo.first_term_results &&
+                                  studentInfo.first_term_results + "/1000"}
                               </h2>
                               <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
                                 Term 1 Score
@@ -239,9 +224,8 @@ function ParentHome() {
                             </div>
                             <div className="col-4">
                               <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                                {studentInfo.second_term_results
-                                  ? studentInfo.second_term_results + "/1000"
-                                  : "0"}
+                                {studentInfo.second_term_results &&
+                                  studentInfo.second_term_results + "/1000"}
                               </h2>
                               <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
                                 Term 2 Score
@@ -249,9 +233,8 @@ function ParentHome() {
                             </div>
                             <div className="col-4">
                               <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                                {studentInfo.third_term_results
-                                  ? studentInfo.third_term_results + "/1000"
-                                  : "0"}
+                                {studentInfo.third_term_results &&
+                                  studentInfo.third_term_results + "/1000"}
                               </h2>
                               <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
                                 Term 3 Score
@@ -268,33 +251,24 @@ function ParentHome() {
                       <div className="card w-100 p-1 border-0 mt-4 rounded-lg bg-white shadow-xs overflow-hidden">
                         <div className="card-body p-4">
                           <div className="row">
-                            <div className="col-4">
-                              <ApexChart
-                                seriesData={dynamicSeries}
-                                colorsData={["#FEB019", "#FF4560"]}
-                              />
-                              <h4 className="fw-700 text-end text-grey-600 font-xssss ls-3 mr-4 text-uppercase mb-0 mt-0">
-                                English
-                              </h4>
-                            </div>
-                            <div className="col-4">
-                              <ApexChart
-                                seriesData={dynamicSeries}
-                                colorsData={["#FEB019", "#FF4560"]}
-                              />
-                              <h4 className="fw-700 text-end text-grey-600 font-xssss ls-3 mr-4 text-uppercase mb-0 mt-0">
-                                Maths
-                              </h4>
-                            </div>
-                            <div className="col-4">
-                              <ApexChart
-                                seriesData={dynamicSeries}
-                                colorsData={["#FEB019", "#FF4560"]}
-                              />
-                              <h4 className="fw-700 text-end text-grey-600 font-xssss ls-3 mr-4 text-uppercase mb-0 mt-0">
-                                Science
-                              </h4>
-                            </div>
+                            {studentInfo.video_stats &&
+                              studentInfo.video_stats.map((item) => (
+                                <div
+                                  className="col-lg-4 col-sm-6"
+                                  key={item.subject_id}
+                                >
+                                  <ApexChart
+                                    seriesData={[
+                                      item.started_video_count,
+                                      item.total_video_count,
+                                    ]}
+                                    colorsData={["#ff9500", "#FF4560"]}
+                                  />
+                                  <h4 className="fw-700 text-lg-end text-sm-center text-grey-600 font-xssss ls-5 text-uppercase mb-0 my-2">
+                                    {item.subject_name}
+                                  </h4>
+                                </div>
+                              ))}
                           </div>
                         </div>
                       </div>

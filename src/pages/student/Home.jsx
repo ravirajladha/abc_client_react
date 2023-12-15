@@ -67,6 +67,7 @@ function Home() {
     console.log("No user found. User might be logged out.");
     return <div>User is not logged in</div>;
   }
+
   return (
     <>
       <div className="main-wrapper">
@@ -107,9 +108,9 @@ function Home() {
                       <div className="row">
                         <div className="col-4">
                           <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                            {dashboardInfo.last_login
+                            {dashboardInfo.last_login !== null
                               ? dashboardInfo.last_login
-                              : " "}
+                              : "-"}
                           </h2>
                           <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
                             Last Login
@@ -117,9 +118,9 @@ function Home() {
                         </div>
                         <div className="col-4">
                           <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                            {dashboardInfo.total_watch_time
+                            {dashboardInfo.total_watch_time !== null
                               ? dashboardInfo.total_watch_time
-                              : "0"}
+                              : "-"}
                           </h2>
                           <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
                             Total Watch Time
@@ -127,9 +128,8 @@ function Home() {
                         </div>
                         <div className="col-4">
                           <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                            {dashboardInfo.avg_assessment_score
-                              ? dashboardInfo.avg_assessment_score
-                              : "0"}
+                            {dashboardInfo.avg_assessment_score &&
+                              dashboardInfo.avg_assessment_score}
                           </h2>
                           <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
                             Average Assessment Score
@@ -148,9 +148,8 @@ function Home() {
                       <div className="row">
                         <div className="col-4">
                           <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                            {dashboardInfo.first_term_results
-                              ? dashboardInfo.first_term_results  + '/1000'
-                              : "0"}
+                            {dashboardInfo.first_term_results &&
+                              dashboardInfo.first_term_results + "/100"}
                           </h2>
                           <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
                             Term 1 Score
@@ -158,9 +157,8 @@ function Home() {
                         </div>
                         <div className="col-4">
                           <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                            {dashboardInfo.second_term_results
-                              ? dashboardInfo.second_term_results  + '/1000'
-                              : "0"}
+                            {dashboardInfo.second_term_results &&
+                              dashboardInfo.second_term_results + "/100"}
                           </h2>
                           <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
                             Term 2 Score
@@ -168,9 +166,8 @@ function Home() {
                         </div>
                         <div className="col-4">
                           <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                            {dashboardInfo.third_term_results
-                              ? dashboardInfo.third_term_results + '/1000'
-                              : "0"}
+                            {dashboardInfo.third_term_results &&
+                              dashboardInfo.third_term_results + "/100"}
                           </h2>
                           <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
                             Term 3 Score
@@ -185,35 +182,26 @@ function Home() {
               <div className="row">
                 <div className="col-lg-12">
                   <div className="card w-100 p-1 border-0 mt-4 rounded-lg bg-white shadow-xs overflow-hidden">
-                    <div className="card-body p-4">
+                    <div className="card-body p-sm-4">
                       <div className="row">
-                        <div className="col-4">
-                          <ApexChart
-                            seriesData={dynamicSeries}
-                            colorsData={["#FEB019", "#FF4560"]}
-                          />
-                          <h4 className="fw-700 text-end text-grey-600 font-xssss ls-3 mr-4 text-uppercase mb-0 mt-0">
-                            English
-                          </h4>
-                        </div>
-                        <div className="col-4">
-                          <ApexChart
-                            seriesData={dynamicSeries}
-                            colorsData={["#FEB019", "#FF4560"]}
-                          />
-                          <h4 className="fw-700 text-end text-grey-600 font-xssss ls-3 mr-4 text-uppercase mb-0 mt-0">
-                            Maths
-                          </h4>
-                        </div>
-                        <div className="col-4">
-                          <ApexChart
-                            seriesData={dynamicSeries}
-                            colorsData={["#FEB019", "#FF4560"]}
-                          />
-                          <h4 className="fw-700 text-end text-grey-600 font-xssss ls-3 mr-4 text-uppercase mb-0 mt-0">
-                            Science
-                          </h4>
-                        </div>
+                        {dashboardInfo.video_stats &&
+                          dashboardInfo.video_stats.map((item) => (
+                            <div
+                              className="col-lg-4 col-sm-6"
+                              key={item.subject_id}
+                            >
+                              <ApexChart
+                                seriesData={[
+                                  item.started_video_count,
+                                  item.total_video_count,
+                                ]}
+                                colorsData={["#ff9500", "#FF4560"]}
+                              />
+                              <h4 className="fw-700 text-lg-end text-sm-center text-grey-600 font-xssss ls-5 text-uppercase mb-0 my-2">
+                                {item.subject_name}
+                              </h4>
+                            </div>
+                          ))}
                       </div>
                     </div>
                   </div>

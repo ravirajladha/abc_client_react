@@ -13,7 +13,7 @@ const ApexChart = ({ seriesData, optionsData, colorsData }) => {
         breakpoint: 480,
         options: {
           chart: {
-            width: 200,
+            width: 220,
           },
           legend: {
             position: "bottom",
@@ -31,7 +31,7 @@ const ApexChart = ({ seriesData, optionsData, colorsData }) => {
 
   return (
     <div id="chart">
-      <ReactApexChart options={options} series={seriesData} type="donut" />
+      <ReactApexChart options={options} series={seriesData} type="donut"  width={400}/>
     </div>
   );
 };
