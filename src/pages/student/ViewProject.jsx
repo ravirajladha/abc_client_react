@@ -86,7 +86,7 @@ function ViewProject() {
             .then((resp) => {
                 console.log("inside project_id",project_id,task_id,lab_code);
                 // window.location.reload();
-                navigate("/editor/1/"+project_id+"/" + task_id + "/"+ lab_code);
+                navigate("/editor_practicse/1/"+project_id+"/" + task_id + "/"+ lab_code);
             });
     };
 
@@ -110,9 +110,7 @@ function ViewProject() {
 
     return (
         <>
-            <div className="main-wrapper">
-                <div className="main-content menu-active">
-                    <AppHeader />
+         
 
                     <div className="middle-sidebar-bottom theme-dark-bg">
                         <div className="middle-sidebar-left">
@@ -188,7 +186,7 @@ function ViewProject() {
                                                             {task.duration}
                                                         </span>
                                                         <Link
-                                                            to={`/editor/1/${task.project_id}/${task.task_id}/${task.lab_code}`}
+                                                            to={`/editor_practicse/1/${task.project_id}/${task.task_id}/${task.lab_code}`}
                                                         >
                                                             <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-success d-inline-block text-success mr-1">
                                                                 Continue
@@ -244,10 +242,7 @@ function ViewProject() {
                         </div>
                         <StudentSidebar />
                     </div>
-                </div>
-
-                <AppFooter />
-            </div>
+            
         </>
     );
 }

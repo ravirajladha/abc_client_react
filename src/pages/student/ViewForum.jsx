@@ -42,9 +42,7 @@ function ViewForum() {
   const user_id = user.user.id;
   return (
     <>
-      <div className="main-wrapper">
-        <div className="main-content menu-active">
-          <AppHeader />
+ 
           <div className="middle-sidebar-bottom theme-dark-bg">
             <div className="middle-sidebar-left">
               <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
@@ -137,10 +135,7 @@ function ViewForum() {
             </div>
             <StudentSidebar />
           </div>
-        </div>
-
-        <AppFooter />
-      </div>
+   
     </>
   );
 }

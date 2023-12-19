@@ -160,9 +160,9 @@ console.log("user_detail form shcool",user.user);
         </Modal.Body>
       </Modal>
 
-      <div className="main-wrapper">
+      {/* <div className="main-wrapper">
         <div className="main-content menu-active">
-          <AppHeader />
+          <AppHeader /> */}
 
           <div className="middle-sidebar-bottom theme-dark-bg">
             <div className="middle-sidebar-left">
@@ -213,9 +213,9 @@ console.log("user_detail form shcool",user.user);
               </div>
             </div>
           </div>
-        </div>
+        {/* </div>
         <AppFooter />
-      </div>
+      </div> */}
     </>
   );
 }

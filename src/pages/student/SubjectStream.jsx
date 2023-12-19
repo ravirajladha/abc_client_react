@@ -292,9 +292,7 @@ function SubjectStream() {
 
   return (
     <>
-      <div className="main-wrapper">
-        <div className="main-content menu-active">
-          <AppHeader />
+     
           <div className="middle-sidebar-bottom theme-dark-bg">
             <div className="middle-sidebar-left">
               <div className="row">
@@ -456,7 +454,7 @@ function SubjectStream() {
                                                             >
                                                               <Link
                                                                 className="font-xssss"
-                                                                to={`/editor/2/${subjectId}/${video.id}/${video.lab_link}`}
+                                                                to={`/editor_practicse/2/${subjectId}/${video.id}/${video.lab_link}`}
                                                               >
                                                                 ELab
                                                               </Link>
@@ -791,10 +789,7 @@ function SubjectStream() {
             </div>
             <StudentSidebar />
           </div>
-        </div>
-
-        <AppFooter />
-      </div>
+       
     </>
   );
 }

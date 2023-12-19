@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { AuthContext } from "../../lib/AuthContext.js";
 import { useContext } from "react";
-import AppHeader from "../../components/includes/AppHeader";
-import AppFooter from "../../components/includes/AppFooter";
+
 import { useParams, Link } from "react-router-dom";
 import BackButton from "../../components/navigation/BackButton";
 function AllChaptersAssessment() {
@@ -40,9 +39,7 @@ function AllChaptersAssessment() {
   }
   return (
     <>
-      <div className="main-wrapper">
-        <div className="main-content menu-active">
-          <AppHeader />
+
 
           <div className="middle-sidebar-bottom theme-dark-bg">
             <div className="middle-sidebar-left">
@@ -93,9 +90,7 @@ function AllChaptersAssessment() {
               </div>
             </div>
           </div>
-        </div>
-        <AppFooter />
-      </div>
+        
     </>
   );
 }

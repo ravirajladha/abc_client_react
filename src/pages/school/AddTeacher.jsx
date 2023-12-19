@@ -152,9 +152,7 @@ function AddTeacher() {
     navigate(-1);
   };
   return (
-    <div className="main-wrapper">
-      <div className="main-content menu-active">
-        <AppHeader />
+  <>
         {/* <div className="middle-sidebar-bottom bg-lightblue theme-dark-bg"> */}
         <div className="middle-sidebar-bottom  ">
           <div className="middle-sidebar-left">
@@ -374,8 +372,7 @@ function AddTeacher() {
             </div>
           </div>
         </div>
-      </div>
-    </div>
+        </>
   );
 }
 

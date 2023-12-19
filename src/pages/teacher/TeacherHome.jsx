@@ -38,9 +38,7 @@ function TeacherHome() {
   }
   return (
     <>
-      <div className="main-wrapper">
-        <div className="main-content menu-active">
-          <AppHeader />
+    
 
           <div className="middle-sidebar-bottom theme-dark-bg">
             <div className="custom-middle-sidebar-left">
@@ -94,9 +92,7 @@ function TeacherHome() {
               </div>
             </div>
           </div>
-        </div>
-        <AppFooter />
-      </div>
+      
     </>
   );
 }

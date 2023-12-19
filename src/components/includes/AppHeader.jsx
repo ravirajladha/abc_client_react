@@ -55,8 +55,14 @@ function AppHeader() {
   };
 
   // Use user from context
-  const sidebar =
-    sidebarComponents[user?.user?.type] || sidebarComponents.default;
+  if (!user) {
+    // Handle the case when there is no user. You might want to redirect
+    // to a login page or return null or some placeholder content.
+    console.log("No user found. User might be logged out.");
+    return null;
+  }
+  const sidebar = sidebarComponents[user?.user?.type] || sidebarComponents.default;
+  // const sidebar =  sidebarComponents.default;
 
   return (
     <div className="middle-sidebar-header bg-white">

@@ -50,9 +50,7 @@ const ClassSubjectResults = () => {
     };
   }, []);
   return (
-    <div>  <div className="main-wrapper">
-    <div className="main-content menu-active">
-      <AppHeader />
+ 
       <div className="middle-sidebar-bottom">
         <div className="middle-sidebar-left">
           <div className="row">
@@ -117,9 +115,7 @@ const ClassSubjectResults = () => {
           </div>
         </div>
       </div>
-    </div>
-    <AppFooter />
-  </div></div>
+    
   )
 }
 

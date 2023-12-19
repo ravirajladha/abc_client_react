@@ -41,9 +41,7 @@ function EbookModules() {
 
   return (
     <>
-      <div className="main-wrapper">
-        <div className="main-content menu-active">
-          <AppHeader />
+    
           <div className="middle-sidebar-bottom theme-dark-bg">
             <div className="middle-sidebar-left">
               <div className="row">
@@ -128,9 +126,7 @@ function EbookModules() {
               </div>
             </div>
           </div>
-        </div>
-        <AppFooter />
-      </div>
+      
     </>
   );
 }

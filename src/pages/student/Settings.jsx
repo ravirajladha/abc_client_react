@@ -157,9 +157,7 @@ console.log("user_id",user.user.id);
   const userId = user.user.id;
   return (
     <>
-      <div className="main-wrapper">
-        <div className="main-content menu-active">
-          <AppHeader />
+     
 
           <div className="middle-sidebar-bottom theme-dark-bg bg-lightblue">
             <div className="middle-sidebar-left">
@@ -296,10 +294,7 @@ console.log("user_id",user.user.id);
             </div>
             <StudentSidebar />
           </div>
-        </div>
-
-        <AppFooter />
-      </div>
+   
     </>
   );
 }

@@ -33,9 +33,9 @@ function AllSubjects() {
 
   return (
     <>
-      <div className="main-wrapper">
+      {/* <div className="main-wrapper">
         <div className="main-content menu-active">
-          <AppHeader />
+          <AppHeader /> */}
 
           <div className="middle-sidebar-bottom theme-dark-bg">
             <div className="middle-sidebar-left">
@@ -115,9 +115,7 @@ function AllSubjects() {
               </div>
             </div>
           </div>
-        </div>
-        <AppFooter />
-      </div>
+      
     </>
   );
 }

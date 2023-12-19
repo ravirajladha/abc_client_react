@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button } from "react-bootstrap";
+// import { Modal, Button } from "react-bootstrap";
 
-import AppHeader from "../../components/includes/AppHeader";
-import AppFooter from "../../components/includes/AppFooter";
+// import AppHeader from "../../components/includes/AppHeader";
+// import AppFooter from "../../components/includes/AppFooter";
 import { Link } from "react-router-dom";
 import BackButton from "../../components/navigation/BackButton";
 
@@ -24,9 +24,9 @@ function ViewInternship() {
 
   return (
     <>
-      <div className="main-wrapper">
+      {/* <div className="main-wrapper">
         <div className="main-content menu-active">
-          <AppHeader />
+          <AppHeader /> */}
           <div className="middle-sidebar-bottom theme-dark-bg">
             <div className="middle-sidebar-left">
               <div className="row">
@@ -90,9 +90,9 @@ function ViewInternship() {
               </div>
             </div>
           </div>
-        </div>
+        {/* </div>
         <AppFooter />
-      </div>
+      </div> */}
     </>
   );
 }

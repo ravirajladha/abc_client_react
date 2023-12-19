@@ -38,9 +38,7 @@ function StudentTestResults() {
   },[]);
 
   return (
-    <div className="main-wrapper">
-      <div className="main-content  menu-active" id="main-content">
-        <AppHeader />
+   
         <div className="p-5 theme-dark-bg">
           <div className="middle-sidebar-left">
             <div className="row">
@@ -112,9 +110,7 @@ function StudentTestResults() {
             </div>
           </div>
         </div>
-      </div>
-      <AppFooter />
-    </div>
+     
   );
 }
 

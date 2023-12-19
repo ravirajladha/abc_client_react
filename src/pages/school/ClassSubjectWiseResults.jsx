@@ -75,9 +75,7 @@ const ClassResults = () => {
 
   return (
     <>
-      <div className="main-wrapper">
-        <div className="main-content menu-active">
-          <AppHeader />
+
           <div className="middle-sidebar-bottom">
             <div className="middle-sidebar-left">
               <div className="row">
@@ -233,9 +231,7 @@ const ClassResults = () => {
               </div>
             </div>
           </div>
-        </div>
-        <AppFooter />
-      </div>
+       
     </>
   );
 };

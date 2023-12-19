@@ -44,9 +44,9 @@ function AdminHome() {
 
   return (
     <>
-      <div className="main-wrapper">
+      {/* <div className="main-wrapper">
         <div className="main-content menu-active">
-          <AppHeader />
+          <AppHeader /> */}
 
           <div className="middle-sidebar-bottom theme-dark-bg">
             <div className="custom-middle-sidebar-left">
@@ -124,9 +124,9 @@ function AdminHome() {
               </div>
             </div>
           </div>
-        </div>
+        {/* </div>
         <AppFooter />
-      </div>
+      </div> */}
     </>
   );
 }

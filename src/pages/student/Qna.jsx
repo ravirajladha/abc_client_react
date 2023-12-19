@@ -122,9 +122,7 @@ function Qna() {
   const userId = user.user.id;
   return (
     <>
-      <div className="main-wrapper">
-        <div className="main-content menu-active">
-          <AppHeader />
+ 
 
           <div className="middle-sidebar-bottom theme-dark-bg">
             <div className="middle-sidebar-left">
@@ -237,9 +235,7 @@ function Qna() {
             </div>
             <StudentSidebar />
           </div>
-        </div>
-        <AppFooter />
-      </div>
+      
     </>
   );
 }

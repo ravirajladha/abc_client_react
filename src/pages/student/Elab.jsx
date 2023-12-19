@@ -10,10 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 function Elab() {
     return (
         <>
-            <div className="main-wrapper">
-                <div className="main-content menu-active">
-                    <AppHeader />
-
+          
                     <div className="middle-sidebar-bottom theme-dark-bg bg-lightblue">
                         <div className="middle-sidebar-left">
                             <div className="row">
@@ -38,10 +35,7 @@ function Elab() {
                         </div>
                         <StudentSidebar />
                     </div>
-                </div>
-
-                <AppFooter />
-            </div>
+              
         </>
     )
 }

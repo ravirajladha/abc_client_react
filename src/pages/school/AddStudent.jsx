@@ -134,10 +134,7 @@ function AddStudent() {
     navigate(-1);
   };
   return (
-    <div>
-      <div className="main-wrapper">
-        <div className="main-content menu-active">
-          <AppHeader />
+
           <div className="middle-sidebar-bottom">
             <div className="middle-sidebar-left">
             <div className="card-body p-4 w-100 border-0 d-flex rounded-lg justify-content-between">
@@ -246,9 +243,7 @@ function AddStudent() {
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
+     
   );
 }
 

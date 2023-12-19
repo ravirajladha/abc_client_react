@@ -43,9 +43,8 @@ function Teachers() {
   
   
   return (
-    <div className="main-wrapper">
-      <div className="main-content menu-active">
-        <AppHeader />
+   <>
+   
         <div className="middle-sidebar-bottom">
           <div className="middle-sidebar-left">
             <div className="row">
@@ -101,7 +100,7 @@ function Teachers() {
             </div>
           </div>
         </div>
-      </div>
+     
 
       <div className="app-footer border-0 shadow-lg">
         <Link to="default.html" className="nav-content-bttn nav-center">
@@ -154,7 +153,7 @@ function Teachers() {
           </div>
         </form>
       </div>
-    </div>
+      </>
   );
 }
 

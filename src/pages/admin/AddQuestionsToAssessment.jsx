@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import AppHeader from '../../components/includes/AppHeader';
-import AppFooter from '../../components/includes/AppFooter';
-import { toast, ToastContainer } from 'react-toastify';
+
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 function AddQuestionsToAssessment() {
@@ -62,9 +61,7 @@ function AddQuestionsToAssessment() {
     }
     return (
         <>
-            <div className="main-wrapper">
-                <div className="main-content menu-active">
-                    <AppHeader />
+        
                     <div className="middle-sidebar-bottom theme-dark-bg">
                         <div className="middle-sidebar-left">
                             <div className="row">
@@ -144,9 +141,7 @@ function AddQuestionsToAssessment() {
                             </div>
                         </div>
                     </div>
-                </div>
-                <AppFooter />
-            </div>
+              
         </>
     )
 }

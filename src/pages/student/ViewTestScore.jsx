@@ -51,9 +51,7 @@ function ViewTestScore() {
   }, [baseUrl, test_id, user]);
   return (
     <>
-      <div className="main-wrapper">
-        <div className="main-content menu-active">
-          <AppHeader />
+     
           <div className="middle-sidebar-bottom theme-dark-bg">
             <div className="middle-sidebar-left">
               <div className="row">
@@ -91,9 +89,7 @@ function ViewTestScore() {
             </div>
             <StudentSidebar />
           </div>
-        </div>
-        <AppFooter />
-      </div>
+     
     </>
   );
 }

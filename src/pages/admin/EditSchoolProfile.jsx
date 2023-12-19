@@ -29,9 +29,7 @@ function EditSchoolProfile() {
   
   return (
     <>
-      <div className="main-wrapper">
-        <div className="main-content menu-active">
-          <Appheader />
+   
           <div className="middle-sidebar-bottom theme-dark-bg">
             <div className="middle-sidebar-left">
               <div className="row">
@@ -66,8 +64,7 @@ function EditSchoolProfile() {
           </div>
         </div>
         </div>
-        </div>
-      </div>
+       
     </>
   );
 }

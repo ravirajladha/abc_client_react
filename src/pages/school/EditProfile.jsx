@@ -156,9 +156,7 @@ const EditProfile = () => {
   };
 
   return (
-    <div className="main-wrapper">
-      <div className="main-content menu-active m-3">
-        <Appheader />
+
         <div className="middle-sidebar-bottom theme-dark-bg">
           <div className="middle-sidebar-left">
             <div className="row">
@@ -185,8 +183,7 @@ const EditProfile = () => {
             </div>
           </div>
         </div>
-      </div>
-    </div>
+    
   );
 };
 

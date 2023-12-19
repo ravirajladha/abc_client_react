@@ -213,9 +213,7 @@ function TakeTest() {
 
   return (
     <>
-      <div className="main-wrapper">
-        <div className="main-content menu-active">
-          <AppHeader />
+    
           <div className="middle-sidebar-bottom theme-dark-bg">
             <div className="middle-sidebar-left">
               <ToastContainer autoClose={3000} />
@@ -296,9 +294,7 @@ function TakeTest() {
             </div>
             <StudentSidebar />
           </div>
-        </div>
-        <AppFooter />
-      </div>
+      
     </>
   );
 }

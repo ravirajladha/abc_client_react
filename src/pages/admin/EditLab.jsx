@@ -200,9 +200,7 @@ function EditLab() {
   return (
     <>
       <ToastContainer />
-      <div className="main-wrapper">
-        <div className="main-content menu-active">
-          <AppHeader />
+     
           <div className="middle-sidebar-bottom theme-dark-bg">
             <div className="admin-middle-sidebar-left">
               <div className="row">
@@ -524,9 +522,7 @@ function EditLab() {
                 </div>
               </div>
             </div>
-          </div>
-          <AppFooter />
-        </div>
+        
       </div>
     </>
   );

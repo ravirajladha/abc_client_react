@@ -43,9 +43,7 @@ async function getClasses() {
 
   return (
     <>
-      <div className="main-wrapper">
-        <div className="main-content menu-active">
-          <AppHeader />
+ 
           <div className="middle-sidebar-bottom theme-dark-bg">
             <div className="middle-sidebar-left">
               <div className="row">
@@ -77,24 +75,7 @@ async function getClasses() {
                         </h4>
                         {/* Additional details about the class can be listed here */}
                         <div className="card-footer bg-transparent border-top-0">
-                        {/* {user.user.type != "teacher" ?
-                          <Link
-                            to={`/all_classes/all_subjects/${singleClass.id}`}
-                            className="px-2 py-1 mt-4 fw-500 d-inline-block text-white fw-300 lh-30 rounded-lg w100 text-center font-xssss mr-2 ls-3 bg-current"
-                          >
-                            Subjects
-                          </Link>
-                          :  <Link
-                          to={`/school/class/${singleClass.id}/subjects`}
-                          className="px-2 py-1 mt-4 fw-500 d-inline-block text-white fw-600 lh-30 rounded-lg w100 text-center font-xssss mr-2 ls-3 bg-current"
-                        >
-                          Subjects
-                        </Link>
-                        
-                        
-                        
-                        } */}
-                       
+                    
                              
 
                        <Link
@@ -123,9 +104,7 @@ async function getClasses() {
               </div>
             </div>
           </div>
-        </div>
-        <AppFooter />
-      </div>
+     
     </>
   );
 }
