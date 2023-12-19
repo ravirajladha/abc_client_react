@@ -41,18 +41,13 @@ import BackButton from "../../../components/navigation/BackButton";
 
 function PreviewEbook() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
-
   const { ebook_id } = useParams();
-
   const location = useLocation();
 
-  useEffect(() => {
-    getEbookModules();
-    getEbook();
-    getEbookElements();
-  },[]);
-
   const [ebookModules, setEbookModules] = useState([]);
+  const [ebook, setEbook] = useState([]);
+  const [ebookElements, setEbookElements] = useState([]);
+  const [moduleRefs, setModuleRefs] = useState({});
 
   function getEbookModules() {
     fetch(baseUrl + "api/get_ebook_modules/" + ebook_id).then(function (
@@ -64,8 +59,6 @@ function PreviewEbook() {
     });
   }
 
-  const [ebook, setEbook] = useState([]);
-
   function getEbook() {
     fetch(baseUrl + "api/get_ebook_by_id/" + ebook_id).then(function (result) {
       result.json().then(function (jsonRes) {
@@ -73,9 +66,6 @@ function PreviewEbook() {
       });
     });
   }
-
-  const [ebookElements, setEbookElements] = useState([]);
-  const [moduleRefs, setModuleRefs] = useState({});
 
   function getEbookElements() {
     fetch(baseUrl + "api/get_elements_by_ebook/" + ebook_id).then(function (
@@ -90,20 +80,10 @@ function PreviewEbook() {
   function generateId(sectionTitle) {
     if (sectionTitle) {
       const title = sectionTitle.replace(/[^a-zA-Z0-9\s]/g, "");
-
       const id = title.toLowerCase().replace(/\s+/g, "-");
-
       return id;
     }
   }
-
-  useEffect(() => {
-    const refs = {};
-    ebookModules.forEach((module, moduleIndex) => {
-      refs[moduleIndex] = module.ebook_sections.map(() => React.createRef());
-    });
-    setModuleRefs(refs);
-  }, [ebookModules]);
 
   const handleScroll = (moduleIndex, sectionIndex) => () => {
     if (moduleRefs[moduleIndex] && moduleRefs[moduleIndex][sectionIndex]) {
@@ -120,6 +100,14 @@ function PreviewEbook() {
       );
     }
   };
+
+  useEffect(() => {
+    const refs = {};
+    ebookModules.forEach((module, moduleIndex) => {
+      refs[moduleIndex] = module.ebook_sections.map(() => React.createRef());
+    });
+    setModuleRefs(refs);
+  }, [ebookModules]);
 
   useEffect(() => {
     const hash = location.hash;
@@ -139,14 +127,17 @@ function PreviewEbook() {
     }
   }, [location]);
 
+  useEffect(() => {
+    getEbookModules();
+    getEbook();
+    getEbookElements();
+  }, []);
+
   if (!ebookModules || !Object.keys(moduleRefs).length) {
     return (
       <div className="vh-100">
         <div className="d-flex vh-100 align-items-center justify-content-center">
-          <Spinner
-            animation="border"
-            variant="current"
-          >
+          <Spinner animation="border" variant="current">
             <span className="visually-hidden">Loading...</span>
           </Spinner>
         </div>

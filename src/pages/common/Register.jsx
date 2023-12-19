@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
+import { AuthContext } from "../../lib/AuthContext.js";
 import {
   saveUserToLocalStorage,
   getUserFromLocalStorage,
@@ -12,7 +12,7 @@ import {
 
 const Register = () => {
   const usenavigate = useNavigate();
-
+  const { setUser } = useContext(AuthContext);
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [formData, setFormData] = useState({
@@ -56,7 +56,9 @@ const Register = () => {
         password,
       });
       console.log("Response from the server:", loginResponse.data);
+      setUser(loginResponse.data);
       saveUserToLocalStorage(loginResponse.data);
+
       toast.success("Login successful");
 
       // Redirect to home based on the user type
@@ -154,7 +156,7 @@ const Register = () => {
                     <div className="input-group">
                       <div className="input-group-prepend">
                         <span className="input-group-text" id="basic-addon1">
-                          <i className="font-sm feather-phone text-grey-500 pr-0"></i>
+                          <i className="font-sm ti-lock text-grey-500 pr-0"></i>
                         </span>
                       </div>
                       <input

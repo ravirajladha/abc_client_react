@@ -138,7 +138,7 @@ function Login() {
                     <div className="input-group">
                       <div className="input-group-prepend">
                         <span className="input-group-text" id="basic-addon1">
-                          <i className="font-sm feather-phone text-grey-500 pr-0"></i>
+                          <i className="font-sm ti-lock text-grey-500 pr-0"></i>
                         </span>
                       </div>
                       <input

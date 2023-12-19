@@ -121,7 +121,7 @@ function SchoolNav({ isSidebarOpen }) {
             <li className="logo d-none d-xl-block d-lg-block"></li>
             <li>
               <Link
-                to="/settings"
+                to="/school/settings"
                 className="nav-content-bttn open-font h-auto pt-2 pb-2"
               >
                 <i className="font-sm feather-settings mr-3 text-grey-500"></i>

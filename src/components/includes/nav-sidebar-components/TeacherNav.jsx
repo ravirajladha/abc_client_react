@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { clearLocalStorage, getUserFromLocalStorage } from '../../../pages/util/SessionStorage';
-import LogoutButton from "../../common/LogoutButton"
-
+import React, { useEffect, useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import {
+  clearLocalStorage,
+  getUserFromLocalStorage,
+} from "../../../pages/util/SessionStorage";
+import LogoutButton from "../../common/LogoutButton";
 
 function TeacherNav() {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleOpen = () => setIsOpen(!isOpen);
 
-  const navClass = `${isOpen ? ' nav-active' : ''}`;
+  const navClass = `${isOpen ? " nav-active" : ""}`;
 
   const navigate = useNavigate();
 
@@ -22,7 +24,7 @@ function TeacherNav() {
   useEffect(() => {
     if (loggedOut) {
       // After the logout state changes, navigate to the appropriate page
-      navigate('/');
+      navigate("/");
       // if (userData && userData.user && userData.user.type === 'admin') {
       //   navigate('/admin');
       // } else if(userData && userData.user && userData.user.type === 'teacher'){
@@ -37,13 +39,15 @@ function TeacherNav() {
     }
   }, [loggedOut, navigate]);
 
-
   return (
-    <nav className={`navigation scroll-bar menu-active ${navClass}`} style={{ zIndex: 999 }}>
+    <nav
+      className={`navigation scroll-bar menu-active ${navClass}`}
+      style={{ zIndex: 999 }}
+    >
       <div className="container pl-0 pr-0">
         <div className="nav-content">
           <div className="nav-top">
-            <Link to="/" className='justify-content-center pl-0'>
+            <Link to="/" className="justify-content-center pl-0">
               {/* <i className="feather-slack text-success display1-size mr-3 ml-3"></i>
               <span className="d-inline-block fredoka-font ls-3 fw-600 text-current font-xl logo-text mb-0">
                 Elomoas.
@@ -51,7 +55,8 @@ function TeacherNav() {
               <img
                 src="/assets/images/abc_logo.jpg"
                 alt="logo"
-                className="" width={60}
+                className=""
+                width={60}
               />
             </Link>
             <span
@@ -68,15 +73,16 @@ function TeacherNav() {
             <li className="nav-item">
               <NavLink className="navi-link" to="/teacher">
                 <i className="feather-home mr-2"></i>
-             
               </NavLink>
             </li>
             {/* <div className="nav-caption fw-600 font-xssss text-grey-500">
               Qna's
             </div> */}
-                         <li className="nav-caption fw-600 font-xssss text-grey-500">Home</li>
+            <li className="nav-caption fw-600 font-xssss text-grey-500">
+              Home
+            </li>
 
-                         <li className="nav-item">
+            <li className="nav-item">
               <NavLink className="navi-link" to="/teachers/all_classes">
                 <i className="feather-book-open mr-2"></i>
                 <span>Classes</span>
@@ -92,7 +98,6 @@ function TeacherNav() {
                 <span>Qna</span>
               </NavLink>
             </li>
-           
           </ul>
 
           <div className="nav-caption fw-600 font-xssss text-grey-500">
@@ -102,7 +107,7 @@ function TeacherNav() {
             <li className="logo d-none d-xl-block d-lg-block"></li>
             <li>
               <Link
-                to="/settings"
+                to="/teacher/settings"
                 className="nav-content-bttn open-font h-auto pt-2 pb-2"
               >
                 <i className="font-sm feather-settings mr-3 text-grey-500"></i>
@@ -110,8 +115,7 @@ function TeacherNav() {
               </Link>
             </li>
             <li>
-            <LogoutButton />
-
+              <LogoutButton />
             </li>
           </ul>
         </div>
@@ -119,6 +123,5 @@ function TeacherNav() {
     </nav>
   );
 }
-
 
 export default TeacherNav;

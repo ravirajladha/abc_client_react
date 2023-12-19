@@ -3,6 +3,7 @@ import AppFooter from "../../components/includes/AppFooter";
 import AppHeader from "../../components/includes/AppHeader";
 import StudentSidebar from "../../components/includes/StudentSidebar";
 import BackButton from "../../components/navigation/BackButton";
+import { Bars } from "react-loader-spinner";
 
 function Internship() {
   const [internships, setInternships] = useState([]);
@@ -28,7 +29,19 @@ function Internship() {
     fetchData();
   }, []);
 
-  const certificate =  "certificate.jpg";
+  if (loading) {
+    return (
+      <Bars
+        height="50"
+        width="50"
+        color="#ff9500"
+        ariaLabel="bars-loading"
+        wrapperClass="d-flex justify-content-center align-items-center vh-100"
+        visible={true}
+      />
+    );
+  }
+
   return (
    
         <div className="middle-sidebar-bottom theme-dark-bg">
@@ -72,20 +85,24 @@ function Internship() {
                         >
                           Participate
                         </button>
-                        <a
-                          href={`${baseUrl}${internship.project_image}`}
-                          download
+                        <button
+                          onClick={() => {
+                            const downloadUrl = `${baseUrl}api/download-image/${internship.id}`;
+                            window.location.href = downloadUrl;
+                          }}
                           className="bg-success text-white rounded-xl btn-cart w125 d-inline-block text-center font-xsssss p-3 fw-700 ls-3 text-uppercase"
                         >
                           Download
-                        </a>
-                        <a
-                          href={`${baseUrl}${internship.project_image}`}
-                          download
+                        </button>
+                        <button
+                          onClick={() => {
+                            const downloadUrl = `${baseUrl}api/download-image/${internship.id}`;
+                            window.location.href = downloadUrl;
+                          }}
                           className="bg-greylight theme-white-bg btn-round-lg ml-1 rounded-3 text-grey-700"
                         >
                           <i className="feather-download-cloud"></i>
-                        </a>
+                        </button>
                       </div>
                     </div>
                   </div>

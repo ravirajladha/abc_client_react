@@ -157,7 +157,7 @@ function AdminNav() {
                 <i class="feather-file-plus"></i>
                 <span>Internship</span>
               </NavLink>
-            </li>  
+            </li>
             <div className="nav-caption fw-600 font-xssss text-grey-500">
               Internship
             </div>
@@ -168,15 +168,15 @@ function AdminNav() {
           </div>
           <ul className="mb-3">
             <li className="logo d-none d-xl-block d-lg-block"></li>
-            {/* <li>
+            <li>
               <Link
-                to="/settings"
+                to="/admin/settings"
                 className="nav-content-bttn open-font h-auto pt-2 pb-2"
               >
                 <i className="font-sm feather-settings mr-3 text-grey-500"></i>
                 <span>Settings</span>
               </Link>
-            </li> */}
+            </li>
             <li>
               <LogoutButton />
             </li>
