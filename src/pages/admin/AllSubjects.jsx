@@ -72,7 +72,7 @@ function AllSubjects() {
                       <img
                         src={baseUrl + subject.subject_image}
                         alt="subject"
-                        className="p-1"
+                        className="p-1 font-xsssss"
                       />
                     </Link>
                     <h4 className="fw-700 font-xs mt-4">
@@ -104,10 +104,7 @@ function AllSubjects() {
                 </div>
               ))
             ) : subjects.length > 0 ? (
-              subjects.map((video, index) => (
-                // ...video card JSX
-                <h1>Subjects Loading...</h1>
-              ))
+              subjects.map((video, index) => <h1>Subjects Loading...</h1>)
             ) : (
               <h2 className="fw-400 font-lg d-block text-center">
                 No Subjects
