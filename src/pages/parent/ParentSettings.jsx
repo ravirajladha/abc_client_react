@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import AppHeader from "../../components/includes/AppHeader.jsx";
-import AppFooter from "../../components/includes/AppFooter.jsx";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 

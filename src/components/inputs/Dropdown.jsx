@@ -2,9 +2,9 @@
 
 import React from "react";
 
-const Dropdown = ({  className,  options,  column_name,  value,  onChange,  placeholder,  required,}) => {
+const Dropdown = ({ className,  options,  column_name,  value,  onChange,  placeholder,  required}) => {
   return (
-    <select className={`form-control ${className}`} value={value} onChange={onChange} required={required}>
+    <select className={`form-control ${className}`} value={value} onChange={onChange} required={required} multiple={false}>
       {options.length === 0 ? (<option disabled value=""> No data found </option>
       ) : (
         <>

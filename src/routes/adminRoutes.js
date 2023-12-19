@@ -1,9 +1,8 @@
 import AdminHome from "../pages/admin/AdminHome";
 // routes/adminRoutes.js
-import React from 'react';
+import React from "react";
 import Defaultuserprofile from "../pages/common/DefaultUserProfile.jsx";
 import withLayoutAndProtection from "../withLayoutAndProtection.jsx";
-
 
 // import other admin specific components
 import { Route } from "react-router-dom";
@@ -59,6 +58,10 @@ import Editor1 from "../pages/e_lab/components/Editor1.jsx";
 import ClassResults from "../pages/school/ClassResults.jsx";
 import ClassSubjectWiseResults from "../pages/school/ClassSubjectWiseResults.jsx";
 import EditStudentProfile from "../pages/school/EditProfile.jsx";
+import EditClass from "../pages/admin/edit-pages/EditClass.jsx";
+import EditSubject from "../pages/admin/edit-pages/EditSubject.jsx";
+import EditChapter from "../pages/admin/edit-pages/EditChapter.jsx";
+import EditVideo from "../pages/admin/edit-pages/EditVideo.jsx";
 // const AdminHomeWithLayoutAndProtection = withLayoutAndProtection(AdminHome, { allowedTypes: ['admin'] });
 
 export const adminRoutes = (
@@ -78,400 +81,575 @@ export const adminRoutes = (
       }
     /> */}
 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/admin`}
-  element={React.createElement(withLayoutAndProtection(AdminHome, { allowedTypes: ['admin'] }))}
-/>
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/admin`}
+      element={React.createElement(
+        withLayoutAndProtection(AdminHome, { allowedTypes: ["admin"] })
+      )}
+    />
 
-
-{/* <Route
+    {/* <Route
   exact
   path={`${process.env.PUBLIC_URL}/admin`}
   element={<AdminHomeWithLayoutAndProtection />}
 /> */}
-    
+
     {/* <Route
   exact
   path={`${process.env.PUBLIC_URL}/admin`}
   element={React.createElement(withLayoutAndProtection(AdminHome, { allowedTypes: ['admin'] }))}
 /> */}
     <Route
-  exact
-  path={`${process.env.PUBLIC_URL}/ebooks`}
-  element={React.createElement(withLayoutAndProtection(Ebooks, { allowedTypes: ['admin'] }))}
-/>
+      exact
+      path={`${process.env.PUBLIC_URL}/ebooks`}
+      element={React.createElement(
+        withLayoutAndProtection(Ebooks, { allowedTypes: ["admin"] })
+      )}
+    />
     <Route
-  exact
-  path={`${process.env.PUBLIC_URL}/default-user-profile`}
-  element={React.createElement(withLayoutAndProtection(Defaultuserprofile, { allowedTypes: ['admin'] }))}
-/>
- 
+      exact
+      path={`${process.env.PUBLIC_URL}/default-user-profile`}
+      element={React.createElement(
+        withLayoutAndProtection(Defaultuserprofile, { allowedTypes: ["admin"] })
+      )}
+    />
+
     <Route
-  exact
-  path={`${process.env.PUBLIC_URL}/ebooks/create_ebook`}
-  element={React.createElement(withLayoutAndProtection(CreateEbook, { allowedTypes: ['admin'] }))}
-/>
+      exact
+      path={`${process.env.PUBLIC_URL}/ebooks/create_ebook`}
+      element={React.createElement(
+        withLayoutAndProtection(CreateEbook, { allowedTypes: ["admin"] })
+      )}
+    />
     <Route
-  exact
-  path={`${process.env.PUBLIC_URL}/ebooks/:ebookId/create-module`}
-  element={React.createElement(withLayoutAndProtection(AddModule, { allowedTypes: ['admin'] }))}
-/>
+      exact
+      path={`${process.env.PUBLIC_URL}/ebooks/:ebookId/create-module`}
+      element={React.createElement(
+        withLayoutAndProtection(AddModule, { allowedTypes: ["admin"] })
+      )}
+    />
     <Route
-  exact
-  path={`${process.env.PUBLIC_URL}/ebooks/ebook_modules/:ebook_id`}
-  element={React.createElement(withLayoutAndProtection(EbookModules, { allowedTypes: ['admin'] }))}
-/>
+      exact
+      path={`${process.env.PUBLIC_URL}/ebooks/ebook_modules/:ebook_id`}
+      element={React.createElement(
+        withLayoutAndProtection(EbookModules, { allowedTypes: ["admin"] })
+      )}
+    />
 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/ebooks/add_sections/:module_id`}
-  element={React.createElement(withLayoutAndProtection(AddSections, { allowedTypes: ['admin'] }))}
-/>
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/ebooks/add_sections/:module_id`}
+      element={React.createElement(
+        withLayoutAndProtection(AddSections, { allowedTypes: ["admin"] })
+      )}
+    />
 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/ebooks/add_elements/:section_id`}
-  element={React.createElement(withLayoutAndProtection(AddElements, { allowedTypes: ['admin'] }))}
-/>
- 
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/ebooks/add_elements/:section_id`}
+      element={React.createElement(
+        withLayoutAndProtection(AddElements, { allowedTypes: ["admin"] })
+      )}
+    />
 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/ebooks`}
-  element={React.createElement(withLayoutAndProtection(Ebooks, { allowedTypes: ['admin'] }))}
-/>
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/ebooks/create_ebook`}
-  element={React.createElement(withLayoutAndProtection(CreateEbook, { allowedTypes: ['admin'] }))}
-/>
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/ebooks`}
+      element={React.createElement(
+        withLayoutAndProtection(Ebooks, { allowedTypes: ["admin"] })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/ebooks/create_ebook`}
+      element={React.createElement(
+        withLayoutAndProtection(CreateEbook, { allowedTypes: ["admin"] })
+      )}
+    />
 
- 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/ebooks/ebook_modules/:ebook_i`}
-  element={React.createElement(withLayoutAndProtection(EbookModules, { allowedTypes: ['admin'] }))}
-/>
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/ebooks/add_sections/:module_id`}
-  element={React.createElement(withLayoutAndProtection(AddSections, { allowedTypes: ['admin'] }))}
-/>
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/ebooks/ebook_modules/:ebook_i`}
+      element={React.createElement(
+        withLayoutAndProtection(EbookModules, { allowedTypes: ["admin"] })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/ebooks/add_sections/:module_id`}
+      element={React.createElement(
+        withLayoutAndProtection(AddSections, { allowedTypes: ["admin"] })
+      )}
+    />
 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/ebooks/add_elements/:section_id`}
-  element={React.createElement(withLayoutAndProtection(AddElements, { allowedTypes: ['admin'] }))}
-/>
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/ebooks/add_elements/:section_id`}
+      element={React.createElement(
+        withLayoutAndProtection(AddElements, { allowedTypes: ["admin"] })
+      )}
+    />
 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/schools`}
-  element={React.createElement(withLayoutAndProtection(Schools, { allowedTypes: ['admin'] }))}
-/>
- 
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/schools`}
+      element={React.createElement(
+        withLayoutAndProtection(Schools, { allowedTypes: ["admin"] })
+      )}
+    />
 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/all_labs/create-lab`}
-  element={React.createElement(withLayoutAndProtection(CreateLabNew, { allowedTypes: ['admin'] }))}
-/>
- 
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/all_labs/create-lab`}
+      element={React.createElement(
+        withLayoutAndProtection(CreateLabNew, { allowedTypes: ["admin"] })
+      )}
+    />
 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/all_classes`}
-  element={React.createElement(withLayoutAndProtection(AllClasses, { allowedTypes: ['admin'] }))}
-/>
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/all_classes`}
+      element={React.createElement(
+        withLayoutAndProtection(AllClasses, { allowedTypes: ["admin"] })
+      )}
+    />
 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/:classId/results`}
-  element={React.createElement(withLayoutAndProtection(ClassesResult, { allowedTypes: ['admin'] }))}
-/>
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/:classId/results`}
+      element={React.createElement(
+        withLayoutAndProtection(ClassesResult, { allowedTypes: ["admin"] })
+      )}
+    />
 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/all_classes/all_subjects/all_chapters/all_videos/:chapter_id`}
-  element={React.createElement(withLayoutAndProtection(AllVideos, { allowedTypes: ['admin'] }))}
-/>
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/all_classes/all_subjects/all_chapters/all_videos/:chapter_id`}
+      element={React.createElement(
+        withLayoutAndProtection(AllVideos, { allowedTypes: ["admin"] })
+      )}
+    />
 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/all_subjects/create_class`}
-  element={React.createElement(withLayoutAndProtection(CreateClass, { allowedTypes: ['admin'] }))}
-/>
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/all_subjects/create_class`}
+      element={React.createElement(
+        withLayoutAndProtection(CreateClass, { allowedTypes: ["admin"] })
+      )}
+    />
 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/all_subjects/create_subject/:class_id`}
-  element={React.createElement(withLayoutAndProtection(CreateSubject, { allowedTypes: ['admin'] }))}
-/>
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/all_subjects/create_subject/:class_id`}
+      element={React.createElement(
+        withLayoutAndProtection(CreateSubject, { allowedTypes: ["admin"] })
+      )}
+    />
 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/all_subjects/create_subject`}
-  element={React.createElement(withLayoutAndProtection(CreateSubject, { allowedTypes: ['admin'] }))}
-/>
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/all_subjects/create_subject`}
+      element={React.createElement(
+        withLayoutAndProtection(CreateSubject, { allowedTypes: ["admin"] })
+      )}
+    />
 
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/all_subjects/create_chapters/:class_id/:subject_id`}
+      element={React.createElement(
+        withLayoutAndProtection(CreateChapters, { allowedTypes: ["admin"] })
+      )}
+    />
 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/all_subjects/create_chapters/:class_id/:subject_id`}
-  element={React.createElement(withLayoutAndProtection(CreateChapters, { allowedTypes: ['admin'] }))}
-/>
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/all_classes/all_subjects/:class_id/:subject_id/:chapter_id/create_videos`}
+      element={React.createElement(
+        withLayoutAndProtection(CreateVideos, { allowedTypes: ["admin"] })
+      )}
+    />
 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/all_classes/all_subjects/:class_id/:subject_id/:chapter_id/create_videos`}
-  element={React.createElement(withLayoutAndProtection(CreateVideos, { allowedTypes: ['admin'] }))}
-/>
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/assessments`}
+      element={React.createElement(
+        withLayoutAndProtection(Assessments, { allowedTypes: ["admin"] })
+      )}
+    />
 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/assessments`}
-  element={React.createElement(withLayoutAndProtection(Assessments, { allowedTypes: ['admin'] }))}
-/>
-    
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/assessments/all_questions`}
-  element={React.createElement(withLayoutAndProtection(AllQuestions, { allowedTypes: ['admin'] }))}
-/>
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/assessments/all_questions`}
+      element={React.createElement(
+        withLayoutAndProtection(AllQuestions, { allowedTypes: ["admin"] })
+      )}
+    />
 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/assessments/create_question`}
-  element={React.createElement(withLayoutAndProtection(CreateQuestion, { allowedTypes: ['admin'] }))}
-/>
-  
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/assessments/create_assessments`}
-  element={React.createElement(withLayoutAndProtection(CreateAssessments, { allowedTypes: ['admin'] }))}
-/>
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/assessments/create_question`}
+      element={React.createElement(
+        withLayoutAndProtection(CreateQuestion, { allowedTypes: ["admin"] })
+      )}
+    />
 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/assessments/add-question-to-assessment`}
-  element={React.createElement(withLayoutAndProtection(AddQuestionsToAssessment, { allowedTypes: ['admin'] }))}
-/>
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/assessments/create_assessments`}
+      element={React.createElement(
+        withLayoutAndProtection(CreateAssessments, { allowedTypes: ["admin"] })
+      )}
+    />
 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/assessments/:subject_id/list`}
-  element={React.createElement(withLayoutAndProtection(ViewAssessments, { allowedTypes: ['admin'] }))}
-/>
-   
-   
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/assessments/results/student_wise_assessment_result/:assessment_id`}
-  element={React.createElement(withLayoutAndProtection(StudentResultAssessment, { allowedTypes: ['admin'] }))}
-/>
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/assessments/add-question-to-assessment`}
+      element={React.createElement(
+        withLayoutAndProtection(AddQuestionsToAssessment, {
+          allowedTypes: ["admin"],
+        })
+      )}
+    />
 
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/assessments/:subject_id/list`}
+      element={React.createElement(
+        withLayoutAndProtection(ViewAssessments, { allowedTypes: ["admin"] })
+      )}
+    />
 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/assessments/:subjectId/results`}
-  element={React.createElement(withLayoutAndProtection(SubjectAssessmentResults, { allowedTypes: ['admin'] }))}
-/>
-   
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/assessments/assessment_details/:assessmentId`}
-  element={React.createElement(withLayoutAndProtection(SingleAssessmentDetails, { allowedTypes: ['admin'] }))}
-/>
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/assessments/results/student_wise_assessment_result/:assessment_id`}
+      element={React.createElement(
+        withLayoutAndProtection(StudentResultAssessment, {
+          allowedTypes: ["admin"],
+        })
+      )}
+    />
 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/tests/create_question`}
-  element={React.createElement(withLayoutAndProtection(CreateQuestion, { allowedTypes: ['admin'] }))}
-/>
-    
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/tests/all_questions`}
-  element={React.createElement(withLayoutAndProtection(AllQuestions, { allowedTypes: ['admin'] }))}
-/>
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/assessments/:subjectId/results`}
+      element={React.createElement(
+        withLayoutAndProtection(SubjectAssessmentResults, {
+          allowedTypes: ["admin"],
+        })
+      )}
+    />
 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/tests/create_test`}
-  element={React.createElement(withLayoutAndProtection(CreateTest, { allowedTypes: ['admin'] }))}
-/>
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/assessments/assessment_details/:assessmentId`}
+      element={React.createElement(
+        withLayoutAndProtection(SingleAssessmentDetails, {
+          allowedTypes: ["admin"],
+        })
+      )}
+    />
 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/tests/add_question_to_test`}
-  element={React.createElement(withLayoutAndProtection(AddQuestionsToTest, { allowedTypes: ['admin'] }))}
-/>
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/all_labs`}
-  element={React.createElement(withLayoutAndProtection(AllLabs, { allowedTypes: ['admin'] }))}
-/>
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/tests/create_question`}
+      element={React.createElement(
+        withLayoutAndProtection(CreateQuestion, { allowedTypes: ["admin"] })
+      )}
+    />
 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/all-tasks/:projectId`}
-  element={React.createElement(withLayoutAndProtection(AllTasks, { allowedTypes: ['admin'] }))}
-/>
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/tests/all_questions`}
+      element={React.createElement(
+        withLayoutAndProtection(AllQuestions, { allowedTypes: ["admin"] })
+      )}
+    />
 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/tests/test_details/:testId`}
-  element={React.createElement(withLayoutAndProtection(SingleTestDetails, { allowedTypes: ['admin'] }))}
-/>
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/tests/test_results/:testId`}
-  element={React.createElement(withLayoutAndProtection(TestResult, { allowedTypes: ['admin'] }))}
-/>
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/mini_projects`}
-  element={React.createElement(withLayoutAndProtection(MiniProjects, { allowedTypes: ['admin'] }))}
-/> 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/mini_projects/create_project`}
-  element={React.createElement(withLayoutAndProtection(CreateProject, { allowedTypes: ['admin'] }))}
-/> 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/mini_projects/create_project_task/:projectId`}
-  element={React.createElement(withLayoutAndProtection(CreateProjectTask, { allowedTypes: ['admin'] }))}
-/> 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/all_labs/edit-e-labs/:id`}
-  element={React.createElement(withLayoutAndProtection(EditLab, { allowedTypes: ['admin'] }))}
-/> 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/payments`}
-  element={React.createElement(withLayoutAndProtection(Payments, { allowedTypes: ['admin'] }))}
-/> 
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/tests/create_test`}
+      element={React.createElement(
+        withLayoutAndProtection(CreateTest, { allowedTypes: ["admin"] })
+      )}
+    />
 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/schools/edit-school-profile/:id`}
-  element={React.createElement(withLayoutAndProtection(EditSchoolProfile, { allowedTypes: ['admin'] }))}
-/>  
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/edit-school-profile/:id`}
-  element={React.createElement(withLayoutAndProtection(EditSchoolProfile, { allowedTypes: ['admin'] }))}
-/> 
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/tests/add_question_to_test`}
+      element={React.createElement(
+        withLayoutAndProtection(AddQuestionsToTest, { allowedTypes: ["admin"] })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/all_labs`}
+      element={React.createElement(
+        withLayoutAndProtection(AllLabs, { allowedTypes: ["admin"] })
+      )}
+    />
 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/school/class/:classId/results`}
-  element={React.createElement(withLayoutAndProtection(ClassResults, { allowedTypes: ['admin'] }))}
-/> 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/admin/class/:classId/results1`}
-  element={React.createElement(withLayoutAndProtection(ClassSubjectWiseResults, { allowedTypes: ['admin'] }))}
-/> 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/tests/:classId/results1`}
-  element={React.createElement(withLayoutAndProtection(ClassSubjectWiseResults, { allowedTypes: ['admin'] }))}
-/> 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/addInternship`}
-  element={React.createElement(withLayoutAndProtection(AddInternship, { allowedTypes: ['admin'] }))}
-/> 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/viewInternship`}
-  element={React.createElement(withLayoutAndProtection(ViewInternship, { allowedTypes: ['admin'] }))}
-/> 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/internshipTasks/:internshipId`}
-  element={React.createElement(withLayoutAndProtection(InternshipTasks, { allowedTypes: ['admin'] }))}
-/> 
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/all-tasks/:projectId`}
+      element={React.createElement(
+        withLayoutAndProtection(AllTasks, { allowedTypes: ["admin"] })
+      )}
+    />
 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/create_internship_task/:internshipId`}
-  element={React.createElement(withLayoutAndProtection(CreateInternshipTask, { allowedTypes: ['admin'] }))}
-/> 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/viewInternship`}
-  element={React.createElement(withLayoutAndProtection(ViewInternship, { allowedTypes: ['admin'] }))}
-/> 
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/tests/test_details/:testId`}
+      element={React.createElement(
+        withLayoutAndProtection(SingleTestDetails, { allowedTypes: ["admin"] })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/tests/test_results/:testId`}
+      element={React.createElement(
+        withLayoutAndProtection(TestResult, { allowedTypes: ["admin"] })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/mini_projects`}
+      element={React.createElement(
+        withLayoutAndProtection(MiniProjects, { allowedTypes: ["admin"] })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/mini_projects/create_project`}
+      element={React.createElement(
+        withLayoutAndProtection(CreateProject, { allowedTypes: ["admin"] })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/mini_projects/create_project_task/:projectId`}
+      element={React.createElement(
+        withLayoutAndProtection(CreateProjectTask, { allowedTypes: ["admin"] })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/all_labs/edit-e-labs/:id`}
+      element={React.createElement(
+        withLayoutAndProtection(EditLab, { allowedTypes: ["admin"] })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/payments`}
+      element={React.createElement(
+        withLayoutAndProtection(Payments, { allowedTypes: ["admin"] })
+      )}
+    />
 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/default-user-profile`}
-  element={React.createElement(withLayoutAndProtection(Defaultuserprofile, { allowedTypes: ['admin'] }))}
-/> 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/ebooks/preview_ebook/:ebook_id`}
-  element={React.createElement(withLayoutAndProtection(PreviewEbook, { allowedTypes: ['admin'] }))}
-/> 
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/schools/edit-school-profile/:id`}
+      element={React.createElement(
+        withLayoutAndProtection(EditSchoolProfile, { allowedTypes: ["admin"] })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/edit-school-profile/:id`}
+      element={React.createElement(
+        withLayoutAndProtection(EditSchoolProfile, { allowedTypes: ["admin"] })
+      )}
+    />
 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/editor/:type/:redirecting_id/:type_id/:labId`}
-  element={React.createElement(withLayoutAndProtection(Editor1, { allowedTypes: ['admin'] }))}
-/> 
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/school/class/:classId/results`}
+      element={React.createElement(
+        withLayoutAndProtection(ClassResults, { allowedTypes: ["admin"] })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/admin/class/:classId/results1`}
+      element={React.createElement(
+        withLayoutAndProtection(ClassSubjectWiseResults, {
+          allowedTypes: ["admin"],
+        })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/tests/:classId/results1`}
+      element={React.createElement(
+        withLayoutAndProtection(ClassSubjectWiseResults, {
+          allowedTypes: ["admin"],
+        })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/addInternship`}
+      element={React.createElement(
+        withLayoutAndProtection(AddInternship, { allowedTypes: ["admin"] })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/viewInternship`}
+      element={React.createElement(
+        withLayoutAndProtection(ViewInternship, { allowedTypes: ["admin"] })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/internshipTasks/:internshipId`}
+      element={React.createElement(
+        withLayoutAndProtection(InternshipTasks, { allowedTypes: ["admin"] })
+      )}
+    />
 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/all_classes/all_subjects/:class_id`}
-  element={React.createElement(withLayoutAndProtection(AllSubjects, { allowedTypes: ['admin'] }))}
-/> 
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/create_internship_task/:internshipId`}
+      element={React.createElement(
+        withLayoutAndProtection(CreateInternshipTask, {
+          allowedTypes: ["admin"],
+        })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/viewInternship`}
+      element={React.createElement(
+        withLayoutAndProtection(ViewInternship, { allowedTypes: ["admin"] })
+      )}
+    />
 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/all_classes/results/:subjectId`}
-  element={React.createElement(withLayoutAndProtection(SubjectsResult, { allowedTypes: ['admin'] }))}
-/> 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/all_classes/all_subjects/all_chapters/:subject_id`}
-  element={React.createElement(withLayoutAndProtection(AllChapters, { allowedTypes: ['admin'] }))}
-/> 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/assessments/all_chapters_assessment/:subject_id`}
-  element={React.createElement(withLayoutAndProtection(AllChaptersAssessment, { allowedTypes: ['admin'] }))}
-/>    
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/assessments/results/all_assessment_result_video_wise/:assessment_id`}
-  element={React.createElement(withLayoutAndProtection(AssessmentListVideoWise, { allowedTypes: ['admin'] }))}
-/>   
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/tests`}
-  element={React.createElement(withLayoutAndProtection(Tests, { allowedTypes: ['admin'] }))}
-/>   
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/school/students/edit-student-profile/:id`}
-  element={React.createElement(withLayoutAndProtection(EditStudentProfile, { allowedTypes: ['admin'] }))}
-/>   
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/school/class/:classId/results`}
-  element={React.createElement(withLayoutAndProtection(ClassResults, { allowedTypes: ['admin'] }))}
-/>  
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/student/:studentId/results/:testId`}
-  element={React.createElement(withLayoutAndProtection(TestResultDetails, { allowedTypes: ['admin'] }))}
-/>  
- 
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/default-user-profile`}
+      element={React.createElement(
+        withLayoutAndProtection(Defaultuserprofile, { allowedTypes: ["admin"] })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/ebooks/preview_ebook/:ebook_id`}
+      element={React.createElement(
+        withLayoutAndProtection(PreviewEbook, { allowedTypes: ["admin"] })
+      )}
+    />
+
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/editor/:type/:redirecting_id/:type_id/:labId`}
+      element={React.createElement(
+        withLayoutAndProtection(Editor1, { allowedTypes: ["admin"] })
+      )}
+    />
+
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/all_classes/all_subjects/:class_id`}
+      element={React.createElement(
+        withLayoutAndProtection(AllSubjects, { allowedTypes: ["admin"] })
+      )}
+    />
+
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/all_classes/results/:subjectId`}
+      element={React.createElement(
+        withLayoutAndProtection(SubjectsResult, { allowedTypes: ["admin"] })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/all_classes/all_subjects/all_chapters/:subject_id`}
+      element={React.createElement(
+        withLayoutAndProtection(AllChapters, { allowedTypes: ["admin"] })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/assessments/all_chapters_assessment/:subject_id`}
+      element={React.createElement(
+        withLayoutAndProtection(AllChaptersAssessment, {
+          allowedTypes: ["admin"],
+        })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/assessments/results/all_assessment_result_video_wise/:assessment_id`}
+      element={React.createElement(
+        withLayoutAndProtection(AssessmentListVideoWise, {
+          allowedTypes: ["admin"],
+        })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/tests`}
+      element={React.createElement(
+        withLayoutAndProtection(Tests, { allowedTypes: ["admin"] })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/school/students/edit-student-profile/:id`}
+      element={React.createElement(
+        withLayoutAndProtection(EditStudentProfile, { allowedTypes: ["admin"] })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/school/class/:classId/results`}
+      element={React.createElement(
+        withLayoutAndProtection(ClassResults, { allowedTypes: ["admin"] })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/student/:studentId/results/:testId`}
+      element={React.createElement(
+        withLayoutAndProtection(TestResultDetails, { allowedTypes: ["admin"] })
+      )}
+    />
+
+    {/* Edit Routes */}
+
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/class/:classId/edit`}
+      element={React.createElement(
+        withLayoutAndProtection(EditClass, { allowedTypes: ["admin"] })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/subject/:subjectId/edit`}
+      element={React.createElement(
+        withLayoutAndProtection(EditSubject, { allowedTypes: ["admin"] })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/chapter/:chapterId/edit`}
+      element={React.createElement(
+        withLayoutAndProtection(EditChapter, { allowedTypes: ["admin"] })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/video/:videoId/edit`}
+      element={React.createElement(
+        withLayoutAndProtection(EditVideo, { allowedTypes: ["admin"] })
+      )}
+    />
+
   </>
 );
 

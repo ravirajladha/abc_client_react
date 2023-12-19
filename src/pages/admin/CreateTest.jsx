@@ -24,6 +24,7 @@ function CreateTest() {
   const [subjects, setSubjects] = useState([]);
   const [selectedSubject, setSelectedSubject] = useState([]);
   const [selectedTerm, setSelectedTerm] = useState("");
+  const [testDetails, setTestDetails] = useState({});
 
   const [image, setImage] = useState("");
   const [name, setName] = useState("");
@@ -66,8 +67,15 @@ function CreateTest() {
     const selectedValue = e.target.value;
     setSelectedClass(selectedValue);
   };
-  const handleSubjectChange = (e) => {
+  const handleSubjectChange = async (e) => {
     const selectedValue = e.target.value;
+    try {
+      const response = await fetch(baseUrl + `api/get-test-details/${selectedValue}`);
+      const details = await response.json();
+      setTestDetails(details);
+    } catch (error) {
+      console.error("Failed to fetch test details", error);
+    }
     setSelectedSubject(selectedValue);
   };
   const handleTermChange = (e) => {
@@ -75,14 +83,16 @@ function CreateTest() {
   };
 
   useEffect(() => {
-    getSubjects();
+    if (selectedClass) {
+      getSubjects();
+    }
   }, [selectedClass]);
 
   useEffect(() => {
     if (selectedSubject) {
       fetchNumberOfQuestions(selectedSubject);
     }
-  }, [selectedSubject]);
+  }, [selectedSubject]); 
 
   function fetchNumberOfQuestions(subjectId) {
     fetch(`${baseUrl}api/get_number_of_questions/${subjectId}`)
@@ -141,6 +151,7 @@ function CreateTest() {
         setIsSubmitting(false); // Re-enable the submit button
       });
   };
+  const disabledTerms = terms.filter(term => !testDetails[`test_term_${term.id}`]);
 
   return (
     <>
@@ -228,12 +239,24 @@ function CreateTest() {
                             Select Term
                           </label>
                           <br />
-                          <Dropdown
-                            options={terms}
-                            column_name="term"
-                            value={selectedTerm}
-                            onChange={handleTermChange}
-                          />
+                            <select className="form-select" value={selectedTerm} onChange={handleTermChange} required>
+                              { terms.length === 0 ? (
+                                <option disabled value=""> No data found </option>
+                              ) : (
+                                <>
+                                  <option disabled value=""> Select an option </option>
+                                  {terms.map(term => (
+                                      <option
+                                        key={term.id}
+                                        value={term.id}
+                                        disabled={!disabledTerms.some(disabledTerm => disabledTerm.id === term.id)}
+                                      >
+                                        {term.term}
+                                      </option>
+                                    ))}
+                                </>
+                              )}
+                            </select>
                         </div>
                         <div className="col-lg-6">
                           <label className="mont-font fw-600 font-xsss">

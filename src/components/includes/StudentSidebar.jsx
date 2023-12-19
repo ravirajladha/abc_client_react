@@ -25,7 +25,7 @@ const StudentSidebar = () => {
 
   return (
     <>
-      <div className="middle-sidebar-right scroll-bar">
+      <div className="middle-sidebar-right">
         <div className="middle-sidebar-right-content">
           <Profile />
           <Myclass />

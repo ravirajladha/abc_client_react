@@ -148,7 +148,7 @@ function ParentHome() {
                             className="form-select"
                           />
                         </div>
-                        {selectedStudent && studentInfo ? (
+                        {studentInfo && (
                           <div className="col-md-9 d-flex justify-end ">
                             <Link
                               to={"/student/" + selectedStudent}
@@ -158,8 +158,6 @@ function ParentHome() {
                               {"'s Profile"}
                             </Link>
                           </div>
-                        ) : (
-                          <>{loading && <Spinner animation="border" />}</>
                         )}
                       </div>
                     </div>
@@ -254,7 +252,7 @@ function ParentHome() {
                             {studentInfo.video_stats &&
                               studentInfo.video_stats.map((item) => (
                                 <div
-                                  className="col-lg-4 col-sm-6"
+                                  className="col-lg-4 col-md-6"
                                   key={item.subject_id}
                                 >
                                   <ApexChart

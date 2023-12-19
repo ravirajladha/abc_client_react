@@ -12,7 +12,7 @@ import { useContext } from "react";
 
 function Schools() {
   const user = useContext(AuthContext).user;
-console.log("user_detail form shcool",user.user);
+// console.log("user_detail form shcool",user.user);
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const [passwordVisible, setPasswordVisible] = useState(false);
 

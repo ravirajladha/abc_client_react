@@ -34,7 +34,7 @@ function Myclass() {
   const [subjects, setSubjects] = useState([]);
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const user = useContext(AuthContext).user;
-console.log("user_detail form shcool",user.user);
+// console.log("user_detail form shcool",user.user);
 
   useEffect(() => {
     if (user) {
