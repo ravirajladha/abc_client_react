@@ -124,13 +124,14 @@ function AllVideos() {
                       Your browser does not support the video tag.
                     </video>
                     {/* </a> */}
-                    <h4 className="fw-700 font-xs mt-3 mb-1">
-                      {video.video_name}
-                    </h4>
+                    <h4 className="fw-700 font-xs mt-4">{video.video_name}</h4>
                     <div className="row">
                       <div className="col">
+                        <Link to={video.ebook_id ? `/` : `/`} className={`px-3 py-1 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss bg-current mx-2`} disabled>
+                          Ebook
+                        </Link>
                         <Link
-                          to={
+                          to={+
                             video.assessment_id
                               ? `/assessments/assessment_details/${video.assessment_id}`
                               : "#"
@@ -139,7 +140,7 @@ function AllVideos() {
                             !video.assessment_id ? "bg-gray" : "bg-current"
                           }`}
                           disabled={!video.assessment_id}
-                          target="_blank" // Add this line to open in a new tab or window
+                          target="_blank"
                         >
                           Assessments
                         </Link>
@@ -181,7 +182,10 @@ function AllVideos() {
                       </div>
                     </div>
 
-                    {/* <div className="card-body"></div> */}
+                    {/* You can add additional chapter details here */}
+                    <div className="card-body">
+                      {/* Other contents like description, number of videos, etc. */}
+                    </div>
                   </div>
                 </div>
               ))

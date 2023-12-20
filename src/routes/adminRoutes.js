@@ -63,7 +63,7 @@ import EditSubject from "../pages/admin/edit-pages/EditSubject.jsx";
 import EditChapter from "../pages/admin/edit-pages/EditChapter.jsx";
 import EditVideo from "../pages/admin/edit-pages/EditVideo.jsx";
 // const AdminHomeWithLayoutAndProtection = withLayoutAndProtection(AdminHome, { allowedTypes: ['admin'] });
-
+import Settings from "../pages/common/Settings.jsx";
 export const adminRoutes = (
   <>
     {/* <Route
@@ -618,38 +618,13 @@ export const adminRoutes = (
         withLayoutAndProtection(TestResultDetails, { allowedTypes: ["admin"] })
       )}
     />
-
-    {/* Edit Routes */}
-
     <Route
       exact
-      path={`${process.env.PUBLIC_URL}/class/:classId/edit`}
+      path={`${process.env.PUBLIC_URL}/admin/settings`}
       element={React.createElement(
-        withLayoutAndProtection(EditClass, { allowedTypes: ["admin"] })
+        withLayoutAndProtection(Settings, { allowedTypes: ["admin"] })
       )}
     />
-    <Route
-      exact
-      path={`${process.env.PUBLIC_URL}/subject/:subjectId/edit`}
-      element={React.createElement(
-        withLayoutAndProtection(EditSubject, { allowedTypes: ["admin"] })
-      )}
-    />
-    <Route
-      exact
-      path={`${process.env.PUBLIC_URL}/chapter/:chapterId/edit`}
-      element={React.createElement(
-        withLayoutAndProtection(EditChapter, { allowedTypes: ["admin"] })
-      )}
-    />
-    <Route
-      exact
-      path={`${process.env.PUBLIC_URL}/video/:videoId/edit`}
-      element={React.createElement(
-        withLayoutAndProtection(EditVideo, { allowedTypes: ["admin"] })
-      )}
-    />
-
   </>
 );
 

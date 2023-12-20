@@ -1371,6 +1371,8 @@ class Root extends Component {
               }
             />
 
+            
+
             <Route
               exact
               path={`${process.env.PUBLIC_URL}/parent/add_student`}

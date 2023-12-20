@@ -31,60 +31,55 @@ function AllTasks() {
   }, [projectId]);
   return (
     <>
-  
-
-          <div className="middle-sidebar-bottom theme-dark-bg">
-            <div className="middle-sidebar-left">
-              <div className="row">
-                <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
-                  <div>
-                    <h2 className="fw-400 font-lg d-block">
-                      All <b> E-Labs</b>
-                    </h2>
-                  </div>
-                  <div className="float-right">
-                    <Link
-                      to={`/mini_projects/create_project_task/${projectId}`}
-                      className="p-2 me-2 d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1"
-                    >
-                      CREATE TASK
-                    </Link>
-                    <BackButton />
-                  </div>
-                </div>
-                <div className="col-lg-12 mb-3">
-                  <div className="table-content table-responsive">
-                    <table className="table text-center">
-                      <thead className="bg-greyblue rounded-lg">
-                        <tr>
-                          <th className="border-0 p-4 text-left">Id</th>
-                          <th className="border-0 p-4">Name</th>
-                          <th className="border-0 p-4">Description</th>
-                          <th className="border-0 p-4">Duration</th>
-                          <th className="border-0 p-4">Created At</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {tasks.map((lab, index) => (
-                          <tr key={index}>
-                            <td className="text-left">{lab.id}</td>
-                            <td>{lab.name}</td>
-                            <td>{lab.description}</td>
-                            <td>{lab.duration} seconds</td>
-                            <td>
-                              {moment(lab.created_at).format(
-                                "MM/DD/YYYY h:mm:ss a"
-                              )}
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
+      <div className="middle-sidebar-bottom theme-dark-bg">
+        <div className="middle-sidebar-left">
+          <div className="row">
+            <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
+              <div>
+                <h2 className="fw-400 font-lg d-block">
+                  All <b> E-Labs</b>
+                </h2>
+              </div>
+              <div className="float-right">
+                <Link
+                  to={`/mini_projects/create_project_task/${projectId}`}
+                  className="p-2 me-2 d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1"
+                >
+                  CREATE TASK
+                </Link>
+                <BackButton />
               </div>
             </div>
-         
+            <div className="col-lg-12 mb-3">
+              <div className="table-content table-responsive">
+                <table className="table text-center">
+                  <thead className="bg-greyblue rounded-lg">
+                    <tr>
+                      <th className="border-0 p-4 text-left">Id</th>
+                      <th className="border-0 p-4">Name</th>
+                      <th className="border-0 p-4">Description</th>
+                      <th className="border-0 p-4">Created At</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tasks.map((lab, index) => (
+                      <tr key={index}>
+                        <td className="text-left">{lab.id}</td>
+                        <td>{lab.name}</td>
+                        <td>{lab.description}</td>
+                        <td>
+                          {moment(lab.created_at).format(
+                            "MM/DD/YYYY h:mm:ss a"
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );

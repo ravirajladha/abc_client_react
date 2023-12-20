@@ -26,27 +26,25 @@ function EditSchoolProfile() {
         return <SchoolDetailsForm />;
     }
   };
-  
+
   return (
     <>
-   
-          <div className="middle-sidebar-bottom theme-dark-bg">
-            <div className="middle-sidebar-left">
-              <div className="row">
-                <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
-                  <div>
-                    <h2 className="fw-400 font-lg d-block">
-                      School <b> Info</b>{" "}
-                    </h2>
-                  </div>
-                  <div className="float-right">
-                   
-                    <BackButton />
-                  </div>
-                </div>
-                <div className="col-lg-12 mb-3">
-                  <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
-                    <div className="card-body p-lg-5 p-4 w-100 border-0 ">
+      <div className="middle-sidebar-bottom theme-dark-bg">
+        <div className="middle-sidebar-left">
+          <div className="row">
+            <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
+              <div>
+                <h2 className="fw-400 font-lg d-block">
+                  School <b> Info</b>{" "}
+                </h2>
+              </div>
+              <div className="float-right">
+                <BackButton />
+              </div>
+            </div>
+            <div className="col-lg-12 mb-3">
+              <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
+                <div className="card-body p-lg-5 p-4 w-100 border-0 ">
                   <div className="row">
                     <div className="col-md-3 p-0">
                       <Sidebar
@@ -63,8 +61,7 @@ function EditSchoolProfile() {
             </div>
           </div>
         </div>
-        </div>
-       
+      </div>
     </>
   );
 }

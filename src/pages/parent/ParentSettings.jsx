@@ -213,6 +213,7 @@ function ParentSettings() {
                               placeholder="Enter Password"
                               name="password"
                               onChange={handleInputChange}
+                              required
                             />
                           </div>
                         </div>
