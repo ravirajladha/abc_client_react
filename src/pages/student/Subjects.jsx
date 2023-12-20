@@ -138,11 +138,11 @@ function Subjects() {
                                         : {}
                                     }
                                   >
-                                    <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-success d-inline-block text-success mb-1 mr-1">
-                                      {`T${term}`}
+                                    <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-success d-inline-block text-dark mb-1 mr-1">
+                                      {`TERM${term}`}
                                     </span>
-                                    <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-info d-inline-block text-info">
-                                      Score: {getTermScore(value.id, term)} {!isLinkDisabled && <i className="feather-arrow-right"></i>}
+                                    <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-info d-inline-block text-dark">
+                                      Score: {getTermScore(value.id, term)}
                                     </span>
                                   </Link>
                                 </div>

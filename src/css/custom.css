@@ -29,7 +29,7 @@
     }
 
     .video-playlist .videos {
-        height: 70%;
+        height: 100%;
         overflow-y: auto;
     }
 
@@ -56,16 +56,15 @@
         margin-top: .1rem;
         cursor: pointer;
 
-        border-radius: .5rem;
+        /* border-radius: .5rem; */
     }
 
     .video-playlist .videos .video:hover {
-        background-color: #0003;
+        background-color: #98989833;
     }
 
     .video-playlist .videos .video.active {
-        background-color: #0003;
-        color: var(--secondary);
+        background-color: #98989833;
     }
 
     .main-video video {
