@@ -324,6 +324,7 @@ function SubjectStream() {
                             : ""
                         }
                         className="list-inline-item "
+                        style={{marginRight:0}}
                       >
                         {/* <div className="messages-content chat-wrapper scroll-bar p-3"
                                                     style={{ height: 400 }}> */}
@@ -365,7 +366,7 @@ function SubjectStream() {
                                         <Accordion.Header>
                                           {chapter.chapter_name}
                                         </Accordion.Header>
-                                        <Accordion.Body className="py-0">
+                                        <Accordion.Body style={{padding:0}}>
                                           {allSubjectData.videos &&
                                             allSubjectData.videos.map(
                                               (video, videoIndex) => {
@@ -385,10 +386,10 @@ function SubjectStream() {
                                                   //   (elab) =>
                                                   //     elab.video_id == video.id
                                                   // );
-
+                                                  const isActive = video.id === activeVideoId;
                                                   return (
                                                     <div
-                                                      className="card-body d-flex p-1 video"
+                                                      className={`card-body d-flex p-1 video ${isActive ? 'active' : ''}`}
                                                       data-id={video.id}
                                                       key={video.id}
                                                       onClick={() =>
@@ -402,42 +403,45 @@ function SubjectStream() {
                                                       }
                                                     >
                                                       <i className="feather-play-circle mr-3 font-lg"></i>
-                                                      <div className="d-flex flex-column">
+                                                      <div className="d-flex flex-column"
+                                                      style={{width:'100%'}}>
                                                         <div>
-                                                          <span className="bg-current btn-round-xs rounded-lg font-xssss text-white fw-600">
-                                                            {videoIndex + 1}
-                                                          </span>
-                                                          <span className="font-xssss fw-500 text-grey-500 ml-2">
+                                                          
+                                                          <span className="font-xsss fw-500 text-dark-500 ml-2">
                                                             {video.video_name}
                                                           </span>
                                                         </div>
-                                                        <div className="d-flex justify-content-between">
+                                                        <div className="d-flex justify-content-between mt-2">
                                                           {video.assessment_id && (
                                                             <div
-                                                              className="border-size-sm rounded-sm px-1 mx-1"
+                                                              className="border-0 rounded-sm mx-1 px-2"
                                                               style={{
                                                                 border:
                                                                   "1px solid #000",
+                                                                  backgroundColor:"#ffad39",
+                                                                  boxShadow: "0 3px 4px rgba(0, 0, 0, 0.2)"
                                                               }}
                                                             >
                                                               <Link
-                                                                className="font-xssss"
+                                                                className="font-xssss text-white"
                                                                 to={`/subject_stream/take_assessments/${video.assessment_id}`}
                                                               >
-                                                                Assessments
+                                                                Assessment
                                                               </Link>
                                                             </div>
                                                           )}
                                                           {hasEBook && (
                                                             <div
-                                                              className="border-size-sm rounded-sm px-1 mx-1"
+                                                              className="border-0 rounded-sm mx-1 px-2"
                                                               style={{
                                                                 border:
                                                                   "1px solid #000",
+                                                                  backgroundColor:"#ffad39",
+                                                                  boxShadow: "0 3px 4px rgba(0, 0, 0, 0.2)"
                                                               }}
                                                             >
                                                               <Link
-                                                                className="font-xssss"
+                                                                className="font-xssss text-white"
                                                                 to={`/subject_stream/ebook/${video.id}`}
                                                               >
                                                                 EBook
@@ -446,14 +450,16 @@ function SubjectStream() {
                                                           )}
                                                           {video.lab_link && (
                                                             <div
-                                                              className="border-size-sm rounded-sm px-1 mx-1"
+                                                              className="border-0 rounded-sm px-1 mx-1 px-2"
                                                               style={{
                                                                 border:
                                                                   "1px solid #000",
+                                                                  backgroundColor:"#ffad39",
+                                                                  boxShadow: "0 3px 4px rgba(0, 0, 0, 0.2)"
                                                               }}
                                                             >
                                                               <Link
-                                                                className="font-xssss"
+                                                                className="font-xssss text-white"
                                                                 to={`/editor_practicse/2/${subjectId}/${video.id}/${video.lab_link}`}
                                                               >
                                                                 ELab
@@ -475,7 +481,7 @@ function SubjectStream() {
                                                                   }}
                                                                 >
                                                                   <Link
-                                                                    className="font-xssss"
+                                                                    className="font-xssss text-white"
                                                                     to={`/ebooks/preview_ebook/${
                                                                       video.ebook_id
                                                                     }#${generateId(
@@ -533,37 +539,24 @@ function SubjectStream() {
                       </Tab>
                     </Tabs>
                   </div>
+                  <h5 className="btn-round mb-2 text-center rounded-lg bg-white p-2 text-dark shadow-md fw-500">
+                          Live Doubt Clearing
+                  </h5>
                 </div>
 
                 <div className="col-xl-12 col-xxl-12">
                   <div className="card d-block border-0 rounded-lg overflow-hidden dark-bg-transparent bg-transparent mt-4 pb-4">
                     <div className="row">
                       <div className="col-8">
-                        {/* {allSubjectData && allSubjectData.video_details ? (
-                                                        <h2 className="fw-700 font-md d-block lh-4 mb-2 title">
-                                                    {allSubjectData && allSubjectData.video_details.video_name }</h2>
-                                                    )
-                                                    
-                                                : ""} */}
+                        
                         <h2 className="fw-700 font-md d-block lh-4 mb-2 title">
                           {mainVideoTitle}
                         </h2>
                       </div>
-                      <div className="col-4 ">
-                        <h5 className="btn-round ml-3 mb-2 d-inline-block float-right rounded-lg bg-danger p-2 text-white">
-                          Live Doubt Clearing
-                        </h5>
-
-                        <div
-                          className="dropdown-menu dropdown-menu-right p-3 border-0 shadow-xss"
-                          aria-labelledby="dropdownMenu2"
-                        ></div>
-                      </div>
+                      
                     </div>
 
-                    <span className="font-xssss fw-700 text-grey-900 d-inline-block ml-0 text-dark">
-                      Teacher name
-                    </span>
+                    
                   </div>
                 </div>
                 <div className="col-xl-8 col-xxl-8 col-lg-8">
@@ -649,7 +642,7 @@ function SubjectStream() {
                     </div>
                   </div> */}
                 </div>
-                <div className="col-xl-12 col-xxl-12 col-lg-12">
+                {/* <div className="col-xl-12 col-xxl-12 col-lg-12">
                   <div className="card d-block border-0 rounded-lg overflow-hidden p-4 shadow-xss mt-4 bg-lightblue">
                     {allSubjectData && allSubjectData.test ? (
                       allSubjectData.test_result &&
@@ -684,13 +677,11 @@ function SubjectStream() {
                       </a>
                     )}
                   </div>
-                </div>
+                </div> */}
                 <div className="col-lg-12 pt-2 mt-2">
                   <h2 className="fw-400 font-lg d-block">
                     Mini <b>Projects</b>{" "}
-                    <a href="#" className="float-right">
-                      <i className="feather-edit text-grey-500 font-xs"></i>
-                    </a>
+                    
                   </h2>
                   {/* <div className="owl-carousel category-card owl-theme overflow-hidden overflow-visible-xl nav-none"> */}
                   <Carousel
@@ -746,45 +737,7 @@ function SubjectStream() {
                     )}
                   </Carousel>
                 </div>
-                <div className="col-lg-12 pt-2 mt-2">
-                  <h2 className="fw-400 font-lg d-block">
-                    My <b>Assesments</b>{" "}
-                    <a href="#" className="float-right">
-                      <i className="feather-edit text-grey-500 font-xs"></i>
-                    </a>
-                  </h2>
-                  <Carousel
-                    responsive={responsive}
-                    autoPlay={false}
-                    infinite={true}
-                    className="owl-carousel category-card owl-theme"
-                  >
-                    {allSubjectData &&
-                    allSubjectData.assesments_given &&
-                    allSubjectData.assesments_given.length > 0 ? (
-                      allSubjectData &&
-                      allSubjectData.assesments_given.map((assesment, id) => (
-                        <div className="item" key={id}>
-                          <div className="card w200 d-block border-0 shadow-xss rounded-lg overflow-hidden mb-4">
-                            <div className="card-body d-block w-100 pl-4 pr-4 pb-4 text-center">
-                              <div className="clearfix"></div>
-                              <h4 className="fw-700 font-xsss mt-3 mb-1">
-                                <a
-                                  href="/view_assesment_results/{{$assesments_given->id}}"
-                                  className="text-dark text-grey-900"
-                                >
-                                  {assesment.video_name}
-                                </a>
-                              </h4>
-                            </div>
-                          </div>
-                        </div>
-                      ))
-                    ) : (
-                      <div>No Assesments Available</div>
-                    )}
-                  </Carousel>
-                </div>
+                
               </div>
             </div>
             <StudentSidebar />
