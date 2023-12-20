@@ -628,7 +628,7 @@ export const adminRoutes = (
         withLayoutAndProtection(Settings, { allowedTypes: ["admin"] })
       )}
     />
-    
+
     {/* Edit Routes */}
 
     <Route
@@ -662,6 +662,13 @@ export const adminRoutes = (
     <Route
       exact
       path={`${process.env.PUBLIC_URL}/tests/test/:testId/edit`}
+      element={React.createElement(
+        withLayoutAndProtection(EditTest, { allowedTypes: ["admin"] })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/test-question/:testQuestionId/edit`}
       element={React.createElement(
         withLayoutAndProtection(EditTest, { allowedTypes: ["admin"] })
       )}
