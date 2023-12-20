@@ -9,15 +9,18 @@ import "react-toastify/dist/ReactToastify.css";
 import BackButton from "../../components/navigation/BackButton";
 import { AuthContext } from "../../lib/AuthContext.js";
 import { useContext } from "react";
+import Loader from "../../components/common/Loader.jsx";
+import NoContent from "../../components/common/NoContent.jsx";
 
 function Schools() {
   const user = useContext(AuthContext).user;
-// console.log("user_detail form shcool",user.user);
   const baseUrl = process.env.REACT_APP_BASE_URL;
-  const [passwordVisible, setPasswordVisible] = useState(false);
 
-  // New state for the form and modal visibility
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [schools, setSchools] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -28,19 +31,17 @@ function Schools() {
     getSchools();
   }, []);
 
-  const [schools, setSchools] = useState([]);
   function getSchools() {
     let result = fetch(baseUrl + "api/get_schools").then(function (result) {
       result.json().then(function (jsonbody) {
-        //console.warn(jsonbody);
         setSchools(jsonbody);
+        setIsLoading(false);
       });
     });
   }
 
   const handleShowModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const handleFormChange = (e) => {
     const { name, value } = e.target;
     setForm((prevState) => ({ ...prevState, [name]: value }));
@@ -64,17 +65,15 @@ function Schools() {
       toast.error("Failed to add school");
       console.error("Error adding school:", error.response || error);
     } finally {
-      setIsSubmitting(false); // Re-enable the submit button
+      setIsSubmitting(false);
     }
   };
 
   return (
     <>
       <ToastContainer />
-      {/* Modal for adding a school */}
-      <Modal show={showModal} onHide={handleCloseModal} >
-        {/* <Modal.Header closeButton> */}
-        <Modal.Header>
+      <Modal show={showModal} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
           <Modal.Title>Add School</Modal.Title>
           <Button
                 variant="grey"
@@ -183,58 +182,51 @@ function Schools() {
         <div className="main-content menu-active">
           <AppHeader /> */}
 
-          <div className="middle-sidebar-bottom theme-dark-bg">
-            <div className="middle-sidebar-left">
-              <div className="row">
-                <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
-                  <div>
-                    <h2 className="fw-400 font-lg d-block">
-                      All <b> Schools</b>{" "}
-                    </h2>
-                  </div>
-                  <div className="float-right">
-                    <button
-                      onClick={handleShowModal}
-                      className="p-2 px-3 d-inline-block me-2 text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current"
-                    >
-                      Add School
-                    </button>
-                    <BackButton />
-                  </div>
-                </div>
-                {schools
-                  ? schools &&
-                    schools.map((school, index) => (
-                      <div className="col-xl-4 col-lg-6 col-md-6" key={index}>
-                        <div className="card mb-4 d-block w-100 shadow-xss rounded-lg p-xxl-5 p-4 border-0 text-center">
-                          {/* <a
-                            href="#"
-                            className="position-absolute right-0 mr-4 top-0 mt-3"
-                          >
-                            <i className="ti-more text-grey-500 font-xs"></i>
-                          </a> */}
-
-                          <h4 className="fw-700 font-xs mt-4 capitalize">
-                            {school.school_name}
-                          </h4>
-                          <div className="card-footer bg-transparent border-top-0">
-                            <Link
-                              to={`/schools/edit-school-profile/${school.auth_id}`}
-                              className="p-2 mt-4  d-inline-block text-white fw-300 lh-30 rounded-lg w100 text-center font-xsssss ls-3 bg-current"
-                            >
-                              View Detail
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
-                    ))
-                  : ""}
+      <div className="middle-sidebar-bottom theme-dark-bg">
+        <div className="middle-sidebar-left">
+          <div className="row">
+            <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
+              <div>
+                <h2 className="fw-400 font-lg d-block">
+                  All <b> Schools</b>{" "}
+                </h2>
+              </div>
+              <div className="float-right">
+                <button
+                  onClick={handleShowModal}
+                  className="p-2 px-3 d-inline-block me-2 text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current"
+                >
+                  Add School
+                </button>
+                <BackButton />
               </div>
             </div>
+            {isLoading ? (
+              <Loader />
+            ) : schools && schools.length > 0 ? (
+              schools.map((school, index) => (
+                <div className="col-xl-4 col-lg-6 col-md-6" key={index}>
+                  <div className="card mb-4 d-block w-100 shadow-xss rounded-lg p-xxl-5 p-4 border-0 text-center">
+                    <h4 className="fw-700 font-xs mt-4 capitalize">
+                      {school.school_name}
+                    </h4>
+                    <div className="card-footer bg-transparent border-top-0">
+                      <Link
+                        to={`/schools/edit-school-profile/${school.auth_id}`}
+                        className="p-2 mt-4  d-inline-block text-white fw-300 lh-30 rounded-lg w100 text-center font-xsssss ls-3 bg-current"
+                      >
+                        View Detail
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <NoContent contentName="schools" />
+            )}
           </div>
-        {/* </div>
-        <AppFooter />
-      </div> */}
+        </div>
+      </div>
     </>
   );
 }

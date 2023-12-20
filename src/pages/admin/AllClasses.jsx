@@ -5,40 +5,38 @@ import AppFooter from "../../components/includes/AppFooter";
 import { useContext } from "react";
 import { AuthContext } from "../../lib/AuthContext.js";
 import BackButton from "../../components/navigation/BackButton";
+import Loader from "../../components/common/Loader.jsx";
+import NoContent from "../../components/common/NoContent.jsx";
 
 function AllClasses() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const { user } = useContext(AuthContext);
-
   const [classes, setClasses] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    getClasses();
-  }, []);
-  // Define the function as async outside of the conditional block
   async function getClasses() {
     try {
-      // Determine the URL based on the user type
       const url =
         user.user.type !== "teacher"
           ? `${baseUrl}api/get_classes`
           : `${baseUrl}api/getTeacherClasses/${user.user.id}`;
-
-      // Fetch the classes
       const response = await fetch(url);
       if (!response.ok) {
-        // If the response is not OK, throw an error to be caught below
         throw new Error("Network response was not ok.");
       }
       const data = await response.json();
-      console.warn(data); // Consider changing to console.log for production
+      console.warn(data);
       setClasses(data);
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching classes:", error);
+      setLoading(false);
     }
   }
 
-  // Call the function based on your app's logic, for example in useEffect hook if this is inside a component
+  useEffect(() => {
+    getClasses();
+  }, []);
 
   return (
     <>
@@ -63,11 +61,12 @@ function AllClasses() {
                 ) : (
                   ""
                 )}
-
                 <BackButton />
               </div>
             </div>
-            {classes.length > 0 ? (
+            {loading ? (
+              <Loader />
+            ) : classes.length > 0 ? (
               classes.map((singleClass, index) => (
                 <div className="col-xl-4 col-lg-6 col-md-6" key={index}>
                   <div className="card mb-4 shadow-xss rounded-lg p-xxl-5 p-4 border-0 text-center">
@@ -102,9 +101,7 @@ function AllClasses() {
                 </div>
               ))
             ) : (
-              <h2 className="fw-400 font-lg d-block text-center">
-                Loading classes...
-              </h2>
+              <NoContent contentName="classes" />
             )}
           </div>
         </div>

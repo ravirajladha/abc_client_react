@@ -4,6 +4,8 @@ import AppHeader from "../../components/includes/AppHeader";
 import AppFooter from "../../components/includes/AppFooter";
 import BackButton from "../../components/navigation/BackButton";
 import DynamicLink from "../../components/navigation/DynamicLink";
+import Loader from "../../components/common/Loader.jsx";
+import NoContent from "../../components/common/NoContent.jsx";
 
 function AllVideos() {
   const navigate = useNavigate();
@@ -94,9 +96,7 @@ function AllVideos() {
             </div>
 
             {isLoading ? (
-              <h2 className="fw-400 font-lg d-block text-center">
-                Loading contents...
-              </h2>
+              <Loader />
             ) : videos.length > 0 ? (
               videos.map((video, index) => (
                 <div className="col-xl-4 col-lg-6 col-md-6" key={index}>
@@ -119,12 +119,20 @@ function AllVideos() {
                     <h4 className="fw-700 font-xs mt-4">{video.video_name}</h4>
                     <div className="row">
                       <div className="col">
-                        <Link to={video.ebook_id ? `/` : `/`} className={`px-3 py-1 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss bg-current mx-2`} disabled>
+                        <Link
+                          to={
+                            video.ebook_id
+                              ? `/ebooks/preview_ebook/${video.ebook_id}`
+                              : `#`
+                          }
+                          className={`px-3 py-1 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss bg-current mx-2`}
+                          disabled
+                        >
                           Ebook
                         </Link>
                         <Link
-                          to={+
-                            video.assessment_id
+                          to={
+                            +video.assessment_id
                               ? `/assessments/assessment_details/${video.assessment_id}`
                               : "#"
                           }
@@ -182,8 +190,7 @@ function AllVideos() {
                 </div>
               ))
             ) : (
-              // If data is loaded and there are no videos, display a message saying so
-              <h2 className="fw-400 font-lg d-block text-center">No videos</h2>
+              <NoContent contentName="videos"/>
             )}
           </div>
         </div>
