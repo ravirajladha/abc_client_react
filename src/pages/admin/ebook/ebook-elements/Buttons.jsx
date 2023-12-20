@@ -30,18 +30,8 @@ function Buttons({element}) {
                         <div className="d-flex justify-content-evenly">
                             {buttonTexts.slice(0, Math.ceil(columnCount / 2)).map((item, key) => (
                                 <div
-                                    key={key}
-                                    style={{
-                                        background: "url('/assets_ebook/images/BOTTON.jpg') no-repeat center center",
-                                        backgroundSize: 'contain',
-                                        height: '4em',
-                                        width: '100%',
-                                        borderLeft: '0',
-                                        display: 'flex',
-                                        justifyContent: 'center',
-                                        alignItems: 'center',
-                                        margin: '0px 10px',
-                                    }}
+                                    key={key} className='fliper'
+                                    
                                 >
                                     {item}
                                 </div>

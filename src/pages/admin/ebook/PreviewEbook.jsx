@@ -42,6 +42,13 @@ import BackButton from "../../../components/navigation/BackButton";
 function PreviewEbook() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const { ebook_id } = useParams();
+// Define a state for toggling the navigation menu
+const [isNavOpen, setNavOpen] = useState(false);
+
+// Toggle function
+const toggleNav = () => {
+  setNavOpen(!isNavOpen);
+};
   const location = useLocation();
 
   const [ebookModules, setEbookModules] = useState([]);
@@ -145,6 +152,7 @@ function PreviewEbook() {
     );
   }
 
+
   return (
     <>
       {/* <!-- Bootstrap 5 Core CSS --> */}
@@ -215,6 +223,7 @@ function PreviewEbook() {
       />
 
       {/* <div id="#top"></div> */}
+      <div className="doc-body doc-white-body">
 
       <nav
         id="nav-scroll"
@@ -222,18 +231,16 @@ function PreviewEbook() {
         style={{ maxHeight: "100vh", overflowY: "auto" }}
       >
         <button
-          className="navbar-toggler collapsed"
+          className={`navbar-toggler ${isNavOpen ? '' : 'collapsed'}`}
+          onClick={toggleNav}
           type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbar-toggle"
-          aria-controls="navbar-toggle"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
+          
         >
           <span className="icon-bar top-bar"></span>
           <span className="icon-bar middle-bar"></span>
           <span className="icon-bar bottom-bar"></span>
         </button>
+        <div className={`collapse navbar-collapse ${isNavOpen ? 'show' : ''}`} id="navbar-toggle">
 
         <Accordion
           defaultActiveKey="0"
@@ -277,6 +284,7 @@ function PreviewEbook() {
             ></Accordion.Item>
           )}
         </Accordion>
+        </div>
       </nav>
       <div className="page-container">
         <div className="doc-container">
@@ -499,6 +507,7 @@ function PreviewEbook() {
               ))
             : ""}
         </div>
+      </div>
       </div>
 
       {/* <!-- Core JavaScript --> */}
