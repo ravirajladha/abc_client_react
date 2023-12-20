@@ -13,12 +13,14 @@ function Students() {
   const tableRef = useRef(null);
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const [students, setStudents] = useState([]);
+  const { id: schoolId } = useParams();
 
   const getStudents = () => {
     return new Promise((resolve, reject) => {
-      fetch(`${baseUrl}api/admin/api_get_all_students`)
+      fetch(`${baseUrl}api/school/api_get_school_students?school_id=${schoolId}`)
         .then((result) => result.json())
         .then((jsonbody) => {
+          console.log('JSON Response:', jsonbody);
           setStudents(jsonbody);
           resolve(jsonbody);
         })
@@ -59,11 +61,11 @@ function Students() {
         <thead>
           <tr>
             <th scope="col">Sl. No.</th>
-            <th scope="col">Roll No</th>
+            <th scope="col">Student Id </th>
             <th scope="col">Student Name</th>
-            <th scope="col">Father Name</th>
-            <th scope="col">Mother Name</th>
-            <th scope="col">Student DOB</th>
+            <th scope="col">Class</th>
+
+            <th scope="col">Section</th>
             <th scope="col" className="text-dark">
               Action
             </th>
@@ -75,12 +77,13 @@ function Students() {
               <td>{index + 1}</td>
               <td>{student.auth_id}</td>
               <td>{student.name}</td>
-              <td>{student.user.name}</td>
-              <td>{student.class2 ? student.class2.class : ""}</td>
+              <td>{student.class.class}</td>
+        
               <td>{student.section_id}</td>
               <td className="text-dark">
+        
                 <Link
-                  to={`/edit-teacher/${student.id}`}
+                  to={`/school/students/edit-student-profile-detail/${student.id}`}
                   className="p-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current"
                 >
                   Edit

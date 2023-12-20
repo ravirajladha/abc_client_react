@@ -34,28 +34,29 @@ function Assessments() {
 
   return (
     <>
-      <div className="middle-sidebar-bottom theme-dark-bg">
-        <div className="middle-sidebar-left">
-          <div className="row">
-            <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
-              <div>
-                <h2 className="fw-400 font-lg d-block">
-                  All <b> Assesments</b>
-                </h2>
-              </div>
-              <div className="float-right">
-                <Link
-                  to={"/assessments/create_assessments"}
-                  className="px-3 py-2 me-2 d-inline-block text-white fw-700 lh-30 rounded-lg  uppercase text-center font-xsssss ls-3 bg-current"
-                >
-                  Create Assesments
-                </Link>
-                <Link
-                  to={"/assessments/all_questions"}
-                  className="px-3 py-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1"
-                >
-                  ALL QUESTIONS
-                </Link>
+  
+          <div className="middle-sidebar-bottom theme-dark-bg">
+            <div className="middle-sidebar-left">
+              <div className="row">
+                <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
+                  <div>
+                    <h2 className="fw-400 font-lg d-block">
+                      All <b> Assesments</b>
+                    </h2>
+                  </div>
+                  <div className="float-right">
+                    <Link
+                      to={"/assessments/create_assessments"}
+                      className="px-3 py-2 me-2 d-inline-block text-white fw-700 lh-30 rounded-lg  uppercase text-center font-xsssss ls-3 bg-current"
+                    >
+                      Create Assesments
+                    </Link>
+                    <Link
+                      to={"/assessments/all-assessment-questions"}
+                      className="px-3 py-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1"
+                    >
+                      ALL QUESTIONS
+                    </Link>
 
                 <BackButton />
               </div>

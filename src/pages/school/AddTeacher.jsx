@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from "react";
-import AppHeader from "../../components/includes/AppHeader";
+import React, { useState, useEffect,useContext } from "react";
+
 // import Breadcrumb from "react-bootstrap/Breadcrumb";
 import BackButton from "../../components/navigation/BackButton";
 import { toast, ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../lib/AuthContext";
 
 function AddTeacher() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
-
+  const userDetails = useContext(AuthContext).user;
+console.log("iuser_id",userDetails.user.id);
   const [fields, setFields] = useState([{ className: "", subject: "" }]);
   const [classList, setClassList] = useState([]);
   const [subjectList, setSubjectList] = useState([]);
@@ -96,6 +98,7 @@ function AddTeacher() {
 
     // Append the JSON string to your FormData
     formDataToSend.append("class_and_subject", classAndSubjectJson);
+    formDataToSend.append("created_by", userDetails.user.id);
 
     // Log FormData contents
     for (var pair of formDataToSend.entries()) {
@@ -132,6 +135,7 @@ function AddTeacher() {
           email: "",
           phone: "",
           password: "",
+          created_by: "",
           // class: "",
           // subject: "",
         });

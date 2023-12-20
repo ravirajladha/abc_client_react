@@ -83,14 +83,33 @@ export const parentRoutes = (
       )}
     />
 
-    <Route
-      exact
-      path={`${process.env.PUBLIC_URL}/student/:studentId/assessments/:subjectId`}
-      element={React.createElement(
-        withLayoutAndProtection(StudentAssessmentResults, {
-          allowedTypes: ["parent"],
-        })
-      )}
-    />
-  </>
-);
+
+
+<Route
+  exact
+  path={`${process.env.PUBLIC_URL}/student/:studentId/tests/:subjectId`}
+  element={React.createElement(withLayoutAndProtection(StudentTestResults, { allowedTypes: ['parent'] }))}
+/>
+
+
+
+<Route
+  exact
+  path={`${process.env.PUBLIC_URL}/student/:studentId/assessments/:subjectId`}
+  element={React.createElement(withLayoutAndProtection(StudentAssessmentResults, { allowedTypes: ['parent'] }))}
+/>
+<Route
+  exact
+  path={`${process.env.PUBLIC_URL}/parent/add_student`}
+  element={React.createElement(withLayoutAndProtection(ParentSettings, { allowedTypes: ['parent'] }))}
+/>
+<Route
+  exact
+  path={`${process.env.PUBLIC_URL}/student/:studentId/results/:testId`}
+  element={React.createElement(withLayoutAndProtection(TestResultDetails, { allowedTypes: ['parent'] }))}
+/>
+ 
+            
+
+   </>
+)

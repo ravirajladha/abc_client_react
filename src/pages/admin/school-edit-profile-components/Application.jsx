@@ -264,12 +264,12 @@ function Application() {
                 <td>{application.updated_at}</td>
                 <td>
                   <button
-                    className={`p-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 ${
+                    className={`p-2 d-inline-block text-white fw-700 lh-10 rounded-lg text-center font-xsssss ls-3 ${
                       application.application_status === 1
                         ? "bg-success"
                         : application.application_status === 2
                         ? "bg-danger"
-                        : "bg-current"
+                        : "bg-primary"
                     }`}
                   >
                     {application.application_status === 1
@@ -280,24 +280,30 @@ function Application() {
                   </button>
                 </td>
                 <td>
-                  <select
-                    className="form-select p-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current border-none"
-                    value={application.application_status}
-                    onChange={(e) =>
-                      changeApplicationStatus(index, +e.target.value)
-                    }
-                    aria-label="Select status"
-                  >
-                    <option className="bg-light text-dark" value="0">
-                      Pending
-                    </option>
-                    <option className="bg-light text-dark" value="1">
-                      Approve
-                    </option>
-                    <option className="bg-light text-dark" value="2">
-                      Reject
-                    </option>
-                  </select>
+   
+<select
+  className="form-select p-2 d-inline-block text-dark fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-grey border-none"
+  value={application.application_status}
+  onChange={(e) => changeApplicationStatus(index, +e.target.value)}
+  aria-label="Select status"
+  style={{
+    WebkitAppearance: 'none',
+    MozAppearance: 'none',
+    appearance: 'none',
+    backgroundImage: 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'24\' height=\'24\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'black\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'><polyline points=\'6 9 12 15 18 9\'></polyline></svg>")',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'right -0.1rem center', // Adjust this value to increase the gap
+    backgroundSize: '1.5rem',
+    paddingRight: '-1rem', 
+    padding: '1rem', // Increase padding to make the button larger
+    fontSize: '1rem', // Increase font size if desired /* Ensure padding to prevent text overlap with icon */
+  }}
+>
+  <option className="bg-light text-dark" value="0">Pending&nbsp;</option>
+  <option className="bg-light text-dark" value="1">Approve&nbsp; </option>
+  <option className="bg-light text-dark" value="2">Reject&nbsp; </option>
+</select>
+
                 </td>
               </tr>
             ))}

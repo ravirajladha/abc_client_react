@@ -56,7 +56,7 @@ function AllQuestions() {
     const filterQuestions = (e) => {
 
         console.log(selectedSubject);
-        let result = fetch(baseUrl + 'api/get_questions_by_subject/' + selectedSubject).then(function (result) {
+        let result = fetch(baseUrl + 'api/get_assessment_questions_by_subject/' + selectedSubject).then(function (result) {
             result.json().then(function (jsonbody) {
                 //console.warn(jsonbody);
                 setQuestion(jsonbody);

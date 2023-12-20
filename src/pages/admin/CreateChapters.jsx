@@ -116,10 +116,10 @@ function CreateChapters() {
                                                     ))}
                                                     <button
                                                         type="button"
-                                                        className="btn bg-current mt-2 text-white"
+                                                        className="btn bg-success mt-2 text-white"
                                                         onClick={addChapterField}
                                                     >
-                                                        Add Chapter
+                                                       +
                                                     </button>
                                                 </div>
 

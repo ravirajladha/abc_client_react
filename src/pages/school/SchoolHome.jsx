@@ -2,15 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useContext } from "react";
 import { AuthContext } from "../../lib/AuthContext.js";
 import "react-toastify/dist/ReactToastify.css";
-
-import AppHeader from "../../components/includes/AppHeader";
-import AppFooter from "../../components/includes/AppFooter";
 import DashboardItem from "../../components/common/DashboardItem";
 
 function SchoolHome() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const userDetails = useContext(AuthContext).user;
   const [dashboardInfo, setDashboardInfo] = useState([]);
+ 
 
   useEffect(() => {
     const getDashboard = () => {

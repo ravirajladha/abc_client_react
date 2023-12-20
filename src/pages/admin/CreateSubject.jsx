@@ -1,10 +1,9 @@
 import React, { useRef, useState, useEffect } from "react";
-import AppHeader from "../../components/includes/AppHeader";
-import AppFooter from "../../components/includes/AppFooter";
-import Dropdown from "../../components/inputs/Dropdown";
+import BackButton from "../../components/navigation/BackButton";
+
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function CreateSubject() {
   const navigate = useNavigate();
@@ -48,6 +47,7 @@ function CreateSubject() {
       })
       .then((resp) => {
         setImage("");
+        setSubject("");
         toast.success(resp.msg);
       })
       .catch((err) => {
@@ -61,9 +61,7 @@ function CreateSubject() {
       });
   };
 
-  const goBack = () => {
-    navigate(-1);
-  };
+
 
   return (
     <>
@@ -79,12 +77,7 @@ function CreateSubject() {
                     </h2>
                   </div>
                   <div className="float-right">
-                    <button
-                      onClick={goBack}
-                      className="p-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1"
-                    >
-                      Back
-                    </button>
+                  <BackButton />
                   </div>
                 </div>
                 <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">

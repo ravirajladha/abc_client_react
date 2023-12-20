@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button, Form, InputGroup } from "react-bootstrap";
+import { Modal, Button, Form, InputGroup,CloseButton  } from "react-bootstrap";
 import AppHeader from "../../components/includes/AppHeader";
 import AppFooter from "../../components/includes/AppFooter";
 import { Link } from "react-router-dom";
@@ -72,9 +72,27 @@ function Schools() {
     <>
       <ToastContainer />
       {/* Modal for adding a school */}
-      <Modal show={showModal} onHide={handleCloseModal}>
-        <Modal.Header closeButton>
+      <Modal show={showModal} onHide={handleCloseModal} >
+        {/* <Modal.Header closeButton> */}
+        <Modal.Header>
           <Modal.Title>Add School</Modal.Title>
+          <Button
+                variant="grey"
+                className="p-2  d-inline-block text-white fw-700 lh-30 rounded-xlg  text-center font-xsssss ls-3 bg-current"
+                onClick={handleCloseModal}
+              >
+                X
+              </Button>
+          {/* <CloseButton 
+      onClick={handleCloseModal} 
+      aria-label="Close" 
+      style={{
+        padding: '0.5rem', // Adjust padding as needed
+        margin: '-1rem -1rem -1rem auto', // Adjust margin as needed
+        display: 'block' // Ensure the button is not accidentally hidden
+      }} 
+    /> */}
+          {/* <CloseButton onClick={handleCloseModal} aria-label="Close" /> */}
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit}>
@@ -140,17 +158,18 @@ function Schools() {
             </Form.Group>
 
             <div className="d-flex justify-content-between">
-              <Button
+              {/* <Button
                 variant="secondary"
                 className="p-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current"
                 onClick={handleCloseModal}
               >
                 Close
-              </Button>
+              </Button> */}
+              <div></div>
               <Button
                 variant="primary"
                 disabled={isSubmitting}
-                className="p-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current"
+                className="p-2 px-3 d-inline-block me-2 text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current"
                 type="submit"
               >
                 {isSubmitting ? "Submitting..." : "Submit"}

@@ -8,7 +8,7 @@ import BackButton from "../../components/navigation/BackButton";
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-java";
 import "ace-builds/src-noconflict/theme-github";
-function CreateQuestion() {
+function CreateAssessmentQuestion() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -96,7 +96,7 @@ function CreateQuestion() {
     e.preventDefault();
     setIsSubmitting(true);
     console.log(selectedOption);
-    fetch(baseUrl + "api/create_question", {
+    fetch(baseUrl + "api/create_assessment_question", {
       method: "POST",
       body: formData,
     })
@@ -134,7 +134,7 @@ function CreateQuestion() {
             <div className="card-body p-4 w-100 border-0 d-flex rounded-lg justify-content-between">
               <div className="">
                 <h2 className="fw-400 font-lg d-block">
-                  Create <b> Question</b>{" "}
+                  Create <b> Assessment Question</b>{" "}
                 </h2>
               </div>
               <div className="float-right">
@@ -282,4 +282,4 @@ function CreateQuestion() {
   );
 }
 
-export default CreateQuestion;
+export default CreateAssessmentQuestion;

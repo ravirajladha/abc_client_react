@@ -100,9 +100,9 @@ function AssessmentListVideoWise() {
       ? `/school/results/student_wise_assessment_result/${assessment.assessment_id}`
       : `/teachers/all_classes/results/student_wise_assessment_result/${assessment.assessment_id}` // Defaults to teacher if neither admin nor sub_admin
   }
-  className="p-2 mt-4 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current"
+  className=""
 >
-  <button className="p-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current mx-1">
+  <button className="p-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center w100 font-xsssss ls-3 bg-current mx-1">
     View
   </button>
 </Link>
