@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Appheader from "../../components/includes/AppHeader";
+
 import { useParams } from "react-router-dom";
 import SchoolDetailsForm from "./school-edit-profile-components/SchoolDetailsForm";
 import Application from "./school-edit-profile-components/Application";

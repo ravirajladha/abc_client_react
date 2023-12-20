@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from "react";
-
-import AppHeader from "../../components/includes/AppHeader";
-import AppFooter from "../../components/includes/AppFooter";
 import { Link } from "react-router-dom";
 import BackButton from "../../components/navigation/BackButton";
 
