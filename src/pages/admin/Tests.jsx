@@ -1,8 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button } from "react-bootstrap";
-
-import AppHeader from "../../components/includes/AppHeader";
-import AppFooter from "../../components/includes/AppFooter";
 import { Link } from "react-router-dom";
 import BackButton from "../../components/navigation/BackButton";
 import Loader from "../../components/common/Loader.jsx";
@@ -62,6 +58,12 @@ function Tests() {
                 <div className="col-lg-3 col-md-6 col-12 col-sm-6" key={index}>
                   <div className="item">
                     <div className="card mb-4 w-100 shadow-xss rounded-lg p-xxl-5 p-4 border-0 text-center d-flex align-items-center justify-content-center">
+                    <Link
+                      to={`/tests/test/${test.id}/edit`}
+                      className="position-absolute right-0 mr-4 top-0 mt-2"
+                    >
+                      <i className="ti-pencil-alt text-grey-500 font-xsss"></i>
+                    </Link>
                       <Link
                         to=""
                         className="btn-round-xxxl rounded-lg bg-lightblue ml-auto mr-auto"

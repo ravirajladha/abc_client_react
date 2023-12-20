@@ -70,7 +70,7 @@ function CreateTest() {
   const handleSubjectChange = async (e) => {
     const selectedValue = e.target.value;
     try {
-      const response = await fetch(baseUrl + `api/get-test-details/${selectedValue}`);
+      const response = await fetch(baseUrl + `api/get-subject-test-details/${selectedValue}`);
       const details = await response.json();
       setTestDetails(details);
     } catch (error) {

@@ -70,12 +70,6 @@ function EditClass() {
                 </h2>
               </div>
               <div className="float-right">
-                <Link
-                  to={"/all_classes"}
-                  className="p-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current mx-1"
-                >
-                  View Classes
-                </Link>
                 <BackButton />
               </div>
             </div>
@@ -84,7 +78,7 @@ function EditClass() {
                 <div className="card w-100 mt-4 border-0 bg-white shadow-xs p-0 mb-4">
                   <div className="card-body p-lg-5 px-4 w-100 border-0 ">
                     <form onSubmit={editClass}>
-                      <div className="row mb-3 gap-2">
+                      <div className="row g-2">
                         <div className="col-lg-12">
                           <div className="form-group">
                             <label className="mont-font fw-600 font-xsss">
@@ -104,7 +98,7 @@ function EditClass() {
                         <div className="col-lg-12">
                           <button
                             type="submit"
-                            className="btn bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0 mt-2"
+                            className="btn bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0 float-right mt-2"
                             disabled={isSubmitting}
                           >
                             Submit

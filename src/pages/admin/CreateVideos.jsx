@@ -215,6 +215,7 @@ function CreateVideos() {
     formData.append("elab", selectedElab);
     formData.append("assessmentId", selectedAssessment);
     formData.append("eBookId", selectedEbook);
+    formData.append("eBookModuleId", selectedEbookModule);
     if (uploadEbook) {
       selectedEbookSections.forEach((section, index) => {
         formData.append(`eBookSections[${index}]`, section);

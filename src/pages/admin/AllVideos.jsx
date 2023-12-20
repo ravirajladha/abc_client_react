@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import AppHeader from "../../components/includes/AppHeader";
-import AppFooter from "../../components/includes/AppFooter";
 import BackButton from "../../components/navigation/BackButton";
 import DynamicLink from "../../components/navigation/DynamicLink";
 import Loader from "../../components/common/Loader.jsx";
@@ -102,8 +100,8 @@ function AllVideos() {
                 <div className="col-xl-4 col-lg-6 col-md-6" key={index}>
                   <div className="card mb-4 shadow-xss rounded-lg border-0 p-4 text-center">
                     <Link
-                      to=""
-                      className="position-absolute right-0 mr-4 top-0 mt-3"
+                      to={`/class/${classId}/subject/${subjectId}/chapter/${chapter_id}/video/${video.id}/edit`}
+                      className="position-absolute right-0 mr-4 top-0 mb-4"
                     >
                       <i className="ti-more text-grey-500 font-xs"></i>
                     </Link>

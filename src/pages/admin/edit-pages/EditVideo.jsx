@@ -4,6 +4,7 @@ import Dropdown from "../../../components/inputs/Dropdown";
 import BackButton from "../../../components/navigation/BackButton";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Spinner from "react-bootstrap/Spinner";
 
 function EditVideo() {
   const navigate = useNavigate();
@@ -11,16 +12,13 @@ function EditVideo() {
 
   const baseUrl = process.env.REACT_APP_BASE_URL;
 
-  const { class_id, subject_id, chapter_id } = useParams();
-
-  const [selectedClass, setSelectedClass] = useState(() => class_id);
-  const [selectedSubject, setSelectedSubject] = useState(() => subject_id);
-  const [selectedChapter, setSelectedChapter] = useState(() => chapter_id);
+  const { classId, subjectId, chapterId, videoId } = useParams();
+  const [loading, setLoading] = useState(false);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const [uploadElab, setUploadElab] = useState(false);
-  const [elabOptions, setElabOptions] = useState([]);
+  const [uploadELab, setUploadELab] = useState(false);
+  const [eLabOptions, setELabOptions] = useState([]);
 
   const [uploadEbook, setUploadEbook] = useState(false);
   const [ebookOptions, setEbookOptions] = useState([]);
@@ -30,58 +28,48 @@ function EditVideo() {
   const [uploadAssessment, setUploadAssessment] = useState(false);
   const [assessmentOptions, setAssessmentOptions] = useState([]);
 
-  const [videoNames, setVideoNames] = useState([""]); // Array to store video names
-  const [videoFiles, setVideoFiles] = useState([""]); // Array to store video files
-  const [selectedElab, setSelectedElab] = useState(""); // Array to store video files
-  const [selectedEbook, setSelectedEbook] = useState(""); // Array to store ebookId
-  const [selectedEbookModule, setSelectedEbookModule] = useState(""); // Array to store ebookModule
-  const [selectedEbookSection, setSelectedEbookSection] = useState("");
-  const [selectedEbookSections, setSelectedEbookSections] = useState([]); // Array to store ebookSection
-  const [selectedAssessment, setSelectedAssessment] = useState(""); // Array to store Assessments
+  const [selectedELab, setSelectedELab] = useState("");
+  const [selectedEbook, setSelectedEbook] = useState("");
+  const [selectedEbookModule, setSelectedEbookModule] = useState("");
+  const [selectedEbookSections, setSelectedEbookSections] = useState([]);
+  const [selectedAssessment, setSelectedAssessment] = useState("");
 
-  const [videoName, setVideoName] = useState(""); // State to store video name
+  const [videoName, setVideoName] = useState("");
 
   const [videoFile, setVideoFile] = useState(null);
   const [videoDescription, setVideoDescription] = useState("");
 
-  useEffect(() => {
-    if (selectedClass && selectedSubject && uploadElab) {
-      getElabs(selectedClass, selectedSubject);
-    }
-  }, [selectedClass, selectedSubject, uploadElab]);
-
-  async function getElabs(selectedClass, selectedSubject) {
+  async function getELabs(classId, subjectId) {
     try {
       const response = await fetch(
-        `${baseUrl}api/get_elabs_by_chapter_video/${selectedClass}/${selectedSubject}`
+        `${baseUrl}api/get_elabs_by_chapter_video/${classId}/${subjectId}`
       );
       const jsonRes = await response.json();
-      console.log("eLabs", jsonRes);
-      const elabDropdownOptions = jsonRes.data.map((lab) => ({
+      const eLabDropdownOptions = jsonRes.data.map((lab) => ({
         id: lab.id,
-        elab: lab.name,
+        eLab: lab.name,
       }));
-      setElabOptions(elabDropdownOptions);
+      setELabOptions(eLabDropdownOptions);
     } catch (error) {
-      console.error("Failed to fetch elabs:", error);
-      setElabOptions([]);
+      console.error("Failed to fetch eLabs:", error);
+      setELabOptions([]);
     }
   }
 
-  async function getEbooks(selectedClass, selectedSubject) {
+  async function getEbooks(classId, subjectId) {
     try {
       const response = await fetch(
-        `${baseUrl}api/get-ebooks/${selectedClass}/${selectedSubject}`
+        `${baseUrl}api/get-ebooks/${classId}/${subjectId}`
       );
       const jsonRes = await response.json();
       const eBookDropdownOptions = jsonRes.data.map((eBook) => ({
         id: eBook.id,
-        eBook: eBook.title, // assuming this is the correct path to the label
+        eBook: eBook.title,
       }));
       setEbookOptions(eBookDropdownOptions);
     } catch (error) {
-      console.error("Failed to fetch ebooks:", error);
       setEbookOptions([]);
+      toast.error("Failed to fetch eBooks. Please try again.");
     }
   }
 
@@ -93,11 +81,10 @@ function EditVideo() {
       const jsonRes = await response.json();
       const eBookModuleDropdownOptions = jsonRes.data.map((eBookModule) => ({
         id: eBookModule.id,
-        eBookModule: eBookModule.module_title, // assuming this is the correct path to the label
+        eBookModule: eBookModule.module_title,
       }));
       setEbookModuleOptions(eBookModuleDropdownOptions);
     } catch (error) {
-      console.error("Failed to fetch ebook module:", error);
       setEbookModuleOptions([]);
       toast.error("Failed to fetch eBook Modules. Please try again.");
     }
@@ -115,40 +102,15 @@ function EditVideo() {
       }));
       setEbookSectionOptions(eBookSectionDropdownOptions);
     } catch (error) {
-      console.error("Failed to fetch ebooks sections:", error);
       setEbookSectionOptions([]);
       toast.error("Failed to fetch eBook Sections. Please try again.");
     }
   }
 
-  useEffect(() => {
-    if (selectedClass && selectedSubject && uploadAssessment) {
-      getAssessments(selectedClass, selectedSubject);
-    }
-    if (selectedClass && selectedSubject && uploadEbook) {
-      getEbooks(selectedClass, selectedSubject);
-    }
-
-    if (selectedEbook) {
-      getEbookModules(selectedEbook);
-    }
-
-    if (selectedEbook && selectedEbookModule) {
-      getEbookSections(selectedEbook, selectedEbookModule);
-    }
-  }, [
-    selectedClass,
-    selectedSubject,
-    uploadAssessment,
-    uploadEbook,
-    selectedEbook,
-    selectedEbookModule,
-  ]);
-
-  async function getAssessments(selectedClass, selectedSubject) {
+  async function getAssessments(classId, subjectId) {
     try {
       const response = await fetch(
-        `${baseUrl}api/get-all-assessments/${selectedClass}/${selectedSubject}`
+        `${baseUrl}api/get-all-assessments/${classId}/${subjectId}`
       );
       const jsonRes = await response.json();
       const assessmentDropdownOptions = jsonRes.data.map((assessment) => ({
@@ -162,25 +124,93 @@ function EditVideo() {
     }
   }
 
-  const handleElabChange = (e) => {
-    // 'e.target.value' will be the selected eLab ID
-    setSelectedElab(e.target.value);
+  useEffect(() => {
+    if (classId && subjectId && uploadELab) {
+      getELabs(classId, subjectId);
+    }
+  }, [
+    uploadELab,
+  ]);
+
+  useEffect(() => {
+    if (classId && subjectId && uploadAssessment) {
+      getAssessments(classId, subjectId);
+    }
+  }, [
+    uploadAssessment,
+  ]);
+
+  useEffect(() => {
+    if (classId && subjectId && uploadEbook) {
+      getEbooks(classId, subjectId);
+    }
+
+    if (selectedEbook) {
+      getEbookModules(selectedEbook);
+    }
+
+    if (selectedEbook && selectedEbookModule) {
+      getEbookSections(selectedEbook, selectedEbookModule);
+    }
+  }, [
+    uploadEbook,
+    selectedEbook,
+    selectedEbookModule,
+  ]);
+
+  const fetchContents = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(
+        baseUrl + `api/get-video-details/${videoId}`
+      );
+      const data = await response.json();
+      setVideoName(data.video_name);
+      setUploadAssessment(!!data.assessment_id);
+      setUploadELab(!!data.lab_link);
+      setVideoDescription(data.description);
+      setSelectedELab(data.lab_link);
+      setSelectedAssessment(data.assessment_id);
+      setUploadEbook(!!data.ebook_sections);
+      if (data.ebook_sections !== null) {
+        setSelectedEbook(data.ebook_id);
+        setSelectedEbookModule(data.ebook_module_id);
+        setSelectedEbookSections(JSON.parse(data.ebook_sections));
+      }
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching classes:", error);
+    }
   };
+
+  useEffect(() => {
+    fetchContents();
+  }, []);
+
+  const handleElabChange = (e) => {
+    e.preventDefault();
+    setSelectedELab(e.target.value);
+  };
+
   const handleEbookChange = (e) => {
+    e.preventDefault();
     setSelectedEbook(e.target.value);
     setSelectedEbookModule("");
   };
 
   const handleEbookModuleChange = (e) => {
+    e.preventDefault();
     setSelectedEbookModule(e.target.value);
     setSelectedEbookSections([]);
   };
 
   const handleAssessmentChange = (e) => {
+    e.preventDefault();
     setSelectedAssessment(e.target.value);
   };
 
-  const handleAddSection = () => {
+  const handleAddSection = (event) => {
+    event.preventDefault();
     setSelectedEbookSections([...selectedEbookSections, ""]);
   };
 
@@ -190,17 +220,16 @@ function EditVideo() {
     setSelectedEbookSections(updatedSections);
   };
 
-  const handleRemoveSection = (index) => {
+  const handleRemoveSection = (e, index) => {
+    e.preventDefault();
     const updatedSections = selectedEbookSections.filter(
       (section, i) => i !== index
     );
     setSelectedEbookSections(updatedSections);
   };
 
-  const createVideo = (e) => {
-    // Rakshith
+  const updateContent = (e) => {
     e.preventDefault();
-    // Validate the file type
     if (videoFile) {
       const allowedVideoTypes = [
         "video/mp4",
@@ -219,41 +248,67 @@ function EditVideo() {
     }
 
     const formData = new FormData();
-    formData.append("class", selectedClass);
-    formData.append("subject", selectedSubject);
-    formData.append("chapter", selectedChapter);
-    formData.append("elab", selectedElab);
-    formData.append("assessmentId", selectedAssessment);
-    formData.append("eBookId", selectedEbook);
+    formData.append("class", classId);
+    formData.append("subject", subjectId);
+    formData.append("chapter", chapterId);
+    formData.append("videoName", videoName);
+    formData.append("videoDescription", videoDescription);
+
+    if (uploadELab) {
+      formData.append("eLab", selectedELab);
+    } else{
+      formData.append("eLab", null);
+    }
+
+    if (uploadAssessment) {
+      formData.append("assessmentId", selectedAssessment);
+    } else {
+      formData.append("assessmentId", null);
+    }
+
+    // formData.append("eBookId", selectedEbook);
+    // formData.append("eBookModuleId", selectedEbookModule);
+    // selectedEbookSections.forEach((section, index) => {
+    //   formData.append(`eBookSections[${index}]`, section);
+    // });
+
+    // if (uploadEbook === false) {
+    //   formData.append("eBookId", null);
+    //   formData.append("eBookModuleId", null);
+    //   formData.append("eBookSections", null);
+    // }
+
     if (uploadEbook) {
+      formData.append("eBookId", selectedEbook);
+      formData.append("eBookModuleId", selectedEbookModule);
       selectedEbookSections.forEach((section, index) => {
         formData.append(`eBookSections[${index}]`, section);
       });
+    } else {
+      formData.append("eBookId", null);
+      formData.append("eBookModuleId", null);
+      formData.append("eBookSections", null);
     }
-    formData.append("videoDescription", videoDescription);
-    formData.append("videoName", videoName);
 
     if (videoFile) {
       formData.append("videoFile", videoFile);
     }
     setIsSubmitting(true);
     e.preventDefault();
-    console.log(formData);
-    console.log(videoFiles);
-    fetch(baseUrl + "api/create_video", {
+    fetch(baseUrl + "api/update-video-details/" + videoId, {
       method: "POST",
       body: formData,
     })
       .then((res) => res.json())
       .then((resp) => {
-        setSelectedElab("");
+        setSelectedELab("");
         setVideoName([""]);
-        setVideoFiles([""]);
+        setVideoFile([""]);
         setVideoDescription("");
         setUploadAssessment(false);
         setSelectedAssessment("");
-        setUploadElab(false);
-        setSelectedElab("");
+        setUploadELab(false);
+        setSelectedELab("");
         setSelectedEbook("");
         setUploadEbook(false);
         setSelectedEbookModule("");
@@ -261,8 +316,11 @@ function EditVideo() {
 
         toast.success(resp.msg);
         if (formRef.current) {
-          formRef.current.reset(); // This will reset the file input
+          formRef.current.reset();
         }
+        navigate(
+          `/all_classes/all_subjects/all_chapters/all_videos/${chapterId}`
+        );
       })
       .catch((err) => {
         toast.error("Could not add the video: " + err.message);
@@ -271,6 +329,18 @@ function EditVideo() {
         setIsSubmitting(false);
       });
   };
+
+  if (loading) {
+    return (
+      <div className="vh-100">
+        <div className="d-flex vh-100 align-items-center justify-content-center">
+          <Spinner animation="border" variant="current">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -292,7 +362,7 @@ function EditVideo() {
               <div className="card-body p-lg-5 px-4 w-100 border-0 ">
                 <form
                   encType="multipart/form-data"
-                  onSubmit={createVideo}
+                  onSubmit={updateContent}
                   ref={formRef}
                 >
                   <div className="row g-2">
@@ -307,8 +377,8 @@ function EditVideo() {
                           type="text"
                           className="form-control"
                           placeholder="Enter Name"
-                          value={videoName} // Bind the input to the videoName state
-                          onChange={(e) => setVideoName(e.target.value)} // Update the state when input changes
+                          value={videoName}
+                          onChange={(e) => setVideoName(e.target.value)}
                           required
                         />
                       </div>
@@ -323,7 +393,6 @@ function EditVideo() {
                           type="file"
                           className="form-control lh-lg"
                           onChange={(e) => setVideoFile(e.target.files[0])}
-                          required
                         />
                       </div>
                     </div>
@@ -337,13 +406,11 @@ function EditVideo() {
                         placeholder="Enter Description"
                         value={videoDescription}
                         onChange={(e) => setVideoDescription(e.target.value)}
-                        required
                       />
                     </div>
-                    <div className="row"></div>
 
                     <div className="row my-2">
-                      <div className="col-lg-2">
+                      <div className="col-lg-3">
                         <label className="mono-font fw-600 font-xsss ">
                           Has Assessment :
                         </label>{" "}
@@ -365,7 +432,7 @@ function EditVideo() {
                             <br />
                             <Dropdown
                               options={assessmentOptions}
-                              column_name="assessment" // This is the property to be displayed in the dropdown
+                              column_name="assessment"
                               value={selectedAssessment}
                               onChange={handleAssessmentChange}
                             />
@@ -375,28 +442,28 @@ function EditVideo() {
                     </div>
 
                     <div className="row my-2">
-                      <div className="col-lg-2">
+                      <div className="col-lg-3">
                         <label className="mono-font fw-600 font-xsss ">
                           Has eLab :
-                        </label>{" "}
+                        </label>
                         &nbsp;
                         <input
                           type="checkbox"
-                          checked={uploadElab}
-                          onChange={(e) => setUploadElab(e.target.checked)}
+                          checked={uploadELab}
+                          onChange={(e) => setUploadELab(e.target.checked)}
                         />
                       </div>
                       <div className="col-lg-6">
-                        {uploadElab && (
+                        {uploadELab && (
                           <div>
                             <label className="fw-600 font-xsss">
                               Select eLab
                             </label>
                             <br />
                             <Dropdown
-                              options={elabOptions}
-                              column_name="elab" // This is the property to be displayed in the dropdown
-                              value={selectedElab}
+                              options={eLabOptions}
+                              column_name="eLab"
+                              value={selectedELab}
                               onChange={handleElabChange}
                             />
                           </div>
@@ -405,7 +472,7 @@ function EditVideo() {
                     </div>
                     {/* Add Ebook to Video */}
                     <div className="row mt-2">
-                      <div className="col-lg-2">
+                      <div className="col-lg-3">
                         <label className="mont-font fw-600 font-xsss">
                           Has eBook :
                         </label>
@@ -434,7 +501,7 @@ function EditVideo() {
                             />
                           </div>
                           {selectedEbook && (
-                            <div className="col-lg-5">
+                            <div className="col-lg-4">
                               <label className="mont-font fw-600 font-xsss">
                                 Select a Module
                               </label>
@@ -454,8 +521,8 @@ function EditVideo() {
 
                     {uploadEbook && selectedEbookModule && (
                       <div className="row my-2">
-                        <div className="col-2"></div>
-                        <div className="col-5 d-flex align-items-center">
+                        <div className="col-3"></div>
+                        <div className="col-4 d-flex align-items-center">
                           <label className="mont-font fw-600 font-xsss">
                             Add Ebook Section(s)
                           </label>
@@ -470,16 +537,15 @@ function EditVideo() {
                         </div>
                       </div>
                     )}
-
                     {uploadEbook &&
                       selectedEbookSections.map((section, index) => (
-                        <div className="row mt-2">
-                          <div className="col-2"></div>
-                          <div key={section.id} className="col-lg-5">
+                        <div key={index} className="row mt-2">
+                          <div className="col-3"></div>
+                          <div className="col-lg-4">
                             <Dropdown
                               options={ebookSectionOptions}
                               column_name="eBookSection"
-                              value={section}
+                              value={section.id}
                               onChange={(e) =>
                                 handleEbookSectionChange(index, e.target.value)
                               }
@@ -490,7 +556,7 @@ function EditVideo() {
                             <button
                               className="btn bg-danger text-center text-white font-xsss fw-600 rounded-lg d-inline-block border-0"
                               title="Remove Section"
-                              onClick={() => handleRemoveSection(index)}
+                              onClick={(e) => handleRemoveSection(e, index)}
                             >
                               -
                             </button>

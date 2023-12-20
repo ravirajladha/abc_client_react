@@ -62,7 +62,7 @@ function AllSubjects() {
                 <div className="col-xl-4 col-lg-6 col-md-6" key={index}>
                   <div className="card mb-4 shadow-xss rounded-lg p-xxl-5 p-4 border-0 text-center">
                     <Link
-                      to={`/subject/${subject.id}/edit`}
+                      to={`/class/${class_id}/subject/${subject.subject_id}/edit`}
                       className="position-absolute right-0 mr-4 top-0 mt-2"
                     >
                       <i className="ti-pencil-alt text-grey-500 font-xsss"></i>

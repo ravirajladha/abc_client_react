@@ -72,7 +72,7 @@ function AllChapters() {
                 <div className="col-xl-4 col-lg-6 col-md-6" key={index}>
                   <div className="card mb-4 shadow-xss rounded-lg border-0 p-4 text-center">
                     <Link
-                      to={`/chapter/${chapter.id}/edit`}
+                      to={`/subject/${subject_id}/chapter/${chapter.id}/edit`}
                       className="position-absolute right-0 mr-4 top-0 mt-2"
                     >
                       <i className="ti-pencil-alt text-grey-500 font-xsss"></i>
