@@ -686,7 +686,7 @@ function AddElements() {
                   }
                 >
                   <img
-                    src="/assets_ebook/images/3.1.png"
+                    src="/assets_ebook/images/3.2.png"
                     alt="photo1"
                     style={{ height: "100px", maxWidth: "100%" }}
                   />
@@ -3138,14 +3138,14 @@ function AddElements() {
                 <a
                   onClick={() =>
                     window.open(
-                      "/assets_ebook/images/7.1.png",
+                      "/assets_ebook/images/7.2.png",
                       "_blank",
                       "width=800,height=600"
                     )
                   }
                 >
                   <img
-                    src="/assets_ebook/images/7.1.png"
+                    src="/assets_ebook/images/7.2.png"
                     alt="photo1"
                     style={{ height: "100px", maxWidth: "100%" }}
                   />
