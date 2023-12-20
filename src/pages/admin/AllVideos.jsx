@@ -102,21 +102,13 @@ function AllVideos() {
                 <div className="col-xl-4 col-lg-6 col-md-6" key={index}>
                   <div className="card mb-4 shadow-xss rounded-lg border-0 p-4 text-center">
                     <Link
-                      to={`/video/${video.id}/edit`}
-                      className="position-absolute right-0 mr-4 top-0 mb-4"
+                      to=""
+                      className="position-absolute right-0 mr-4 top-0 mt-3"
                     >
-                      <i className="ti-pencil-alt text-grey-500 font-xsss"></i>
+                      <i className="ti-more text-grey-500 font-xs"></i>
                     </Link>
-                    {/* <a
-                          href="#"
-                          className="btn-round-xxxl rounded-lg bg-lightblue ml-auto mr-auto"
-                        > */}
-                    <video
-                      width="100%"
-                      height="auto"
-                      className="ml-auto mr-auto rounded-lg overflow-hidden d-inline-block"
-                      controls
-                    >
+                    {/* <a href="#" className="btn-round-xxxl rounded-lg bg-lightblue ml-auto mr-auto"> */}
+                    <video width="100%" height="auto" controls>
                       <source
                         src={baseUrl + video.video_file}
                         type="video/mp4"
