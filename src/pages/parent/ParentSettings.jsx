@@ -104,136 +104,133 @@ function ParentSettings() {
   };
 
   return (
-   
-        <div className="p-5 theme-dark-bg">
-          <div className="middle-sidebar-left">
-            <div className="row">
-              <div className="col-lg-12 pt-0 my-3 d-flex justify-content-between align-items-center ">
-                <h2 className="fw-400 font-lg d-block">
-                  <b> Settings</b>
-                </h2>
-                <div className="float-right">
-                  <Link
-                    to={"/parent/add_student"}
-                    className="p-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current mx-1"
-                  >
-                    {" "}
-                    Add Student
-                  </Link>
-                  <BackButton />
-                </div>
-              </div>
-              <ToastContainer autoClose={3000} />
-              <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
-                <div className="col-lg-12 pt-0 my-3 d-flex justify-content-between align-items-center ">
-                  <h2 className="text-grey-900 font-md fw-500">
-                    Parent Code: {parentCode}
-                  </h2>
-                </div>
-              </div>
+    <div className="p-5 theme-dark-bg">
+      <div className="middle-sidebar-left">
+        <div className="row">
+          <div className="col-lg-12 pt-0 my-3 d-flex justify-content-between align-items-center ">
+            <h2 className="fw-400 font-lg d-block">
+              <b> Settings</b>
+            </h2>
+            <div className="float-right">
+              <Link
+                to={"/parent/add_student"}
+                className="p-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current mx-1"
+              >
+                Add Student
+              </Link>
+              <BackButton />
             </div>
-            <div className="row">
-              <h2 className="fw-400 font-lg d-block mb-3">
-                Update <b> Password</b>
+          </div>
+          <ToastContainer autoClose={3000} />
+          <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
+            <div className="col-lg-12 pt-0 my-3 d-flex justify-content-between align-items-center ">
+              <h2 className="text-grey-900 font-md fw-500">
+                Parent Code: {parentCode}
               </h2>
-              <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
-                <form
-                  onSubmit={handleFormSubmit}
-                  method="post"
-                  enctype="multipart/form-data"
-                >
-                  <div className="row p-3">
-                    <div className="col-lg-12">
-                      <div className="form-group">
-                        <div class="row my-3">
-                          <label
-                            for="name"
-                            className="col-sm-2 mont-font fw-600 font-xsss col-form-label d-flex justify-content-center align-items-center"
-                          >
-                            Name
-                          </label>
-                          <div class="col-sm-10">
-                            <input
-                              type="hidden"
-                              className="form-control"
-                              placeholder="Enter Name"
-                              name="name"
-                              value={formData.name}
-                              id="name"
-                              disabled
-                            />
-                            <p className="d-flex align-items-center fw-300 font-md">
-                              {formData.name}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-lg-12">
-                      <div className="form-group">
-                        <div class="row mb-3">
-                          <label
-                            for="email"
-                            className="col-sm-2 mont-font fw-600 font-xsss col-form-label d-flex justify-content-center align-items-center"
-                          >
-                            Email
-                          </label>
-                          <div class="col-sm-10">
-                            <input
-                              type="hidden"
-                              className="form-control"
-                              placeholder="Enter
-            Email"
-                              name="email"
-                              value={formData.email || ""}
-                              disabled
-                            />
-                            <p className="d-flex align-items-center fw-300 font-md">
-                              {formData.email
-                                ? formData.email
-                                : "Email not Provided Yet"}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-lg-12">
-                      <div className="form-group">
-                        <div class="row mb-3">
-                          <label
-                            for="password"
-                            className="col-sm-2 mont-font fw-600 font-xsss col-form-label d-flex justify-content-center align-items-center"
-                          >
-                            Password
-                          </label>
-                          <div class="col-sm-10">
-                            <input
-                              type="password"
-                              className="form-control"
-                              placeholder="Enter Password"
-                              name="password"
-                              onChange={handleInputChange}
-                              required
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-lg-12">
-                      <button
-                        type="submit"
-                        className="btn bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0 float-end"
-                      >
-                        Update Password
-                      </button>
-                    </div>
-                  </div>
-                </form>
-              </div>
             </div>
           </div>
         </div>
- 
+        <div className="row">
+          <h2 className="fw-400 font-lg d-block mb-3">
+            Update <b> Password</b>
+          </h2>
+          <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
+            <form
+              onSubmit={handleFormSubmit}
+              method="post"
+              enctype="multipart/form-data"
+            >
+              <div className="row p-3">
+                <div className="col-lg-12">
+                  <div className="form-group">
+                    <div class="row my-3">
+                      <label
+                        for="name"
+                        className="col-sm-2 mont-font fw-600 font-xsss col-form-label d-flex justify-content-center align-items-center"
+                      >
+                        Name
+                      </label>
+                      <div class="col-sm-10">
+                        <input
+                          type="hidden"
+                          className="form-control"
+                          placeholder="Enter Name"
+                          name="name"
+                          value={formData.name}
+                          id="name"
+                          disabled
+                        />
+                        <p className="d-flex align-items-center fw-300 font-md">
+                          {formData.name}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-lg-12">
+                  <div className="form-group">
+                    <div class="row mb-3">
+                      <label
+                        for="email"
+                        className="col-sm-2 mont-font fw-600 font-xsss col-form-label d-flex justify-content-center align-items-center"
+                      >
+                        Email
+                      </label>
+                      <div class="col-sm-10">
+                        <input
+                          type="hidden"
+                          className="form-control"
+                          placeholder="Enter
+            Email"
+                          name="email"
+                          value={formData.email || ""}
+                          disabled
+                        />
+                        <p className="d-flex align-items-center fw-300 font-md">
+                          {formData.email
+                            ? formData.email
+                            : "Email not Provided Yet"}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-lg-12">
+                  <div className="form-group">
+                    <div class="row mb-3">
+                      <label
+                        for="password"
+                        className="col-sm-2 mont-font fw-600 font-xsss col-form-label d-flex justify-content-center align-items-center"
+                      >
+                        Password
+                      </label>
+                      <div class="col-sm-10">
+                        <input
+                          type="password"
+                          className="form-control"
+                          placeholder="Enter Password"
+                          name="password"
+                          onChange={handleInputChange}
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-lg-12">
+                  <button
+                    type="submit"
+                    className="btn bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0 float-end"
+                  >
+                    Update Password
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
