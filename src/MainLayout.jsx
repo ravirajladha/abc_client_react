@@ -21,7 +21,7 @@ const MainLayout = ({ children }) => {
     }
     
     // Check for dynamic route patterns
-    if (path.startsWith('/ebooks/') || path.startsWith('/editor_practicse/')) { 
+    if (path.startsWith('/ebooks/preview') || path.startsWith('/editor_practicse/')) { 
       return false;
     }
 

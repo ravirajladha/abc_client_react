@@ -24,6 +24,8 @@ import ClassSubjectWiseResults from "../pages/school/ClassSubjectWiseResults.jsx
 import Applications from "../pages/school/Applications.jsx";
 import TestResultDetails from "../pages/admin/TestResultDetails.jsx";
 import Settings from "../pages/common/Settings.jsx";
+import EditStudent from "../pages/school/EditStudent.jsx";
+import EditTeacher from "../pages/school/EditTeacher.jsx";
 
 export const schoolRoutes = (
   <>
@@ -199,6 +201,24 @@ export const schoolRoutes = (
       path={`${process.env.PUBLIC_URL}/school/settings`}
       element={React.createElement(
         withLayoutAndProtection(Settings, {
+          allowedTypes: ["sub_admin"],
+        })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/school/student/:studentId/edit`}
+      element={React.createElement(
+        withLayoutAndProtection(EditStudent, {
+          allowedTypes: ["sub_admin"],
+        })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/school/teacher/:teacherId/edit`}
+      element={React.createElement(
+        withLayoutAndProtection(EditTeacher, {
           allowedTypes: ["sub_admin"],
         })
       )}

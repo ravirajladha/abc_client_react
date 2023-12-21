@@ -33,7 +33,7 @@ import PreviewEbook from "../pages/admin/ebook/PreviewEbook.jsx";
 import SubjectResults from "../pages/student/SubjectResults.jsx";
 import TestDetails from "../pages/student/TestDetails.jsx";
 import Internship from "../pages/student/Internship.jsx";
-// import TakeInternship from "../pages/student/TakeInternship.jsx";
+import TakeInternship from "../pages/student/TakeInternship.jsx";
 
 export const studentRoutes = (
   <>
@@ -472,32 +472,13 @@ export const studentRoutes = (
       path={`${process.env.PUBLIC_URL}/ebooks/preview_ebook/:ebook_id`}
       element={React.createElement(
         withLayoutAndProtection(PreviewEbook, {
-          allowedTypes: ["school_student"],
+          allowedTypes: [""],
         })
       )}
     />
 
-    <Route
-      exact
-      path={`${process.env.PUBLIC_URL}/ebooks/preview_ebook/:ebook_id`}
-      element={
-        <ProtectedRoute
-          element={<PreviewEbook />}
-          allowedTypes={["school_student"]}
-        />
-      }
-    />
-    {/* ebook end */}
-    {/* <Route
-              exact
-              path={`${process.env.PUBLIC_URL}/admin`}
-              element={
-                <ProtectedRoute
-                  element={<AdminHome />}
-                  allowedTypes={["admin"]}
-                />
-              }
-            /> */}
+   
+   
 
     <Route
       exact
@@ -516,7 +497,7 @@ export const studentRoutes = (
         })
       )}
     />
-      {/* <Route
+      <Route
       exact
       path={`${process.env.PUBLIC_URL}/internship/:internship_id`}
       element={React.createElement(
@@ -524,7 +505,7 @@ export const studentRoutes = (
           allowedTypes: ["school_student"],
         })
       )}
-    /> */}
+    />
   </>
 
   

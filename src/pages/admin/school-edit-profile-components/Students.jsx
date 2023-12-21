@@ -96,7 +96,7 @@ function Students() {
                       </td>
                 <td className="text-dark">
                   <Link
-                    to={`/school/students/edit-student-profile-detail/${student?.id}`}
+                    to={`/school/${schoolId}/student/${student?.auth_id}/edit`}
                     className="p-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current"
                   >
                     Edit

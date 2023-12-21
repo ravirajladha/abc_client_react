@@ -6,9 +6,8 @@ import Spinner from "react-bootstrap/Spinner";
 
 import { AuthContext } from "../../lib/AuthContext.js";
 import Dropdown from "../../components/inputs/Dropdown";
-import AppFooter from "../../components/includes/AppFooter";
-import AppHeader from "../../components/includes/AppHeader";
 import ApexChart from "../../components/common/ApexChart.jsx";
+import Loader from "../../components/common/Loader.jsx";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -86,82 +85,92 @@ function ParentHome() {
 
   return (
     <>
-      
+      <div className="middle-sidebar-bottom theme-dark-bg">
+        <div className="custom-middle-sidebar-left">
+          {/* Intro Message */}
+          <div className="row">
+            <div className="col-lg-12">
+              <div className="card w-100 bg-lightblue p-lg-5 p-4 border-0 rounded-lg d-block float-left">
+                <h1 className="display1-size display2-md-size d-inline-block float-left mb-0 text-grey-900 fw-700">
+                  <span
+                    className="font-xssss fw-600 text-grey-500 d-block mb-2"
+                    style={{ fontSize: "20px" }}
+                  >
+                    Welcome back!
+                  </span>
+                  Hi, {userDetails.user.name}
+                  <span
+                    className="font-xsss fw-600 text-grey-700 d-block mt-2"
+                    style={{ fontSize: "20px" }}
+                  >
+                    Parent Code: {parentCode}
+                  </span>
+                </h1>
 
-          <div className="middle-sidebar-bottom theme-dark-bg">
-            <div className="custom-middle-sidebar-left">
-              {/* Intro Message */}
-              <div className="row">
-                <div className="col-lg-12">
-                  <div className="card w-100 bg-lightblue p-lg-5 p-4 border-0 rounded-lg d-block float-left">
-                    <h1 className="display1-size display2-md-size d-inline-block float-left mb-0 text-grey-900 fw-700">
-                      <span
-                        className="font-xssss fw-600 text-grey-500 d-block mb-2"
-                        style={{ fontSize: "20px" }}
-                      >
-                        Welcome back!
-                      </span>
-                      Hi, {userDetails.user.name}
-                      <span
-                        className="font-xsss fw-600 text-grey-700 d-block mt-2"
-                        style={{ fontSize: "20px" }}
-                      >
-                        Parent Code: {parentCode}
-                      </span>
-                    </h1>
+                <img
+                  src="/avatar.png"
+                  alt="icon"
+                  className="w125 right-15 top-0 position-absolute d-none d-xl-block mt-3"
+                />
+              </div>
+            </div>
+          </div>
 
-                    <img
-                      src="/avatar.png"
-                      alt="icon"
-                      className="w125 right-15 top-0 position-absolute d-none d-xl-block mt-3"
-                    />
-                  </div>
+          {/* No Student Message */}
+          {loading ? (
+            <Loader />
+          ) : (
+            childrenDropdown.length === 0 && (
+              <div className="row my-5">
+                <div className="col-12 text-center">
+                  <span className="font-xss fw-700 py-2 px-4 lh-32  rounded-lg ls-2 d-inline-block mr-1 alert-warning text-current">
+                    Share your Parent Code with your children to view their
+                    reports.
+                  </span>
                 </div>
               </div>
+            )
+          )}
 
-              {/* No Student Message */}
-              {childrenDropdown.length === 0 && (
-                <div className="row my-5">
-                  <div className="col-12 text-center">
-                    <span className="font-xss fw-700 py-2 px-4 lh-32  rounded-lg ls-2 d-inline-block mr-1 alert-warning text-current">
-                      Share your Parent Code with your children to view their
-                      reports.
-                    </span>
-                  </div>
-                </div>
-              )}
-
-              {childrenDropdown.length !== 0 && (
-                <div className="row">
-                  <div className="col-lg-12">
-                    <div className="form-group mt-lg-4 py-2 rounded-lg ">
-                      <div className="row">
-                        <div className="col-md-3">
-                          <Dropdown
-                            onChange={handleDropdownSelect}
-                            options={childrenDropdown}
-                            value={selectedStudent}
-                            placeholder="Select a child"
-                            column_name="child"
-                            className="form-select"
-                          />
-                        </div>
-                        {studentInfo && (
-                          <div className="col-md-9 d-flex justify-end ">
-                            <Link
-                              to={"/student/" + selectedStudent}
-                              className="px-4 d-block btn bg-current text-white font-xssss fw-600 ls-3 style1-input p-0 border-0 text-uppercase "
-                            >
-                              {studentInfo.name}
-                              {"'s Profile"}
-                            </Link>
-                          </div>
-                        )}
+          {loading ? (
+            <Loader />
+          ) : (
+            childrenDropdown.length !== 0 && (
+              <div className="row">
+                <div className="col-lg-12">
+                  <div className="form-group mt-lg-4 py-2 rounded-lg">
+                    <div className="row">
+                      <div className="col-md-3">
+                        <Dropdown
+                          onChange={handleDropdownSelect}
+                          options={childrenDropdown}
+                          value={selectedStudent}
+                          placeholder="Select a child"
+                          column_name="child"
+                          className="form-select"
+                        />
                       </div>
+                      {studentInfo && (
+                        <div className="col-md-9 d-flex justify-end">
+                          <Link
+                            to={"/student/" + selectedStudent}
+                            className="px-4 d-block btn bg-current text-white font-xssss fw-600 ls-3 style1-input p-0 border-0 text-uppercase"
+                          >
+                            {studentInfo.name}'s Profile
+                          </Link>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
-              )}
+              </div>
+            )
+          )}
+
+          {loading ? (
+            <Loader />
+          ) : (
+            <>
               {selectedStudent && studentInfo ? (
                 <>
                   <div className="row">
@@ -272,11 +281,12 @@ function ParentHome() {
                   </div>
                 </>
               ) : (
-                <>{loading && <Spinner animation="border" />}</>
+                <></>
               )}
-            </div>
-          </div>
-        
+            </>
+          )}
+        </div>
+      </div>
     </>
   );
 }

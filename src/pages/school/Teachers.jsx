@@ -19,9 +19,9 @@ function Teachers() {
       `${baseUrl}api/school/get_all_teachers_school_wise?created_by=${creatorId}`
     )
       .then((result) => result.json())
-      .then((jsonbody) => {
-        console.log("all teacher_school", jsonbody);
-        setTeachers(jsonbody);
+      .then((json) => {
+        console.log("all teacher_school", json);
+        setTeachers(json);
         setIsLoading(false);
       })
       .catch((error) => {
@@ -52,19 +52,19 @@ function Teachers() {
 
   return (
     <>
-      <div className="middle-sidebar-bottom">
+      <div className="custom-middle-sidebar-bottom p-3">
         <div className="middle-sidebar-left">
           <div className="row">
             <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
               <div>
                 <h2 className="fw-400 font-lg d-block">
-                  All <b> Teachers11</b>
+                  All <b> Teachers</b>
                 </h2>
               </div>
               <div className="float-right">
                 <Link
                   to="/school/teachers/add_teacher"
-                  className="p-2 d-inline-block text-white me-2 fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current"
+                  className="px-3 py-2 d-inline-block text-white me-2 fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current uppercase"
                 >
                   Add Teacher
                 </Link>
@@ -75,41 +75,52 @@ function Teachers() {
             {isLoading ? (
               <Loader />
             ) : teachers && teachers.length > 0 ? (
-              <div className="card-body p-lg-5 p-4 w-100 border-0">
-                <table id="myTable" className="table">
-                  <thead>
-                    <tr>
-                      <th scope="col">Sl. No.</th>
-                      <th scope="col">Teacher Id</th>
-                      <th scope="col">Name</th>
-                      <th scope="col">Email</th>
-                      <th scope="col">Subject & Class</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {teachers.map((teacher, index) => (
-                      <tr key={index}>
-                        <td>{index + 1}</td>
-                        <td>{teacher.auth_id}</td>
-                        <td>{teacher.name}</td>
-                        <td>{teacher.email}</td>
-                        <td>
-                          {teacher.class_and_subject.map((item, idx) => (
-                            <div key={idx}>
-                              {item.class_name
-                                ? item.class_name
-                                : "No Class Name"}
-                              ,
-                              {item.subject_name
-                                ? item.subject_name
-                                : "No Subject Name"}
-                            </div>
-                          ))}
-                        </td>
+              <div className="card border-0  shadow-sm mx-2">
+                <div className="card-body p-lg-5 p-4 w-100 border-0">
+                  <table id="myTable" className="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Sl. No.</th>
+                        <th scope="col">Teacher Id</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Subject & Class</th>
+                        <th scope="col" className="text-dark">
+                          Action
+                        </th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      {teachers.map((teacher, index) => (
+                        <tr key={index} >
+                          <td className="align-middle">{index + 1}</td>
+                          <td className="align-middle">{teacher.auth_id}</td>
+                          <td className="align-middle">{teacher.name}</td>
+                          <td className="align-middle">{teacher.email}</td>
+                          <td className="align-middle">
+                            {teacher.class_and_subject.map((item, idx) => (
+                              <div key={idx}>
+                                {item.class_name ? item.class_name : "No Class"}
+                                {", "}
+                                {item.subject_name
+                                  ? item.subject_name
+                                  : "No Subject"}
+                              </div>
+                            ))}
+                          </td>
+                          <td className="text-dark align-middle">
+                            <Link
+                              to={`/school/teacher/${teacher.auth_id}/edit`}
+                              className="px-3 py-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current uppercase"
+                            >
+                              Edit
+                            </Link>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             ) : (
               <NoContent contentName="teachers" />
@@ -118,7 +129,7 @@ function Teachers() {
         </div>
       </div>
 
-      <div className="app-footer border-0 shadow-lg">
+      {/* <div className="app-footer border-0 shadow-lg">
         <Link to="default.html" className="nav-content-bttn nav-center">
           <i className="feather-home"></i>
         </Link>
@@ -168,7 +179,7 @@ function Teachers() {
             </Link>
           </div>
         </form>
-      </div>
+      </div> */}
     </>
   );
 }

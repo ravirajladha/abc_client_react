@@ -93,50 +93,52 @@ function AddSections() {
                                                     <h2 className="fw-400 font-xs d-block">Add <b> Sections</b> </h2>
                                                 </div>
                                                 <div className="col-lg-12">
-                                                    {sectionTitles.map((title, index) => (
-                                                        <div className="row" key={index}>
-                                                            <div className="col-lg-4">
-                                                                <label className="mont-font fw-600 font-xsss">Section Title</label><br />
+  <div className="mb-3"> {/* Add a gap between the add button and the list */}
+    <button
+      type="button"
+      className="btn bg-success text-white"
+      onClick={addSection}
+    >
+      Add Section {/* Changed from "+" for better clarity */}
+    </button>
+  </div>
 
-                                                                <input
-                                                                    type="text"
-                                                                    className="form-control"
-                                                                    placeholder="Enter Section Title"
-                                                                    value={title}
-                                                                    onChange={(e) => {
-                                                                        const updatedSectionTitles = [...sectionTitles];
-                                                                        updatedSectionTitles[index] = e.target.value;
-                                                                        setSectionTitles(updatedSectionTitles);
-                                                                    }}
-                                                                    required
-                                                                />
+  {sectionTitles.map((title, index) => (
+    <div className="row align-items-center" key={index}> {/* Added align-items-center to align items vertically */}
+      <div className="col-lg-10">
+        <label className="mont-font fw-600 font-xsss">Section Title</label><br />
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Enter Section Title"
+          value={title}
+          onChange={(e) => {
+            const updatedSectionTitles = [...sectionTitles];
+            updatedSectionTitles[index] = e.target.value;
+            setSectionTitles(updatedSectionTitles);
+          }}
+          required
+        />
+      </div>
+      
+      <div className="col-lg-2">
+      <label className="mont-font fw-600 font-xsss"> </label><br />
+        <button
+          type="button"
+          className="btn btn-danger"
+          onClick={() => deleteSection(index)}
+          style={{
+            backgroundColor: "red",
+            color: "white",
+          }}
+        >
+          <i className="feather-minus"></i> {/* Changed class to className */}
+        </button>
+      </div>
+    </div>
+  ))}
+</div>
 
-                                                            </div>
-                                                            
-                                                            <div className="col-lg-2">
-                                                                <button
-                                                                    type="button"
-                                                                    className="btn btn-danger ml-2 mt-5"
-                                                                    onClick={() => deleteSection(index)}
-                                                                    style={{
-                                                                        backgroundColor: "red",
-                                                                        color: "white",
-                                                                      }}
-                                                                >
-                                                                    <i class="feather-minus"></i>
-                                                                </button>
-                                                            </div>
-                                                        </div>
-
-                                                    ))}
-                                                    <button
-                                                        type="button"
-                                                        className="btn bg-current mt-2 text-white"
-                                                        onClick={addSection}
-                                                    >
-                                                        Add Section
-                                                    </button>
-                                                </div>
 
 
                                             </div>

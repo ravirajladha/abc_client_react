@@ -1,19 +1,23 @@
 import React, { useState, useEffect, useContext } from "react";
 
-// import Breadcrumb from "react-bootstrap/Breadcrumb";
 import BackButton from "../../components/navigation/BackButton";
 import { toast, ToastContainer } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../../lib/AuthContext";
 
-function AddTeacher() {
+function EditTeacher() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
-  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const { teacherId } = useParams();
   const navigate = useNavigate();
+
   const userDetails = useContext(AuthContext).user;
-  // console.log("iuser_id",userDetails.user.id);
-  // const [fields, setFields] = useState([{ className: "", subject: "" }]);
-  const [fields, setFields] = useState([{ className: "", subject: "", subjects: [] }]);
+  // console.log("user_id", userDetails.user.id);
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [fields, setFields] = useState([
+    { className: "", subject: "", subjectsList: [] },
+  ]);
 
   const [classList, setClassList] = useState([]);
   const [subjectList, setSubjectList] = useState([]);
@@ -24,7 +28,52 @@ function AddTeacher() {
     password: "",
   });
 
-  // Fetch the list of classes
+  const getTeacher = async () => {
+    try {
+      const response = await fetch(
+        baseUrl + `api/get-teacher-details/${teacherId}`
+      );
+      const data = await response.json();
+
+      setFormData({
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+      });
+
+      if (data.class_and_subject) {
+        const parsedData = JSON.parse(data.class_and_subject);
+        
+        const fieldsData = await Promise.all(parsedData.map(async (item) => {
+          const subjectResponse = await fetch(baseUrl + `api/admin/apigetSubjects/${item.class_id}`);
+          const subjectsData = await subjectResponse.json();
+          return {
+            className: item.class_id,
+            subject: item.subject_id,
+            subjectsList: subjectsData,
+          };
+        }));
+
+        setFields(fieldsData);
+      }
+    } catch (error) {
+      console.error("Error fetching teachers:", error);
+    }
+  };
+
+  const fetchSubjectsForClass = (classId) => {
+    fetch(baseUrl + `api/admin/apigetSubjects/${classId}`)
+      .then((response) => response.json())
+      .then((subjectsData) => {
+        setSubjectList(subjectsData);
+      })
+      .catch((error) => console.error("Error fetching subjects:", error));
+  };
+
+  useEffect(() => {
+    getTeacher();
+  }, []);
+
   useEffect(() => {
     fetch(baseUrl + "api/admin/apigetClasses")
       .then((response) => response.json())
@@ -42,29 +91,45 @@ function AddTeacher() {
     setFields(updatedFields);
   };
 
+  const handleClassChange = async (index, e) => {
+    const selectedClassId = e.target.value;
+
+    try {
+      const response = await fetch(
+        baseUrl + `api/admin/apigetSubjects/${selectedClassId}`
+      );
+      const subjectsData = await response.json();
+
+      setFields(
+        fields.map((field, idx) => {
+          if (idx === index) {
+            return {
+              ...field,
+              className: selectedClassId,
+              subject: "",
+              subjectsList: subjectsData,
+            };
+          }
+          return field;
+        })
+      );
+    } catch (error) {
+      console.error("Error fetching subjects:", error);
+    }
+  };
+
   const handleChange = (index, e) => {
     const { name, value } = e.target;
     const fieldName = name.includes("className") ? "className" : "subject";
-    const updatedFields = fields.map((field, idx) =>
-      index === idx ? { ...field, [fieldName]: value } : field
-    );
-    setFields(updatedFields);
-  };
 
-  const handleClassChange = (index, e) => {
-    const selectedClassId = e.target.value;
-    fetch(baseUrl + `api/admin/apigetSubjects/${selectedClassId}`)
-      .then((response) => response.json())
-      .then((data) => {
-        const updatedFields = fields.map((field, idx) => {
-          if (idx === index) {
-            return { ...field, className: selectedClassId, subjects: data };
-          }
-          return field;
-        });
-        setFields(updatedFields);
+    setFields(
+      fields.map((field, idx) => {
+        if (idx === index) {
+          return { ...field, [fieldName]: value };
+        }
+        return field;
       })
-      .catch((error) => console.error("Error fetching subjects:", error));
+    );
   };
 
   const handleInputChange = (e) => {
@@ -75,120 +140,93 @@ function AddTeacher() {
       [name]: value,
     }));
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Access the form data
     const formDataToSend = new FormData();
 
     Object.entries(formData).forEach(([key, value]) => {
       formDataToSend.append(key, value);
     });
 
-    // Collect class and subject data
     const classAndSubjectData = fields.map((field) => ({
       class_id: field.className,
       subject_id: field.subject,
     }));
 
-    // Filter out any pairs that have empty class_id or subject_id
     const filteredClassAndSubjectData = classAndSubjectData.filter(
       (field) => field.class_id && field.subject_id
     );
 
-    // Convert the array to a JSON string
     const classAndSubjectJson = JSON.stringify(filteredClassAndSubjectData);
 
-    // Append the JSON string to your FormData
     formDataToSend.append("class_and_subject", classAndSubjectJson);
+
     formDataToSend.append("created_by", userDetails.user.id);
 
-    // Log FormData contents
     for (var pair of formDataToSend.entries()) {
       console.log(pair[0] + ", " + pair[1]);
     }
 
-    fetch(baseUrl + "api/school/api_add_teacher", {
+    fetch(baseUrl + "api/update-teacher-details/" + teacherId, {
       method: "POST",
       body: formDataToSend,
     })
       .then((response) => {
         if (!response.ok) {
-          // If the response status code is not in the 2xx range
           return response.json().then((data) => {
             if (response.status === 409) {
-              // Duplicate email error
               throw new Error(data.error || "Duplicate email found");
             } else {
-              // Other errors
-              throw new Error(data.error || "Failed to add teacher");
+              throw new Error(data.error || "Failed to update teacher");
             }
           });
         }
         return response.json();
       })
       .then((data) => {
-        // Handle success
-        console.log("Teacher added successfully", data);
-        toast.success("Teacher added successfully!");
-
-        // Clear form values after successful submission
+        console.log("Teacher updated successfully", data);
+        toast.success("Teacher updated successfully!");
+        navigate(`${process.env.PUBLIC_URL}/school/teachers`);
         setFormData({
           name: "",
           email: "",
           phone: "",
           password: "",
           created_by: "",
-          // class: "",
-          // subject: "",
         });
         setFields([{ className: "", subject: "" }]);
 
-        // If there's a separate state for subjectList, clear that as well
         setSubjectList([]);
       })
       .catch((error) => {
         console.error("Error adding teacher:", error);
-        toast.error(error.message); // Display the error m
+        toast.error(error.message);
       })
       .finally(() => {
-        setIsSubmitting(false); // Re-enable the submit button
+        setIsSubmitting(false);
       });
   };
-  const goBack = () => {
-    navigate(-1);
-  };
+
   return (
     <>
-      {/* <div className="middle-sidebar-bottom bg-lightblue theme-dark-bg"> */}
-      <div className="middle-sidebar-bottom  ">
+      <div className="custom-middle-sidebar-bottom  p-3">
         <div className="middle-sidebar-left">
+          <ToastContainer autoClose={3000} />
+
           <div className="card-body p-4 w-100 border-0 d-flex rounded-lg justify-content-between">
             <h2 className="fw-400 font-lg d-block">
-              Add <b>Teacher</b>
+              Edit <b>Teacher</b>
             </h2>
 
             <div className="float-right">
-              {/* <Breadcrumb style={{ padding: "0.25rem 1rem" }}>
-                      <Breadcrumb style={{ padding: "0.25rem 1rem" }}>
-                        <Breadcrumb.Item href="/school">
-                          <i className="fa fa-home"></i>&nbsp; Home
-                        </Breadcrumb.Item>
-                   
-                        <Breadcrumb.Item active className="fw-500 text-black">
-                          &nbsp; Add Teacher
-                        </Breadcrumb.Item>
-                      </Breadcrumb>
-                    </Breadcrumb> */}
               <BackButton />
             </div>
           </div>
-          {/* <div className="mb-3"> */}
           <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
             <div className="card-body p-4 w-100 border-0 d-flex rounded-lg justify-content-between">
-              <ToastContainer autoClose={3000} />
-
               <div className="card-body p-lg-5 p-4 w-100 border-0">
                 <form
                   method="post"
@@ -245,8 +283,8 @@ function AddTeacher() {
                           placeholder="Enter Teacher Phone"
                           value={formData.phone}
                           onChange={handleInputChange}
-                          maxLength="10" // This limits the input to 10 characters
-                          pattern="\d{10}" // This pattern matches exactly 10 digits
+                          maxLength="10"
+                          pattern="\d{10}"
                           required
                         />
                       </div>
@@ -265,7 +303,6 @@ function AddTeacher() {
                           placeholder="Enter Teacher password"
                           value={formData.password}
                           onChange={handleInputChange}
-                          required
                         />
                       </div>
                     </div>
@@ -279,17 +316,16 @@ function AddTeacher() {
                             <button
                               type="button"
                               id="addFields"
-                              className="btn bg-success px-3 py-2 text-center text-white font-xsss fw-600 p-1 w80 rounded-lg d-inline-block border-0"
-                              style={{ float: "right" }}
+                              className="btn btn-icon bg-success text-center text-white font-xsss fw-600  w80 rounded-lg d-inline-block border-0"
                               onClick={handleAddFields}
-                              title="Add teacher class and subject"
+                              title="Add New Class and Subject for Teacher"
                             >
                               +
                             </button>
                           </div>
                         </div>
 
-                        <div className="col-lg-10">
+                        <div className="col-lg-11">
                           <div className="dynamic">
                             {fields.map((field, index) => (
                               <div
@@ -311,7 +347,7 @@ function AddTeacher() {
                                       className="form-control"
                                     >
                                       <option value="">-Select-</option>
-                                      {classList.map((classItem) => (
+                                      {classList?.map((classItem) => (
                                         <option
                                           key={classItem.id}
                                           value={classItem.id}
@@ -335,7 +371,7 @@ function AddTeacher() {
                                       className="form-control"
                                     >
                                       <option value="">-Select-</option>
-                                      {field.subjects?.map((subject) => (
+                                      {field.subjectsList?.map((subject) => (
                                         <option
                                           key={subject.id}
                                           value={subject.id}
@@ -347,13 +383,16 @@ function AddTeacher() {
                                   </div>
                                 </div>
                                 <div className="col-lg-2 my-auto">
-                                  <button
-                                    type="button"
-                                    className="remove-field px-3 py-2 btn bg-danger text-center text-white font-xsss fw-600 p-1 w80 rounded-lg d-inline-block border-0"
-                                    onClick={() => handleRemoveFields(index)}
-                                  >
-                                    -
-                                  </button>
+                                  <div className="form-group">
+                                    <div className="form-label"></div>
+                                    <button
+                                      type="button"
+                                      className="remove-field btn bg-danger text-center text-white font-xsss fw-600 rounded-lg d-inline-block border-0"
+                                      onClick={() => handleRemoveFields(index)}
+                                    >
+                                      -
+                                    </button>
+                                  </div>
                                 </div>
                               </div>
                             ))}
@@ -384,4 +423,4 @@ function AddTeacher() {
   );
 }
 
-export default AddTeacher;
+export default EditTeacher;

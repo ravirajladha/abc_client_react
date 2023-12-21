@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import Dropdown from "../../../components/inputs/Dropdown";
 import BackButton from "../../../components/navigation/BackButton";
@@ -12,6 +12,9 @@ function EditTest() {
     { id: "3", term: "Term 3" },
   ];
 
+  const navigate = useNavigate();
+  const { testId } = useParams();
+  
   const baseUrl = process.env.REACT_APP_BASE_URL;
 
   const [classes, setClasses] = useState([]);
@@ -115,7 +118,20 @@ function EditTest() {
       });
   }
 
-  const navigate = useNavigate();
+  const getTestDetails = async () => {
+    try {
+      const res = await fetch(baseUrl + 'api/get-test-details/' + testId);
+      const data = await res.json();
+      console.log(data)
+    } catch(error) {
+      console.error("Error loading test details.", error.message);
+    }
+  };
+
+  useEffect( () => {
+    getTestDetails();
+  }, []);
+
   const editTest = (e) => {
     const formData = new FormData();
     formData.append("class", selectedClass);
@@ -131,7 +147,7 @@ function EditTest() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    fetch(baseUrl + "api/create_test", {
+    fetch(baseUrl + "api/update-test-details" + testId, {
       method: "POST",
       body: formData,
     })

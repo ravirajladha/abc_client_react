@@ -66,6 +66,7 @@ import EditChapter from "../pages/admin/edit-pages/EditChapter.jsx";
 import EditVideo from "../pages/admin/edit-pages/EditVideo.jsx";
 import Settings from "../pages/common/Settings.jsx";
 import EditTest from "../pages/admin/edit-pages/EditTest.jsx";
+import EditStudent from "../pages/admin/edit-pages/EditStudent.jsx";
 // const AdminHomeWithLayoutAndProtection = withLayoutAndProtection(AdminHome, { allowedTypes: ['admin'] });
 export const adminRoutes = (
   <>
@@ -671,6 +672,13 @@ export const adminRoutes = (
       path={`${process.env.PUBLIC_URL}/test-question/:testQuestionId/edit`}
       element={React.createElement(
         withLayoutAndProtection(EditTest, { allowedTypes: ["admin"] })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/school/:schoolId/student/:studentId/edit`}
+      element={React.createElement(
+        withLayoutAndProtection(EditStudent, { allowedTypes: ["admin"] })
       )}
     />
   </>

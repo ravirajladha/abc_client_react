@@ -40,7 +40,9 @@ function Home() {
   const { user } = useContext(AuthContext);
 
   const [dashboardInfo, setDashboardInfo] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingStudentAnalytics, setIsLoadingStudentAnalytics] =
+    useState(true);
+  const [isLoadingVideoStats, setIsLoadingVideoStats] = useState(true);
 
   const getStudentDashboard = useCallback(async () => {
     try {
@@ -49,10 +51,12 @@ function Home() {
       );
       const student = await response.json();
       setDashboardInfo(student);
-      setIsLoading(false);
+      setIsLoadingStudentAnalytics(false);
+      setIsLoadingVideoStats(false);
     } catch (error) {
       console.error("There was a problem fetching student details:", error);
-      setIsLoading(false);
+      setIsLoadingStudentAnalytics(false);
+      setIsLoadingVideoStats(false);
     }
   }, [user.student.auth_id, baseUrl]);
 
@@ -71,10 +75,6 @@ function Home() {
 
   return (
     <>
-      {/* <div className="main-wrapper">
-        <div className="main-content menu-active">
-          <AppHeader /> */}
-
       <div className="middle-sidebar-bottom theme-dark-bg">
         <div className="middle-sidebar-left">
           {/* Intro Message */}
@@ -105,164 +105,129 @@ function Home() {
             <div className="col-lg-12">
               <div className="card w-100 p-1 border-0 mt-4 rounded-lg bg-white shadow-xs overflow-hidden">
                 <div className="card-body p-4">
-                  <div className="row">
-                    <div className="col-4">
-                      <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                        {dashboardInfo.last_login !== null
-                          ? dashboardInfo.last_login
-                          : "-"}
-                      </h2>
-                      <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
-                        Last Login
-                      </h4>
+                  {isLoadingStudentAnalytics ? (
+                    <div className="row mb-5">
+                      <div className="col-12">
+                        <Loader />
+                      </div>
                     </div>
-                    <div className="col-4">
-                      <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                        {dashboardInfo.total_watch_time !== null
-                          ? dashboardInfo.total_watch_time
-                          : "-"}
-                      </h2>
-                      <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
-                        Total Watch Time
-                      </h4>
-                    </div>
-                    <div className="col-4">
-                      <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                        {dashboardInfo.avg_assessment_score &&
-                          dashboardInfo.avg_assessment_score}
-                      </h2>
-                      <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
-                        Average Assessment Score
-                      </h4>
-                    </div>
-                  </div>
+                  ) : (
+                    <>
+                      <div className="row">
+                        <div className="col-4">
+                          <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
+                            {dashboardInfo.last_login !== null
+                              ? dashboardInfo.last_login
+                              : "-"}
+                          </h2>
+                          <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
+                            Last Login
+                          </h4>
+                        </div>
+                        <div className="col-4">
+                          <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
+                            {dashboardInfo.total_watch_time !== null
+                              ? dashboardInfo.total_watch_time
+                              : "-"}
+                          </h2>
+                          <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
+                            Total Watch Time
+                          </h4>
+                        </div>
+                        <div className="col-4">
+                          <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
+                            {dashboardInfo.avg_assessment_score &&
+                              dashboardInfo.avg_assessment_score}
+                          </h2>
+                          <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
+                            Average Assessment Score
+                          </h4>
+                        </div>
+                      </div>
+                      <div className="row my-1">
+                        <div className="col-lg-12">
+                          <div className="card w-100 p-1 border-0 mt-4 rounded-lg bg-white shadow-xs overflow-hidden">
+                            <div className="card-body p-4">
+                              <div className="row">
+                                <div className="col-4">
+                                  <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
+                                    {dashboardInfo.first_term_results &&
+                                      dashboardInfo.first_term_results + "/100"}
+                                  </h2>
+                                  <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
+                                    Term 1 Score
+                                  </h4>
+                                </div>
+                                <div className="col-4">
+                                  <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
+                                    {dashboardInfo.second_term_results &&
+                                      dashboardInfo.second_term_results +
+                                        "/100"}
+                                  </h2>
+                                  <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
+                                    Term 2 Score
+                                  </h4>
+                                </div>
+                                <div className="col-4">
+                                  <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
+                                    {dashboardInfo.third_term_results &&
+                                      dashboardInfo.third_term_results + "/100"}
+                                  </h2>
+                                  <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
+                                    Term 3 Score
+                                  </h4>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="row my-1">
-            <div className="col-lg-12">
-              <div className="card w-100 p-1 border-0 mt-4 rounded-lg bg-white shadow-xs overflow-hidden">
-                <div className="card-body p-4">
-                  <div className="row">
-                    <div className="col-4">
-                      <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                        {dashboardInfo.first_term_results &&
-                          dashboardInfo.first_term_results + "/100"}
-                      </h2>
-                      <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
-                        Term 1 Score
-                      </h4>
-                    </div>
-                    <div className="col-4">
-                      <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                        {dashboardInfo.second_term_results &&
-                          dashboardInfo.second_term_results + "/100"}
-                      </h2>
-                      <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
-                        Term 2 Score
-                      </h4>
-                    </div>
-                    <div className="col-4">
-                      <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                        {dashboardInfo.third_term_results &&
-                          dashboardInfo.third_term_results + "/100"}
-                      </h2>
-                      <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
-                        Term 3 Score
-                      </h4>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
+          {/* Video Stats */}
           <div className="row">
             <div className="col-lg-12">
               <div className="card w-100 p-1 border-0 mt-4 rounded-lg bg-white shadow-xs overflow-hidden">
                 <div className="card-body p-sm-4">
-                  <div className="row">
-                    {dashboardInfo.video_stats &&
-                      dashboardInfo.video_stats.map((item) => (
-                        <div
-                          className="col-lg-4 col-sm-6"
-                          key={item.subject_id}
-                        >
-                          <ApexChart
-                            seriesData={[
-                              item.started_video_count,
-                              item.total_video_count,
-                            ]}
-                            colorsData={["#fec794", "#25d366"]}
-                          />
-                          <h4 className="fw-700 text-lg-end text-sm-center text-grey-600 font-xssss ls-5 text-uppercase mb-0 my-2">
-                            {item.subject_name}
-                          </h4>
-                        </div>
-                      ))}
-                  </div>
+                  {isLoadingVideoStats ? (
+                    <div className="row mb-5">
+                      <div className="col-12">
+                        <Loader />
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="row">
+                      {dashboardInfo.video_stats &&
+                        dashboardInfo.video_stats.map((item) => (
+                          <div
+                            className="col-lg-4 col-sm-6"
+                            key="{item.subject_id}"
+                          >
+                            <ApexChart
+                              seriesData={[
+                                item.started_video_count,
+                                item.total_video_count,
+                              ]}
+                              colorsData={["#fec794", "#25d366"]}
+                            />
+                            <h4 className="fw-700 text-lg-end text-sm-center text-grey-600 font-xssss ls-5 text-uppercase mb-0 my-2">
+                              {item.subject_name}
+                            </h4>
+                          </div>
+                        ))}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
           </div>
 
-          {/* <div className="row">
-                <div className="col-xl-4 col-lg-12 ">
-                  <div className="card w-100 p-1 border-0 mt-4 rounded-lg bg-white shadow-xs overflow-hidden">
-                    <div className="card-body p-4">
-                      <div className="row">
-                        <div className="col">
-                          <h4 className="fw-700 text-success font-xssss mt-0 mb-0 ">+45 %</h4>
-                          <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                            {dashboardInfo.class_rank ? dashboardInfo.class_rank : "0"}
-                          </h2>
-                          <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
-                            Class Rank
-                          </h4>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-xl-4 col-lg-12 ">
-                  <div className="card w-100 p-1 border-0 mt-4 rounded-lg bg-white shadow-xs overflow-hidden">
-                    <div className="card-body p-4">
-                      <div className="row">
-                        <div className="col">
-                          <h4 className="fw-700 text-success font-xssss mt-0 mb-0 ">+25 %</h4>
-                          <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                            4
-                          </h2>
-                          <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
-                            Section Rank
-                          </h4>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-xl-4 col-lg-12 ">
-                  <div className="card w-100 p-1 border-0 mt-4 rounded-lg bg-white shadow-xs overflow-hidden">
-                    <div className="card-body p-4">
-                      <div className="row">
-                        <div className="col">
-                          <h4 className="fw-700 text-success font-xssss mt-0 mb-0 ">+45 %</h4>
-                          <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                            2
-                          </h2>
-                          <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
-                            Subject Rank
-                          </h4>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div> */}
-
-          {/* Live Classess */}
+          {/* Live Classes */}
           <div className="row mt-2">
             <h2 className="fw-400 font-lg d-block my-2">
               Live <b> Classes</b>
@@ -307,10 +272,6 @@ function Home() {
         </div>
         <StudentSidebar />
       </div>
-      {/* </div>
-
-        <AppFooter />
-      </div> */}
     </>
   );
 }
