@@ -1,27 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import AppHeader from "../../components/includes/AppHeader";
 import BackButton from "../../components/navigation/BackButton";
 import { useContext } from "react";
 import { AuthContext } from "../../lib/AuthContext.js";
+import Loader from "../../components/common/Loader.jsx";
+import NoContent from "../../components/common/NoContent.jsx";
+
 function Teachers() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const [teachers, setTeachers] = useState([]);
   const userDetails = useContext(AuthContext).user;
+  const [isLoading, setIsLoading] = useState(true);
 
   const getTeachers = () => {
-    const creatorId = userDetails.user.id; // Replace with actual user ID path
-console.log("school_id",creatorId);
+    const creatorId = userDetails.user.id;
+
     fetch(
-      `${baseUrl}api/admin/api_get_all_teachers_school_wise?created_by=${creatorId}`
+      `${baseUrl}api/school/get_all_teachers_school_wise?created_by=${creatorId}`
     )
       .then((result) => result.json())
       .then((jsonbody) => {
-        console.log("all teahcher_school", jsonbody);
+        console.log("all teacher_school", jsonbody);
         setTeachers(jsonbody);
+        setIsLoading(false);
       })
       .catch((error) => {
         console.error("Error fetching teachers:", error);
+        setIsLoading(false);
       });
   };
 
@@ -30,22 +35,18 @@ console.log("school_id",creatorId);
   }, []);
 
   function formatClassSubject(subjectString) {
-    // Check if subjectString is a truthy value; if not, return a default message
     if (!subjectString) {
       return "No subjects available";
     }
 
     try {
-      // Parse the JSON string into an array of objects
       const subjects = JSON.parse(subjectString);
-
-      // Map over the array and format the class and subject into a string
       return subjects
         .map((sub) => `Class ${sub.class_id}, Subject ${sub.subject_id}`)
         .join(" ~|~ ");
     } catch (error) {
       console.error("Error parsing subjects JSON:", error);
-      return "Invalid subjects data"; // or some other error handling
+      return "Invalid subjects data";
     }
   }
 
@@ -71,48 +72,48 @@ console.log("school_id",creatorId);
               </div>
             </div>
 
-            <div className="card-body p-lg-5 p-4 w-100 border-0">
-              <table id="myTable" className="table">
-                <thead>
-                  <tr>
-                    <th scope="col">Sl. No.</th>
-                    <th scope="col">Teacher Id</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Subject & Class</th>
-
-                    {/* <th scope="col" className="text-dark">
-                        Action
-                      </th> */}
-                  </tr>
-                </thead>
-                <tbody>
-                  {teachers.map((teacher, index) => (
-                    <tr key={index}>
-                      <td>{index + 1}</td>
-                      <td>{teacher.auth_id}</td>
-                      <td>{teacher.name}</td>
-                      <td>{teacher.email}</td>
-                      <td>
-                        {teacher.class_and_subject.map((item, idx) => (
-                          <div key={idx}>
-                            {item.class_name}, {item.subject_name}
-                          </div>
-                        ))}
-                      </td>
-                      {/* <td>
-                <Link
-                  to={`/edit-teacher/${teacher.id}`}
-                  className="p-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current"
-                >
-                  Edit
-                </Link>
-              </td> */}
+            {isLoading ? (
+              <Loader />
+            ) : teachers && teachers.length > 0 ? (
+              <div className="card-body p-lg-5 p-4 w-100 border-0">
+                <table id="myTable" className="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Sl. No.</th>
+                      <th scope="col">Teacher Id</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Subject & Class</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                  </thead>
+                  <tbody>
+                    {teachers.map((teacher, index) => (
+                      <tr key={index}>
+                        <td>{index + 1}</td>
+                        <td>{teacher.auth_id}</td>
+                        <td>{teacher.name}</td>
+                        <td>{teacher.email}</td>
+                        <td>
+                          {teacher.class_and_subject.map((item, idx) => (
+                            <div key={idx}>
+                              {item.class_name
+                                ? item.class_name
+                                : "No Class Name"}
+                              ,
+                              {item.subject_name
+                                ? item.subject_name
+                                : "No Subject Name"}
+                            </div>
+                          ))}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <NoContent contentName="teachers" />
+            )}
           </div>
         </div>
       </div>

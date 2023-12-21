@@ -1,19 +1,30 @@
-import React, { useState, useEffect } from "react";
-import AppHeader from "../../components/includes/AppHeader";
-import AppFooter from "../../components/includes/AppFooter";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import BackButton from "../../components/navigation/BackButton";
 import { useParams } from "react-router-dom";
 import moment from "moment";
+import Loader from "../../components/common/Loader.jsx";
+import NoContent from "../../components/common/NoContent.jsx";
+import "datatables.net-dt/css/jquery.dataTables.css";
+import $ from "jquery";
+import "datatables.net";
+
 function AllTasks() {
   const { projectId } = useParams();
+  const tableRef = useRef(null);
 
   const [tasks, setTasks] = useState([]);
+  const [loading, setLoading] = useState(true);
   const baseUrl = process.env.REACT_APP_BASE_URL;
 
   useEffect(() => {
     const fetchTasks = async () => {
-      if (!projectId) return;
+      setLoading(true);
+
+      if (!projectId) {
+        setLoading(false);
+        return;
+      }
 
       try {
         const response = await fetch(
@@ -22,13 +33,21 @@ function AllTasks() {
         const data = await response.json();
         console.log("tasks", data);
         setTasks(data);
+        setLoading(false);
+        initializeDataTable();
       } catch (error) {
         console.error("Error fetching tasks:", error);
+        setLoading(false);
       }
     };
 
     fetchTasks();
   }, [projectId]);
+
+  const initializeDataTable = () => {
+    $(tableRef.current).DataTable();
+  };
+
   return (
     <>
       <div className="middle-sidebar-bottom theme-dark-bg">
@@ -50,34 +69,40 @@ function AllTasks() {
                 <BackButton />
               </div>
             </div>
-            <div className="col-lg-12 mb-3">
-              <div className="table-content table-responsive">
-                <table className="table text-center">
-                  <thead className="bg-greyblue rounded-lg">
-                    <tr>
-                      <th className="border-0 p-4 text-left">Id</th>
-                      <th className="border-0 p-4">Name</th>
-                      <th className="border-0 p-4">Description</th>
-                      <th className="border-0 p-4">Created At</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {tasks.map((lab, index) => (
-                      <tr key={index}>
-                        <td className="text-left">{lab.id}</td>
-                        <td>{lab.name}</td>
-                        <td>{lab.description}</td>
-                        <td>
-                          {moment(lab.created_at).format(
-                            "MM/DD/YYYY h:mm:ss a"
-                          )}
-                        </td>
+            {loading ? (
+              <Loader />
+            ) : tasks && tasks.length > 0 ? (
+              <div className="col-lg-12 mb-3">
+                <div className="table-content table-responsive">
+                  <table className="table text-center" ref={tableRef}>
+                    <thead className="bg-greyblue rounded-lg">
+                      <tr>
+                        <th className="border-0 p-4 text-left">Id</th>
+                        <th className="border-0 p-4">Name</th>
+                        <th className="border-0 p-4">Description</th>
+                        <th className="border-0 p-4">Created At</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      {tasks.map((lab, index) => (
+                        <tr key={index}>
+                          <td className="text-left">{lab.id}</td>
+                          <td>{lab.name}</td>
+                          <td>{lab.description}</td>
+                          <td>
+                            {moment(lab.created_at).format(
+                              "MM/DD/YYYY h:mm:ss a"
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
-            </div>
+            ) : (
+              <NoContent contentName="tasks" />
+            )}
           </div>
         </div>
       </div>

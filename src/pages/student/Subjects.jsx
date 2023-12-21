@@ -1,44 +1,46 @@
 import React, { useState, useEffect, useContext } from "react";
-import AppFooter from "../../components/includes/AppFooter";
-import AppHeader from "../../components/includes/AppHeader";
+import Loader from "../../components/common/Loader.jsx";
+import NoContent from "../../components/common/NoContent.jsx";
 import StudentSidebar from "../../components/includes/StudentSidebar";
 import BackButton from "../../components/navigation/BackButton";
-
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../lib/AuthContext.js";
 
-function Subjects() {
+const Subjects = () => {
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const user = useContext(AuthContext).user;
 
-  // const userString = localStorage.getItem("rexkod_user");
-  // const user = JSON.parse(userString);
   const classId = user.student.class_id;
   const studentId = user.student.auth_id;
 
+  const [subjects, setSubjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    getSubjects();
+    getSubjects()
+      .then(() => setLoading(false))
+      .catch(() => setLoading(false));
     fetchUserTestResults();
   }, []);
 
-  const [subjects, setSubjects] = useState([]);
-
   function getSubjects() {
-    fetch(baseUrl + "api/get_subjects/" + classId + "/" + studentId).then(
-      function (result) {
-        result.json().then(function (jsonBody) {
-          // console.warn(jsonBody);
-          console.log(jsonBody);
-          setSubjects(jsonBody);
-        });
-      }
-    );
+    return fetch(
+      baseUrl + "api/get_subjects/" + classId + "/" + studentId
+    ).then(function (result) {
+      return result.json().then(function (jsonBody) {
+        console.log(jsonBody);
+        setSubjects(jsonBody);
+      });
+    });
   }
+
   // Fetch test details and results for the user to show the term scores
   const [userTestResults, setUserTestResults] = useState([]);
   const fetchUserTestResults = async () => {
     try {
-      const response = await fetch(baseUrl + "api/get_student_test_results/" + userId);
+      const response = await fetch(
+        baseUrl + "api/get_student_test_results/" + userId
+      );
       if (!response.ok) {
         throw new Error("Failed to fetch user test results");
       }
@@ -49,6 +51,7 @@ function Subjects() {
       console.error("Error fetching user test results:", error);
     }
   };
+
   const getTermScore = (subjectId, term) => {
     const subjectResult = userTestResults.find(
       (result) => result.subject_id === subjectId && result.term === term
@@ -58,6 +61,7 @@ function Subjects() {
     }
     return "N/A";
   };
+
   const getTestIdForTerm = (subjectId, term) => {
     const result = userTestResults.find(
       (result) => result.subject_id === subjectId && result.term === term
@@ -66,39 +70,34 @@ function Subjects() {
   };
 
   if (!user) {
-    // Handle the case when there is no user. You might want to redirect
-    // to a login page or return null or some placeholder content.
     console.log("No user found. User might be logged out.");
     return <div>User is not logged in</div>;
   }
+
   const userId = user.user.id;
+
   return (
     <>
-  
-
-          <div className="middle-sidebar-bottom theme-dark-bg">
-            <div className="middle-sidebar-left">
+      <div className="middle-sidebar-bottom theme-dark-bg">
+        <div className="middle-sidebar-left">
+          <div className="row">
+            <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
+              <div>
+                <h2 className="fw-400 font-lg d-block">
+                  <b> Subjects</b>
+                </h2>
+              </div>
+              <div className="float-right">
+                <BackButton />
+              </div>
+            </div>
+            {loading ? (
+              <Loader />
+            ) : subjects.length > 0 ? (
               <div className="row">
-                <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
-                  <div>
-                    <h2 className="fw-400 font-lg d-block">
-                      <b> Subjects</b>
-                    </h2>
-                  </div>
-                  <div className="float-right">
-                    <BackButton />
-                  </div>
-                </div>
                 {subjects.map((value, index) => (
                   <div className="col-xl-4 col-lg-6 col-md-6" key={index}>
                     <div className="card mb-4 d-block w-100 shadow-xss rounded-lg p-xxl-5 p-4 border-0 text-center">
-                      {/* <Link
-                        to={"#"}
-                        className="position-absolute right-0 mr-4 top-0 mt-3"
-                      >
-                        <i className="ti-more text-grey-500 font-xs"></i>
-                      </Link> */}
-
                       <div className="d-flex justify-content-between ">
                         <div>
                           <Link
@@ -115,7 +114,6 @@ function Subjects() {
                             {value.subject_name}
                           </h4>
                         </div>
-
                         <div>
                           <div>
                             {[1, 2, 3].map((term) => {
@@ -161,7 +159,6 @@ function Subjects() {
                             LEARN
                           </Link>
                         </div>
-
                         <div>
                           <Link
                             to={
@@ -199,25 +196,20 @@ function Subjects() {
                             Results
                           </Link>
                         </div>
-                       
                       </div>
-
-                      {/* <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-success d-inline-block text-success mb-1 mr-1">
-                        FULL TIME
-                      </span>
-                      <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-info d-inline-block text-info">
-                        30 MIN
-                      </span> */}
                     </div>
                   </div>
                 ))}
               </div>
-            </div>
-            <StudentSidebar />
+            ) : (
+              <NoContent contentName="subjects" />
+            )}
           </div>
-     
+        </div>
+        <StudentSidebar />
+      </div>
     </>
   );
-}
+};
 
 export default Subjects;

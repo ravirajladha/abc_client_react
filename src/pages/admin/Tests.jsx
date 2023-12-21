@@ -112,8 +112,7 @@ function Tests() {
             </div>
             {loading ? (
               <Loader />
-            ) : tests ? (
-              tests &&
+            ) : tests && tests.length > 0 ? (
               tests.map((test, index) => (
                 <div className="col-lg-3 col-md-6 col-12 col-sm-6" key={index}>
                   <div className="item">
@@ -136,7 +135,9 @@ function Tests() {
                       </Link>
                       <div className="card-body pt-0 text-center">
                         {/* <span
-                                                                className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-danger d-inline-block text-danger mr-1">{test.subject.subject_name}</span> */}
+              className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-danger d-inline-block text-danger mr-1">
+              {test.subject.subject_name}
+            </span> */}
                         <h4 className="fw-700 font-xss mt-3 lh-28 mt-0">
                           <a
                             href="default_course_details"
@@ -148,13 +149,13 @@ function Tests() {
 
                         <div className="text-center mt-2">
                           <Link
-                            to={"/tests/test_details/" + test.id}
+                            to={`/tests/test_details/${test.id}`}
                             className="px-3 py-1 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss bg-current me-2"
                           >
                             DETAILS
                           </Link>
                           <Link
-                            to={"/tests/test_results/" + test.id}
+                            to={`/tests/test_results/${test.id}`}
                             className="px-3 py-1 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss bg-current"
                           >
                             RESULTS

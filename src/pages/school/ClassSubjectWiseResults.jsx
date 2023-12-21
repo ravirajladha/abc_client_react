@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
-import AppFooter from "../../components/includes/AppFooter";
 import BackButton from "../../components/navigation/BackButton";
-import AppHeader from "../../components/includes/AppHeader";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import Loader from "../../components/common/Loader";
+import NoContent from "../../components/common/NoContent";
 
 import $ from "jquery";
 import "datatables.net";
@@ -20,6 +20,7 @@ const ClassResults = () => {
   const [results, setResults] = useState([]);
   const [term, setTerm] = useState(""); // default to term 1
   const [section, setSection] = useState(""); // default to section a
+  const [loading, setLoading] = useState(true);
 
   // Extract subjects for table header. This will create a list of unique subjects
   // across all students, assuming 'results' is the array shown in your screenshot.
@@ -34,7 +35,9 @@ const ClassResults = () => {
     });
     return Array.from(allSubjects);
   }, [results]);
+
   const getTestResults = () => {
+    setLoading(true);
     // Update the URL to use the path parameters
     const url = `${baseUrl}api/get_class_subject_wise_result/${classId}/${term}/${section}`;
     // Return the fetch promise
@@ -43,10 +46,12 @@ const ClassResults = () => {
       .then((jsonBody) => {
         console.log(jsonBody);
         setResults(jsonBody);
+        setLoading(false);
         // Initialization of DataTables is moved to initDataTable function called after data is set
       })
       .catch((error) => {
         console.error("Error:", error);
+        setLoading(false);
       });
   };
 
@@ -75,163 +80,146 @@ const ClassResults = () => {
 
   return (
     <>
-
-          <div className="middle-sidebar-bottom">
-            <div className="middle-sidebar-left">
-              <div className="row">
-                <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
-                  <div>
-                    <h2 className="fw-400 font-lg d-block">
-                      Class <b> Results</b>
-                    </h2>
-                  </div>
-                  <div className="float-right">
-                    <BackButton />
-                  </div>
-                </div>
-
-                <div className="card-body p-2 w-100 border-0 ">
-                  <div className="my-2 row">
-                    <div className="col-lg-2">
-                      <select
-                        className="form-select "
-                        value={term}
-                        onChange={(e) => setTerm(e.target.value)}
-                      >
-                        <option value="">Select Term</option>
-
-                        <option value="1">Term 1</option>
-                        <option value="2">Term 2</option>
-                        <option value="3">Term 3</option>
-                      </select>
-                    </div>
-                    <div className="col-lg-2">
-                      <select
-                        className="form-select "
-                        value={section}
-                        onChange={(e) => setSection(e.target.value)}
-                      >
-                        <option value="">Select Section</option>
-                        <option value="1">Section A</option>
-                        <option value="2">Section B</option>
-                        <option value="3">Section C</option>
-                      </select>
-                    </div>
-                    {/* Dropdown for selecting section */}
-                  </div>
-                  <div className="table-responsive">
-                    <table ref={tableRef} className="table mb-0">
-                      <thead className="bg-greylight rounded-10 ovh">
-                        <tr>
-                          <th className="border-0">Sl no.</th>
-                          <th className="border-0">Student</th>
-                          {/* Dynamically create a header for each subject */}
-                          {subjects.map((subject, index) => (
-                            <th className="border-0" key={index}>
-                              {subject}
-                            </th>
-                          ))}
-                          <th className="border-0">Total</th>
-                          <th className="border-0">Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {results ? (
-                          results.map((result, index) => (
-                            <tr key={index}>
-                              <td>{index + 1}</td>
-                              <td className="capitalize">
-                                {result.student_name}
-                              </td>
-                              {/* Dynamically display scores for each subject */}
-                              {/* Map over the subjects and display the scores */}
-                              {Object.entries(result.results).map(
-                                ([subjectKey, scoreObj], index) => {
-                                  const [subjectId, subjectName] =
-                                    subjectKey.split("_");
-                                  const score = scoreObj ? scoreObj.score : ""; // Access the score property
-                                  return (
-                                    <td key={index}>
-                                      {score !== "" ? score : "-"}
-                                    </td>
-                                  );
-                                }
-                              )}
-
-                              {/* Calculate the total score */}
-                              <td>
-                                {Object.values(result.results).reduce(
-                                  (total, scoreObj) => {
-                                    // Check if scoreObj exists and has a 'score' property
-                                    if (scoreObj && scoreObj.score !== null) {
-                                      return total + scoreObj.score; // Add the score to the total
-                                    }
-                                    return total; // Otherwise, return the current total as is
-                                  },
-                                  0 // Initial value for the total
-                                )}
-                              </td>
-
-                              <td>
-                                {Object.entries(result.results).map(
-                                  ([subjectKey, scoreObj], index) => {
-                                    const [subjectId, subjectName] =
-                                      subjectKey.split("_");
-                                    const score = scoreObj
-                                      ? scoreObj.score
-                                      : null;
-                                    const testId = scoreObj
-                                      ? scoreObj.test_id
-                                      : null; // Access the test_id property
-
-                                    return (
-                                      <>
-                                        {testId !== null && score !== null ? (
-                                          <Link
-                                            key={index}
-                                            to={
-                                              "/student/" +
-                                              result.student_id +
-                                              "/results/" +
-                                              testId
-                                            }
-                                            className="px-3 py-1 me-2 d-inline-block text-white fw-700 lh-30 rounded-lg uppercase text-center font-xsssss ls-3 bg-current mx-1"
-                                          >
-                                          {subjectName} Response
-                                          </Link>
-                                        ) : (
-                                          ""
-                                        )}
-                                      </>
-                                    );
-                                  }
-                                )}
-
-                                {/* <Link
-                                  to={
-                                    "/school/edit-student-profile/" +
-                                    result.student_id
-                                  }
-                                  className="px-3 py-1 me-2 d-inline-block text-white fw-700 lh-30 rounded-lg uppercase text-center font-xsssss ls-3 bg-current mx-1"
-                                >
-                                  View Profile
-                                </Link> */}
-                              </td>
-                            </tr>
-                          ))
-                        ) : (
-                          <tr>
-                            <td colSpan={subjects.length + 4}>No data found</td>
-                          </tr>
-                        )}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
+      <div className="middle-sidebar-bottom">
+        <div className="middle-sidebar-left">
+          <div className="row">
+            <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
+              <div>
+                <h2 className="fw-400 font-lg d-block">
+                  Class <b> Results</b>
+                </h2>
+              </div>
+              <div className="float-right">
+                <BackButton />
               </div>
             </div>
+
+            <div className="card-body p-2 w-100 border-0 ">
+              <div className="my-2 row">
+                <div className="col-lg-2">
+                  <select
+                    className="form-select "
+                    value={term}
+                    onChange={(e) => setTerm(e.target.value)}
+                  >
+                    <option value="">Select Term</option>
+
+                    <option value="1">Term 1</option>
+                    <option value="2">Term 2</option>
+                    <option value="3">Term 3</option>
+                  </select>
+                </div>
+                <div className="col-lg-2">
+                  <select
+                    className="form-select "
+                    value={section}
+                    onChange={(e) => setSection(e.target.value)}
+                  >
+                    <option value="">Select Section</option>
+                    <option value="1">Section A</option>
+                    <option value="2">Section B</option>
+                    <option value="3">Section C</option>
+                  </select>
+                </div>
+                {/* Dropdown for selecting section */}
+              </div>
+              {loading ? (
+                <Loader />
+              ) : results.length > 0 ? (
+                <div className="table-responsive">
+                  <table ref={tableRef} className="table mb-0">
+                    <thead className="bg-greylight rounded-10 ovh">
+                      <tr>
+                        <th className="border-0">Sl no.</th>
+                        <th className="border-0">Student</th>
+                        {/* Dynamically create a header for each subject */}
+                        {subjects.map((subject, index) => (
+                          <th className="border-0" key={index}>
+                            {subject}
+                          </th>
+                        ))}
+                        <th className="border-0">Total</th>
+                        <th className="border-0">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {results.map((result, index) => (
+                        <tr key={index}>
+                          <td>{index + 1}</td>
+                          <td className="capitalize">{result.student_name}</td>
+                          {/* Dynamically display scores for each subject */}
+                          {/* Map over the subjects and display the scores */}
+                          {Object.entries(result.results).map(
+                            ([subjectKey, scoreObj], index) => {
+                              const [subjectId, subjectName] =
+                                subjectKey.split("_");
+                              const score = scoreObj ? scoreObj.score : ""; // Access the score property
+                              return (
+                                <td key={index}>
+                                  {score !== "" ? score : "-"}
+                                </td>
+                              );
+                            }
+                          )}
+
+                          {/* Calculate the total score */}
+                          <td>
+                            {Object.values(result.results).reduce(
+                              (total, scoreObj) => {
+                                // Check if scoreObj exists and has a 'score' property
+                                if (scoreObj && scoreObj.score !== null) {
+                                  return total + scoreObj.score; // Add the score to the total
+                                }
+                                return total; // Otherwise, return the current total as is
+                              },
+                              0 // Initial value for the total
+                            )}
+                          </td>
+
+                          <td>
+                            {Object.entries(result.results).map(
+                              ([subjectKey, scoreObj], index) => {
+                                const [subjectId, subjectName] =
+                                  subjectKey.split("_");
+                                const score = scoreObj ? scoreObj.score : null;
+                                const testId = scoreObj
+                                  ? scoreObj.test_id
+                                  : null;
+                                return (
+                                  <>
+                                    {testId !== null && score !== null ? (
+                                      <Link
+                                        key={index}
+                                        to={
+                                          "/student/" +
+                                          result.student_id +
+                                          "/results/" +
+                                          testId
+                                        }
+                                        className="px-3 py-1 me-2 d-inline-block text-white fw-700 lh-30 rounded-lg uppercase text-center font-xsssss ls-3 bg-current mx-1"
+                                      >
+                                        {subjectName} Response
+                                      </Link>
+                                    ) : (
+                                      ""
+                                    )}
+                                  </>
+                                );
+                              }
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ) : (
+                <NoContent contentName="results" />
+              )}
+            </div>
           </div>
-       
+        </div>
+      </div>
     </>
   );
 };

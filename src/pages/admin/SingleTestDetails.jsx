@@ -3,27 +3,41 @@ import AppHeader from "../../components/includes/AppHeader";
 import AppFooter from "../../components/includes/AppFooter";
 import { Link, useParams } from "react-router-dom";
 import BackButton from "../../components/navigation/BackButton";
+import Loader from "../../components/common/Loader.jsx";
+import NoContent from "../../components/common/NoContent.jsx";
 
 function SingleTestDetails() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
 
   const [testDetails, setTestDetails] = useState([]);
   const [testQuestions, setTestQuestions] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { testId } = useParams();
-  const getTestDetails = (e) => {
-    let result = fetch(baseUrl + "api/get_test_details/" + testId).then(
-      function (result) {
-        result.json().then(function (jsonbody) {
-          console.warn(jsonbody.test.classes.class);
-          setTestDetails(jsonbody.test);
-          setTestQuestions(jsonbody.test_questions);
-        });
-      }
-    );
+
+  const getTestDetails = () => {
+    setLoading(true);
+    fetch(baseUrl + "api/get_test_details/" + testId)
+      .then(function (result) {
+        if (!result.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return result.json();
+      })
+      .then(function (jsonbody) {
+        setTestDetails(jsonbody.test);
+        setTestQuestions(jsonbody.test_questions);
+        setLoading(false);
+      })
+      .catch(function (error) {
+        console.error("Error fetching test details:", error);
+        setLoading(false);
+      });
   };
+
   useEffect(() => {
     getTestDetails();
   }, []);
+
   return (
     <>
       <div className="middle-sidebar-bottom theme-dark-bg">
@@ -32,7 +46,7 @@ function SingleTestDetails() {
             <div className="w-100 border-0 d-flex rounded-lg justify-content-between">
               <div className="">
                 <h2 className="fw-400 font-lg d-block">
-                  Test <b> Details</b>{" "}
+                  Test <b> Details</b>
                 </h2>
               </div>
               <div className="float-right">
@@ -50,16 +64,17 @@ function SingleTestDetails() {
                       style={{ height: "auto" }}
                     />
                   </div>
+
                   {testDetails && testDetails.classes ? (
                     <div className="col-lg-3">
                       <h4 className="fw-700 font-xss mt-4">
-                        Class:{" "}
+                        Class:
                         <span className="fw-500">
                           {testDetails.classes.class}
                         </span>
                       </h4>
                       <h4 className="fw-700 font-xss mt-4">
-                        Subject:{" "}
+                        Subject:
                         <span className="fw-500">{testDetails.title}</span>
                       </h4>
                       <h4 className="fw-700 font-xss mt-4">
@@ -68,7 +83,6 @@ function SingleTestDetails() {
                           {testDetails.term == "1" && " Term 1"}
                           {testDetails.term == "2" && " Term 2"}
                           {testDetails.term == "3" && " Term 3"}
-                          {/* Add more conditions here if you have more terms */}
                         </span>
                       </h4>
                     </div>
@@ -78,11 +92,11 @@ function SingleTestDetails() {
 
                   <div className="col-lg-3">
                     <h4 className="fw-700 font-xss mt-4">
-                      Test Name:{" "}
+                      Test Name:
                       <span className="fw-500">{testDetails.title}</span>
                     </h4>
                     <h4 className="fw-700 font-xss mt-4">
-                      Description:{" "}
+                      Description:
                       <span className="fw-500">{testDetails.description}</span>
                     </h4>
                     <h4 className="fw-700 font-xss mt-4">
@@ -110,61 +124,58 @@ function SingleTestDetails() {
                 </div>
               </div>
             </div>
-            {testQuestions
-              ? testQuestions &&
-                testQuestions.map((question, index) => (
-                  <div className="col-xl-6 col-lg-6 col-md-6" key={index}>
-                    <div className="card w-100 border-0 bg-white shadow-lg p-0 mb-2">
-                      <Link
-                        to={`/test-question/${question.id}/edit`}
-                        className="position-absolute right-0 mr-4 top-0 mt-2"
+            {loading ? (
+              <Loader />
+            ) : testQuestions && testQuestions.length > 0 ? (
+              testQuestions.map((question, index) => (
+                <div className="col-xl-6 col-lg-6 col-md-6" key={index}>
+                  <div className="card w-100 border-0 bg-white shadow-lg p-0 mb-2">
+                    <div className="card-body p-4 w-100 border-0 rounded-lg">
+                      <h4 className="fw-600 font-xss mt-4">
+                        {`Q ${index + 1}. ${question.question}`}
+                      </h4>
+                      {question.question_code ? (
+                        <pre className="text-wrap bg-grey p-2">
+                          {question.question_code}
+                        </pre>
+                      ) : (
+                        ""
+                      )}
+                      <p
+                        className={`fw-500 font-xsss mt-3 ${
+                          question.answer === "option1" ? "text-success" : ""
+                        }`}
                       >
-                        <i className="ti-pencil-alt text-grey-500 font-xsss"></i>
-                      </Link>
-                      <div className="card-body p-4 w-100 border-0 rounded-lg">
-                        <h4 className="fw-600 font-xss mt-4">
-                          {`Q ${index + 1}. ${question.question}`}{" "}
-                        </h4>
-                        {question.question_code ? (
-                          <pre className="text-wrap bg-grey p-2">
-                            {question.question_code}
-                          </pre>
-                        ) : (
-                          ""
-                        )}
-                        <p
-                          className={`fw-500 font-xsss mt-3 ${
-                            question.answer === "option1" ? "text-success" : ""
-                          }`}
-                        >
-                          A. {question.option1}
-                        </p>
-                        <p
-                          className={`fw-500 font-xsss mt-3 ${
-                            question.answer === "option2" ? "text-success" : ""
-                          }`}
-                        >
-                          A. {question.option2}
-                        </p>
-                        <p
-                          className={`fw-500 font-xsss mt-3 ${
-                            question.answer === "option3" ? "text-success" : ""
-                          }`}
-                        >
-                          A. {question.option3}
-                        </p>
-                        <p
-                          className={`fw-500 font-xsss mt-3 ${
-                            question.answer === "option4" ? "text-success" : ""
-                          }`}
-                        >
-                          A. {question.option4}
-                        </p>
-                      </div>
+                        A. {question.option1}
+                      </p>
+                      <p
+                        className={`fw-500 font-xsss mt-3 ${
+                          question.answer === "option2" ? "text-success" : ""
+                        }`}
+                      >
+                        A. {question.option2}
+                      </p>
+                      <p
+                        className={`fw-500 font-xsss mt-3 ${
+                          question.answer === "option3" ? "text-success" : ""
+                        }`}
+                      >
+                        A. {question.option3}
+                      </p>
+                      <p
+                        className={`fw-500 font-xsss mt-3 ${
+                          question.answer === "option4" ? "text-success" : ""
+                        }`}
+                      >
+                        A. {question.option4}
+                      </p>
                     </div>
                   </div>
-                ))
-              : ""}
+                </div>
+              ))
+            ) : (
+              <NoContent contentName="test details" />
+            )}
           </div>
         </div>
       </div>
