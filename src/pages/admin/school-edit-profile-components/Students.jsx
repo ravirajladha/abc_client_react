@@ -63,6 +63,7 @@ function Students() {
               <th scope="col">Student Name</th>
               <th scope="col">Class</th>
               <th scope="col">Section</th>
+              <th>Status</th>
               <th scope="col" className="text-dark">
                 Action
               </th>
@@ -76,6 +77,23 @@ function Students() {
                 <td>{student?.name}</td>
                 <td>{student?.class?.class}</td>
                 <td>{student?.section_id}</td>
+                <td>
+                        <button
+                          className={`p-2 d-inline-block text-white fw-700 lh-10 rounded-lg text-center font-xsssss ls-3 ${
+                            student.student?.status === 1
+                              ? "bg-success"
+                              : student.student?.status === 2
+                              ? "bg-danger"
+                              : "bg-primary"
+                          }`}
+                        >
+                          {student.student?.status === 1
+                            ? "Approved"
+                            : student.student?.status === 2
+                            ? "Rejected"
+                            : "Pending"}
+                        </button>
+                      </td>
                 <td className="text-dark">
                   <Link
                     to={`/school/students/edit-student-profile-detail/${student?.id}`}

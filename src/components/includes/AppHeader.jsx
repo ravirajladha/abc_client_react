@@ -112,7 +112,7 @@ function AppHeader() {
           <li>
             <Link to="#">
               <img
-                src="/assets/images/user.png"
+                src="/assets/images/user_profile.jpg"
                 alt="user"
                 className="w40 mt--1 rounded-circle"
               />

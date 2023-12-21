@@ -56,7 +56,7 @@ export const parentRoutes = (
       exact
       path={`${process.env.PUBLIC_URL}/parent/add_student`}
       element={React.createElement(
-        withLayoutAndProtection(ParentSettings, { allowedTypes: ["parent"] })
+        withLayoutAndProtection(ParentAddStudent, { allowedTypes: ["parent"] })
       )}
     />
     <Route

@@ -39,7 +39,7 @@ function Login() {
         .then((res) => {
           // Check the HTTP status code before proceeding
           if (!res.ok) {
-            throw new Error("Invalid Credentials"); // This will be caught by the catch block below
+            throw new Error(res.status === 402 ? "Credentials not Enabled" : "Invalid Credentials"); // This will be caught by the catch block below
           }
           return res.json();
         })

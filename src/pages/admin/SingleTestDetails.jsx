@@ -74,8 +74,8 @@ function SingleTestDetails() {
                         </span>
                       </h4>
                       <h4 className="fw-700 font-xss mt-4">
-                        Subject:
-                        <span className="fw-500">{testDetails.title}</span>
+                        Subject: 
+                        <span className="fw-500"> {testDetails.subject.subject_name}</span>
                       </h4>
                       <h4 className="fw-700 font-xss mt-4">
                         Term:
@@ -93,7 +93,7 @@ function SingleTestDetails() {
                   <div className="col-lg-3">
                     <h4 className="fw-700 font-xss mt-4">
                       Test Name:
-                      <span className="fw-500">{testDetails.title}</span>
+                      <span className="fw-500"> {testDetails.title}</span>
                     </h4>
                     <h4 className="fw-700 font-xss mt-4">
                       Description:

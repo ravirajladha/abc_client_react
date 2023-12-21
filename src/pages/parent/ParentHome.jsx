@@ -86,9 +86,7 @@ function ParentHome() {
 
   return (
     <>
-      <div className="main-wrapper">
-        <div className="main-content menu-active" id="main-content">
-          <AppHeader />
+      
 
           <div className="middle-sidebar-bottom theme-dark-bg">
             <div className="custom-middle-sidebar-left">
@@ -260,7 +258,7 @@ function ParentHome() {
                                       item.started_video_count,
                                       item.total_video_count,
                                     ]}
-                                    colorsData={["#ff9500", "#FF4560"]}
+                                    colorsData={["#fec794", "#25d366"]}
                                   />
                                   <h4 className="fw-700 text-lg-end text-sm-center text-grey-600 font-xssss ls-5 text-uppercase mb-0 my-2">
                                     {item.subject_name}
@@ -278,9 +276,7 @@ function ParentHome() {
               )}
             </div>
           </div>
-        </div>
-        <AppFooter />
-      </div>
+        
     </>
   );
 }

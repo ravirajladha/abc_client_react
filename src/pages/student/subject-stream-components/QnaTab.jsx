@@ -141,7 +141,7 @@ function QnaTab({ userId, isTeacherAvailable, subjectId, receiverId }) {
               <div className="message-item outgoing-message" key={index}>
                 <div className="message-user">
                   <figure className="avatar">
-                    <img src="/assets/images/user.png" alt="avater" />
+                    <img src="/assets/images/user_profile.jpg" alt="avater" />
                   </figure>
                   <div>
                     <h5>You</h5>

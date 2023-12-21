@@ -12,19 +12,86 @@ function ParentAddStudent() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const user = useContext(AuthContext).user;
   const [classes, setClasses] = useState([]);
-
-  // const getAllClasses = async () => {
-  //   try {
-  //     const response = await fetch(baseUrl + "api/school/api_get_classes");
-  //     const data = await response.json();
-  //     setClasses(data);
-  //   } catch (error) {
-  //     console.error("Error fetching classes:", error);
-  //   }
-  // };
-  // useEffect(() => {
-  //   getAllClasses();
-  // }, []);
+  const [schools, setSchools] = useState([]);
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const getAllClasses = async () => {
+    try {
+      const response = await fetch(baseUrl + "api/school/api_get_classes");
+      const data = await response.json();
+      setClasses(data);
+    } catch (error) {
+      console.error("Error fetching classes:", error);
+    }
+  };
+  const getAllSchools = async () => {
+    try {
+      const response = await fetch(baseUrl + "api/school/api_get_schools");
+      const data = await response.json();
+      setSchools(data);
+    } catch (error) {
+      console.error("Error fetching schools:", error);
+    }
+  };
+  useEffect(() => {
+    getAllClasses();
+    getAllSchools();
+  }, []);
+    // Define the initial formData state with empty values or derived from user if available
+    const [formData, setFormData] = useState({
+      created_by: user.user.id,
+      name: "",
+      school: "",
+      className: "",
+      section: "",
+    });
+    const handleChange = (e) => {
+      const { name, value } = e.target;
+  
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    };
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      setIsSubmitting(true);
+  
+      console.log(formData);
+      // Access the form data
+      const formDataToSend = new FormData();
+      Object.entries(formData).forEach(([key, value]) => {
+        formDataToSend.append(key, value);
+      });
+  
+      try {
+        const response = await fetch(baseUrl + "api/add_student", {
+          method: "POST",
+          body: formDataToSend,
+        });
+  
+        if (response.ok) {
+          // Handle success
+          setFormSubmitted(true);
+          toast.success("Student added successfully!");
+          // Clear form values after successful submission
+          setFormData({
+            created_by: "",
+            name: "",
+            school: "",
+            className: "",
+            section: "",
+          });
+        } else {
+          // Handle errors here if needed
+          toast.error("Error adding student.");
+        }
+      } catch (error) {
+        console.error("Error adding student:", error);
+      } finally {
+        setIsSubmitting(false); // Re-enable the submit button
+      }
+    };
   if (!user) {
     console.log("No user found. User might be logged out.");
     // Handle the redirect to login or return placeholder content here
@@ -47,7 +114,9 @@ function ParentAddStudent() {
                 </div>
                 <div></div>
                 <div className="card-body p-lg-5 p-4 w-100 border-0">
-                  <form method="post" encType="multipart/form-data">
+                  <form method="post" encType="multipart/form-data" 
+                    onSubmit={handleSubmit}
+                    >
                     <div className="row mb-6">
                       <div className="col-lg-6">
                         <div className="form-group">
@@ -55,13 +124,25 @@ function ParentAddStudent() {
                             School Name
                           </label>
                           <br />
-                          <input
-                            placeholder="School Name"
-                            type="text"
-                            name="name"
+                          <select
+                            name="school"
+                            id=""
                             className="form-control"
-                            required
-                          />
+                            value={formData.school}
+                            onChange={handleChange}
+
+                          >
+                            <option value="">Select School</option>
+                            {schools.map((school) => (
+                              <option
+                                key={school.id}
+                                value={school.id}
+                              >
+                                {school.school_name}
+                              </option>
+                            ))}
+                          </select>
+                          
                         </div>
                       </div>
                       <div className="col-lg-6">
@@ -74,6 +155,8 @@ function ParentAddStudent() {
                             placeholder="Student Name"
                             type="text"
                             name="name"
+                            value={formData.name}
+                            onChange={handleChange}
                             className="form-control"
                             required
                           />
@@ -85,28 +168,23 @@ function ParentAddStudent() {
                             Class
                           </label>
                           <br />
-                          {/* <select
+                          <select
                             name="className"
                             id=""
                             className="form-control"
+                            value={formData.className}
+                            onChange={handleChange}
                           >
                             <option value="">Select Class</option>
                             {classes.map((classVal) => (
                               <option
-                                key={classVal.class}
-                                value={classVal.class}
+                                key={classVal.id}
+                                value={classVal.id}
                               >
                                 {classVal.class}
                               </option>
                             ))}
-                          </select> */}
-                          <input
-                            placeholder="Class Name"
-                            type="text"
-                            name="name"
-                            className="form-control"
-                            required
-                          />
+                          </select>
                         </div>
                       </div>
                       <div className="col-lg-6">
@@ -114,19 +192,14 @@ function ParentAddStudent() {
                           <label className="mont-font fw-600 font-xsss">
                             Section
                           </label>
-                          {/* <br />
-                          <select name="section" id="" className="form-control">
-                            <option value="">Select Section</option>
-                            <option value="1">A</option>
-                            <option value="2">B</option>
-                          </select> */}
-                          <input
-                            placeholder="Section Name"
-                            type="text"
-                            name="name"
-                            className="form-control"
-                            required
-                          />
+                          <br />
+                           <select name="section" id="" className="form-control"
+                           value={formData.section}
+                           onChange={handleChange}>
+                           <option value="">Select Section</option>
+                          <option value="1">A</option>
+                          <option value="2">B</option>
+                          </select>
                         </div>
                       </div>
                       {/* <div className="col-lg-12">
@@ -138,7 +211,7 @@ function ParentAddStudent() {
                       <div className="col-lg-12">
                         &nbsp;&nbsp;&nbsp;
                         <button
-                          type="button"
+                          type="submit"
                           className="btn bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0"
                           style={{
                             marginTop: "2rem !important",
