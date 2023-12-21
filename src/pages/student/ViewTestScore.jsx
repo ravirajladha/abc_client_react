@@ -76,11 +76,11 @@ function ViewTestScore() {
                       </p>
 
                       <Link
-                        to={"/subject_stream/" + subject_id}
+                        to={"/subjects"}
                         data-question="question4"
                         className=" p-2 mt-3 d-inline-block text-white fw-700 lh-30 rounded-lg w200 text-center font-xsssss ls-3 bg-current"
                       >
-                        Go back to course
+                        Go back to subject
                       </Link>
                     </div>
                   </div>

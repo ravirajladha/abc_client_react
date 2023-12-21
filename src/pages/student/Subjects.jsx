@@ -69,6 +69,8 @@ const Subjects = () => {
     return result ? result.test_id : null;
   };
 
+ 
+
   if (!user) {
     console.log("No user found. User might be logged out.");
     return <div>User is not logged in</div>;
@@ -78,26 +80,35 @@ const Subjects = () => {
 
   return (
     <>
-      <div className="middle-sidebar-bottom theme-dark-bg">
-        <div className="middle-sidebar-left">
-          <div className="row">
-            <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
-              <div>
-                <h2 className="fw-400 font-lg d-block">
-                  <b> Subjects</b>
-                </h2>
-              </div>
-              <div className="float-right">
-                <BackButton />
-              </div>
-            </div>
-            {loading ? (
+  
+
+          <div className="middle-sidebar-bottom theme-dark-bg">
+            <div className="middle-sidebar-left">
+              <div className="row">
+                <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
+                  <div>
+                    <h2 className="fw-400 font-lg d-block">
+                      <b> Subjects</b>
+                    </h2>
+                  </div>
+                  <div className="float-right">
+                    <BackButton />
+                  </div>
+                </div>
+                {loading ? (
               <Loader />
             ) : subjects.length > 0 ? (
               <div className="row">
                 {subjects.map((value, index) => (
                   <div className="col-xl-4 col-lg-6 col-md-6" key={index}>
                     <div className="card mb-4 d-block w-100 shadow-xss rounded-lg p-xxl-5 p-4 border-0 text-center">
+                      {/* <Link
+                        to={"#"}
+                        className="position-absolute right-0 mr-4 top-0 mt-3"
+                      >
+                        <i className="ti-more text-grey-500 font-xs"></i>
+                      </Link> */}
+
                       <div className="d-flex justify-content-between ">
                         <div>
                           <Link
@@ -114,6 +125,7 @@ const Subjects = () => {
                             {value.subject_name}
                           </h4>
                         </div>
+
                         <div>
                           <div>
                             {[1, 2, 3].map((term) => {
@@ -159,6 +171,7 @@ const Subjects = () => {
                             LEARN
                           </Link>
                         </div>
+
                         <div>
                           <Link
                             to={
@@ -196,18 +209,27 @@ const Subjects = () => {
                             Results
                           </Link>
                         </div>
+                       
                       </div>
+
+                      {/* <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-success d-inline-block text-success mb-1 mr-1">
+                        FULL TIME
+                      </span>
+                      <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-info d-inline-block text-info">
+                        30 MIN
+                      </span> */}
                     </div>
                   </div>
                 ))}
-              </div>
+                    </div>
             ) : (
               <NoContent contentName="subjects" />
             )}
+              </div>
+            </div>
+            <StudentSidebar />
           </div>
-        </div>
-        <StudentSidebar />
-      </div>
+     
     </>
   );
 };

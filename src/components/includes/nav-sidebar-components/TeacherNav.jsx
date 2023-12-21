@@ -98,11 +98,11 @@ function TeacherNav() {
                 <span>Qna</span>
               </NavLink>
             </li>
+            <div className="nav-caption fw-600 font-xssss text-grey-500">
+               Qna
+            </div>
           </ul>
 
-          <div className="nav-caption fw-600 font-xssss text-grey-500">
-            <span></span> QnA
-          </div>
           <ul className="mb-3">
             <li className="logo d-none d-xl-block d-lg-block"></li>
             <li>

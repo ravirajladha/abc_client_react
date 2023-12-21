@@ -60,11 +60,11 @@
     }
 
     .video-playlist .videos .video:hover {
-        background-color: #98989833;
+        background-color: #b4b2b233;
     }
 
     .video-playlist .videos .video.active {
-        background-color: #98989833;
+        background-color: #b4b2b233;
     }
 
     .main-video video {
@@ -108,6 +108,18 @@
 }
 }
 
+/* video tab stylings */
+.custom-tabs .nav-item button{
+    background-color: #ffad39;
+    color: #ffff;
+    /* font-size: 16px !important; */
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+  }
+  .custom-tabs .nav-item button.active{
+    background-color: #b4b2b233;
+    color: #000;
+  }
 .vjs-marker {
     position: absolute;
     background: red;

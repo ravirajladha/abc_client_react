@@ -58,7 +58,7 @@ function QnaTab({ userId, isTeacherAvailable, subjectId, receiverId }) {
       formData.append("receiver_id", receiverId);
       formData.append("message", qnaValue);
       formData.append("subject_id", subjectId);
-      // formData.append("qna_id", qnaId);
+      formData.append("qna_id", qnaId);
 
       const response = await fetch(baseUrl + "api/send-message", {
         method: "POST",

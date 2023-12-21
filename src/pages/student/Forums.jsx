@@ -109,16 +109,18 @@ function Forums() {
                                         <div className="form-group icon-input mb-0 search-box">
                                             <i className="ti-search font-xs text-grey-400"></i>
                                             <input type="text"
-                                                className="style1-input bg-transparent border-0 pl-5 font-xsss mb-0 text-grey-500 fw-500"
+                                                className="style1-input bg-transparent border-0 pl-5 font-xsss mb-0 text-grey-500 fw-500 w-100"
+                                                // style={{width:'100%'}}
                                                 placeholder="Search questions.."
                                                 onChange={(e) => search(e.target.value)}
                                                 value={searchValue}
                                             ></input>
                                         </div>
                                     </div>
-                                    <div className="col-lg-2 col-2">
-                                        <Link to={"/school_forums/view_forum/" + forumId} id="search-button"
-                                            className="w-100 d-block btn bg-current text-white font-xssss fw-600 ls-3 style1-input p-3 border-0 text-uppercase ">Search</Link>
+                                    <div className="col-lg-2 col-2 my-auto">
+                                        <Link to={"/school_forums/view_forum/" + forumId}
+                                            className="btn btn-sm bg-current text-white font-xssss fw-600 border-0 text-uppercase p-2"
+                                            >Search</Link>
                                     </div>
                                 </div>
                                 <div>
@@ -146,7 +148,7 @@ function Forums() {
 
                                         </div>
                                         <div className="row">
-                                            <div className="col-lg-4 mt-4">
+                                            <div className="col-lg-12 mt-4 text-right">
                                                 <button type="submit" disabled={isSubmitting}  className="btn bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0">Submit</button>
                                             </div>
                                         </div>

@@ -87,7 +87,7 @@ function Chats() {
                 // Handle success
                 // console.log('Message sent successfully', data);
                 // Optionally, you can update the messages state here
-                toast.success(data.msg);
+                // toast.success(data.msg);
                 handleStudentClick(receiverId)
             })
             .catch((error) => {
