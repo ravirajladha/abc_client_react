@@ -295,9 +295,9 @@ const toggleNav = () => {
                 <i className="fas fa-hashtag"></i>
               </Link>
             </h4>
-            <div className="float-right">
+            {/* <div className="float-right">
               <BackButton />
-            </div>
+            </div> */}
           </div>
 
           <div id="" className="doc-wrapper">

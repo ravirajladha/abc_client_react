@@ -90,19 +90,19 @@ function Tests() {
                         <div className="text-center mt-2">
                           <Link
                             to={`/tests/test_details/${test.id}`}
-                            className="px-3 py-1 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss bg-current me-2"
+                            className="px-3 py-1 me-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss bg-current"
                           >
                             DETAILS
                           </Link>
-                          <Link
+                          {/* <Link
                             to={`/tests/test_results/${test.id}`}
                             className="px-3 py-1 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss bg-current"
                           >
                             RESULTS
-                          </Link>
+                          </Link> */}
                           <Link
                             to={`/tests/${test.class_id}/results1`}
-                            className="px-2 py-1 mt-2 fw-500 d-inline-block text-white fw-300 lh-10 rounded-lg w100 text-center font-xssss ls-3 bg-current"
+                            className="px-3 py-1 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss bg-current"
                           >
                             Overall Results
                           </Link>

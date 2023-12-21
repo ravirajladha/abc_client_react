@@ -63,7 +63,7 @@ function ParentAddStudent() {
       Object.entries(formData).forEach(([key, value]) => {
         formDataToSend.append(key, value);
       });
-  
+  console.log("dprdata",formDataToSend);
       try {
         const response = await fetch(baseUrl + "api/add_student", {
           method: "POST",
@@ -111,6 +111,7 @@ function ParentAddStudent() {
                   <div className="float-right">
                     <BackButton />
                   </div>
+                  <ToastContainer />
                 </div>
                 <div></div>
                 <div className="card-body p-lg-5 p-4 w-100 border-0">
@@ -135,8 +136,8 @@ function ParentAddStudent() {
                             <option value="">Select School</option>
                             {schools.map((school) => (
                               <option
-                                key={school.id}
-                                value={school.id}
+                                key={school.auth_id}
+                                value={school.auth_id}
                               >
                                 {school.school_name}
                               </option>

@@ -11,7 +11,7 @@ const MainLayout = ({ children }) => {
 // Currently I have used only two routes name using Startswith, later we need to give more strict notes
 
   // Define routes where you don't want the header, footer, and additional divs
-  const noLayoutRoutes = ['/register', '/login']; // Adjust this list as needed
+  const noLayoutRoutes = ['/register', '/']; // Adjust this list as needed
 
   console.log("path", path);
   const showLayout = () => {

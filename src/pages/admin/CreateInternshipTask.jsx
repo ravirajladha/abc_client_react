@@ -25,7 +25,7 @@ function CreateInternshipTask() {
   };
 
   function getProjectElabs(internshipId) {
-    fetch(`${baseUrl}api/get_elabs_by_project/${internshipId}`)
+    fetch(`${baseUrl}api/get_elabs_by_internship/${internshipId}`)
       .then((response) => response.json())
       .then((data) => {
         console.log("elabs", data.data);

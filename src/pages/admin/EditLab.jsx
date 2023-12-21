@@ -497,7 +497,7 @@ function EditLab() {
                               <br />
                               <textarea
                                 name="testcases"
-                                value={formData.testcases}
+                                value={formData.testcase}
                                 onChange={handleInputChange}
                                 placeholder="Paste your JSON here"
                                 rows={10}
