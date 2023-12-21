@@ -89,7 +89,7 @@ function Login() {
   };
   return (
     <>
-      <div className="main-wrap">
+      {/* <div className="main-wrap"> */}
         <div className="row">
           <div
             className="col-xl-5 d-none d-xl-block p-0 vh-100 bg-image-cover bg-no-repeat"
@@ -207,7 +207,7 @@ function Login() {
             </div>
           </div>
         </div>
-      </div>
+      {/* </div> */}
     </>
   );
 }

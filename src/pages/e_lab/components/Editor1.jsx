@@ -32,7 +32,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../../lib/AuthContext.js";
 import BackButton from "../../../components/navigation/BackButton";
 
-function Editor1() {
+function Editor_test() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const [code, setCode] = useState("Editor Loading...");
   const [activeTab, setActiveTab] = useState("testcases");
@@ -209,10 +209,22 @@ function Editor1() {
   };
 
   const handleRedirection = (type) => {
-    let redirectPath =
-      type === 1
-        ? `/subject_stream/view_project/${redirecting_id}`
-        : `/subject_stream/${redirecting_id}`;
+    let redirectPath ='';
+console.log("redirecting to " + redirecting_id)
+console.log("type to " + type)
+    if (type == 1) {
+      redirectPath = `/subject_stream/view_project/${redirecting_id}`;
+    } else if (type == 2) {
+      redirectPath = `/subject_stream/${redirecting_id}`;
+    } else if (type == 3) {
+      redirectPath = `/internship/${redirecting_id}`; // Replace with your actual path for type 3
+    }
+
+    
+
+      // type === 1
+      //   ? `/subject_stream/view_project/${redirecting_id}`
+      //   : `/subject_stream/${redirecting_id}`;
 
     navigate(redirectPath);
   };
@@ -1014,4 +1026,4 @@ if __name__ == "__main__":
   );
 }
 
-export default Editor1;
+export default Editor_test;

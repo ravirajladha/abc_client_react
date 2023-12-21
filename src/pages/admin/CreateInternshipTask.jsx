@@ -14,7 +14,7 @@ function CreateInternshipTask() {
   const [labCode, setLabCode] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [duration, setDuration] = useState("");
+  // const [duration, setDuration] = useState("");
   const [elabs, setElabs] = useState([]);
   const [selectedElab, setSelectedElab] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -55,7 +55,7 @@ function CreateInternshipTask() {
     formData.append("internship_id", internshipId);
     formData.append("elab_id", selectedElab);
     formData.append("labCode", labCode);
-    formData.append("duration", duration);
+    // formData.append("duration", duration);
 
     e.preventDefault();
     setIsSubmitting(true);
@@ -70,7 +70,7 @@ function CreateInternshipTask() {
       })
       .then((resp) => {
         setLabCode("");
-        setDuration("");
+        // setDuration("");
         setName("");
         setDescription("");
         setSelectedElab("");
@@ -140,7 +140,7 @@ function CreateInternshipTask() {
                           </div>
                         </div>
 
-                        <div className="col-lg-6">
+                        {/* <div className="col-lg-6">
                           <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
                             <label className="mont-font fw-600 font-xsss">
                               Duration
@@ -155,7 +155,7 @@ function CreateInternshipTask() {
                               required
                             />
                           </div>
-                        </div>
+                        </div> */}
                         <div className="col-lg-12">
                           <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
                             <label className="mont-font fw-600 font-xsss">

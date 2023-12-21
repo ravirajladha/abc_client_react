@@ -36,16 +36,16 @@ function Tests() {
                   </div>
                   <div className="float-right">
                     <Link
-                      to={"/tests/all_questions"}
-                      className="p-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1"
-                    >
-                      ALL QUESTIONS
-                    </Link>
-                    <Link
                       to={"/tests/create_test"}
                       className="p-2 me-2 d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1"
                     >
                       CREATE TEST
+                    </Link>
+                    <Link
+                      to={"/tests/all_questions"}
+                      className="p-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1"
+                    >
+                      ALL QUESTIONS
                     </Link>
                     <BackButton />
                   </div>

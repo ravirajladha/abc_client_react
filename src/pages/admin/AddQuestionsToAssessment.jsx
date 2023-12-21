@@ -9,6 +9,7 @@ function AddQuestionsToAssessment() {
     const location = useLocation();
     const { subjectId, assessmentId } = location.state || {};
     const [questions, setQuestions] = useState([]);
+    const [questionSelectedBool, setQuestionSelectedBool] = useState(false);
     const [selectedQuestions, setSelectedQuestions] = useState([]);
     const [selectedQuestionsId, setSelectedQuestionsId] = useState([]);
 
@@ -67,20 +68,20 @@ function AddQuestionsToAssessment() {
                             <div className="row">
                                 <div className="col-lg-6">
                                     <div className="card w-100 border-0 bg-white shadow-sm p-0 mb-4">
-                                        <h2 className="fw-400 font-lg d-block ml-2">Select <b> Questions</b> </h2>
+                                        <h2 className="fw-400 font-lg d-block  px-4 w-100">Select <b> Questions</b> </h2>
                                         <div className="card-body p-lg-5 px-4 w-100 border-0 ">
-                                            {
-                                                questions ? (
+                                          
+                                                 {questions.length > 0 ? (
                                                     questions && questions.map((question, index) => (
                                                         <div key={index}>
 
-                                                            <h4 class="fw-600 font-xss mt-4" >{`Q ${index + 1}. ${question.question}`} </h4>
-                                                            <button type="button" id="" class="btn btn-default btn-add bg-current text-white font-xsss float-right"
+                                                            <h4 className="fw-600 font-xss mt-4" >{`Q ${index + 1}. ${question.question}`} </h4>
+                                                            <button type="button" id="" className="btn btn-default btn-add bg-success text-white font-xsss float-right ml-3"
                                                             onClick={() => selectQuestion(question)}>
-                                            <i class="feather-plus"></i></button>
+                                            <i className="feather-plus"></i></button>
                                                             {
                                                                 question.question_code ? (
-                                                                    <pre className="text-wrap bg-grey p-2" >{question.question_code}</pre>
+                                                                    <pre className=" bg-grey p-2" >{question.question_code}</pre>
                                                                 )
                                                                     :
                                                                     ""
@@ -94,7 +95,7 @@ function AddQuestionsToAssessment() {
                                                     ))
                                                 )
                                                     :
-                                                    ""
+                                                    <div>No question present to be selected</div>
                                             }
 
 
@@ -103,19 +104,20 @@ function AddQuestionsToAssessment() {
                                 </div>
                                 <div className="col-lg-6">
                                     <div className="card w-100 border-0 bg-white shadow-sm p-0 mb-4">
-                                        <h2 className="fw-400 font-lg d-block ml-2">Selected <b> Questions</b> </h2>
+                                        <h2 className="fw-400 font-lg d-block ml-2 px-4 w-100">Selected <b> Questions</b> </h2>
                                         <div className="card-body p-lg-5 px-4 w-100 border-0 ">
                                         {
-                                                selectedQuestions ? (
+                                                selectedQuestions.length>0 ? (
                                                     selectedQuestions && selectedQuestions.map((question, index) => (
+                                                        // setQuestionSelectedBool(true);
                                                         <div key={index}>
-                                                            <h4 class="fw-600 font-xss mt-4" >{`Q ${index + 1}. ${question.question}`} </h4>
-                                                            <button type="button" id="" class="btn btn-default btn-add bg-current text-white font-xsss float-right"
+                                                            <h4 className="fw-600 font-xss mt-4" >{`Q ${index + 1}. ${question.question}`} </h4>
+                                                            <button type="button" id="" className="btn btn-default btn-add bg-danger text-white font-xsss float-right"
                                                             onClick={() => deleteQuestion(question)}>
-                                            <i class="feather-minus"></i></button>
+                                            <i className="feather-minus"></i></button>
                                                             {
                                                                 question.question_code ? (
-                                                                    <pre className="text-wrap bg-grey p-2" >{question.question_code}</pre>
+                                                                    <pre className=" bg-grey p-2" >{question.question_code}</pre>
                                                                 )
                                                                     :
                                                                     ""
@@ -129,10 +131,11 @@ function AddQuestionsToAssessment() {
                                                     ))
                                                 )
                                                     :
-                                                    ""
+                                                    <div>There is no question selected</div>
                                             }
-                                                <button type="button" className="mt-1 btn bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0"
-                                                onClick={addQuestionsToAssessment}>Submit</button>
+                                                {(selectedQuestions.length>0) &&
+                                                <button type="button" className="mt-1 btn bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0 float-right"
+                                                onClick={addQuestionsToAssessment}>Submit</button>}
                                         </div>
                                     </div>
                                 </div>

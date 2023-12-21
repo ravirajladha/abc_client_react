@@ -116,6 +116,7 @@ function SingleTestDetails() {
                 {testQuestions
                   ? testQuestions &&
                     testQuestions.map((question, index) => (
+                      <React.Fragment key={index}>
                       <div className="col-xl-6 col-lg-6 col-md-6" key={index}>
                         <div className="card w-100 border-0 bg-white shadow-lg p-0 mb-2">
                           <div className="card-body p-4 w-100 border-0 rounded-lg">
@@ -123,7 +124,7 @@ function SingleTestDetails() {
                               {`Q ${index + 1}. ${question.question}`}{" "}
                             </h4>
                             {question.question_code ? (
-                              <pre className="text-wrap bg-grey p-2">
+                              <pre className=" bg-grey p-2">
                                 {question.question_code}
                               </pre>
                             ) : (
@@ -168,6 +169,8 @@ function SingleTestDetails() {
                           </div>
                         </div>
                       </div>
+                      {((index + 1) % 2 === 0) && <div className="col-12"><hr /></div>}
+  </React.Fragment>
                     ))
                   : ""}
               </div>

@@ -107,7 +107,7 @@ function ViewForum() {
                                 {forum_answer.student.name}
                               </h4>
                             </div>
-                            <pre className="text-wrap bg-grey p-3 mt-2">
+                            <pre className=" bg-grey p-3 mt-2">
                               {forum_answer.answer}
                             </pre>
                             {/* Assuming forum_answer.created_at is in ISO format */}
@@ -123,7 +123,7 @@ function ViewForum() {
                         ))
                       ) : (
                         <div className="text-center p-3">
-                          <pre className="text-wrap bg-grey">
+                          <pre className=" bg-grey">
                             Not answered yet!
                           </pre>
                         </div>
