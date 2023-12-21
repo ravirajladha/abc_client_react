@@ -308,15 +308,6 @@ export const adminRoutes = (
 
     <Route
       exact
-      path={`${process.env.PUBLIC_URL}/tests/add_question_to_test`}
-      element={React.createElement(
-        withLayoutAndProtection(AddQuestionsToTest, {
-          allowedTypes: ["admin"],
-        })
-      )}
-    />
-    <Route
-      exact
       path={`${process.env.PUBLIC_URL}/assessments/add-question-to-assessment`}
       element={React.createElement(
         withLayoutAndProtection(AddQuestionsToAssessment, {

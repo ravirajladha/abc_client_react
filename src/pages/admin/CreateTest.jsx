@@ -198,7 +198,7 @@ function CreateTest() {
                         </div>
                         <div className="col-lg-4">
                           <label className="mont-font fw-600 font-xsss">
-                          Available Questions
+                            Number of Questions
                           </label>
                           <input
                             type="text"
@@ -286,7 +286,7 @@ function CreateTest() {
                         </div>
                         <div className="col-lg-6">
                           <label className="mont-font fw-600 font-xsss">
-                            Duration 
+                            Duration (in seconds)
                           </label>
                           <br />
                           <input
@@ -294,7 +294,6 @@ function CreateTest() {
                             className="form-control"
                             value={duration}
                             onChange={(e) => setDuration(e.target.value)}
-                            placeholder="Enter in seconds"
                             required
                           />
                         </div>

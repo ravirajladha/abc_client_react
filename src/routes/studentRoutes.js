@@ -21,7 +21,6 @@ import Elab from "../pages/student/Elab.jsx";
 import ViewAssessmentScore from "../pages/student/ViewAssessmentScore.jsx";
 import TakeTest from "../pages/student/TakeTest.jsx";
 import ViewProject from "../pages/student/ViewProject.jsx";
-import TakeInternship from "../pages/student/TakeInternship.jsx";
 import StartProject from "../pages/student/StartProject.jsx";
 import ViewTestScore from "../pages/student/ViewTestScore.jsx";
 import VideoFeatures from "../pages/student/VideoFeatures.jsx";
@@ -158,15 +157,6 @@ export const studentRoutes = (
       path={`${process.env.PUBLIC_URL}/subject_stream/view_project/:project_id`}
       element={React.createElement(
         withLayoutAndProtection(ViewProject, {
-          allowedTypes: ["school_student"],
-        })
-      )}
-    />
-    <Route
-      exact
-      path={`${process.env.PUBLIC_URL}/internship/:internship_id`}
-      element={React.createElement(
-        withLayoutAndProtection(TakeInternship, {
           allowedTypes: ["school_student"],
         })
       )}
@@ -371,7 +361,15 @@ export const studentRoutes = (
         })
       )}
     />
-  
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/ssubject_stream/view_project/:project_id`}
+      element={React.createElement(
+        withLayoutAndProtection(ViewProject, {
+          allowedTypes: ["school_student"],
+        })
+      )}
+    />
 
     <Route
       exact
@@ -507,8 +505,6 @@ export const studentRoutes = (
         withLayoutAndProtection(Editor1, { allowedTypes: ["school_student"] })
       )}
     />
-  san serve
-  
 
     <Route
       exact

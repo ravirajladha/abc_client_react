@@ -32,7 +32,9 @@ function TestDetails() {
   }, []);
   return (
     <>
-   
+      <div className="main-wrapper">
+        <div className="main-content menu-active">
+          <AppHeader />
           <div className="middle-sidebar-bottom theme-dark-bg">
             <div className="middle-sidebar-left">
               <div className="row">
@@ -47,55 +49,68 @@ function TestDetails() {
                   </div>
                 </div>
                 <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
-  <div className="card-body p-lg-5 px-4 w-100 border-0 ">
-    <div className="row mb-6">
-      <div className="col-lg-4">
-        <img
-          src={baseUrl + testDetails.image}
-          alt="Test"
-          className="w-100" // changed from w-50 to w-100 to fill the column
-          style={{ height: "auto" }}
-        />
-      </div>
-      <div className="col-lg-4">
-        <h4 className="fw-700 font-xss mt-4">
-          Class: <span className="fw-500">{testDetails?.classes?.class}</span>
-        </h4>
-        <h4 className="fw-700 font-xss mt-4">
-          Subject: <span className="fw-500">{testDetails?.title}</span>
-        </h4>
-      </div>
-      <div className="col-lg-4">
-        <h4 className="fw-700 font-xss mt-4">
-          Term:
-          <span className="fw-500">
-            {testDetails?.term === "1" && " Term 1"}
-            {testDetails?.term === "2" && " Term 2"}
-            {testDetails?.term === "3" && " Term 3"}
-            {/* Add more conditions here if you have more terms */}
-          </span>
-        </h4>
-        <h4 className="fw-700 font-xss mt-4">
-          Score: <span className="fw-500">{testResult?.score}</span>
-        </h4>
-        <h4 className="fw-700 font-xss mt-4">
-          Percentage: <span className="fw-500">{testResult?.score_percentage}</span>
-        </h4>
-        <h4 className="fw-700 font-xss mt-4">
-          Test Name: <span className="fw-500">{testDetails?.title}</span>
-        </h4>
-        <h4 className="fw-700 font-xss mt-4">
-          Description: <span className="fw-500">{testDetails?.description}</span>
-        </h4>
-      </div>
-    </div>
-  </div>
-</div>
+                  <div className="card-body p-lg-5 px-4 w-100 border-0 ">
+                    <div className="row mb-6">
+                      <div className="col-lg-4">
+                        <img
+                          src={baseUrl + testDetails.image}
+                          alt="image"
+                          className="w-50"
+                          style={{ height: "auto" }}
+                        />
+                      </div>
+                      {testDetails && testDetails.classes ? (
+                        <div className="col-lg-4">
+                          <h4 className="fw-700 font-xss mt-4">
+                            Class:{" "}
+                            <span className="fw-500">
+                              {testDetails.classes.class}
+                            </span>
+                          </h4>
+                          <h4 className="fw-700 font-xss mt-4">
+                            Subject:{" "}
+                            <span className="fw-500">{testDetails.title}</span>
+                          </h4>
+                          <h4 className="fw-700 font-xss mt-4">
+                            Term:
+                            <span className="fw-500">
+                              {testDetails.term == "1" && " Term 1"}
+                              {testDetails.term == "2" && " Term 2"}
+                              {testDetails.term == "3" && " Term 3"}
+                              {/* Add more conditions here if you have more terms */}
+                            </span>
+                          </h4>
+                          <h4 className="fw-700 font-xss mt-4">
+                            Score: <span className="fw-500">{testResult && testResult.score}</span>
+                          </h4>
+                          <h4 className="fw-700 font-xss mt-4">
+                            Percentage: <span className="fw-500">{testResult && testResult.score_percentage}</span>
+                          </h4>
+                          
+                        </div>
+                      ) : (
+                        ""
+                      )}
 
+                      <div className="col-lg-4">
+                        <h4 className="fw-700 font-xss mt-4">
+                          Test Name:{" "}
+                          <span className="fw-500">{testDetails.title}</span>
+                        </h4>
+                        <h4 className="fw-700 font-xss mt-4">
+                          Description:{" "}
+                          <span className="fw-500">
+                            {testDetails.description}
+                          </span>
+                        </h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 {testQuestions
                   ? testQuestions &&
                     testQuestions.map((question, index) => (
-                      <React.Fragment key={index}>
+                        
                       <div className="col-xl-6 col-lg-6 col-md-6" key={index}>
                         <div className="card w-100 border-0 bg-white shadow-lg p-0 mb-2">
                           <div className="card-body p-4 w-100 border-0 rounded-lg">
@@ -103,7 +118,7 @@ function TestDetails() {
                               {`Q ${index + 1}. ${question.question}`}{" "}
                             </h4>
                             {question.question_code ? (
-                              <pre className=" bg-grey p-2">
+                              <pre className="text-wrap bg-grey p-2">
                                 {question.question_code}
                               </pre>
                             ) : (
@@ -154,14 +169,14 @@ function TestDetails() {
                           </div>
                         </div>
                       </div>
-                      {((index + 1) % 2 === 0) && <div className="col-12"><hr /></div>}
-  </React.Fragment>
                     ))
                   : ""}
               </div>
             </div>
           </div>
-     
+        </div>
+        <AppFooter />
+      </div>
     </>
   );
 }

@@ -118,33 +118,33 @@ function AllQuestions() {
                                     </div>
                                 </div>
                                 {
-    questions ? (
-        questions.map((question, index) => (
-            <React.Fragment key={index}>
-                <div className="col-xl-6 col-lg-6 col-md-6">
-                    <div className="card w-100 border-0 bg-white shadow-lg p-0 mb-2">
-                        <div className="card-body p-4 w-100 border-0 rounded-lg">
-                            <h4 className="fw-600 font-xss mt-4">{`Q ${index + 1}. ${question.question}`}</h4>
-                            {
-                                question.question_code && (
-                                    <pre className="bg-grey p-2">
-                                        {question.question_code}
-                                    </pre>
-                                )
-                            }
-                            <p className={`fw-500 font-xsss mt-3 ${question.answer === "option1" ? 'text-success' : ''}`}>A. {question.option1}</p>
-                            <p className={`fw-500 font-xsss mt-3 ${question.answer === "option2" ? 'text-success' : ''}`}>B. {question.option2}</p>
-                            <p className={`fw-500 font-xsss mt-3 ${question.answer === "option3" ? 'text-success' : ''}`}>C. {question.option3}</p>
-                            <p className={`fw-500 font-xsss mt-3 ${question.answer === "option4" ? 'text-success' : ''}`}>D. {question.option4}</p>
-                        </div>
-                    </div>
-                </div>
-                {/* Add an <hr/> if it's an even index (thus after every two questions) */}
-                {index % 2 === 1 && <div className="w-100 mb-2"><hr /></div>}
-            </React.Fragment>
-        ))
-    ) : ""
-}
+                                    questions ? (
+                                        questions && questions.map((question, index) => (
+                                            <div className="col-xl-6 col-lg-6 col-md-6" key={index}>
+                                                <div className="card w-100 border-0 bg-white shadow-lg p-0 mb-2">
+                                                    <div className="card-body p-4 w-100 border-0 rounded-lg">
+                                                        <h4 class="fw-600 font-xss mt-4" >{`Q ${index + 1}. ${question.question}`} </h4>
+                                                        {
+                                                            question.question_code ? (
+                                                                <pre className="text-wrap bg-grey p-2" >
+                                                                    {question.question_code}</pre>
+                                                            )
+                                                                :
+                                                                ""
+                                                        }
+                                                        <p className={`fw-500 font-xsss mt-3 ${question.answer === "option1" ? 'text-success' : ''}`}>A. {question.option1}</p>
+                                                        <p className={`fw-500 font-xsss mt-3 ${question.answer === "option2" ? 'text-success' : ''}`}>A. {question.option2}</p>
+                                                        <p className={`fw-500 font-xsss mt-3 ${question.answer === "option3" ? 'text-success' : ''}`}>A. {question.option3}</p>
+                                                        <p className={`fw-500 font-xsss mt-3 ${question.answer === "option4" ? 'text-success' : ''}`}>A. {question.option4}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))
+                                    )
+                                        :
+                                        ""
+                                }
+
 
                             </div>
 

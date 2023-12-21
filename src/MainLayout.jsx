@@ -11,7 +11,7 @@ const MainLayout = ({ children }) => {
 // Currently I have used only two routes name using Startswith, later we need to give more strict notes
 
   // Define routes where you don't want the header, footer, and additional divs
-  const noLayoutRoutes = ['/register', '/']; // Adjust this list as needed
+  const noLayoutRoutes = ['/register', '/login']; // Adjust this list as needed
 
   console.log("path", path);
   const showLayout = () => {
@@ -21,7 +21,7 @@ const MainLayout = ({ children }) => {
     }
     
     // Check for dynamic route patterns
-    if (path.startsWith('/ebooks/preview_ebook') || path.startsWith('/editor_practicse/')) { 
+    if (path.startsWith('/ebooks/') || path.startsWith('/editor_practicse/')) { 
       return false;
     }
 

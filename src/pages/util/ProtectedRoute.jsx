@@ -22,7 +22,7 @@ const ProtectedRoute = ({  allowedTypes,element }) => {
     // Add any other user types and their home paths here
   };
   // console.log(`User Data: ${JSON.stringify(userData)}`); // Add logging to check the userData structure
-  // console.log(`Allowed Types: ${allowedTypes}`);
+  console.log(`Allowed Types: ${allowedTypes}`);
     // Get the redirect path from the homePaths based on the userType or default to '/home'
     const redirectPath = homePaths[userType];
 

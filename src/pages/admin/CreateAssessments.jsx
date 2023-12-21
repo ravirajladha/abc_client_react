@@ -171,9 +171,9 @@ function CreateAssessments() {
                             onChange={handleSubjectChange}
                           />
                         </div>
-                        <div className="col-lg-12">
+                        <div className="col-lg-6">
                           <label className="mont-font fw-600 font-xsss">
-                            Available Questions
+                            Number of Questions
                           </label>
                           <input
                             type="text"
@@ -182,7 +182,7 @@ function CreateAssessments() {
                             readOnly
                           />
                         </div>
-                        <div className="col-lg-12">
+                        <div className="col-lg-6">
                           <label className="mont-font fw-600 font-xsss">
                             Assessment Name
                           </label>

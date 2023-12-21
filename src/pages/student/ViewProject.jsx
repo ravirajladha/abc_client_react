@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-
+import AppFooter from "../../components/includes/AppFooter";
+import AppHeader from "../../components/includes/AppHeader";
 import StudentSidebar from '../../components/includes/StudentSidebar';
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { getUserFromLocalStorage } from "../util/SessionStorage";
-
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function ViewProject() {

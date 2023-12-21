@@ -120,7 +120,7 @@ function TestResultDetails() {
                               {`Q ${index + 1}. ${question.question}`}{" "}
                             </h4>
                             {question.question_code ? (
-                              <pre className=" bg-grey p-2">
+                              <pre className="text-wrap bg-grey p-2">
                                 {question.question_code}
                               </pre>
                             ) : (

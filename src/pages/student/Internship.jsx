@@ -4,7 +4,6 @@ import AppHeader from "../../components/includes/AppHeader";
 import StudentSidebar from "../../components/includes/StudentSidebar";
 import BackButton from "../../components/navigation/BackButton";
 import { Bars } from "react-loader-spinner";
-import { Link} from "react-router-dom";
 
 function Internship() {
   const [internships, setInternships] = useState([]);
@@ -78,7 +77,6 @@ function Internship() {
                         </h4>
                       </div>
                       <div className="card-body d-flex align-items-center justify-content-center pl-1 pr-1 pt-0">
-                      <Link to={`/internship/${internship.id}`}>
                         <button
                           className="bg-success text-white rounded-xl btn-cart w125 d-inline-block text-center font-xsssss p-3 fw-700 ls-3 text-uppercase"
                           // onClick={() =>
@@ -87,7 +85,6 @@ function Internship() {
                         >
                           Participate
                         </button>
-                        </Link>
                         <button
                           onClick={() => {
                             const downloadUrl = `${baseUrl}api/download-image/${internship.id}`;
