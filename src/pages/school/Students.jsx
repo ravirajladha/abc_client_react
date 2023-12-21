@@ -23,9 +23,8 @@ function Students() {
     setLoading(true);
     fetch(`${baseUrl}api/school/api_get_school_students?school_id=${schoolId}`)
       .then((result) => result.json())
-      .then((jsonbody) => {
-        setStudents(jsonbody);
-        // initializeDataTable();
+      .then((json) => {
+        setStudents(json);
         setLoading(false);
       })
       .catch((error) => {
@@ -34,28 +33,22 @@ function Students() {
       });
   };
 
-  // const initializeDataTable = () => {
-  //   $(tableRef.current).DataTable();
-  // };
-
   useEffect(() => {
     if (students.length > 0) {
-      // Destroy existing DataTables instance before reinitializing
       if ($.fn.DataTable.isDataTable(tableRef.current)) {
         $(tableRef.current).DataTable().destroy();
       }
 
-      // Initialize DataTables
       $(tableRef.current).DataTable();
     }
-  }, [students]); // Re-run this effect when 'students' data changes
+  }, [students]);
 
   useEffect(() => {
     getStudents();
   }, []);
 
   return (
-    <div className="middle-sidebar-bottom">
+    <div className="custom-middle-sidebar-bottom p-3">
       <div className="middle-sidebar-left">
         <div className="row">
           <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
@@ -67,7 +60,7 @@ function Students() {
             <div className="float-right">
               <Link
                 to="/school/students/add_student_view"
-                className="p-2 d-inline-block me-2 text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current"
+                className="py-2 px-3 d-inline-block me-2 text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current uppercase"
               >
                 Add student
               </Link>
@@ -78,38 +71,42 @@ function Students() {
           {loading ? (
             <Loader />
           ) : students.length > 0 ? (
-            <div className="card-body p-lg-5 p-4 w-100 border-0 ">
-              <table ref={tableRef} id="myTable" className="table">
-                <thead>
-                  <tr>
-                    <th scope="col">Roll No</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Class</th>
-                    <th scope="col">Section</th>
-                    <th scope="col" className="text-dark">
-                      Action
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {students.map((student, index) => (
-                    <tr key={index}>
-                      <td>{student.auth_id}</td>
-                      <td>{student.name}</td>
-                      <td>{student.class?.class}</td>
-                      <td>{student.section_id === 1 ? "A" : "B"}</td>
-                      <td className="text-dark">
-                        <Link
-                          to={`/school/students/edit-student-profile/${student.auth_id}`}
-                          className="p-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current"
-                        >
-                          Edit
-                        </Link>
-                      </td>
+            <div className="card border-0  shadow-sm mx-2">
+              <div className="card-body p-lg-5 p-4 w-100 border-0 ">
+                <table ref={tableRef} id="myTable" className="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Roll No</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Class</th>
+                      <th scope="col">Section</th>
+                      <th scope="col" className="text-dark">
+                        Action
+                      </th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {students.map((student, index) => (
+                      <tr key={index}>
+                        <td className="align-middle">{student.auth_id}</td>
+                        <td className="align-middle">{student.name}</td>
+                        <td className="align-middle">{student.class?.class}</td>
+                        <td className="align-middle">
+                          {student.section_id === 1 ? "A" : "B"}
+                        </td>
+                        <td className="align-middle text-dark">
+                          <Link
+                            to={`/school/student/${student.auth_id}/edit`}
+                            className="px-3 py-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current uppercase"
+                          >
+                            Edit
+                          </Link>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           ) : (
             <NoContent contentName="students" />

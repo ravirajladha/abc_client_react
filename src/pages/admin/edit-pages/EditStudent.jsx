@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
-import BackButton from "../../components/navigation/BackButton";
+import { useNavigate, useParams } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../../lib/AuthContext.js";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
-import { AuthContext } from "../../lib/AuthContext.js";
+import BackButton from "../../../components/navigation/BackButton";
 
-function AddStudent() {
+function EditStudent() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
+
+  const navigate = useNavigate();
+  const { schoolId, studentId } = useParams();
 
   const [schools, setSchools] = useState([]);
   const [classes, setClasses] = useState([]);
@@ -16,26 +19,34 @@ function AddStudent() {
   const user = useContext(AuthContext).user;
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Define the initial formData state with empty values or derived from user if available
   const [formData, setFormData] = useState({
     name: "",
-    school: user ? user.user.id : "", // Conditional property access with default
-    className: "",
-    section: "",
+    class_id: "",
+    section_id: "",
   });
 
-  console.log("formdata", formData.school);
+  const getStudent = async () => {
+    try {
+      const response = await fetch(
+        baseUrl + `api/get-student-details/${studentId}`
+      );
+      const data = await response.json();
+      formData.name = data.name;
+      formData.class_id = data.class_id;
+      formData.section_id = data.section_id;
+    } catch (error) {
+      console.error("Error fetching classes:", error);
+    }
+  };
+
+  useEffect(() => {
+    getStudent();
+  }, []);
+
   useEffect(() => {
     getAllSchools();
     getAllClasses();
-    // If formSubmitted is true, navigate to the teacher page
-    if (formSubmitted) {
-      const timer = setTimeout(() => {
-        navigateToTeacherPage();
-      }, 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [formSubmitted]); // React to formSubmitted changes
+  }, [formSubmitted]);
 
   const getAllSchools = async () => {
     try {
@@ -47,7 +58,6 @@ function AddStudent() {
     }
   };
 
-  // Call the function to fetch schools
   useEffect(() => {
     getAllSchools();
   }, []);
@@ -62,90 +72,83 @@ function AddStudent() {
     }
   };
 
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+  
+    if (name === 'className') {
+      setFormData((prevData) => ({
+        ...prevData,
+        class_id: value,
+      }));
+    } else if (name === 'section') {
+      setFormData((prevData) => ({
+        ...prevData,
+        section_id: value,
+      }));
+    } else {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
   };
 
-  const navigate = useNavigate();
-
-  const navigateToTeacherPage = () => {
+  const navigateOutOfEdit = () => {
     navigate(`${process.env.PUBLIC_URL}/school/students`);
   };
-
-  useEffect(() => {
-    if (formSubmitted) {
-      // After the toast notification is displayed, redirect to /school/students
-      setTimeout(() => {
-        navigateToTeacherPage();
-      }, 3000); // 3000 milliseconds (3 seconds) delay
-    }
-  }, [formSubmitted]);
-
-  if (!user) {
-    console.log("No user found. User might be logged out.");
-    // Handle the redirect to login or return placeholder content here
-    return <div>User is not logged in</div>;
-  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Access the form data
     const formDataToSend = new FormData();
     Object.entries(formData).forEach(([key, value]) => {
       formDataToSend.append(key, value);
     });
 
     try {
-      const response = await fetch(baseUrl + "api/school/add_student", {
-        method: "POST",
-        body: formDataToSend,
-      });
+      const response = await fetch(
+        baseUrl + "api/update-student-details/" + studentId,
+        {
+          method: "POST",
+          body: formDataToSend,
+        }
+      );
 
       if (response.ok) {
-        // Handle success
         setFormSubmitted(true);
-        toast.success("Student added successfully!");
-        // Clear form values after successful submission
         setFormData({
           name: "",
-          school: "",
-          className: "",
-          section: "",
+          // school: "",
+          class_id: "",
+          section_id: "",
         });
+        toast.success("Student updated successfully!");
       } else {
-        // Handle errors here if needed
-        toast.error("Error adding student.");
+        toast.error("Error updating student.");
       }
     } catch (error) {
-      console.error("Error adding student:", error);
+      console.error("Error updating student:", error);
     } finally {
-      setIsSubmitting(false); // Re-enable the submit button
+      setIsSubmitting(false);
+      navigateOutOfEdit();
     }
   };
 
+  if (!user) {
+    console.log("No user found. User might be logged out.");
+    return <div>User is not logged in</div>;
+  }
+
   return (
-    <div className="middle-sidebar-bottom">
+    <div className="custom-middle-sidebar-bottom p-3">
       <div className="middle-sidebar-left">
         <ToastContainer autoClose={3000} />
         <div className="card-body p-4 w-100 border-0 d-flex rounded-lg justify-content-between">
           <h2 className="fw-400 font-lg d-block">
-            Add <b> Student</b>
+            Edit <b> Student</b>
           </h2>
-          {/* <Breadcrumb style={{ padding: "0.25rem 1rem" }}>
-                    <Breadcrumb.Item href="/school">
-                      <i className="fa fa-home"></i>&nbsp;Home&nbsp;
-                    </Breadcrumb.Item>
-                    <Breadcrumb.Item active className="fw-500 text-black">
-                      &nbsp;Add Student
-                    </Breadcrumb.Item>
-                  </Breadcrumb> */}
           <BackButton />
         </div>
         <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
@@ -182,13 +185,13 @@ function AddStudent() {
                       name="className"
                       id=""
                       className="form-control"
-                      value={formData.className}
+                      value={formData.class_id}
                       onChange={handleChange}
                     >
                       <option value="">Select Class</option>
-                      {classes.map((classVal) => (
-                        <option key={classVal.class} value={classVal.class}>
-                          {classVal.class}
+                      {classes.map((item) => (
+                        <option key={item.id} value={item.id}>
+                          {item.class}
                         </option>
                       ))}
                     </select>
@@ -204,7 +207,7 @@ function AddStudent() {
                       name="section"
                       id=""
                       className="form-control"
-                      value={formData.section}
+                      value={formData.section_id}
                       onChange={handleChange}
                     >
                       <option value="">Select Section</option>
@@ -236,4 +239,4 @@ function AddStudent() {
   );
 }
 
-export default AddStudent;
+export default EditStudent;
