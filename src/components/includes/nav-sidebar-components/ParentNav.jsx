@@ -15,15 +15,14 @@ function ParentNav() {
   const [isOpen, setIsOpen] = useState(false);
   const [loggedOut, setLoggedOut] = useState(false);
 
-  const mainContent = document.getElementById('main-content');
-  
+  const mainContent = document.getElementById("main-content");
+
   const toggleNav = () => {
-    mainContent.classList.toggle('menu-active');
+    mainContent.classList.toggle("menu-active");
     setIsFull(!isFull);
   };
 
   const toggleNavClass = `${isFull ? "menu-active" : ""}`;
-
 
   const toggleOpen = () => setIsOpen(!isOpen);
 
@@ -100,10 +99,9 @@ function ParentNav() {
               </Link>
             </li>
           </ul>
-
-          <div className="nav-caption fw-600 font-xssss text-grey-500 mt-1">
-            Children
-          </div>
+            <div className="nav-caption my-2 fw-600 font-xssss text-grey-500 mt-1">
+              Children
+            </div>
 
           <ul className="mb-3">
             {children
@@ -117,7 +115,7 @@ function ParentNav() {
                 ))
               : ""}
           </ul>
-          
+
           {/* <ul className="mb-3">
             {children ? children.map((child, index) => (
             <li className="nav-item" key={index}>

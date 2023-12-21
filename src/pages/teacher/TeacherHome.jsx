@@ -83,7 +83,7 @@ function TeacherHome() {
                 dashboardItemName="My Students"
               ></DashboardItem>
             </div>
-            {teacherClassInfo.map((classInfo) => (
+            {teacherClassInfo?.map((classInfo) => (
               <div className="row" key={classInfo.class_id}>
                 <DashboardItem
                   dashboardItemIcon="package"
@@ -93,12 +93,12 @@ function TeacherHome() {
                 <DashboardItem
                   dashboardItemIcon="book"
                   dashboardInfo={classInfo.subject_count}
-                  dashboardItemName={"Subjects in " + classInfo.class_name}
+                  dashboardItemName={ classInfo.class_name + " Subjects"}
                 ></DashboardItem>
                 <DashboardItem
                   dashboardItemIcon="user"
                   dashboardInfo={classInfo.student_count}
-                  dashboardItemName={"Students in " + classInfo.class_name}
+                  dashboardItemName={ classInfo.class_name + " Students"}
                 ></DashboardItem>
               </div>
             ))}
