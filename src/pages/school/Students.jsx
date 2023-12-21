@@ -70,80 +70,43 @@ function Students() {
             </div>
           </div>
 
-                <div className="card-body p-lg-5 p-4 w-100 border-0 ">
-                  <table ref={tableRef} id="myTable" className="table">
-                    <thead>
-                      <tr>
-                        <th scope="col">Roll No</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Class</th>
-                        <th scope="col">Section</th>
-                        <th scope="col" className="text-dark">
-                          Action
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {students.map((student, index) => (
-                        <tr key={index}>
-                          <td>{student.auth_id}</td>
-                          <td>{student.name}</td>
-                          <td>{student.class?.class}</td>
-                          <td>{student.section_id === 1 ? "A" : "B"}</td>
-                          <td className="text-dark">
-                            <Link
-                              to={`/school/students/edit-student-profile/${student.auth_id}`}
-                              className="p-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current"
-                            >
-                              Edit
-                            </Link>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
+         
       
           {loading ? (
             <Loader />
           ) : students.length > 0 ? (
             <div className="card-body p-lg-5 p-4 w-100 border-0 ">
-              <table ref={tableRef} id="myTable" className="table">
-                <thead>
-                  <tr>
-                    <th scope="col">Sl. No.</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Roll No</th>
-                    <th scope="col">Class</th>
-                    <th scope="col">Section</th>
-                    <th scope="col" className="text-dark">
-                      Action
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {students.map((student, index) => (
-                    <tr key={index}>
-                      <td>{index + 1}</td>
-                      <td>{student.name}</td>
-                      <td>{student.auth_id}</td>
-                      <td>{student.class?.class}</td>
-                      <td>{student.section_id === 1 ? "A" : "B"}</td>
-                      <td className="text-dark">
-                        <Link
-                          to={`/school/students/edit-student-profile/${student.auth_id}`}
-                          className="p-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current"
-                        >
-                          Edit
-                        </Link>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+            <table ref={tableRef} id="myTable" className="table">
+            <thead>
+              <tr>
+                <th scope="col">Roll No</th>
+                <th scope="col">Name</th>
+                <th scope="col">Class</th>
+                <th scope="col">Section</th>
+                <th scope="col" className="text-dark">
+                  Action
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {students.map((student, index) => (
+                <tr key={index}>
+                  <td>{student.auth_id}</td>
+                  <td>{student.name}</td>
+                  <td>{student.class?.class}</td>
+                  <td>{student.section_id === 1 ? "A" : "B"}</td>
+                  <td className="text-dark">
+                    <Link
+                      to={`/school/students/edit-student-profile/${student.auth_id}`}
+                      className="p-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current"
+                    >
+                      Edit
+                    </Link>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
             </div>
           ) : (
             <NoContent contentName="students" />
