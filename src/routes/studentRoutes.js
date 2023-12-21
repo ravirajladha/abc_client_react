@@ -33,6 +33,7 @@ import PreviewEbook from "../pages/admin/ebook/PreviewEbook.jsx";
 import SubjectResults from "../pages/student/SubjectResults.jsx";
 import TestDetails from "../pages/student/TestDetails.jsx";
 import Internship from "../pages/student/Internship.jsx";
+import TakeInternship from "../pages/student/TakeInternship.jsx";
 
 export const studentRoutes = (
   <>
@@ -515,5 +516,16 @@ export const studentRoutes = (
         })
       )}
     />
+      <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/internship/:internship_id`}
+      element={React.createElement(
+        withLayoutAndProtection(TakeInternship, {
+          allowedTypes: ["school_student"],
+        })
+      )}
+    />
   </>
+
+  
 );

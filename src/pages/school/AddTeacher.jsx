@@ -276,11 +276,11 @@ console.log("iuser_id",userDetails.user.id);
                               <button
                                 type="button"
                                 id="addFields"
-                                className="btn bg-current text-center text-white font-xsss fw-600 p-1 w80 rounded-lg d-inline-block border-0"
+                                className="btn bg-success text-center text-white font-xsss fw-600 p-1 w80 rounded-lg d-inline-block border-0"
                                 style={{ float: "right" }}
                                 onClick={handleAddFields}
                               >
-                                Add Row
+                               Add Row
                               </button>
                             </div>
                           </div>

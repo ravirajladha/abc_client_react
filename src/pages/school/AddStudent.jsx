@@ -140,8 +140,9 @@ function AddStudent() {
             <div className="card-body p-4 w-100 border-0 d-flex rounded-lg justify-content-between">
                   <h2 className="fw-400 font-lg d-block">
                     Add <b> Student</b>
-                    <ToastContainer autoClose={3000} />
+                    
                   </h2>
+                  <ToastContainer autoClose={3000} />
                   {/* <Breadcrumb style={{ padding: "0.25rem 1rem" }}>
                     <Breadcrumb.Item href="/school">
                       <i className="fa fa-home"></i>&nbsp;Home&nbsp;
