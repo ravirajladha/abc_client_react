@@ -82,10 +82,10 @@ function AllSubjects() {
                     </h4>
                     <div className="card-footer bg-transparent border-top-0">
                       <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-success d-inline-block text-success mb-1 mr-1">
-                        Video Count
+                        Chapter Count
                       </span>
                       <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-info d-inline-block text-info mb-1">
-                        {subject.video_count}
+                        {subject.chapter_count}
                       </span>
                     </div>
                     <div className="card-footer bg-transparent border-top-0 d-flex align-items-center justify-content-center gap-2">

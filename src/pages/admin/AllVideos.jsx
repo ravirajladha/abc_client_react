@@ -103,7 +103,8 @@ function AllVideos() {
                       to={`/class/${classId}/subject/${subjectId}/chapter/${chapter_id}/video/${video.id}/edit`}
                       className="position-absolute right-0 mr-4 top-0 mb-4"
                     >
-                      <i className="ti-more text-grey-500 font-xs"></i>
+                        <i className="ti-pencil-alt text-grey-500 font-xsss"></i>
+
                     </Link>
                     {/* <a href="#" className="btn-round-xxxl rounded-lg bg-lightblue ml-auto mr-auto"> */}
                     <video width="100%" height="auto" controls>
