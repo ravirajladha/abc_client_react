@@ -215,6 +215,7 @@ function CreateVideos() {
     formData.append("elab", selectedElab);
     formData.append("assessmentId", selectedAssessment);
     formData.append("eBookId", selectedEbook);
+    formData.append("eBookModuleId", selectedEbookModule);
     if (uploadEbook) {
       selectedEbookSections.forEach((section, index) => {
         formData.append(`eBookSections[${index}]`, section);
@@ -305,6 +306,7 @@ function CreateVideos() {
                             value={videoName} // Bind the input to the videoName state
                             onChange={(e) => setVideoName(e.target.value)} // Update the state when input changes
                             required
+                            disabled={isSubmitting}
                           />
                         </div>
                         <div className="col-lg-8">
@@ -317,6 +319,7 @@ function CreateVideos() {
                             className="form-control"
                             onChange={(e) => setVideoFile(e.target.files[0])}
                             required
+                            disabled={isSubmitting}
                           />
                         </div>
                         <div className="col-lg-12">
@@ -331,6 +334,7 @@ function CreateVideos() {
                               setVideoDescription(e.target.value)
                             }
                             required
+                            disabled={isSubmitting}
                           />
                         </div>
                       </div>
@@ -344,6 +348,7 @@ function CreateVideos() {
                           <input
                             type="checkbox"
                             checked={uploadAssessment}
+                            disabled={isSubmitting}
                             onChange={(e) =>
                               setUploadAssessment(e.target.checked)
                             }
@@ -361,6 +366,7 @@ function CreateVideos() {
                                 column_name="assessment" // This is the property to be displayed in the dropdown
                                 value={selectedAssessment}
                                 onChange={handleAssessmentChange}
+                                disabled={isSubmitting}
                               />
                             </div>
                           )}
@@ -376,6 +382,7 @@ function CreateVideos() {
                           <input
                             type="checkbox"
                             checked={uploadElab}
+                            disabled={isSubmitting}
                             onChange={(e) => setUploadElab(e.target.checked)}
                           />
                         </div>
@@ -386,12 +393,17 @@ function CreateVideos() {
                                 Select eLab
                               </label>
                               <br />
-                              <Dropdown
-                                options={elabOptions}
-                                column_name="elab" // This is the property to be displayed in the dropdown
-                                value={selectedElab}
-                                onChange={handleElabChange}
-                              />
+                              {isSubmitting ? (
+                                <p>{selectedElab}</p>
+                              ) : (
+                                <Dropdown
+                                  options={elabOptions}
+                                  column_name="elab"
+                                  value={selectedElab}
+                                  onChange={handleElabChange}
+                                  disabled={isSubmitting}
+                                />
+                              )}
                             </div>
                           )}
                         </div>
@@ -408,6 +420,7 @@ function CreateVideos() {
                             name="eBook"
                             checked={uploadEbook}
                             onChange={(e) => setUploadEbook(e.target.checked)}
+                            disabled={isSubmitting}
                           />
                         </div>
 
@@ -418,13 +431,18 @@ function CreateVideos() {
                                 Select eBook
                               </label>
                               <br />
-                              <Dropdown
-                                options={ebookOptions}
-                                column_name="eBook"
-                                value={selectedEbook}
-                                onChange={handleEbookChange}
-                                required={uploadEbook}
-                              />
+                              {isSubmitting ? (
+                                <p>{selectedEbook}</p>
+                              ) : (
+                                <Dropdown
+                                  options={ebookOptions}
+                                  column_name="eBook"
+                                  value={selectedEbook}
+                                  onChange={handleEbookChange}
+                                  required={uploadEbook}
+                                  disabled={isSubmitting}
+                                />
+                              )}
                             </div>
                             {selectedEbook && (
                               <div className="col-lg-5">
@@ -432,13 +450,18 @@ function CreateVideos() {
                                   Select a Module
                                 </label>
                                 <br />
-                                <Dropdown
-                                  options={ebookModuleOptions}
-                                  column_name="eBookModule"
-                                  value={selectedEbookModule}
-                                  onChange={handleEbookModuleChange}
-                                  required={uploadEbook}
-                                />
+                                {isSubmitting ? (
+                                  <p>{selectedEbookModule}</p>
+                                ) : (
+                                  <Dropdown
+                                    options={ebookModuleOptions}
+                                    column_name="eBookModule"
+                                    value={selectedEbookModule}
+                                    onChange={handleEbookModuleChange}
+                                    required={uploadEbook}
+                                    disabled={isSubmitting}
+                                  />
+                                )}
                               </div>
                             )}
                           </>
@@ -457,6 +480,7 @@ function CreateVideos() {
                             <button
                               onClick={handleAddSection}
                               className="btn bg-current text-center text-white font-xsss fw-600 rounded-lg d-inline-block border-0 float-right mt-2 float-end"
+                              disabled={isSubmitting}
                             >
                               +
                             </button>
@@ -480,12 +504,14 @@ function CreateVideos() {
                                   )
                                 }
                                 required={uploadEbook}
+                                disabled={isSubmitting}
                               />
                             </div>
                             <div className="col-lg-2 d-flex align-items-center">
                               <button
                                 className="btn bg-danger text-center text-white font-xsss fw-600 rounded-lg d-inline-block border-0"
                                 title="Remove Section"
+                                disabled={isSubmitting}
                                 onClick={() => handleRemoveSection(index)}
                               >
                                 -

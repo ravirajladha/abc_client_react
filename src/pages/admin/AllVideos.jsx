@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import AppHeader from "../../components/includes/AppHeader";
-import AppFooter from "../../components/includes/AppFooter";
 import BackButton from "../../components/navigation/BackButton";
 import DynamicLink from "../../components/navigation/DynamicLink";
+import Loader from "../../components/common/Loader.jsx";
+import NoContent from "../../components/common/NoContent.jsx";
 
 function AllVideos() {
   const navigate = useNavigate();
@@ -94,29 +94,19 @@ function AllVideos() {
             </div>
 
             {isLoading ? (
-              <h2 className="fw-400 font-lg d-block text-center">
-                Loading contents...
-              </h2>
+              <Loader />
             ) : videos.length > 0 ? (
               videos.map((video, index) => (
                 <div className="col-xl-4 col-lg-6 col-md-6" key={index}>
                   <div className="card mb-4 shadow-xss rounded-lg border-0 p-4 text-center">
                     <Link
-                      to={`/video/${video.id}/edit`}
+                      to={`/class/${classId}/subject/${subjectId}/chapter/${chapter_id}/video/${video.id}/edit`}
                       className="position-absolute right-0 mr-4 top-0 mb-4"
                     >
-                      <i className="ti-pencil-alt text-grey-500 font-xsss"></i>
+                      <i className="ti-more text-grey-500 font-xs"></i>
                     </Link>
-                    {/* <a
-                          href="#"
-                          className="btn-round-xxxl rounded-lg bg-lightblue ml-auto mr-auto"
-                        > */}
-                    <video
-                      width="100%"
-                      height="auto"
-                      className="ml-auto mr-auto rounded-lg overflow-hidden d-inline-block"
-                      controls
-                    >
+                    {/* <a href="#" className="btn-round-xxxl rounded-lg bg-lightblue ml-auto mr-auto"> */}
+                    <video width="100%" height="auto" controls>
                       <source
                         src={baseUrl + video.video_file}
                         type="video/mp4"
@@ -127,12 +117,20 @@ function AllVideos() {
                     <h4 className="fw-700 font-xs mt-4">{video.video_name}</h4>
                     <div className="row">
                       <div className="col">
-                        <Link to={video.ebook_id ? `/` : `/`} className={`px-3 py-1 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss bg-current mx-2`} disabled>
+                        <Link
+                          to={
+                            video.ebook_id
+                              ? `/ebooks/preview_ebook/${video.ebook_id}`
+                              : `#`
+                          }
+                          className={`px-3 py-1 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss bg-current mx-2`}
+                          disabled
+                        >
                           Ebook
                         </Link>
                         <Link
-                          to={+
-                            video.assessment_id
+                          to={
+                            +video.assessment_id
                               ? `/assessments/assessment_details/${video.assessment_id}`
                               : "#"
                           }
@@ -190,8 +188,7 @@ function AllVideos() {
                 </div>
               ))
             ) : (
-              // If data is loaded and there are no videos, display a message saying so
-              <h2 className="fw-400 font-lg d-block text-center">No videos</h2>
+              <NoContent contentName="videos"/>
             )}
           </div>
         </div>

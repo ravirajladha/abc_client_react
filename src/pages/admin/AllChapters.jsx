@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import BackButton from "../../components/navigation/BackButton";
-
 import AppHeader from "../../components/includes/AppHeader";
 import AppFooter from "../../components/includes/AppFooter";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import Loader from "../../components/common/Loader";
+import NoContent from "../../components/common/NoContent";
 
 function AllChapters() {
   const navigate = useNavigate();
@@ -12,33 +13,37 @@ function AllChapters() {
   const goBack = () => {
     navigate(-1); // Use navigate(-1) to go back
   };
-  useEffect(() => {
-    if (subject_id) {
-      getUniqueClassFromSubject(subject_id);
-      getChapters(subject_id);
-    }
-  }, [subject_id]); // Only re-run the effect if subject_id changes
 
   const [chapters, setChapters] = useState([]);
   const [classId, setClassId] = useState(null);
+  const [loading, setLoading] = useState(true);
+
   function getChapters(subject_id) {
     fetch(`${baseUrl}api/get_chapters/${subject_id}`)
       .then((response) => response.json())
       .then((data) => {
         console.warn("chapters", data);
         setChapters(data);
+        setLoading(false);
       });
   }
+
   function getUniqueClassFromSubject(subject_id) {
     fetch(`${baseUrl}api/getUniqueClassFromSubject/${subject_id}`)
       .then((response) => response.json())
       .then((data) => {
         console.warn("chapters", data);
-
         setClassId(data.class_id);
         console.log("class", data.class_id);
       });
   }
+
+  useEffect(() => {
+    if (subject_id) {
+      getUniqueClassFromSubject(subject_id);
+      getChapters(subject_id);
+    }
+  }, [subject_id]);
   return (
     <>
       <div className="middle-sidebar-bottom theme-dark-bg">
@@ -60,12 +65,14 @@ function AllChapters() {
                 <BackButton />
               </div>
             </div>
-            {chapters && chapters.length > 0 ? (
+            {loading ? (
+              <Loader />
+            ) : chapters && chapters.length > 0 ? (
               chapters.map((chapter, index) => (
                 <div className="col-xl-4 col-lg-6 col-md-6" key={index}>
                   <div className="card mb-4 shadow-xss rounded-lg border-0 p-4 text-center">
                     <Link
-                      to={`/chapter/${chapter.id}/edit`}
+                      to={`/subject/${subject_id}/chapter/${chapter.id}/edit`}
                       className="position-absolute right-0 mr-4 top-0 mt-2"
                     >
                       <i className="ti-pencil-alt text-grey-500 font-xsss"></i>
@@ -89,9 +96,7 @@ function AllChapters() {
                 </div>
               ))
             ) : (
-              <h2 className="fw-400 font-lg d-block text-center">
-                Loading chapters...
-              </h2>
+              <NoContent contentName="chapters"/>
             )}
           </div>
         </div>

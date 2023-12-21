@@ -64,8 +64,9 @@ import EditClass from "../pages/admin/edit-pages/EditClass.jsx";
 import EditSubject from "../pages/admin/edit-pages/EditSubject.jsx";
 import EditChapter from "../pages/admin/edit-pages/EditChapter.jsx";
 import EditVideo from "../pages/admin/edit-pages/EditVideo.jsx";
-// const AdminHomeWithLayoutAndProtection = withLayoutAndProtection(AdminHome, { allowedTypes: ['admin'] });
 import Settings from "../pages/common/Settings.jsx";
+import EditTest from "../pages/admin/edit-pages/EditTest.jsx";
+// const AdminHomeWithLayoutAndProtection = withLayoutAndProtection(AdminHome, { allowedTypes: ['admin'] });
 export const adminRoutes = (
   <>
     {/* <Route
@@ -281,34 +282,21 @@ export const adminRoutes = (
       )}
     />
 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/assessments`}
-  element={React.createElement(withLayoutAndProtection(Assessments, { allowedTypes: ['admin'] }))}
-/>
-    
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/assessments/all_questions`}
-  element={React.createElement(withLayoutAndProtection(AllQuestions, { allowedTypes: ['admin'] }))}
-/>
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/assessments/all-assessment-questions`}
-  element={React.createElement(withLayoutAndProtection(AllAssessmentQuestions, { allowedTypes: ['admin'] }))}
-/>
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/assessments/all_questions`}
+      element={React.createElement(
+        withLayoutAndProtection(AllQuestions, { allowedTypes: ["admin"] })
+      )}
+    />
 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/assessments/create_question`}
-  element={React.createElement(withLayoutAndProtection(CreateAssessmentQuestion, { allowedTypes: ['admin'] }))}
-/>
-  
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/assessments/create_assessments`}
-  element={React.createElement(withLayoutAndProtection(CreateAssessments, { allowedTypes: ['admin'] }))}
-/>
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/assessments/create_question`}
+      element={React.createElement(
+        withLayoutAndProtection(CreateQuestion, { allowedTypes: ["admin"] })
+      )}
+    />
 
     <Route
       exact
@@ -399,17 +387,20 @@ export const adminRoutes = (
       )}
     />
 
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/schools/edit-school-profile/:id`}
-  element={React.createElement(withLayoutAndProtection(EditSchoolProfile, { allowedTypes: ['admin'] }))}
-/>  
-
-<Route
-  exact
-  path={`${process.env.PUBLIC_URL}/edit-school-profile/:id`}
-  element={React.createElement(withLayoutAndProtection(EditSchoolProfile, { allowedTypes: ['admin'] }))}
-/> 
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/tests/add_question_to_test`}
+      element={React.createElement(
+        withLayoutAndProtection(AddQuestionsToTest, { allowedTypes: ["admin"] })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/all_labs`}
+      element={React.createElement(
+        withLayoutAndProtection(AllLabs, { allowedTypes: ["admin"] })
+      )}
+    />
 
     <Route
       exact
@@ -644,6 +635,51 @@ export const adminRoutes = (
       path={`${process.env.PUBLIC_URL}/admin/settings`}
       element={React.createElement(
         withLayoutAndProtection(Settings, { allowedTypes: ["admin"] })
+      )}
+    />
+
+    {/* Edit Routes */}
+
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/class/:classId/edit`}
+      element={React.createElement(
+        withLayoutAndProtection(EditClass, { allowedTypes: ["admin"] })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/class/:classId/subject/:subjectId/edit`}
+      element={React.createElement(
+        withLayoutAndProtection(EditSubject, { allowedTypes: ["admin"] })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/subject/:subjectId/chapter/:chapterId/edit`}
+      element={React.createElement(
+        withLayoutAndProtection(EditChapter, { allowedTypes: ["admin"] })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/class/:classId/subject/:subjectId/chapter/:chapterId/video/:videoId/edit`}
+      element={React.createElement(
+        withLayoutAndProtection(EditVideo, { allowedTypes: ["admin"] })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/tests/test/:testId/edit`}
+      element={React.createElement(
+        withLayoutAndProtection(EditTest, { allowedTypes: ["admin"] })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/test-question/:testQuestionId/edit`}
+      element={React.createElement(
+        withLayoutAndProtection(EditTest, { allowedTypes: ["admin"] })
       )}
     />
   </>

@@ -1,22 +1,17 @@
 import React, { useState, useEffect } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import AppHeader from "../../components/includes/AppHeader";
 import AppFooter from "../../components/includes/AppFooter";
 import BackButton from "../../components/navigation/BackButton";
-
-import { useParams, Link, useNavigate } from "react-router-dom";
+import Loader from "../../components/common/Loader";
+import NoContent from "../../components/common/NoContent.jsx";
 
 function AllSubjects() {
   const { class_id } = useParams();
-  const [isLoading, setIsLoading] = useState(true);
-
   const baseUrl = process.env.REACT_APP_BASE_URL;
-  useEffect(() => {
-    if (class_id) {
-      getSubjects(class_id);
-    }
-  }, [class_id]);
-
+  const [isLoading, setIsLoading] = useState(true);
   const [subjects, setSubjects] = useState([]);
+
   function getSubjects(class_id) {
     let result = fetch(
       baseUrl + "api/admin/get_subjects_and_video_count_by_class/" + class_id
@@ -28,6 +23,12 @@ function AllSubjects() {
       });
     });
   }
+
+  useEffect(() => {
+    if (class_id) {
+      getSubjects(class_id);
+    }
+  }, [class_id]);
 
   return (
     <>
@@ -51,16 +52,17 @@ function AllSubjects() {
                 >
                   ADD SUBJECT
                 </Link>
-
                 <BackButton />
               </div>
             </div>
-            {subjects ? (
+            {isLoading ? (
+              <Loader />
+            ) : subjects && subjects.length > 0 ? (
               subjects.map((subject, index) => (
                 <div className="col-xl-4 col-lg-6 col-md-6" key={index}>
                   <div className="card mb-4 shadow-xss rounded-lg p-xxl-5 p-4 border-0 text-center">
                     <Link
-                      to={`/subject/${subject.id}/edit`}
+                      to={`/class/${class_id}/subject/${subject.subject_id}/edit`}
                       className="position-absolute right-0 mr-4 top-0 mt-2"
                     >
                       <i className="ti-pencil-alt text-grey-500 font-xsss"></i>
@@ -103,12 +105,8 @@ function AllSubjects() {
                   </div>
                 </div>
               ))
-            ) : subjects.length > 0 ? (
-              subjects.map((video, index) => <h1>Subjects Loading...</h1>)
             ) : (
-              <h2 className="fw-400 font-lg d-block text-center">
-                No Subjects
-              </h2>
+              <NoContent contentName="subjects" />
             )}
           </div>
         </div>
