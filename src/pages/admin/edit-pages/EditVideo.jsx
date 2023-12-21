@@ -175,7 +175,11 @@ function EditVideo() {
       if (data.ebook_sections !== null) {
         setSelectedEbook(data.ebook_id);
         setSelectedEbookModule(data.ebook_module_id);
-        setSelectedEbookSections(JSON.parse(data.ebook_sections));
+        // setSelectedEbookSections(JSON.parse(data.ebook_sections));
+        setSelectedEbookSections(
+          JSON.parse(data.ebook_sections).map((section) => section.id)
+        );
+        // console.log(JSON.parse(data.ebook_sections));
       }
       setLoading(false);
     } catch (error) {
@@ -212,12 +216,16 @@ function EditVideo() {
   const handleAddSection = (event) => {
     event.preventDefault();
     setSelectedEbookSections([...selectedEbookSections, ""]);
+    console.log(selectedEbookSections);
+
   };
 
   const handleEbookSectionChange = (index, value) => {
     const updatedSections = [...selectedEbookSections];
     updatedSections[index] = value;
     setSelectedEbookSections(updatedSections);
+    console.log(selectedEbookSections);
+
   };
 
   const handleRemoveSection = (e, index) => {
@@ -278,6 +286,7 @@ function EditVideo() {
     //   formData.append("eBookSections", null);
     // }
 
+    console.log(selectedEbookSections);
     if (uploadEbook) {
       formData.append("eBookId", selectedEbook);
       formData.append("eBookModuleId", selectedEbookModule);
@@ -292,6 +301,9 @@ function EditVideo() {
 
     if (videoFile) {
       formData.append("videoFile", videoFile);
+    }
+    for (var pair of formData.entries()) {
+      console.log(pair[0] + ", " + pair[1]);
     }
     setIsSubmitting(true);
     e.preventDefault();
@@ -545,7 +557,7 @@ function EditVideo() {
                             <Dropdown
                               options={ebookSectionOptions}
                               column_name="eBookSection"
-                              value={section.id}
+                              value={section}
                               onChange={(e) =>
                                 handleEbookSectionChange(index, e.target.value)
                               }

@@ -84,6 +84,14 @@ function AllClasses() {
                     </h4>
                     {/* Additional details about the class can be listed here */}
                     <div className="card-footer bg-transparent border-top-0">
+                      <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-success d-inline-block text-success mb-1 mr-1">
+                        Subject Count
+                      </span>
+                      <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-info d-inline-block text-info mb-1">
+                        {singleClass.subject_count}
+                      </span>
+                    </div>
+                    <div className="card-footer bg-transparent border-top-0">
                       <Link
                         to={
                           user.user.type === "admin"
@@ -92,7 +100,7 @@ function AllClasses() {
                             ? `/school/class/${singleClass.id}/subjects`
                             : `/teachers/all_classes/${singleClass.id}/subjects` // Defaults to teacher if neither admin nor sub_admin
                         }
-                        className="p-2 mt-4 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current"
+                        className="p-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current"
                       >
                         Subjects
                       </Link>

@@ -195,7 +195,7 @@ function Home() {
                               item.started_video_count,
                               item.total_video_count,
                             ]}
-                            colorsData={["#ff9500", "#FF4560"]}
+                            colorsData={["#fec794", "#25d366"]}
                           />
                           <h4 className="fw-700 text-lg-end text-sm-center text-grey-600 font-xssss ls-5 text-uppercase mb-0 my-2">
                             {item.subject_name}
