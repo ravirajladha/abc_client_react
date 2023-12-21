@@ -145,7 +145,7 @@ function EditQuestion() {
               <div className="card-body p-lg-5 px-4 w-100 border-0 ">
                 <form encType="multipart/form-data" onSubmit={createQuestion}>
                   <div className="row g-2 mb-6">
-                    <div className="col-lg-6">
+                    <div className="form-group col-lg-6">
                       <label className="mont-font fw-600 font-xsss">
                         Select Class
                       </label>
@@ -158,7 +158,7 @@ function EditQuestion() {
                         required={true}
                       />
                     </div>
-                    <div className="col-lg-6">
+                    <div className="form-group col-lg-6">
                       <label className="mont-font fw-600 font-xsss">
                         Select Subject
                       </label>
@@ -197,16 +197,6 @@ function EditQuestion() {
                       ></textarea>
 
                       {showCode && (
-                        // <textarea
-                        //   rows="4"
-                        //   cols="70"
-                        //   className="form-control mt-4 mb-2"
-                        //   placeholder="Enter Code.."
-                        //   value={code}
-                        //   onChange={(e) => setCode(e.target.value)}
-                        //   required
-                        //   // You can manage a separate state for the second textarea's value if needed
-                        // ></textarea>
 
                         <AceEditor
                           mode="java"
@@ -234,7 +224,7 @@ function EditQuestion() {
                       const number = index + 1;
                       const optionName = `option${number}`;
                       return (
-                        <div className="col-lg-6 mt-2" key={optionName}>
+                        <div className="form-group col-lg-6 mt-2" key={optionName}>
                           <input
                             type="radio"
                             id={optionName}

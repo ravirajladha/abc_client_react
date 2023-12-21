@@ -173,7 +173,7 @@ function EditTest() {
               <div className="card-body p-lg-5 px-4 w-100 border-0 ">
                 <form encType="multipart/form-data" onSubmit={editTest}>
                   <div className="row g-3 mb-6">
-                    <div className="col-lg-4">
+                    <div className="form-group col-lg-4">
                       <label className="mont-font fw-600 font-xsss">
                         Select Class
                       </label>
@@ -186,7 +186,7 @@ function EditTest() {
                         onChange={handleClassChange}
                       />
                     </div>
-                    <div className="col-lg-4">
+                    <div className="form-group col-lg-4">
                       <label className="mont-font fw-600 font-xsss">
                         Select Subject
                       </label>
@@ -199,7 +199,7 @@ function EditTest() {
                         onChange={handleSubjectChange}
                       />
                     </div>
-                    <div className="col-lg-4">
+                    <div className="form-group col-lg-4">
                       <label className="mont-font fw-600 font-xsss">
                         Number of Questions
                       </label>
@@ -210,7 +210,7 @@ function EditTest() {
                         readOnly disabled
                       />
                     </div>
-                    <div className="col-lg-6">
+                    <div className="form-group col-lg-6">
                       <label className="mont-font fw-600 font-xsss">
                         Test Name
                       </label>
@@ -224,7 +224,7 @@ function EditTest() {
                         required
                       />
                     </div>
-                    <div className="col-lg-6">
+                    <div className="form-group col-lg-6">
                       <label className="mont-font fw-600 font-xsss">
                         Test Image
                       </label>
@@ -232,12 +232,12 @@ function EditTest() {
                       <input
                         type="file"
                         onChange={(e) => setImage(e.target.files[0])}
-                        className="form-control"
+                        className="form-control lh-lg py-2 form-control-file"
                         required
                         accept="image/*"
                       />
                     </div>
-                    <div className="col-lg-6">
+                    <div className="form-group col-lg-6">
                       <label className="mont-font fw-600 font-xsss">
                         Select Term
                       </label>
@@ -276,7 +276,7 @@ function EditTest() {
                         )}
                       </select>
                     </div>
-                    <div className="col-lg-6">
+                    <div className="form-group col-lg-6">
                       <label className="mont-font fw-600 font-xsss">
                         Start Time
                       </label>
@@ -289,7 +289,7 @@ function EditTest() {
                         required
                       />
                     </div>
-                    <div className="col-lg-6">
+                    <div className="form-group col-lg-6">
                       <label className="mont-font fw-600 font-xsss">
                         End Time
                       </label>
@@ -302,7 +302,7 @@ function EditTest() {
                         required
                       />
                     </div>
-                    <div className="col-lg-6">
+                    <div className="form-group col-lg-6">
                       <label className="mont-font fw-600 font-xsss">
                         Duration (in seconds)
                       </label>
@@ -315,7 +315,7 @@ function EditTest() {
                         required
                       />
                     </div>
-                    <div className="col-lg-12">
+                    <div className="form-group form-group ">
                       <label className="mont-font fw-600 font-xsss">
                         Description
                       </label>
@@ -330,7 +330,7 @@ function EditTest() {
                         required
                       ></textarea>
                     </div>
-                    <div className="col-lg-12">
+                    <div className="form-group col-lg-12">
                       <div className="form-group float-right">
                         <label className="mont-font fw-600 font-xsss"></label>
                         <br />

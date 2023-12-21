@@ -3,8 +3,6 @@ import { useContext } from "react";
 import { AuthContext } from "../../lib/AuthContext.js";
 import "react-toastify/dist/ReactToastify.css";
 
-import AppHeader from "../../components/includes/AppHeader";
-import AppFooter from "../../components/includes/AppFooter";
 import DashboardItem from "../../components/common/DashboardItem";
 
 function TeacherHome() {
@@ -87,69 +85,21 @@ function TeacherHome() {
             </div>
             {teacherClassInfo.map((classInfo) => (
               <div className="row" key={classInfo.class_id}>
-                <div className="col-sm-3">
-                  <div className="card w-100 p-1 border-0 mt-4 rounded-lg bg-white shadow-xs overflow-hidden">
-                    <div className="card-body p-4">
-                      <div className="row">
-                        <div className="col-7">
-                          <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                            {classInfo ? classInfo.class_name : "-"}
-                          </h2>
-                          <h4 className="fw-700 text-grey-500 font-xsss ls-3 text-uppercase mb-0 mt-0">
-                            Class
-                          </h4>
-                        </div>
-                        <div className="col-5 text-end">
-                          <i
-                            className={`psor text-white btn-round-md font-xs feather-package bg-current`}
-                          ></i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-sm-3">
-                  <div className="card w-100 p-1 border-0 mt-4 rounded-lg bg-white shadow-xs overflow-hidden">
-                    <div className="card-body p-4">
-                      <div className="row">
-                        <div className="col-7">
-                          <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                            {classInfo ? classInfo.subject_count : "-"}
-                          </h2>
-                          <h4 className="fw-700 text-grey-500 font-xsss ls-3 text-uppercase mb-0 mt-0">
-                            Subjects in {classInfo ? classInfo.class_name : "-"}
-                          </h4>
-                        </div>
-                        <div className="col-5 text-end">
-                          <i
-                            className={`psor text-white btn-round-md font-xs feather-book bg-current`}
-                          ></i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-sm-3">
-                  <div className="card w-100 p-1 border-0 mt-4 rounded-lg bg-white shadow-xs overflow-hidden">
-                    <div className="card-body p-4">
-                      <div className="row">
-                        <div className="col-7">
-                          <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                            {classInfo ? classInfo.student_count : "-"}
-                          </h2>
-                          <h4 className="fw-700 text-grey-500 font-xsss ls-3 text-uppercase mb-0 mt-0">
-                            Students in {classInfo ? classInfo.class_name : "-"}
-                          </h4>
-                        </div>
-                        <div className="col-5 text-end">
-                          <i
-                            className={`psor text-white btn-round-md font-xs feather-user bg-current`}
-                          ></i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <DashboardItem
+                  dashboardItemIcon="package"
+                  dashboardInfo={classInfo.class_name}
+                  dashboardItemName="Class"
+                ></DashboardItem>
+                <DashboardItem
+                  dashboardItemIcon="book"
+                  dashboardInfo={classInfo.subject_count}
+                  dashboardItemName={"Subjects in " + classInfo.class_name}
+                ></DashboardItem>
+                <DashboardItem
+                  dashboardItemIcon="user"
+                  dashboardInfo={classInfo.student_count}
+                  dashboardItemName={"Students in " + classInfo.class_name}
+                ></DashboardItem>
               </div>
             ))}
           </div>
