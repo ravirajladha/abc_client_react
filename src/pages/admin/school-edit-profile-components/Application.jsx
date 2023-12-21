@@ -225,7 +225,7 @@ function Application() {
                   </td>
                   <td>
                     <select
-                      className="form-select p-2 d-inline-block text-dark fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-grey border-none"
+                      className="p-2 d-inline-block text-dark fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-grey border-none"
                       value={application.application_status}
                       onChange={(e) =>
                         changeApplicationStatus(index, +e.target.value)

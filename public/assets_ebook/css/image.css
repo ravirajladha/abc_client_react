@@ -9383,7 +9383,9 @@
 .accordion {
   width: 100%;
 }
-
+.accordion-body .nav-link:hover{
+  background-color: white;
+}
 
 .fliper{
   background: url('/assets_ebook/images/BOTTON.jpg') no-repeat center center;

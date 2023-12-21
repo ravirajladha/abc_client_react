@@ -118,7 +118,7 @@ function AllVideos() {
                     <h4 className="fw-700 font-xs mt-4">{video.video_name}</h4>
                     <div className="row">
                       <div className="col">
-                        <Link
+                        {/* <Link
                           to={
                             video.ebook_id
                               ? `/ebooks/preview_ebook/${video.ebook_id}`
@@ -128,7 +128,7 @@ function AllVideos() {
                           disabled
                         >
                           Ebook
-                        </Link>
+                        </Link> */}
                         <Link
                           to={
                             +video.assessment_id
@@ -153,7 +153,7 @@ function AllVideos() {
                                 >
                                   <Link
                                     className="px-3 py-1 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss bg-current"
-                                    to={`/ebooks/preview_ebook/${
+                                    to={`/ebooks/preview_ebook_admin/${
                                       video.ebook_id
                                     }#${generateId(section.section_title)}`}
                                   >
@@ -169,7 +169,7 @@ function AllVideos() {
                                   >
                                     <Link
                                       className="px-3 py-1 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss bg-current"
-                                      to={`/ebooks/preview_ebook/${
+                                      to={`/ebooks/preview_ebook_admin/${
                                         video.ebook_id
                                       }#${generateId(section.section_title)}`}
                                     >

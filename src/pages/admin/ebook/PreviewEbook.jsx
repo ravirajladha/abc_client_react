@@ -268,7 +268,7 @@ const toggleNav = () => {
                         >
                           {section.section_title}
                         </Link>
-                        <hr style={{ margin: 0 }} />
+                        {/* <hr style={{ margin: 0 }} /> */}
                       </div>
                     ))
                   ) : (

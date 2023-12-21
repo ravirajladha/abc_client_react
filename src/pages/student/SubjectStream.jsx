@@ -394,7 +394,7 @@ function SubjectStream() {
                                             //     assessment.video_id ===
                                             //     video.id
                                             // );
-                                            const hasEBook = null; //when the ebook will come
+                                            const hasEBook = true; //when the ebook will come
                                             // const hasELab = elabs.some(
                                             //   (elab) =>
                                             //     elab.video_id == video.id
@@ -463,7 +463,9 @@ function SubjectStream() {
                                                       >
                                                         <Link
                                                           className="font-xssss text-white"
-                                                          to={`/subject_stream/ebook/${video.id}`}
+                                                          to={`/ebooks/preview_ebook/${
+                                                            video.ebook_id
+                                                          }`}
                                                         >
                                                           EBook
                                                         </Link>
@@ -489,16 +491,24 @@ function SubjectStream() {
                                                         </Link>
                                                       </div>
                                                     )}
-                                                    {video.ebook_sections &&
+                                                    
+                                                    {/* commented this because multiple ebook buttons are coming for mulitiple sections
+                                                    and added the above default ebook */}
+
+                                                    {/* {video.ebook_sections &&
                                                       video.ebook_sections.map(
                                                         (section, index) => (
                                                           <div
                                                             key={index}
-                                                            className="border-size-sm rounded-sm px-1 mx-1"
-                                                            style={{
-                                                              border:
-                                                                "1px solid #000",
-                                                            }}
+                                                            className="border-0 rounded-sm px-1 mx-1 px-2"
+                                                        style={{
+                                                          border:
+                                                            "1px solid #000",
+                                                          backgroundColor:
+                                                            "#ffad39",
+                                                          boxShadow:
+                                                            "0 3px 4px rgba(0, 0, 0, 0.2)",
+                                                        }}
                                                           >
                                                             <Link
                                                               className="font-xssss text-white"
@@ -512,7 +522,7 @@ function SubjectStream() {
                                                             </Link>
                                                           </div>
                                                         )
-                                                      )}
+                                                      )} */}
                                                   </div>
                                                 </div>
                                               </div>

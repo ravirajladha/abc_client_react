@@ -472,7 +472,7 @@ export const studentRoutes = (
       path={`${process.env.PUBLIC_URL}/ebooks/preview_ebook/:ebook_id`}
       element={React.createElement(
         withLayoutAndProtection(PreviewEbook, {
-          allowedTypes: [""],
+          allowedTypes: ["school_student"],
         })
       )}
     />

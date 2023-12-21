@@ -17,7 +17,7 @@ function Teachers({ creatorId }) {
     setLoading(true);
     return new Promise((resolve, reject) => {
       fetch(
-        `${baseUrl}api/admin/api_get_all_teachers_school_wise?school_id=${creatorId}`
+        `${baseUrl}api/school/get_all_teachers_school_wise?created_by=${creatorId}`
       )
         .then((result) => result.json())
         .then((jsonbody) => {
@@ -73,6 +73,8 @@ function Teachers({ creatorId }) {
                       {item.class_name}, {item.subject_name}
                     </div>
                   ))}
+
+                  
                 </td>
                 {/* <td>
                   <Link

@@ -540,7 +540,7 @@ export const adminRoutes = (
     />
     <Route
       exact
-      path={`${process.env.PUBLIC_URL}/ebooks/preview_ebook/:ebook_id`}
+      path={`${process.env.PUBLIC_URL}/ebooks/preview_ebook_admin/:ebook_id`}
       element={React.createElement(
         withLayoutAndProtection(PreviewEbook, { allowedTypes: ["admin"] })
       )}

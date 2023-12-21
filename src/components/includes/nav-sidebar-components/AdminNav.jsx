@@ -146,11 +146,11 @@ function AdminNav() {
                 target="_blank"
               >
                 <i className="feather-codepen mr-2"></i>
-                <span>Use cases</span>
+                <span>Case Study</span>
               </a>
             </li>
             <div className="nav-caption fw-600 font-xssss text-grey-500">
-              Use cases
+            Case Study
             </div>
             <li className="nav-item">
               <NavLink className="navi-link" to="/viewInternship">
