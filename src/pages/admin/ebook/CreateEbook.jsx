@@ -257,6 +257,9 @@ function CreateEbook() {
                             />
                           </div>
                           <div className="col-lg-2">
+                          <label className="mont-font fw-600 font-xsss">
+                              
+                            </label>
                             <button
                               type="button"
                               className="btn btn-danger ml-2 mt-4"
@@ -273,7 +276,7 @@ function CreateEbook() {
                       ))}
                       <button
                         type="button"
-                        className="btn bg-current mt-2 text-white"
+                        className="btn bg-success mt-2 text-white"
                         onClick={addModule}
                       >
                         Add Module

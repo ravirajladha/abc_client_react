@@ -479,7 +479,7 @@ function CreateVideos() {
                           <div className="col-5">
                             <button
                               onClick={handleAddSection}
-                              className="btn bg-current text-center text-white font-xsss fw-600 rounded-lg d-inline-block border-0 float-right mt-2 float-end"
+                              className="btn bg-success text-center text-white font-xsss fw-600 rounded-lg d-inline-block border-0 float-right mt-2 float-end"
                               disabled={isSubmitting}
                             >
                               +
@@ -506,16 +506,31 @@ function CreateVideos() {
                                 required={uploadEbook}
                                 disabled={isSubmitting}
                               />
+
+
+
+
                             </div>
                             <div className="col-lg-2 d-flex align-items-center">
-                              <button
+                              {/* <button
                                 className="btn bg-danger text-center text-white font-xsss fw-600 rounded-lg d-inline-block border-0"
                                 title="Remove Section"
                                 disabled={isSubmitting}
                                 onClick={() => handleRemoveSection(index)}
                               >
                                 -
-                              </button>
+                              </button> */}
+
+                              <button
+          className="btn bg-danger text-center text-white font-xsss fw-600 rounded-lg d-inline-block border-0"
+          title="Remove Section"
+          disabled={isSubmitting || selectedEbookSections.length === 1} // Disable the button if it's the only section
+          onClick={() => handleRemoveSection(index)}
+        >
+          -
+        </button>
+
+
                             </div>
                           </div>
                         ))}

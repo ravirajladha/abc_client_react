@@ -77,19 +77,20 @@ function Schools() {
           <Modal.Title>Add School</Modal.Title>
           <Button
                 variant="grey"
-                className="p-2  d-inline-block text-white fw-700 lh-30 rounded-xlg  text-center font-xsssss ls-3 bg-current"
+                className="p-2 px-3 mr-5 float-right d-inline-block text-white fw-700 lh-30 rounded-xlg font-xsssss ls-3 bg-danger"
                 onClick={handleCloseModal}
+                style={{position: 'absolute',right:0}}
               >
                 X
               </Button>
-          {/* <CloseButton 
-      onClick={handleCloseModal} 
-      aria-label="Close" 
+          {/* <CloseButton
+      onClick={handleCloseModal}
+      aria-label="Close"
       style={{
         padding: '0.5rem', // Adjust padding as needed
         margin: '-1rem -1rem -1rem auto', // Adjust margin as needed
         display: 'block' // Ensure the button is not accidentally hidden
-      }} 
+      }}
     /> */}
           {/* <CloseButton onClick={handleCloseModal} aria-label="Close" /> */}
         </Modal.Header>
@@ -131,7 +132,6 @@ function Schools() {
                 required
               />
             </Form.Group>
-
             <Form.Group className="mb-3">
               <Form.Label>Password</Form.Label>
               <InputGroup>
@@ -155,7 +155,6 @@ function Schools() {
                 </Button>
               </InputGroup>
             </Form.Group>
-
             <div className="d-flex justify-content-between">
               {/* <Button
                 variant="secondary"
@@ -168,7 +167,7 @@ function Schools() {
               <Button
                 variant="primary"
                 disabled={isSubmitting}
-                className="p-2 px-3 d-inline-block me-2 text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current"
+                className="p-2 px-3 d-inline-block me-2 text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current border-0"
                 type="submit"
               >
                 {isSubmitting ? "Submitting..." : "Submit"}

@@ -227,7 +227,7 @@ export const studentRoutes = (
       )}
     />
 
-    <Route
+    {/* <Route
       exact
       path={`${process.env.PUBLIC_URL}/subjects/test_details/:testId`}
       element={React.createElement(
@@ -235,7 +235,7 @@ export const studentRoutes = (
           allowedTypes: ["school_student"],
         })
       )}
-    />
+    /> */}
 
     <Route
       exact

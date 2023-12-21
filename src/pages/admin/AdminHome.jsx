@@ -37,7 +37,7 @@ function AdminHome() {
     } else {
       return;
     }
-  });
+  },[]);
 
   if (!userDetails) {
     console.log("No user found. User might be logged out.");

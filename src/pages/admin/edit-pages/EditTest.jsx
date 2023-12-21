@@ -217,7 +217,7 @@ function EditTest() {
                     </div>
                     <div className="form-group col-lg-4">
                       <label className="mont-font fw-600 font-xsss">
-                        Number of Questions
+                      Available Questions
                       </label>
                       <input
                         type="text"

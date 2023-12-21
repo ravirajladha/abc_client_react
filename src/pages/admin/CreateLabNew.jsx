@@ -356,14 +356,17 @@ function CreateLab(props) {
                           <label className="mont-font fw-600 font-xsss">
                             Code
                           </label>
-                          <input
-                            type="text"
-                            name="code"
-                            value={formData.code}
-                            onChange={handleInputChange}
-                            className="form-control"
-                            placeholder="Enter Code"
-                          />
+                          <textarea
+  name="code"
+  value={formData.code}
+  onChange={handleInputChange}
+  className="form-control"
+  placeholder="Enter Code"
+  rows={3} // You can set the number of rows to define the height of the textarea
+>
+  {formData.code}
+</textarea>
+
                         </div>
                       </div>
                       <div className="col-lg-6">
@@ -371,14 +374,14 @@ function CreateLab(props) {
                           <label className="mont-font fw-600 font-xsss">
                             Description
                           </label>
-                          <input
-                            type="text"
-                            name="description"
-                            value={formData.description}
-                            onChange={handleInputChange}
-                            className="form-control"
-                            placeholder="Enter description"
-                          />
+                          <textarea
+  name="description"
+  value={formData.description}
+  onChange={handleInputChange}
+  className="form-control"
+  placeholder="Enter description"
+  rows={3} // Adjust the number of rows as needed
+/>
                         </div>
                       </div>
                       <div className="col-lg-6">
@@ -386,14 +389,14 @@ function CreateLab(props) {
                           <label className="mont-font fw-600 font-xsss">
                             I/O Format
                           </label>
-                          <input
-                            type="text"
-                            name="io_format"
-                            value={formData.io_format}
-                            onChange={handleInputChange}
-                            className="form-control"
-                            placeholder="Enter io_format"
-                          />
+                          <textarea
+  name="io_format"
+  value={formData.io_format}
+  onChange={handleInputChange}
+  className="form-control"
+  placeholder="Enter io_format"
+  rows={3} // Adjust the number of rows as needed
+/>
                         </div>
                       </div>
                       <div className="col-lg-6">
@@ -401,14 +404,14 @@ function CreateLab(props) {
                           <label className="mont-font fw-600 font-xsss">
                             Constraints
                           </label>
-                          <input
-                            type="text"
-                            name="constraints"
-                            value={formData.constraints}
-                            onChange={handleInputChange}
-                            className="form-control"
-                            placeholder="Enter constraints"
-                          />
+                          <textarea
+  name="constraints"
+  value={formData.constraints}
+  onChange={handleInputChange}
+  className="form-control"
+  placeholder="Enter constraints"
+  rows={3} // Adjust the number of rows as needed
+/>
                         </div>
                       </div>
                       <div className="col-lg-6">
@@ -416,14 +419,14 @@ function CreateLab(props) {
                           <label className="mont-font fw-600 font-xsss">
                             Sample I/O
                           </label>
-                          <input
-                            type="text"
-                            name="io_sample"
-                            value={formData.io_sample}
-                            onChange={handleInputChange}
-                            className="form-control"
-                            placeholder="Enter io_sample"
-                          />
+                          <textarea
+  name="io_sample"
+  value={formData.io_sample}
+  onChange={handleInputChange}
+  className="form-control"
+  placeholder="Enter io_sample"
+  rows={3} // Adjust the number of rows as needed
+/>
                         </div>
                       </div>
                       <div className="form-group col-lg-6">
@@ -519,7 +522,7 @@ function CreateLab(props) {
                           style={{ height: "200px", width: "100%" }}
                         />
                       </div>
-                      <div className="form-group col-lg-12">
+                      <div className="form-group col-lg-6">
                         <label className="mont-font fw-600 font-xsss">
                           Testcases
                         </label>
@@ -529,10 +532,13 @@ function CreateLab(props) {
                           value={formData.testcases}
                           onChange={handleInputChange}
                           placeholder="Paste your JSON here"
-                          rows={10}
-                          cols={100}
-                          className="border-black border-2"
+                          rows={3}
+                          className="form-control"
                         />
+
+
+
+
                       </div>
                       <div className="col-lg-12">
                         <button

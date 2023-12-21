@@ -154,10 +154,10 @@ function Settings() {
                                 value={formData.email || ""}
                                 disabled
                               />
-                              <p className="d-flex align-items-center fw-300 font-md">
+                              <p className="d-flex align-items-center fw-300 font-xs">
                                 {formData.email
                                   ? formData.email
-                                  : "Email not Provided Yet"}
+                                  : "Email not provided yet"}
                               </p>
                             </div>
                           </div>

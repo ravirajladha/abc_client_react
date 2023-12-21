@@ -6,9 +6,9 @@ import BackButton from "../../components/navigation/BackButton";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {  useNavigate,useParams  } from "react-router-dom";
-
 function CreateChapters() {
     const navigate = useNavigate();
+  
     const { class_id, subject_id } = useParams();
     const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -29,7 +29,7 @@ function CreateChapters() {
         setChapterNames(updatedChapterNames);
     };
     const createChapter = (e) => {
-
+   
         const formData = new FormData();
         formData.append('class', selectedClass);
         formData.append('subject', selectedSubject);
@@ -44,7 +44,10 @@ function CreateChapters() {
             .then((resp) => {
               
                 setChapterNames([""]); // Reset chapterNames to initial state
-                toast.success(resp.msg);
+                toast.success("resp.msg");
+                setTimeout(() => {
+                    navigate(`/all_classes/all_subjects/all_chapters/${subject_id}`);// Navigate after 5 seconds
+                }, 5000);
             })
             .catch((err) => {
                 toast.error('Could not submit chapter names: ' + err.message);
@@ -80,13 +83,13 @@ function CreateChapters() {
                                         <form encType="multipart/form-data" onSubmit={createChapter}>
                                             <div className="row mb-2">
                                               
-                                                <div className="col-lg-12">
+                                                <div className="col-lg-11">
                                                     <label className="mont-font fw-600 font-xsss">Chapter Name</label><br />
                                                     {chapterNames.map((name, index) => (
                                                         <div key={index} className="d-flex mb-2">
                                                             <input
                                                                 type="text"
-                                                                className="form-control"
+                                                                className="form-control mr-2"
                                                                 placeholder="Enter Name"
                                                                 value={name}
                                                                 onChange={(e) => {

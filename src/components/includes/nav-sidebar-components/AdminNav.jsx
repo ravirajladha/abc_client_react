@@ -117,15 +117,7 @@ function AdminNav() {
             <div className="nav-caption fw-600 font-xssss text-grey-500">
               E-Book
             </div>
-            <li className="nav-item">
-              <NavLink className="navi-link" to="/payments">
-                <i className="feather-credit-card mr-2"></i>
-                <span>Payments</span>
-              </NavLink>
-            </li>
-            <div className="nav-caption fw-600 font-xssss text-grey-500">
-              Payments
-            </div>
+          
             <li className="nav-item">
               <a
                 href="https://atomstest.kods.app/admin/project_reports"
@@ -160,6 +152,15 @@ function AdminNav() {
             </li>
             <div className="nav-caption fw-600 font-xssss text-grey-500">
               Internship
+            </div>
+            <li className="nav-item">
+              <NavLink className="navi-link" to="/payments">
+                <i className="feather-credit-card mr-2"></i>
+                <span>Payments</span>
+              </NavLink>
+            </li>
+            <div className="nav-caption fw-600 font-xssss text-grey-500">
+              Payments
             </div>
           </ul>
 

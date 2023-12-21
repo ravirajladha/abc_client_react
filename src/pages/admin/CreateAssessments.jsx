@@ -173,7 +173,7 @@ function CreateAssessments() {
                         </div>
                         <div className="col-lg-6">
                           <label className="mont-font fw-600 font-xsss">
-                            Number of Questions
+                            Available Questions
                           </label>
                           <input
                             type="text"

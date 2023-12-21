@@ -32,9 +32,7 @@ function TestDetails() {
   }, []);
   return (
     <>
-      <div className="main-wrapper">
-        <div className="main-content menu-active">
-          <AppHeader />
+     
           <div className="middle-sidebar-bottom theme-dark-bg">
             <div className="middle-sidebar-left">
               <div className="row">
@@ -118,7 +116,7 @@ function TestDetails() {
                               {`Q ${index + 1}. ${question.question}`}{" "}
                             </h4>
                             {question.question_code ? (
-                              <pre className="text-wrap bg-grey p-2">
+                              <pre className=" bg-grey p-2">
                                 {question.question_code}
                               </pre>
                             ) : (
@@ -174,9 +172,7 @@ function TestDetails() {
               </div>
             </div>
           </div>
-        </div>
-        <AppFooter />
-      </div>
+      
     </>
   );
 }

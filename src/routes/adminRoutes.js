@@ -47,6 +47,7 @@ import SubjectsResult from "../pages/admin/SubjectsResult.jsx";
 import TestResult from "../pages/admin/TestResult.jsx";
 import TestResultDetails from "../pages/admin/TestResultDetails.jsx";
 import Tests from "../pages/admin/Tests.jsx";
+import AssessmentSubjectWise from "../pages/admin/AssessmentSubjectWise.jsx";
 import ViewAssessments from "../pages/admin/ViewAssessments.jsx";
 import ViewInternship from "../pages/admin/ViewInternship.jsx";
 import AddElements from "../pages/admin/ebook/AddElements.jsx";
@@ -287,7 +288,7 @@ export const adminRoutes = (
       exact
       path={`${process.env.PUBLIC_URL}/assessments/all_questions`}
       element={React.createElement(
-        withLayoutAndProtection(AllQuestions, { allowedTypes: ["admin"] })
+        withLayoutAndProtection(AllAssessmentQuestions, { allowedTypes: ["admin"] })
       )}
     />
 
@@ -295,7 +296,7 @@ export const adminRoutes = (
       exact
       path={`${process.env.PUBLIC_URL}/assessments/create_question`}
       element={React.createElement(
-        withLayoutAndProtection(CreateQuestion, { allowedTypes: ["admin"] })
+        withLayoutAndProtection(CreateAssessmentQuestion, { allowedTypes: ["admin"] })
       )}
     />
 
@@ -407,6 +408,13 @@ export const adminRoutes = (
       path={`${process.env.PUBLIC_URL}/tests/test_details/:testId`}
       element={React.createElement(
         withLayoutAndProtection(SingleTestDetails, { allowedTypes: ["admin"] })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/assessments/assessment_details/:assesmentId`}
+      element={React.createElement(
+        withLayoutAndProtection(SingleAssessmentDetails, { allowedTypes: ["admin"] })
       )}
     />
     <Route
@@ -576,7 +584,7 @@ export const adminRoutes = (
         withLayoutAndProtection(AllChapters, { allowedTypes: ["admin"] })
       )}
     />
-    <Route
+    {/* <Route
       exact
       path={`${process.env.PUBLIC_URL}/assessments/all_chapters_assessment/:subject_id`}
       element={React.createElement(
@@ -584,7 +592,7 @@ export const adminRoutes = (
           allowedTypes: ["admin"],
         })
       )}
-    />
+    /> */}
     <Route
       exact
       path={`${process.env.PUBLIC_URL}/assessments/results/all_assessment_result_video_wise/:assessment_id`}
@@ -599,6 +607,13 @@ export const adminRoutes = (
       path={`${process.env.PUBLIC_URL}/tests`}
       element={React.createElement(
         withLayoutAndProtection(Tests, { allowedTypes: ["admin"] })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/assessments/assessment_subject_wise/:subject_id`}
+      element={React.createElement(
+        withLayoutAndProtection(AssessmentSubjectWise, { allowedTypes: ["admin"] })
       )}
     />
     <Route
