@@ -83,6 +83,7 @@ function StudentProfile() {
   const [studentDetails, setStudentDetails] = useState(null);
   const [studentReportDetails, setStudentReportDetails] = useState(null);
   const [subjectReport, setSubjectReportDetails] = useState(null);
+  const [subjects, setSubjects] = useState([]);
 
   useEffect(() => {
     const fetchStudentMeta = async () => {
@@ -118,7 +119,7 @@ function StudentProfile() {
         }
 
         const report = await response.json();
-        console.log("studentReportDetails", report);
+        // console.log("studentReportDetails", report);
         setStudentReportDetails(report);
         setSubjectReportDetails(report.subject_ranks);
       } catch (error) {
@@ -134,6 +135,24 @@ function StudentProfile() {
 
   function displayValueOrDefault(value, label, defaultValue = "Not provided") {
     return ` ${value || defaultValue}`;
+  }
+
+  useEffect(() => {
+    if (userDetails.user) {
+      getSubjects();
+    } else {
+      return;
+    }
+  }, [userDetails.user]);
+  function getSubjects() {
+    fetch(
+      baseUrl + "api/get_student_subjects/" + userDetails.student.class_id
+    ).then(function (result) {
+      result.json().then(function (json) {
+        // console.warn("get_subjects", json);
+        setSubjects(json);
+      });
+    });
   }
 
   useEffect(() => {
@@ -155,7 +174,7 @@ function StudentProfile() {
         }
 
         const studentMeta = await response.json();
-        console.log("student_detail", studentMeta); // Corrected log statement
+        // console.log("student_detail", studentMeta);
         setStudentDetails(studentMeta);
       } catch (error) {
         console.error("Failed to fetch student meta:", error);
@@ -252,9 +271,15 @@ function StudentProfile() {
                           <div className="item w-100 h50 bg-gold-gradiant rounded-xxl overflow-hidden text-left shadow-md pl-3 pt-3 align-items-end flex-column d-flex">
                             <div className="card bg-transparent border-0 bg-transparent-card shadow-none p-0 text-left w-100 mt-auto">
                               <h4 className="text-white font-sm fw-700 mont-font mb-3">
-                                Rank{" "}
-                                {studentReportDetails &&
-                                  studentReportDetails.class_rank}
+                                {studentReportDetails?.class_rank !== "-" ? (
+                                  <>
+                                    Rank{" "}
+                                    {studentReportDetails &&
+                                      studentReportDetails.class_rank}
+                                  </>
+                                ) : (
+                                  " N/A"
+                                )}
                                 <span className="d-block fw-500 text-white font-xssss mt-1">
                                   Class Rank
                                 </span>
@@ -269,9 +294,15 @@ function StudentProfile() {
                           <div className="item w-100 h50 bg-primary rounded-xxl text-left shadow-md pl-3 pt-3 align-items-end flex-column d-flex">
                             <div className="card bg-transparent border-0 bg-transparent-card shadow-none p-0 text-left w-100 mt-auto">
                               <h4 className="text-white mb-3 font-sm fw-700 mont-font">
-                                Rank{" "}
-                                {studentReportDetails &&
-                                  studentReportDetails.section_rank}
+                                {studentReportDetails?.section_rank !== "-" ? (
+                                  <>
+                                    Rank{" "}
+                                    {studentReportDetails &&
+                                      studentReportDetails.section_rank}
+                                  </>
+                                ) : (
+                                  " N/A"
+                                )}
                                 <span className="d-block fw-500 text-grey-300 font-xssss mt-1">
                                   Section Rank
                                 </span>
@@ -296,11 +327,17 @@ function StudentProfile() {
                             </span>
                             <span className="font-xsss fw-bold">
                               Score:
-                              {studentReportDetails &&
-                                studentReportDetails.first_term_marks}
-                              /
-                              {studentReportDetails &&
-                                studentReportDetails.first_term_total_marks}
+                              {studentReportDetails?.first_term_marks !== 0 ? (
+                                <>
+                                  {studentReportDetails &&
+                                    studentReportDetails.first_term_marks}
+                                  /
+                                  {studentReportDetails &&
+                                    studentReportDetails.first_term_total_marks}
+                                </>
+                              ) : (
+                                " N/A"
+                              )}
                             </span>
                           </div>
                         </div>
@@ -312,11 +349,17 @@ function StudentProfile() {
                             </span>
                             <span className="font-xsss fw-bold">
                               Score:
-                              {studentReportDetails &&
-                                studentReportDetails.second_term_marks}
-                              /
-                              {studentReportDetails &&
-                                studentReportDetails.second_term_total_marks}
+                              {studentReportDetails?.second_term_marks !== 0 ? (
+                                <>
+                                  {studentReportDetails &&
+                                    studentReportDetails?.second_term_marks}
+                                  /
+                                  {studentReportDetails &&
+                                    studentReportDetails?.second_term_total_marks}
+                                </>
+                              ) : (
+                                " N/A"
+                              )}
                             </span>
                           </div>
                         </div>
@@ -328,11 +371,17 @@ function StudentProfile() {
                             </span>
                             <span className="font-xsss fw-bold">
                               Score:
-                              {studentReportDetails &&
-                                studentReportDetails.third_term_marks}
-                              /
-                              {studentReportDetails &&
-                                studentReportDetails.third_term_total_marks}
+                              {studentReportDetails?.third_term_marks !== 0 ? (
+                                <>
+                                  {studentReportDetails &&
+                                    studentReportDetails.third_term_marks}
+                                  /
+                                  {studentReportDetails &&
+                                    studentReportDetails.third_term_total_marks}
+                                </>
+                              ) : (
+                                " N/A"
+                              )}
                             </span>
                           </div>
                         </div>
@@ -345,11 +394,18 @@ function StudentProfile() {
                                 <h4 className="text-white my-2 font-sm fw-700 mont-font">
                                   Total Score
                                   <span className="d-block fw-500 text-grey-300 font-xss mt-1">
-                                    {studentReportDetails &&
-                                      studentReportDetails.total_term_marks}
-                                    /
-                                    {studentReportDetails &&
-                                      studentReportDetails.overall_total_marks}
+                                    {studentReportDetails?.total_term_marks !==
+                                    0 ? (
+                                      <>
+                                        {studentReportDetails &&
+                                          studentReportDetails.total_term_marks}
+                                        /
+                                        {studentReportDetails &&
+                                          studentReportDetails.overall_total_marks}
+                                      </>
+                                    ) : (
+                                      " N/A"
+                                    )}
                                   </span>
                                 </h4>
                               </div>
@@ -384,26 +440,33 @@ function StudentProfile() {
                             </tr>
                           </thead>
                           <tbody>
-                            {subjectReport &&
-                              subjectReport.map((item, index) => (
+                            {subjectReport && subjectReport.length !== 0 ? (
+                              subjectReport?.map((item, index) => (
                                 <tr key={index}>
                                   <td>
-                                    <b>{item.subject_name}</b>
+                                    <b>{item?.subject_name}</b>
                                   </td>
 
-                                  {item.scores
+                                  {item?.scores
                                     .map((score, scoreIndex) => (
                                       <td
                                         className="text-center"
                                         key={scoreIndex}
                                       >
-                                        {score.score}/{score.total_marks}
+                                        {score?.score !== 0 ? (
+                                          <>
+                                            {score?.score} /{" "}
+                                            {score?.total_marks}{" "}
+                                          </>
+                                        ) : (
+                                          "-"
+                                        )}
                                       </td>
                                     ))
                                     .concat(
                                       Array.from({
                                         length: Math.max(
-                                          3 - item.scores.length,
+                                          3 - item?.scores.length,
                                           0
                                         ),
                                       }).map((_, index) => (
@@ -417,28 +480,40 @@ function StudentProfile() {
                                     )}
 
                                   <td className="text-center">
-                                    <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 d-inline-block mr-1 alert-success text-success">
-                                      {item.total_score}/{item.total_test_marks}
-                                    </span>
+                                    {item?.total_score !== 0 ? (
+                                      <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 d-inline-block mr-1 alert-success text-success">
+                                        {item?.total_score}/
+                                        {item?.total_test_marks}{" "}
+                                      </span>
+                                    ) : (
+                                      "-"
+                                    )}
                                   </td>
                                 </tr>
-                              ))}
+                              ))
+                            ) : (
+                              <tr>
+                                <td colspan="5" className="text-center">
+                                  No results yet.
+                                </td>
+                              </tr>
+                            )}
                           </tbody>
                         </table>
                         <div className="col-lg-12 mt-5">
                           <div className="row">
                             {subjectReport &&
-                              subjectReport.map((subject, index) => (
+                              subjectReport?.map((subject, index) => (
                                 <div className="col-lg-4" key={index}>
                                   <div className="card border-0 shadow-none mb-4">
                                     <div className="card-body d-block text-left fw-600">
                                       <div className="item w-100 h-50 bg-gold-gradiant rounded-xxl overflow-hidden text-left shadow-md pl-3 pt-2 align-items-end flex-column d-flex">
                                         <div className="card bg-transparent border-0 bg-transparent-card shadow-none p-0 text-left w-100 mt-auto">
                                           <h6 className="text-black font-sm fw-700 mont-font mb-3 mt-1">
-                                            {subject.subject_name}
+                                            {subject?.subject_name}
                                             <span className="d-block fw-500 text-white font-xss mt-1">
                                               Rank
-                                              {" " + subject.subject_rank}
+                                              {" " + subject?.subject_rank}
                                             </span>
                                           </h6>
                                         </div>
@@ -461,7 +536,7 @@ function StudentProfile() {
                   <div id="header">
                     <div>
                       <h2 id="Name">
-                        {" "}
+                        <strong className="py-2">Full Name:</strong>
                         {displayValueOrDefault(
                           studentDetails?.f_name + studentDetails?.l_name,
                           ""
@@ -552,7 +627,7 @@ function StudentProfile() {
                                 <strong>Category</strong>
                               </th>
                               <th scope="col">
-                                <strong>physically_challenged</strong>
+                                <strong>Physically Challenged</strong>
                               </th>
                             </tr>
                           </thead>
@@ -886,7 +961,7 @@ function StudentProfile() {
                             <tr>
                               <td>
                                 <p
-                                  className="text-muted text-center"
+                                  className="text-muted"
                                   style={{ fontSize: "15px;" }}
                                 >
                                   {" "}
@@ -895,7 +970,7 @@ function StudentProfile() {
                               </td>
                               <td>
                                 <p
-                                  className="text-muted text-center"
+                                  className="text-muted"
                                   style={{ fontSize: "15px;" }}
                                 >
                                   {" "}
@@ -906,7 +981,7 @@ function StudentProfile() {
                               </td>
                               <td>
                                 <p
-                                  className="text-muted text-center"
+                                  className="text-muted"
                                   style={{ fontSize: "15px;" }}
                                 >
                                   {" "}
@@ -946,32 +1021,36 @@ function StudentProfile() {
                 <div className="card-body mb-lg-3 pb-0">
                   <h2 className="fw-400 font-lg d-block">
                     My <b>Subjects</b>
-                    <a href="/default-user-profile" className="float-right">
-                      <i className="feather-edit text-grey-500 font-xs"></i>
-                    </a>
                   </h2>
                 </div>
                 <div className="col-lg-12 mt-3">
                   <Slider {...liveClassSlider}>
-                    {liveClassesList.map((value, index) => (
+                    {subjects.map((value, index) => (
                       <div
                         className="card w200 d-block border-0 shadow-xss rounded-lg overflow-hidden mb-4 mr-2"
                         key={index}
                       >
                         <div
-                          className="card-body position-relative h100 bg-gradiant-bottom bg-image-cover bg-image-center"
-                          style={{
-                            backgroundImage: `url(assets/images/${value.bgImage})`,
-                          }}
-                        ></div>
+                          className="card-header "
+                          // style={{
+                          //   backgroundImage: `url(${baseUrl +`/`+ value.subject_image})`,
+                          //   // backgroundImage: `url(${baseUrl} + `/`+${value.subject_image})`,
+                          // }}
+                        >
+                          <img
+                            src={baseUrl + value.subject_image}
+                            alt="icon"
+                            className="p-1 w-100"
+                          />
+                        </div>
                         <div className="card-body d-block w-100 pl-4 pr-4 pb-4 text-center">
                           <div className="clearfix"></div>
                           <h4 className="fw-700 font-xss mt-3 mb-1">
-                            {value.name}
+                            {value.subject_name}
                           </h4>
-                          <p className="fw-500 font-xssss text-grey-500 mt-0 mb-2">
+                          {/* <p className="fw-500 font-xssss text-grey-500 mt-0 mb-2">
                             {value.email}
-                          </p>
+                          </p> */}
                         </div>
                       </div>
                     ))}
@@ -1045,7 +1124,7 @@ function StudentProfile() {
               )}
             </Tab>
 
-            <Tab eventKey="friends" title="FORUM">
+            {/* <Tab eventKey="friends" title="FORUM">
               <div className="card d-block w-100 border-0 shadow-xss rounded-lg overflow-hidden p-lg-4 p-2">
                 <div className="card-body mb-lg-3 pb-0">
                   <h2 className="fw-400 font-lg d-block">
@@ -1053,7 +1132,7 @@ function StudentProfile() {
                   </h2>
                 </div>
               </div>
-            </Tab>
+            </Tab> */}
           </Tabs>
         </div>
         <StudentSidebar />

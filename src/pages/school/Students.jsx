@@ -77,7 +77,7 @@ function Students() {
   };
 
   return (
-    <div className="middle-sidebar-bottom">
+    <div className="custom-middle-sidebar-bottom p-3">
       <div className="middle-sidebar-left">
         <div className="row">
           <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
@@ -96,79 +96,85 @@ function Students() {
               <BackButton />
             </div>
           </div>
-
           {loading ? (
             <Loader />
           ) : students.length > 0 ? (
-            <div className="card-body p-lg-5 p-4 w-100 border-0 ">
-              <table ref={tableRef} id="myTable" className="table">
-                <thead>
-                  <tr>
-                    <th scope="col">Roll No</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Class</th>
-                    <th scope="col">Section</th>
-                    <th>Status</th>
-                    <th scope="col" className="text-dark">
-                      Action
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {students.map((student, index) => (
-                    <tr key={index}>
-                      <td>{student.auth_id}</td>
-                      <td>{student.name}</td>
-                      <td>{student.class?.class}</td>
-                      <td>{student.section_id === 1 ? "A" : "B"}</td>
-                      <td>
-                        <button
-                          className={`p-2 d-inline-block text-white fw-700 lh-10 rounded-lg text-center font-xsssss ls-3 ${
-                            student.student?.status === 1
-                              ? "bg-success"
-                              : student.student?.status === 2
-                              ? "bg-danger"
-                              : "bg-primary"
-                          }`}
-                        >
-                          {student.student?.status === 1
-                            ? "Approved"
-                            : student.student?.status === 2
-                            ? "Rejected"
-                            : "Pending"}
-                        </button>
-                      </td>
-                      <td className="text-dark">
-                        <select
-                          className=" p-2 d-inline-block text-dark fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-grey border-none"
-                          value={student.student.status}
-                          onChange={(e) =>
-                            changeStudentStatus(
-                              student.auth_id,
-                              +e.target.value
-                            )
-                          }
-                          aria-label="Select status"
-                        >
-                          <option className="bg-light text-dark" value="1">
-                            Enable&nbsp;{" "}
-                          </option>
-                          <option className="bg-light text-dark" value="0">
-                            Disable&nbsp;{" "}
-                          </option>
-                        </select>
-
-                        <Link
-                          to={`/school/students/edit-student-profile/${student.auth_id}`}
-                          className="p-2"
-                        >
-                          <i className="ti-pencil-alt text-primary font-xss fw-500"></i>
-                        </Link>
-                      </td>
+            <div className="card w-100 bg-white shadow-sm m-2 p-lg-5 p-4 border-0 rounded-lg d-block float-left">
+              <div className="card-body w-100 border-0 ">
+                <table ref={tableRef} id="myTable" className="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Roll No</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Class</th>
+                      <th scope="col">Section</th>
+                      <th>Status</th>
+                      <th scope="col" className="text-dark">
+                        Action
+                      </th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {students.map((student, index) => (
+                      <tr key={index}>
+                        <td className="align-middle">{student.auth_id}</td>
+                        <td className="align-middle">{student.name}</td>
+                        <td className="align-middle">{student.class?.class}</td>
+                        <td className="align-middle">
+                          {student.section_id === 1 ? "A" : "B"}
+                        </td>
+                        <td className="align-middle">
+                          <button
+                            className={`p-2 d-inline-block text-white fw-700 lh-10 rounded-lg text-center font-xsssss ls-3 ${
+                              student.student?.status === 1
+                                ? "bg-success"
+                                : student.student?.status === 2
+                                ? "bg-danger"
+                                : "bg-primary"
+                            }`}
+                          >
+                            {student.student?.status === 1
+                              ? "Approved"
+                              : student.student?.status === 2
+                              ? "Rejected"
+                              : "Pending"}
+                          </button>
+                        </td>
+                        <td className="align-middle text-dark">
+                          <select
+                            className=" p-2 d-inline-block text-dark fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-grey border-none"
+                            value={student.student.status}
+                            onChange={(e) =>
+                              changeStudentStatus(
+                                student.auth_id,
+                                +e.target.value
+                              )
+                            }
+                            aria-label="Select status"
+                          >
+                            <option className="bg-light text-dark" value="1">
+                              Enable&nbsp;{" "}
+                            </option>
+                            <option className="bg-light text-dark" value="0">
+                              Disable&nbsp;{" "}
+                            </option>
+                          </select>
+
+                          <Link
+                            to={`/school/student/${student.auth_id}/edit`}
+                            className="btn btn-icon me-2 p-2"
+                          >
+                            <i
+                              className="ti-pencil-alt text-dark font-xsss mx-2 fw-500"
+                              title="Edit Student"
+                            ></i>
+                          </Link>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           ) : (
             <NoContent contentName="students" />

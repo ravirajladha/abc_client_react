@@ -99,9 +99,9 @@ function ParentNav() {
               </Link>
             </li>
           </ul>
-            <div className="nav-caption my-2 fw-600 font-xssss text-grey-500 mt-1">
-              Children
-            </div>
+          <div className="nav-caption my-2 fw-600 font-xssss text-grey-500 mt-1">
+            Children
+          </div>
 
           <ul className="mb-3">
             {children
@@ -167,24 +167,26 @@ function ParentNav() {
               <LogoutButton />
             </li>
           </ul>
-          <ul>
-            <li className="logo d-none d-xl-block d-lg-block"></li>
-            <li>
-              <Link
-                to="#"
-                onClick={toggleNav}
-                className="nav-content-bttn open-font h-auto pt-2 pb-2"
-              >
-                <i
-                  className={`font-sm ${
-                    isFull
-                      ? "feather-arrow-right-circle"
-                      : "feather-arrow-left-circle"
-                  }  mr-3 text-grey-500`}
-                ></i>
-              </Link>
-            </li>
-          </ul>
+          {/*
+            <ul>
+              <li className="logo d-none d-xl-block d-lg-block"></li>
+              <li>
+                <Link
+                  to="#"
+                  onClick={toggleNav}
+                  className="nav-content-bttn open-font h-auto pt-2 pb-2"
+                >
+                  <i
+                    className={`font-sm ${
+                      isFull
+                        ? "feather-arrow-right-circle"
+                        : "feather-arrow-left-circle"
+                    }  mr-3 text-grey-500`}
+                  ></i>
+                </Link>
+              </li>
+            </ul>
+           */}
         </div>
       </div>
     </nav>

@@ -87,7 +87,11 @@ function Home() {
                     style={{ fontSize: "20px" }}
                   >
                     Welcome
-                    {dashboardInfo?.last_login !== null ? <>back!</> : <></>}
+                    {dashboardInfo?.last_login !== null ? (
+                      <>{" back!"}</>
+                    ) : (
+                      <></>
+                    )}
                   </span>
                   Hi, {user.user.name}
                 </h1>
@@ -118,7 +122,7 @@ function Home() {
                         <div className="col-4">
                           {dashboardInfo?.last_login !== null ? (
                             <h2 className="text-grey-900 fw-700 font-xxl mt-2 mb-2 ls-3 lh-1">
-                              {dashboardInfo?.last_login + "/100"}
+                              {dashboardInfo?.last_login}
                             </h2>
                           ) : (
                             <h2 className="text-grey-900 fw-600 font-xsss mt-4 mb-2 ls-3 lh-1">
@@ -132,7 +136,7 @@ function Home() {
                         <div className="col-4">
                           {dashboardInfo?.total_watch_time !== null ? (
                             <h2 className="text-grey-900 fw-700 font-xxl mt-2 mb-2 ls-3 lh-1">
-                              {dashboardInfo?.total_watch_time + "/100"}
+                              {dashboardInfo?.total_watch_time}
                             </h2>
                           ) : (
                             <h2 className="text-grey-900 fw-600 font-xsss mt-4 mb-2 ls-3 lh-1">
@@ -160,9 +164,12 @@ function Home() {
                       </div>
                       <div className="row my-4">
                         <div className="col-4">
-                          {dashboardInfo?.first_term_results !== null ? (
+                          {dashboardInfo?.first_term_results !== null ||
+                          dashboardInfo?.first_term_total_marks !== 0 ? (
                             <h2 className="text-grey-900 fw-700 font-xxl mt-2 mb-2 ls-3 lh-1">
-                              {dashboardInfo?.first_term_results + "/100"}
+                              {dashboardInfo?.first_term_results +
+                                "/" +
+                                dashboardInfo?.first_term_total_marks}
                             </h2>
                           ) : (
                             <h2 className="text-grey-900 fw-600 font-xsss mt-4 mb-2 ls-3 lh-1">
@@ -174,9 +181,12 @@ function Home() {
                           </h4>
                         </div>
                         <div className="col-4">
-                          {dashboardInfo?.second_term_results !== null ? (
+                          {dashboardInfo?.second_term_results !== null ||
+                          dashboardInfo?.second_term_total_marks !== 0 ? (
                             <h2 className="text-grey-900 fw-700 font-xxl mt-2 mb-2 ls-3 lh-1">
-                              {dashboardInfo?.second_term_results + "/100"}
+                              {dashboardInfo?.second_term_results +
+                                "/" +
+                                dashboardInfo?.second_term_total_marks}
                             </h2>
                           ) : (
                             <h2 className="text-grey-900 fw-600 font-xsss mt-4 mb-2 ls-3 lh-1">
@@ -188,9 +198,12 @@ function Home() {
                           </h4>
                         </div>
                         <div className="col-4">
-                          {dashboardInfo?.third_term_results !== null ? (
+                          {dashboardInfo?.third_term_results !== null ||
+                          dashboardInfo?.third_term_total_marks !== 0 ? (
                             <h2 className="text-grey-900 fw-700 font-xxl mt-2 mb-2 ls-3 lh-1">
-                              {dashboardInfo?.third_term_results + "/100"}
+                              {dashboardInfo?.third_term_results +
+                                "/" +
+                                dashboardInfo?.third_term_total_marks}
                             </h2>
                           ) : (
                             <h2 className="text-grey-900 fw-600 font-xsss mt-4 mb-2 ls-3 lh-1">

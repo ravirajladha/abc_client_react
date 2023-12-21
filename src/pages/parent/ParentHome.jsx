@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback, useContext } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
-import Spinner from "react-bootstrap/Spinner";
 
 import { AuthContext } from "../../lib/AuthContext.js";
 import Dropdown from "../../components/inputs/Dropdown";
@@ -172,37 +171,50 @@ function ParentHome() {
           ) : (
             <>
               {selectedStudent && studentInfo ? (
-                <>
+                <div>
                   <div className="row">
                     <div className="col-lg-12">
                       <div className="card w-100 p-1 border-0 mt-4 rounded-lg bg-white shadow-xs overflow-hidden">
                         <div className="card-body p-4">
                           <div className="row">
                             <div className="col-4">
-                              <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                                {studentInfo.last_login !== null
-                                  ? studentInfo.last_login
-                                  : "-"}
-                              </h2>
+                              {studentInfo?.last_login !== null ? (
+                                <h2 className="text-grey-900 fw-700 font-xxl mt-2 mb-2 ls-3 lh-1">
+                                  {studentInfo?.last_login}
+                                </h2>
+                              ) : (
+                                <h2 className="text-grey-900 fw-600 font-xsss mt-4 mb-2 ls-3 lh-1">
+                                  -
+                                </h2>
+                              )}
                               <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
                                 Last Login
                               </h4>
                             </div>
                             <div className="col-4">
-                              <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                                {studentInfo.total_watch_time !== null
-                                  ? studentInfo.total_watch_time
-                                  : "-"}
-                              </h2>
+                              {studentInfo?.total_watch_time !== null ? (
+                                <h2 className="text-grey-900 fw-700 font-xxl mt-2 mb-2 ls-3 lh-1">
+                                  {studentInfo?.total_watch_time}
+                                </h2>
+                              ) : (
+                                <h2 className="text-grey-900 fw-600 font-xsss mt-4 mb-2 ls-3 lh-1">
+                                  Watch history unavailable
+                                </h2>
+                              )}
                               <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
                                 Total Watch Time
                               </h4>
                             </div>
                             <div className="col-4">
-                              <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                                {studentInfo.third_term_results &&
-                                  studentInfo.avg_assessment_score}
-                              </h2>
+                              {studentInfo?.avg_assessment_score !== null ? (
+                                <h2 className="text-grey-900 fw-700 font-xxl mt-2 mb-2 ls-3 lh-1">
+                                  {studentInfo?.avg_assessment_score + "%"}
+                                </h2>
+                              ) : (
+                                <h2 className="text-grey-900 fw-600 font-xsss mt-4 mb-2 ls-3 lh-1">
+                                  Score unavailable
+                                </h2>
+                              )}
                               <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
                                 Average Assessment Score
                               </h4>
@@ -219,28 +231,43 @@ function ParentHome() {
                         <div className="card-body p-4">
                           <div className="row">
                             <div className="col-4">
-                              <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                                {studentInfo.first_term_results &&
-                                  studentInfo.first_term_results + "/1000"}
-                              </h2>
+                              {studentInfo?.first_term_results !== null ? (
+                                <h2 className="text-grey-900 fw-700 font-xxl mt-2 mb-2 ls-3 lh-1">
+                                  {studentInfo?.first_term_results + "/100"}
+                                </h2>
+                              ) : (
+                                <h2 className="text-grey-900 fw-600 font-xsss mt-4 mb-2 ls-3 lh-1">
+                                  Results unavailable
+                                </h2>
+                              )}
                               <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
                                 Term 1 Score
                               </h4>
                             </div>
                             <div className="col-4">
-                              <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                                {studentInfo.second_term_results &&
-                                  studentInfo.second_term_results + "/1000"}
-                              </h2>
+                              {studentInfo?.second_term_results !== null ? (
+                                <h2 className="text-grey-900 fw-700 font-xxl mt-2 mb-2 ls-3 lh-1">
+                                  {studentInfo?.second_term_results + "/100"}
+                                </h2>
+                              ) : (
+                                <h2 className="text-grey-900 fw-600 font-xsss mt-4 mb-2 ls-3 lh-1">
+                                  Results unavailable
+                                </h2>
+                              )}
                               <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
                                 Term 2 Score
                               </h4>
                             </div>
                             <div className="col-4">
-                              <h2 className="text-grey-900 fw-700 display1-size mt-2 mb-2 ls-3 lh-1">
-                                {studentInfo.third_term_results &&
-                                  studentInfo.third_term_results + "/1000"}
-                              </h2>
+                              {studentInfo?.third_term_results !== null ? (
+                                <h2 className="text-grey-900 fw-700 font-xxl mt-2 mb-2 ls-3 lh-1">
+                                  {studentInfo?.third_term_results + "/100"}
+                                </h2>
+                              ) : (
+                                <h2 className="text-grey-900 fw-600 font-xsss mt-4 mb-2 ls-3 lh-1">
+                                  Results unavailable
+                                </h2>
+                              )}
                               <h4 className="fw-700 text-grey-500 font-xssss ls-3 text-uppercase mb-0 mt-0">
                                 Term 3 Score
                               </h4>
@@ -250,36 +277,39 @@ function ParentHome() {
                       </div>
                     </div>
                   </div>
-
-                  <div className="row">
-                    <div className="col-lg-12">
-                      <div className="card w-100 p-1 border-0 mt-4 rounded-lg bg-white shadow-xs overflow-hidden">
-                        <div className="card-body p-4">
-                          <div className="row">
-                            {studentInfo.video_stats &&
-                              studentInfo.video_stats.map((item) => (
-                                <div
-                                  className="col-lg-4 col-md-6"
-                                  key={item.subject_id}
-                                >
-                                  <ApexChart
-                                    seriesData={[
-                                      item.started_video_count,
-                                      item.total_video_count,
-                                    ]}
-                                    colorsData={["#fec794", "#25d366"]}
-                                  />
-                                  <h4 className="fw-700 text-lg-end text-sm-center text-grey-600 font-xssss ls-5 text-uppercase mb-0 my-2">
-                                    {item.subject_name}
-                                  </h4>
-                                </div>
-                              ))}
+                  {studentInfo?.video_stats !== null ? (
+                    <div className="row">
+                      <div className="col-lg-12">
+                        <div className="card w-100 p-1 border-0 mt-4 rounded-lg bg-white shadow-xs overflow-hidden">
+                          <div className="card-body p-4">
+                            <div className="row">
+                              {studentInfo?.video_stats &&
+                                studentInfo?.video_stats.map((item) => (
+                                  <div
+                                    className="col-lg-4 col-sm-6"
+                                    key="{item.subject_id}"
+                                  >
+                                    <ApexChart
+                                      seriesData={[
+                                        item.started_video_count,
+                                        item.total_video_count,
+                                      ]}
+                                      colorsData={["#fec794", "#25d366"]}
+                                    />
+                                    <h4 className="fw-700 text-lg-end text-sm-center text-grey-600 font-xssss ls-5 text-uppercase mb-0 my-2">
+                                      {item.subject_name}
+                                    </h4>
+                                  </div>
+                                ))}
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </>
+                  ) : (
+                    <></>
+                  )}
+                </div>
               ) : (
                 <></>
               )}
