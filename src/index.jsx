@@ -14,6 +14,7 @@ import Login from "./pages/common/Login.jsx";
 import Register from "./pages/common/Register.jsx";
 import Notfound from "./pages/common/Notfound.jsx";
 import MainLayout from "./MainLayout.jsx";
+import PreviewEbook from "./pages/admin/ebook/PreviewEbook.jsx";
 
 import { HashRouter, Route, Routes } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker.js";
@@ -29,6 +30,10 @@ class Root extends Component {
                 <Route exact path={`${process.env.PUBLIC_URL}/register`} element={<Register />} />
                 <Route path="*" element={<Notfound />} />
                 <Route exact path={`${process.env.PUBLIC_URL}/`} element={<Login />} />
+                <Route exact path={`${process.env.PUBLIC_URL}/ebooks/private_ebook/:ebook_id`} element={<PreviewEbook />} />
+   
+
+
                 {adminRoutes}
                 {studentRoutes}
                 {schoolRoutes}

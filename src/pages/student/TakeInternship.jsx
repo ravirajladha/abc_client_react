@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import AppFooter from "../../components/includes/AppFooter";
-import AppHeader from "../../components/includes/AppHeader";
 import StudentSidebar from "../../components/includes/StudentSidebar";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { getUserFromLocalStorage } from "../util/SessionStorage";
@@ -20,7 +18,8 @@ function TakeInternship() {
   const [projectTodo, setProjectTodo] = useState([]);
 
   const [projectName, setProjectName] = useState("");
-
+  const [certificateUrl, setCertificateUrl] = useState('');
+  const [isCreating, setIsCreating] = useState(false); 
   const getProjectName = () => {
     fetch(baseUrl + "api/getInternship/" + internship_id)
       .then((res) => {
@@ -93,6 +92,7 @@ function TakeInternship() {
           console.log("sdfsdf");
           console.log("internship todo", res);
           setProjectTodo(res);
+
         } else {
           // Handle the case where res is not an array
           console.error("Expected an array but got:", res);
@@ -148,6 +148,7 @@ function TakeInternship() {
   };
 
 const createCertificate = async () => {
+  setIsCreating(true);
     try {
         const response = await axios.post(baseUrl+'api/create_certificate', {
             user_id: user_id, // Replace 'userId' with the actual variable where user_id is stored
@@ -156,13 +157,31 @@ const createCertificate = async () => {
 
         // Handle the response as needed
         console.log('Certificate created:', response.data);
+        setCertificateUrl(response.data.certificate);
+
+        // Show toast notification
+        toast.success('Certificate created successfully!');
+        window.location.reload();
     } catch (error) {
         // Handle errors
         console.error('Error creating certificate:', error);
     }
+    setIsCreating(false);
 };
 
   const allTasksCompleted = projectTodo && projectTodo.every(task => task.status === 2);
+
+ 
+
+
+const anyCertificateExists = certificateUrl || projectTodo.some(task => task.certificate);
+
+  // Find the first task with a certificate to use its URL
+  const existingCertificateUrl = anyCertificateExists ? (certificateUrl || projectTodo.find(task => task.certificate).certificate) : '';
+
+
+console.log('Certificate found:', anyCertificateExists);
+
   return (
     <>
       <div className="middle-sidebar-bottom theme-dark-bg">
@@ -173,6 +192,7 @@ const createCertificate = async () => {
                 <b>{projectName}</b>
               </h2>
             </div>
+            <ToastContainer />
             <div className="col-lg-6 col-xl-4 col-md-6 mb-2 mt-2">
               <div className="card p-0 bg-white rounded-lg shadow-xs border-0">
                 <div className="card-body p-3 border-top-lg border-size-lg border-primary p-0">
@@ -180,9 +200,9 @@ const createCertificate = async () => {
                     <span className="font-xsss fw-700 text-grey-900 mt-2 d-inline-block">
                       To Do
                     </span>
-                    <span className="float-right btn-round-sm bg-greylight">
+                    {/* <span className="float-right btn-round-sm bg-greylight">
                       <i className="feather-plus font-xss text-grey-900"></i>
-                    </span>
+                    </span> */}
                   </h4>
                 </div>
 
@@ -225,9 +245,9 @@ const createCertificate = async () => {
                     <span className="font-xsss fw-700 text-grey-900 mt-2 d-inline-block">
                       In progress{" "}
                     </span>
-                    <span className="float-right btn-round-sm bg-greylight">
+                    {/* <span className="float-right btn-round-sm bg-greylight">
                       <i className="feather-plus font-xss text-grey-900"></i>
-                    </span>
+                    </span> */}
                   </h4>
                 </div>
                 {projectTodo
@@ -270,9 +290,9 @@ const createCertificate = async () => {
                     <span className="font-xsss fw-700 text-grey-900 mt-2 d-inline-block">
                       Done
                     </span>
-                    <span className="float-right btn-round-sm bg-greylight">
+                    {/* <span className="float-right btn-round-sm bg-greylight">
                       <i className="feather-plus font-xss text-grey-900"></i>
-                    </span>
+                    </span> */}
                   </h4>
                 </div>
                 {projectTodo
@@ -302,11 +322,17 @@ const createCertificate = async () => {
             </div>
           </div>
    
-          {allTasksCompleted && 
-               <button type="button" onClick={createCertificate}>
-               View Certificate
-           </button>
-        }
+          {!anyCertificateExists && allTasksCompleted && 
+      <button type="button" disabled={isCreating} onClick={createCertificate} className="mt-1 btn bg-success float-right text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0">
+        {isCreating ? 'Requesting...' : 'Request Certificate'}
+      </button>
+    }
+
+    {anyCertificateExists && (
+      <a href={baseUrl + existingCertificateUrl} target="_blank" rel="noopener noreferrer" className="mt-1 btn bg-success float-right text-center text-white font-xsss fw-600 p-3 w175 rounded-lg d-inline-block border-0">
+        View Certificate
+      </a>
+    )}
         </div>
 
         <StudentSidebar />

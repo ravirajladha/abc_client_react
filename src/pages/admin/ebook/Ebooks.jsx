@@ -59,7 +59,7 @@ function Ebooks() {
               <Loader />
             ) : ebooks && ebooks.length > 0 ? (
               ebooks.map((ebook, index) => (
-                <div className="col-lg-12 mb-3">
+                // <div className="col-lg-12 mb-3">
                   <div className="col-xl-4 col-lg-6 col-md-6" key={index}>
                     <div className="card mb-4 d-block w-100 shadow-xss rounded-lg p-xxl-5 p-4 border-0 text-center">
                       <a
@@ -89,7 +89,7 @@ function Ebooks() {
                         </Link>
                       </div>
                     </div>
-                  </div>
+                  {/* </div> */}
                 </div>
               ))
             ) : (

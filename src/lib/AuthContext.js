@@ -32,6 +32,20 @@ export const AuthProvider = ({ children }) => {
     console.log('User set and localStorage updated:', newUser);
   };
 
+  const isPathPublic = (pathname, publicPaths) => {
+    // Exact match
+    if (publicPaths.includes(pathname)) {
+      return true;
+    }
+  
+    // Match against dynamic paths
+    const dynamicPaths = publicPaths.filter(p => p.includes('/:')); // Paths that include a dynamic segment
+    return dynamicPaths.some(publicPath => {
+      const regex = new RegExp("^" + publicPath.replace(/:[^\s/]+/, '(.+)') + "$");
+      return regex.test(pathname);
+    });
+  };
+
   useEffect(() => {
     const homePaths = {
       school_student: '/home',
@@ -45,9 +59,9 @@ export const AuthProvider = ({ children }) => {
 
     const redirectTo = user ? (homePaths[user.user.type] || '/') : '/';
     
-    const publicPaths = ['/register', '/notfound', '/'];
-    const pathIsPublic = publicPaths.includes(location.pathname);
-    
+    const publicPaths = ['/register', '/notfound', '/','/ebooks/private_ebook/:ebook_id'];
+    // const pathIsPublic = publicPaths.includes(location.pathname);
+      const pathIsPublic = isPathPublic(location.pathname, publicPaths);
     if (user && pathIsPublic) {
       navigate(redirectTo); // Redirect logged-in users to their home page
     } else if (!user && !pathIsPublic) {
