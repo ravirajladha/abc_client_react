@@ -137,7 +137,7 @@ export const schoolRoutes = (
     />
     <Route
       exact
-      path={`${process.env.PUBLIC_URL}/student/:studentId/results/:testId`}
+      path={`${process.env.PUBLIC_URL}/school/student/:studentId/results/:testId`}
       element={React.createElement(
         withLayoutAndProtection(TestResultDetails, {
           allowedTypes: ["sub_admin"],

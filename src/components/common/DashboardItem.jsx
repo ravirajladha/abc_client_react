@@ -2,7 +2,7 @@ import React from 'react';
 
 function DashboardItem(props) {
   return (
-      <div className="col-sm-3">
+      <div className= {props.itemColFour ? "col-sm-4" : "col-sm-3"}>
       <div className="card w-100 p-1 border-0 mt-4 rounded-lg bg-white shadow-xs overflow-hidden">
         <div className="card-body p-4">
           <div className="row">
