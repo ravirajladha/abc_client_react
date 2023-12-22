@@ -231,9 +231,12 @@ function ParentHome() {
                         <div className="card-body p-4">
                           <div className="row">
                             <div className="col-4">
-                              {studentInfo?.first_term_results !== null ? (
+                              {studentInfo?.first_term_results !== null ||
+                              studentInfo?.first_term_total_marks !== 0 ? (
                                 <h2 className="text-grey-900 fw-700 font-xxl mt-2 mb-2 ls-3 lh-1">
-                                  {studentInfo?.first_term_results + "/100"}
+                                  {studentInfo?.first_term_results +
+                                    "/" +
+                                    studentInfo?.first_term_total_marks}
                                 </h2>
                               ) : (
                                 <h2 className="text-grey-900 fw-600 font-xsss mt-4 mb-2 ls-3 lh-1">
@@ -245,9 +248,12 @@ function ParentHome() {
                               </h4>
                             </div>
                             <div className="col-4">
-                              {studentInfo?.second_term_results !== null ? (
+                              {studentInfo?.second_term_results !== null ||
+                              studentInfo?.second_term_total_marks !== 0 ? (
                                 <h2 className="text-grey-900 fw-700 font-xxl mt-2 mb-2 ls-3 lh-1">
-                                  {studentInfo?.second_term_results + "/100"}
+                                  {studentInfo?.second_term_results +
+                                    "/" +
+                                    studentInfo?.second_term_total_marks}
                                 </h2>
                               ) : (
                                 <h2 className="text-grey-900 fw-600 font-xsss mt-4 mb-2 ls-3 lh-1">
@@ -259,9 +265,12 @@ function ParentHome() {
                               </h4>
                             </div>
                             <div className="col-4">
-                              {studentInfo?.third_term_results !== null ? (
+                              {studentInfo?.third_term_results !== null ||
+                              studentInfo?.third_term_total_marks !== 0 ? (
                                 <h2 className="text-grey-900 fw-700 font-xxl mt-2 mb-2 ls-3 lh-1">
-                                  {studentInfo?.third_term_results + "/100"}
+                                  {studentInfo?.third_term_results +
+                                    "/" +
+                                    studentInfo?.third_term_total_marks}
                                 </h2>
                               ) : (
                                 <h2 className="text-grey-900 fw-600 font-xsss mt-4 mb-2 ls-3 lh-1">
@@ -292,7 +301,8 @@ function ParentHome() {
                                     <ApexChart
                                       seriesData={[
                                         item.started_video_count,
-                                        item.total_video_count - item.started_video_count,
+                                        item.total_video_count -
+                                          item.started_video_count,
                                       ]}
                                       colorsData={["#fec794", "#25d366"]}
                                     />
