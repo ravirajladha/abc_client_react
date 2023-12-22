@@ -292,7 +292,7 @@ function ParentHome() {
                                     <ApexChart
                                       seriesData={[
                                         item.started_video_count,
-                                        item.total_video_count,
+                                        item.total_video_count - item.started_video_count,
                                       ]}
                                       colorsData={["#fec794", "#25d366"]}
                                     />
