@@ -150,7 +150,7 @@ function Home() {
                         <div className="col-4">
                           {dashboardInfo?.avg_assessment_score !== null ? (
                             <h2 className="text-grey-900 fw-700 font-xxl mt-2 mb-2 ls-3 lh-1">
-                              {dashboardInfo?.avg_assessment_score + "/100"}
+                              {dashboardInfo?.avg_assessment_score}
                             </h2>
                           ) : (
                             <h2 className="text-grey-900 fw-600 font-xsss mt-4 mb-2 ls-3 lh-1">
@@ -245,7 +245,7 @@ function Home() {
                               <ApexChart
                                 seriesData={[
                                   item.started_video_count,
-                                  item.total_video_count,
+                                  item.total_video_count -  item.started_video_count,
                                 ]}
                                 colorsData={["#fec794", "#25d366"]}
                               />
