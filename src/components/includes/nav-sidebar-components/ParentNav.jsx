@@ -86,7 +86,7 @@ function ParentNav() {
 
           {/* Navigation */}
 
-          <div className="nav-caption fw-600 font-xssss text-grey-500">
+          <div className="nav-caption fw-600 font-xssss text-dark">
             <span></span>
           </div>
 
@@ -99,7 +99,7 @@ function ParentNav() {
               </Link>
             </li>
           </ul>
-          {/* <div className="nav-caption my-2 fw-600 font-xssss text-grey-500 mt-1">
+          {/* <div className="nav-caption my-2 fw-600 font-xssss text-dark mt-1">
             Children
           </div>
 
@@ -121,7 +121,7 @@ function ParentNav() {
             <li className="nav-item" key={index}>
               <Link to={"/parent_subjects/" + child.id} className="navi-link">
                 <i className="feather-user mr-2 droupdown-toggle"></i>
-                <div className="nav-caption fw-600 font-xssss text-grey-500 mt-1">
+                <div className="nav-caption fw-600 font-xssss text-dark mt-1">
                   {child.name}
                 </div>
               </Link>
@@ -149,8 +149,8 @@ function ParentNav() {
             )) : ""}
           </ul> */}
 
-          <div className="nav-caption fw-600 font-xssss text-grey-500">
-            <span></span> Account
+          <div className="nav-caption fw-600 font-xssss text-dark">
+            <span></span> <u>Account</u>
           </div>
           <ul className="mb-3">
             <li className="logo d-none d-xl-block d-lg-block"></li>
@@ -159,7 +159,7 @@ function ParentNav() {
                 to="/parent/settings"
                 className="nav-content-bttn open-font h-auto pt-2 pb-2"
               >
-                <i className="font-sm feather-settings mr-3 text-grey-500"></i>
+                <i className="font-sm feather-settings mr-3 text-dark"></i>
                 <span>Settings</span>
               </Link>
             </li>
@@ -181,7 +181,7 @@ function ParentNav() {
                       isFull
                         ? "feather-arrow-right-circle"
                         : "feather-arrow-left-circle"
-                    }  mr-3 text-grey-500`}
+                    }  mr-3 text-dark`}
                   ></i>
                 </Link>
               </li>

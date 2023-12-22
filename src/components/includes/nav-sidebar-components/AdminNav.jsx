@@ -35,7 +35,7 @@ function AdminNav() {
               <i className="ti-close bg-grey mb-4 btn-round-sm font-xssss fw-700 text-dark ml-auto mr-2 "></i>
             </span>
           </div>
-          {/* <div className="nav-caption fw-600 font-xssss text-grey-500">
+          {/* <div className="nav-caption fw-600 font-xssss text-dark">
             <span></span>Home
           </div> */}
           <ul className="mb-3">
@@ -47,7 +47,7 @@ function AdminNav() {
                 <span>Home</span>
               </NavLink>
             </li>
-            <div className="nav-caption fw-600 font-xssss text-grey-500">
+            <div className="nav-caption fw-600 font-xssss text-dark">
               Home
             </div>
 
@@ -57,7 +57,7 @@ function AdminNav() {
                 <span>Classes</span>
               </NavLink>
             </li>
-            <div className="nav-caption fw-600 font-xssss text-grey-500">
+            <div className="nav-caption fw-600 font-xssss text-dark">
               Classes
             </div>
             <li className="nav-item">
@@ -66,7 +66,7 @@ function AdminNav() {
                 <span>Schools</span>
               </NavLink>
             </li>
-            <div className="nav-caption fw-600 font-xssss text-grey-500">
+            <div className="nav-caption fw-600 font-xssss text-dark">
               Schools
             </div>
             <li className="nav-item">
@@ -75,7 +75,7 @@ function AdminNav() {
                 <span>Assessments</span>
               </NavLink>
             </li>
-            <div className="nav-caption fw-600 font-xssss text-grey-500">
+            <div className="nav-caption fw-600 font-xssss text-dark">
               Assessments
             </div>
 
@@ -85,7 +85,7 @@ function AdminNav() {
                 <span>Tests</span>
               </NavLink>
             </li>
-            <div className="nav-caption fw-600 font-xssss text-grey-500">
+            <div className="nav-caption fw-600 font-xssss text-dark">
               Tests
             </div>
 
@@ -95,7 +95,7 @@ function AdminNav() {
                 <span>Mini Projects</span>
               </NavLink>
             </li>
-            <div className="nav-caption fw-600 font-xssss text-grey-500">
+            <div className="nav-caption fw-600 font-xssss text-dark">
               Mini Project
             </div>
 
@@ -105,7 +105,7 @@ function AdminNav() {
                 <span>E-Labs</span>
               </NavLink>
             </li>
-            <div className="nav-caption fw-600 font-xssss text-grey-500">
+            <div className="nav-caption fw-600 font-xssss text-dark">
               E-Lab
             </div>
             <li className="nav-item">
@@ -113,8 +113,9 @@ function AdminNav() {
                 <i className="feather-book mr-2"></i>
                 <span>E-Book</span>
               </NavLink>
+              
             </li>
-            <div className="nav-caption fw-600 font-xssss text-grey-500">
+            <div className="nav-caption fw-600 font-xssss text-dark">
               E-Book
             </div>
           
@@ -128,7 +129,7 @@ function AdminNav() {
                 <span>Project Report</span>
               </a>
             </li>
-            <div className="nav-caption fw-600 font-xssss text-grey-500">
+            <div className="nav-caption fw-600 font-xssss text-dark">
               Project Report
             </div>
             <li className="nav-item">
@@ -141,7 +142,7 @@ function AdminNav() {
                 <span>Case Study</span>
               </a>
             </li>
-            <div className="nav-caption fw-600 font-xssss text-grey-500">
+            <div className="nav-caption fw-600 font-xssss text-dark">
             Case Study
             </div>
             <li className="nav-item">
@@ -150,7 +151,7 @@ function AdminNav() {
                 <span>Internship</span>
               </NavLink>
             </li>
-            <div className="nav-caption fw-600 font-xssss text-grey-500">
+            <div className="nav-caption fw-600 font-xssss text-dark">
               Internship
             </div>
             <li className="nav-item">
@@ -159,13 +160,13 @@ function AdminNav() {
                 <span>Payments</span>
               </NavLink>
             </li>
-            <div className="nav-caption fw-600 font-xssss text-grey-500">
+            <div className="nav-caption fw-600 font-xssss text-dark">
               Payments
             </div>
           </ul>
 
-          <div className="nav-caption fw-600 font-xssss text-grey-500">
-            <span></span> Account
+          <div className="nav-caption fw-600 font-xssss text-dark">
+            <span></span><u>Account</u>
           </div>
           <ul className="mb-3">
             <li className="logo d-none d-xl-block d-lg-block"></li>
@@ -174,7 +175,7 @@ function AdminNav() {
                 to="/admin/settings"
                 className="nav-content-bttn open-font h-auto pt-2 pb-2"
               >
-                <i className="font-sm feather-settings mr-3 text-grey-500"></i>
+                <i className="font-sm feather-settings mr-3 text-dark"></i>
                 <span>Settings</span>
               </Link>
             </li>

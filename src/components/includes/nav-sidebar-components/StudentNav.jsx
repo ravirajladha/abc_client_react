@@ -48,7 +48,7 @@ function StudentNav() {
                 <span>Course Feed</span>
               </NavLink>
             </li>
-            <div className="nav-caption fw-600 font-xssss text-grey-500">
+            <div className="nav-caption fw-600 font-xssss text-dark">
               Home
             </div>
 
@@ -63,7 +63,7 @@ function StudentNav() {
                 <span>Subjects</span>
               </NavLink>
             </li>
-            <div className="nav-caption fw-600 font-xssss text-grey-500">
+            <div className="nav-caption fw-600 font-xssss text-dark">
               Subjects
             </div>
 
@@ -78,7 +78,7 @@ function StudentNav() {
                 <span>Qna</span>
               </NavLink>
             </li>
-            <div className="nav-caption fw-600 font-xssss text-grey-500">
+            <div className="nav-caption fw-600 font-xssss text-dark">
               Qna
             </div> */}
 
@@ -93,7 +93,7 @@ function StudentNav() {
                 <span>Forums</span>
               </NavLink>
             </li>
-            <div className="nav-caption fw-600 font-xssss text-grey-500">
+            <div className="nav-caption fw-600 font-xssss text-dark">
               Forums
             </div>
 
@@ -108,12 +108,12 @@ function StudentNav() {
                 <span>Internship</span>
               </NavLink>
             </li>
-            <div className="nav-caption fw-600 font-xssss text-grey-500">
+            <div className="nav-caption fw-600 font-xssss text-dark">
               Internship
             </div>
           </ul>
 
-          {/* <div className="nav-caption fw-600 font-xssss text-grey-500">
+          {/* <div className="nav-caption fw-600 font-xssss text-dark">
             <span></span> -- - --
           </div> */}
           <ul className="mb-3">
@@ -123,7 +123,7 @@ function StudentNav() {
                 to="/settings"
                 className="nav-content-bttn open-font h-auto pt-2 pb-2"
               >
-                <i className="font-sm feather-settings mr-3 text-grey-500"></i>
+                <i className="font-sm feather-settings mr-3 text-dark"></i>
                 <span>Settings</span>
               </Link>
             </li>

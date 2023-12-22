@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect, useCallback } from "react";
+
 import Slider from 'react-slick';
 
 import { useContext } from 'react';

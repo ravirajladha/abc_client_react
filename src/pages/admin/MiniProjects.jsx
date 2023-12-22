@@ -61,17 +61,19 @@ function MiniProjects() {
               <Loader />
             ) : miniProjects && miniProjects.length > 0 ? (
               miniProjects.map((miniProject, index) => (
-                <div className="col-xl-4 col-lg-3 col-md-3" key={index}>
-                  <div className="item m-1">
-                    <div className="card w200 d-block border-0 shadow-xss rounded-lg overflow-hidden mb-4">
-                      <div className="card-image w-100">
+                <div className="col-xl-4 col-lg-6 col-md-6" key={index}>
+                  {/* <div className="item m-1"> */}
+                  <div className="card mb-4 d-block w-100 shadow-xss rounded-lg p-xxl-5 p-4 border-0 text-center">
+                  <a
+                            href="#"
+                            className="btn-round-xxxl rounded-lg bg-lightblue ml-auto mr-auto"
+                          >
                         <img
                           src={baseUrl + miniProject.project_image}
-                          alt="image"
-                          className="w-100"
-                          style={{ height: 100 }}
+                          alt="icon"
+                              className="p-1"
                         />
-                      </div>
+                      </a>
                       <div className="card-body d-block w-100 pl-4 pr-4 pb-4 text-center">
                         <div className="clearfix"></div>
                         <h4 className="fw-700 font-xss mt-3 mb-1">
@@ -80,12 +82,18 @@ function MiniProjects() {
                         <p className="fw-500 font-xssss text-grey-500 mt-0 mb-2">
                           {miniProject.description}
                         </p>
-                        <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-success d-inline-block text-success my-1 mr-1">
-                          Count
-                        </span>
-                        <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-info d-inline-block text-info mb-1">
+
+                        <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-success d-inline-block text-success mb-1 mr-1">
+                        Count
+                          </span>
+
+                          <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-info d-inline-block text-info mb-1">
                           {miniProject.project_tasks_count}
-                        </span>
+                          </span>
+
+
+                          <div className="mt-2">
+                      
                         <Link
                           to={`/all-tasks/${miniProject.id}`}
                           className="d-inline-block text-white fw-700 lh-30 rounded-lg w100 text-center font-xsssss ls-3 bg-current"
@@ -93,8 +101,9 @@ function MiniProjects() {
                           View Tasks
                         </Link>
                       </div>
+                      </div>
                     </div>
-                  </div>
+                  {/* </div> */}
                 </div>
               ))
             ) : (

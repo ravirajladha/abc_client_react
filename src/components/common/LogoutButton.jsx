@@ -14,7 +14,7 @@ function LogoutButton() {
     onClick={handleLogout}
     className="nav-content-bttn open-font h-auto pt-2 pb-2"
   >
-    <i className="font-sm feather-log-out mr-3 text-grey-500"></i>
+    <i className="font-sm feather-log-out mr-3 text-dark"></i>
     <span>Logout</span>
   </Link>
   );

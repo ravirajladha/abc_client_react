@@ -13469,10 +13469,10 @@ strong,
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  height: 70px;
+  height: 58px;
   padding: 0 15px;
   background: #ffffff;
-  border-bottom: 2px #eee solid;
+  border-bottom: 2px #ffa93b solid;
   -webkit-transition: left 0.25s;
   -o-transition: left 0.25s;
   transition: left 0.25s;

@@ -38,7 +38,7 @@ const liveClassSlider = {
 function Home() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const { user } = useContext(AuthContext);
-
+// console.log("user_base", user);
   const [dashboardInfo, setDashboardInfo] = useState([]);
   const [isLoadingStudentAnalytics, setIsLoadingStudentAnalytics] =
     useState(true);
@@ -50,6 +50,7 @@ function Home() {
         baseUrl + "api/get-student-dashboard/" + user.student.auth_id
       );
       const student = await response.json();
+     
       setDashboardInfo(student);
       setIsLoadingStudentAnalytics(false);
       setIsLoadingVideoStats(false);

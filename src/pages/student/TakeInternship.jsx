@@ -37,7 +37,7 @@ function TakeInternship() {
   );
   const get_project_tasks = (e) => {
     fetch(
-      baseUrl + "api/get_student_started_internship_tasks/" + internship_id,
+      baseUrl + "api/get_student_started_internship_tasks/" + internship_id+"/"+user_id ,
       {
         method: "GET",
         headers: {

@@ -1,33 +1,9 @@
-import React, { Component } from "react";
-import Chart from "react-apexcharts";
-import { Link } from "react-router-dom";
 
-const classList = [
-  {
-    imageUrl: "user.png",
-    title: "Advanced Python Sass",
-    per: "87",
-    status: "bg-warning",
-  },
-  {
-    imageUrl: "user.png",
-    title: "Bootstrap SASS CSS ",
-    per: "96",
-    status: "bg-success",
-  },
-  {
-    imageUrl: "user.png",
-    title: "Basic JAVA",
-    per: "95",
-    status: "bg-primary",
-  },
-  {
-    imageUrl: "user.png",
-    title: "React JS",
-    per: "55",
-    status: "bg-warning",
-  },
-];
+import Chart from "react-apexcharts";
+
+import React, { useState, useEffect, useCallback ,useContext} from "react";
+import { AuthContext } from "../../lib/AuthContext.js";
+
 const multipleChart = {
   series: [0, 0, 100],
   options: {
@@ -61,6 +37,38 @@ const multipleChart = {
   },
 };
 function SubjectScore() {
+
+  const userDetails = useContext(AuthContext).user;
+
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+  const [dashboardInfo, setDashboardInfo] = useState([]);
+  const [isLoadingStudentAnalytics, setIsLoadingStudentAnalytics] =
+    useState(true);
+  const [isLoadingVideoStats, setIsLoadingVideoStats] = useState(true);
+  const getStudentDashboard = useCallback(async () => {
+    try {
+      const response = await fetch(
+        baseUrl + "api/get-student-dashboard/" + userDetails.student.auth_id
+      );
+      const student = await response.json();
+      console.log("studnet_marks", student)
+      setDashboardInfo(student);
+      setIsLoadingStudentAnalytics(false);
+      setIsLoadingVideoStats(false);
+    } catch (error) {
+      console.error("There was a problem fetching student details:", error);
+      setIsLoadingStudentAnalytics(false);
+      setIsLoadingVideoStats(false);
+    }
+  }, [userDetails.student.auth_id, baseUrl]);
+  useEffect(() => {
+    if (userDetails) {
+      getStudentDashboard();
+    } else {
+      return;
+    }
+  }, [userDetails, getStudentDashboard]);
+
   return (
     <div className="card theme-light-bg overflow-hidden rounded-xxl border-0 mb-3">
       {/* <div className="card-body d-flex justify-content-between align-items-end pl-4 pr-4 pt-4 pb-3">
@@ -103,7 +111,18 @@ function SubjectScore() {
             <h4 className="text-warning font-xssss fw-700">
               TERM 1{" "}
               <span className="d-block mt-1 font-xsssss fw-500 text-grey-500">
-                100%
+              {dashboardInfo?.first_term_results !== null ||
+                          dashboardInfo?.first_term_total_marks !== 0 ? (
+                            <h2 className="text-grey-900 fw-700 font-xxl mt-2 mb-2 ls-3 lh-1">
+                              {dashboardInfo?.first_term_results +
+                                "/" +
+                                dashboardInfo?.first_term_total_marks}
+                            </h2>
+                          ) : (
+                            <h2 className="text-grey-900 fw-600 font-xsss mt-4 mb-2 ls-3 lh-1">
+                              Results unavailable
+                            </h2>
+                          )}
               </span>
             </h4>
           </div>
@@ -111,7 +130,18 @@ function SubjectScore() {
             <h4 className="text-danger font-xssss fw-700">
               TERM 2{" "}
               <span className="d-block mt-1 font-xsssss fw-500 text-grey-500">
-                0%
+              {dashboardInfo?.second_term_results !== null ||
+                          dashboardInfo?.second_term_total_marks !== 0 ? (
+                            <h2 className="text-grey-900 fw-700 font-xxl mt-2 mb-2 ls-3 lh-1">
+                              {dashboardInfo?.second_term_results +
+                                "/" +
+                                dashboardInfo?.second_term_total_marks}
+                            </h2>
+                          ) : (
+                            <h2 className="text-grey-900 fw-600 font-xsss mt-4 mb-2 ls-3 lh-1">
+                              Results unavailable
+                            </h2>
+                          )}
               </span>
             </h4>
           </div>
@@ -119,7 +149,18 @@ function SubjectScore() {
             <h4 className="text-primary font-xssss fw-700">
               TERM 3{" "}
               <span className="d-block mt-1 font-xsssss fw-500 text-grey-500">
-                0%
+              {dashboardInfo?.third_term_results !== null ||
+                          dashboardInfo?.third_term_total_marks !== 0 ? (
+                            <h2 className="text-grey-900 fw-700 font-xxl mt-2 mb-2 ls-3 lh-1">
+                              {dashboardInfo?.third_term_results +
+                                "/" +
+                                dashboardInfo?.third_term_total_marks}
+                            </h2>
+                          ) : (
+                            <h2 className="text-grey-900 fw-600 font-xsss mt-4 mb-2 ls-3 lh-1">
+                              Results unavailable
+                            </h2>
+                          )}
               </span>
             </h4>
             {/* </div> */}
