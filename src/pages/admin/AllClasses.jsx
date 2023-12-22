@@ -77,13 +77,14 @@ function AllClasses() {
                       }
                       className="position-absolute right-0 mr-4 top-0 mt-3"
                     >
-                      <i className="ti-pencil-alt text-grey-500 font-xsss"></i>
                     </Link>
-                    <h4 className="fw-700 font-xs mt-4 capitalize">
+                    <h4 className="fw-700 font-xs mt-4 capitalize mb-2">
                       {singleClass.class}
                     </h4>
                     {/* Additional details about the class can be listed here */}
-                    <div className="card-footer bg-transparent border-top-0">
+                    {user.user.type !== "teacher" ? 
+                    (
+                      <div className="card-footer bg-transparent border-top-0">
                       <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-success d-inline-block text-success mb-1 mr-1">
                         Subject Count
                       </span>
@@ -91,6 +92,9 @@ function AllClasses() {
                         {singleClass.subject_count}
                       </span>
                     </div>
+                    ):""
+                    }
+                    
                     <div className="card-footer bg-transparent border-top-0">
                       <Link
                         to={

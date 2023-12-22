@@ -255,20 +255,17 @@ function SubjectStream() {
     setVideoPlayer(player); // Store the player instance in your component state
   };
 
-
-
   const [showFullContent, setShowFullContent] = useState(false);
   // Set the maximum number of characters to show initially
   const maxCharactersToShow = 250;
 
   const truncatedContent =
-  mainVideoDescription && mainVideoDescription.length > maxCharactersToShow
-  ? mainVideoDescription.slice(0, maxCharactersToShow) + '...'
-  : mainVideoDescription;
+    mainVideoDescription && mainVideoDescription.length > maxCharactersToShow
+      ? mainVideoDescription.slice(0, maxCharactersToShow) + "..."
+      : mainVideoDescription;
   const handleToggleContent = () => {
     setShowFullContent(!showFullContent);
   };
-
 
   if (!user) {
     // Handle the case when there is no user. You might want to redirect
@@ -305,7 +302,6 @@ function SubjectStream() {
     }
   }
 
-  
   return (
     <>
       <div className="middle-sidebar-bottom theme-dark-bg">
@@ -463,9 +459,7 @@ function SubjectStream() {
                                                       >
                                                         <Link
                                                           className="font-xssss text-white"
-                                                          to={`/ebooks/preview_ebook/${
-                                                            video.ebook_id
-                                                          }`}
+                                                          to={`/ebooks/preview_ebook/${video.ebook_id}`}
                                                         >
                                                           EBook
                                                         </Link>
@@ -491,7 +485,7 @@ function SubjectStream() {
                                                         </Link>
                                                       </div>
                                                     )}
-                                                    
+
                                                     {/* commented this because multiple ebook buttons are coming for mulitiple sections
                                                     and added the above default ebook */}
 
@@ -586,14 +580,17 @@ function SubjectStream() {
                   Description
                 </h2>
                 <p className="font-xss fw-500 lh-28 text-grey-600 mb-0 pl-2">
-                {showFullContent ? mainVideoDescription : truncatedContent}
-                {mainVideoDescription && mainVideoDescription.length > maxCharactersToShow && (
-          <span onClick={handleToggleContent} className="font-xs fw-500 lh-28 text-primary">
-            {showFullContent ? 'Show less' : 'Show more'}
-          </span>
-        )}
+                  {showFullContent ? mainVideoDescription : truncatedContent}
+                  {mainVideoDescription &&
+                    mainVideoDescription.length > maxCharactersToShow && (
+                      <span
+                        onClick={handleToggleContent}
+                        className="font-xs fw-500 lh-28 text-primary"
+                      >
+                        {showFullContent ? "Show less" : "Show more"}
+                      </span>
+                    )}
                 </p>
-                
               </div>
             </div>
             <div className="col-xl-4 col-xxl-4 col-lg-4">
@@ -713,22 +710,17 @@ function SubjectStream() {
               </h2>
               {/* <div className="owl-carousel category-card owl-theme overflow-hidden overflow-visible-xl nav-none"> */}
               {!allSubjectData || allSubjectData.length === 0 ? (
-                <div className="row" style={{height:'200px'}}>
-                            <Loader /> 
+                <div className="row" style={{ height: "200px" }}>
+                  <Loader />
                 </div>
-                          ) : (
-              <Carousel
-                responsive={responsive}
-                autoPlay={false}
-                infinite={true}
-                className="owl-carousel category-card owl-theme"
-              >
-                {allSubjectData &&
+              ) : allSubjectData &&
                 allSubjectData.mini_projects &&
                 allSubjectData.mini_projects.length > 0 ? (
-                  allSubjectData &&
-                  allSubjectData.mini_projects.map((mini_project, id) => (
-                    <div className="item" key={id}>
+                  <div className="row">
+                {allSubjectData &&
+                allSubjectData.mini_projects.map((mini_project, id) => (
+                  <div className="col-lg-3" key={id}>
+                    <div className="item">
                       <div className="card w200 d-block border-0 shadow-xss rounded-lg overflow-hidden mb-4">
                         <div className="card-image w-100 ">
                           <img
@@ -760,16 +752,17 @@ function SubjectStream() {
                         </div>
                       </div>
                     </div>
-                  ))
-                ) : (
-                  <div>
-                    <h5 className="mb-2 bg-white p-2 text-dark fw-500 mt-5">
-                      Mini Projects Not Available
-                    </h5>
                   </div>
-                )}
-              </Carousel>
-                          )}
+                ))}
+                  </div>
+
+              ) : (
+                <div>
+                  <h5 className="mb-2 bg-white p-2 text-dark fw-500 mt-5">
+                    Mini Projects Not Available
+                  </h5>
+                </div>
+              )}
             </div>
           </div>
         </div>

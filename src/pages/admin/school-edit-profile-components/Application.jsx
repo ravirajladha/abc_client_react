@@ -205,7 +205,9 @@ function Application() {
                   <td className = "text-center">{application?.student_nationality ?? "-"}</td>
                   <td className = "text-center">{application?.student_pname ?? "-"}</td>
                   <td className = "text-center">{application?.student_religion ?? "-"}</td>
-                  <td className = "text-center">{application?.updated_at ?? "-"}</td>
+                  <td className = "text-center">{application?.updated_at
+    ? new Date(application.updated_at).toLocaleString()
+    : "-"}</td>
                   <td>
                     <button
                       className={`p-2 d-inline-block text-white fw-700 lh-10 rounded-lg text-center font-xsssss ls-3 ${
