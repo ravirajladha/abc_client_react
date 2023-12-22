@@ -129,7 +129,7 @@ function Settings() {
                                 id="name"
                                 disabled
                               />
-                              <p className="d-flex align-items-center fw-300 font-md">
+                              <p className="d-flex align-items-center fw-300 font-xs">
                                 {formData.name}
                               </p>
                             </div>

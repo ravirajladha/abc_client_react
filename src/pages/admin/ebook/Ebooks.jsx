@@ -76,7 +76,7 @@ function Ebooks() {
 
                       <div className="text-center">
                         <Link
-                          to={"/ebooks/preview_ebook/" + ebook.id}
+                          to={"/ebooks/preview_ebook_admin/" + ebook.id}
                           className="p-2 mt-4 d-inline-block text-white fw-700 lh-30 rounded-lg w100 text-center font-xsssss ls-3 bg-current mx-1"
                         >
                           VIEW

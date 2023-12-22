@@ -103,14 +103,18 @@ function ParentAddStudent() {
    
           <div className="middle-sidebar-bottom">
             <div className="middle-sidebar-left">
-              <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
-                <div className="card-body p-4 w-100 border-0 d-flex rounded-lg justify-content-between">
+            <div className="row">
+            <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
                   <h2 className="fw-400 font-lg d-block">
                     Add <b> Student</b>
                   </h2>
                   <div className="float-right">
                     <BackButton />
                   </div>
+                  </div>
+                  </div>
+              <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
+                <div className="card-body p-4 w-100 border-0 d-flex rounded-lg justify-content-between">
                   <ToastContainer />
                 </div>
                 <div></div>

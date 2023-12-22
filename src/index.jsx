@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
+import "./App.css";
 import "./index.css";
 
-import "./App.css";
 import "./main.scss";
 import { adminRoutes } from './routes/adminRoutes.js';
 import { teacherRoutes } from './routes/teacherRoutes.js';

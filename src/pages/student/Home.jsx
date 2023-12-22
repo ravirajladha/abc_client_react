@@ -99,7 +99,7 @@ function Home() {
                 <img
                   src="/avatar.png"
                   alt="icon"
-                  className="w125 right-15 top-0 position-absolute d-none d-xl-block mt-3"
+                  className="w100 mt-4 right-15 top-0 position-absolute d-none d-xl-block mt-3"
                 />
               </div>
             </div>

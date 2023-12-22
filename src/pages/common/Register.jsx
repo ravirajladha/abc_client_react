@@ -130,16 +130,20 @@ const Register = () => {
                     />
                   </div>
                   <div className="form-group icon-input mb-1">
-                    <input
-                      type="tel" // Change to type="tel"
-                      name="phone" // Add name attribute
-                      value={formData.phone} // Bind state value
-                      onChange={handleChange} // Set the event handler
-                      className="style2-input pl-5 form-control text-grey-900 font-xss ls-3"
-                      placeholder="Your Phone Number"
-                    />
-                    <i className="font-sm feather-phone text-grey-500 pr-0"></i>
-                  </div>
+  <input
+    type="tel"
+    name="phone"
+    value={formData.phone}
+    onChange={handleChange}
+    className="style2-input pl-5 form-control text-grey-900 font-xss ls-3"
+    placeholder="Your Phone Number"
+    maxLength="10" // This ensures the user can't enter more than 10 digits
+    pattern="\d{10}" // This pattern matches exactly 10 digits
+    title="Phone number must be 10 digits" // This provides a tooltip on hover
+  />
+  <i className="font-sm feather-phone text-grey-500 pr-0"></i>
+</div>
+
                   {/* <div className="form-group icon-input mb-3">
                     <input
                       type="password"

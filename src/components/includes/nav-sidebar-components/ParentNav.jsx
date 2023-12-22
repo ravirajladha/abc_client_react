@@ -99,7 +99,7 @@ function ParentNav() {
               </Link>
             </li>
           </ul>
-          <div className="nav-caption my-2 fw-600 font-xssss text-grey-500 mt-1">
+          {/* <div className="nav-caption my-2 fw-600 font-xssss text-grey-500 mt-1">
             Children
           </div>
 
@@ -114,7 +114,7 @@ function ParentNav() {
                   </li>
                 ))
               : ""}
-          </ul>
+          </ul> */}
 
           {/* <ul className="mb-3">
             {children ? children.map((child, index) => (

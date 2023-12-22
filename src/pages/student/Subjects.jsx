@@ -115,7 +115,7 @@ const Subjects = () => {
                         </div>
                         <div className="col-lg-6">
                           <div>
-                            <table className="table mb-0">
+                            <table className="table mb-4">
                               <tbody>
                                 {[1, 2, 3].map((term) => {
                                   const testId = getTestIdForTerm(

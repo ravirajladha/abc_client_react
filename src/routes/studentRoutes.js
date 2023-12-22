@@ -28,6 +28,7 @@ import Markers from "../pages/student/Markers.jsx";
 import MarkerSingle from "../pages/student/MarkerSingle.jsx";
 import VideoWithWaterMark from "../pages/student/VideoWithWaterMark.jsx";
 import Editor1 from "../pages/e_lab/components/Editor1.jsx";
+import FrontendEditor from "../pages/e_lab/components/Frontend_Editor.jsx";
 import PreviewEbook from "../pages/admin/ebook/PreviewEbook.jsx";
 
 import SubjectResults from "../pages/student/SubjectResults.jsx";
@@ -45,6 +46,13 @@ export const studentRoutes = (
       )}
     />
 
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/frontend_editor`}
+      element={React.createElement(
+        withLayoutAndProtection(FrontendEditor, { allowedTypes: ["school_student"] })
+      )}
+    />
     <Route
       exact
       path={`${process.env.PUBLIC_URL}/subjects`}
