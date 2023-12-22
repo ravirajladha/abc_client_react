@@ -203,8 +203,8 @@ function QnaTab({ userId, isTeacherAvailable, subjectId, receiverId }) {
                 </button>
               </form>
             ) : (
-              <div className="text-center p-3">
-                <span>Previous question is not answered yet.</span>
+              <div className="text-center position-absolute bottom-0 w-100 left-0 bg-white z-index-1 p-3 shadow-xs theme-dark-bg">
+                <span>Waiting for response...</span>
               </div>
             )}
           </>

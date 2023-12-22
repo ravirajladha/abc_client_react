@@ -66,8 +66,8 @@ function SubjectResults() {
                       <table className="table mb-0">
                         <thead className="bg-greylight rounded-10 ovh">
                           <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Test</th>
+                            <th scope="col">Term</th>
+                            <th scope="col">Test Name</th>
                             <th scope="col">Score</th>
                           </tr>
                         </thead>
