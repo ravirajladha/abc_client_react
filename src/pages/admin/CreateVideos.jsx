@@ -444,7 +444,7 @@ function CreateVideos() {
                                 />
                               )}
                             </div>
-                            {selectedEbook && (
+                            {uploadEbook && (
                               <div className="col-lg-5">
                                 <label className="mont-font fw-600 font-xsss">
                                   Select a Module
@@ -468,7 +468,7 @@ function CreateVideos() {
                         )}
                       </div>
 
-                      {uploadEbook && selectedEbookModule && (
+                      {uploadEbook && (
                         <div className="row my-2">
                           <div className="col-2"></div>
                           <div className="col-5 d-flex align-items-center">
@@ -506,10 +506,6 @@ function CreateVideos() {
                                 required={uploadEbook}
                                 disabled={isSubmitting}
                               />
-
-
-
-
                             </div>
                             <div className="col-lg-2 d-flex align-items-center">
                               {/* <button
@@ -522,15 +518,16 @@ function CreateVideos() {
                               </button> */}
 
                               <button
-          className="btn bg-danger text-center text-white font-xsss fw-600 rounded-lg d-inline-block border-0"
-          title="Remove Section"
-          disabled={isSubmitting || selectedEbookSections.length === 1} // Disable the button if it's the only section
-          onClick={() => handleRemoveSection(index)}
-        >
-          -
-        </button>
-
-
+                                className="btn bg-danger text-center text-white font-xsss fw-600 rounded-lg d-inline-block border-0"
+                                title="Remove Section"
+                                disabled={
+                                  isSubmitting ||
+                                  selectedEbookSections.length === 1
+                                } // Disable the button if it's the only section
+                                onClick={() => handleRemoveSection(index)}
+                              >
+                                -
+                              </button>
                             </div>
                           </div>
                         ))}
