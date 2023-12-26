@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import AppHeader from "../../components/includes/AppHeader";
-import AppFooter from "../../components/includes/AppFooter";
+
 import Dropdown from "../../components/inputs/Dropdown";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
