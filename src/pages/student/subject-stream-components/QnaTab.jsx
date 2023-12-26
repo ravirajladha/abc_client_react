@@ -141,7 +141,7 @@ function QnaTab({ userId, isTeacherAvailable, subjectId, receiverId }) {
               <div className="message-item outgoing-message" key={index}>
                 <div className="message-user">
                   <figure className="avatar">
-                    <img src="/assets/images/user_profile.jpg" alt="avater" />
+                    <img src="/assets/images/user_profile.jpg" alt="avater" style={{ height: '35px' }}/>
                   </figure>
                   <div>
                     <h5>You</h5>
@@ -158,7 +158,7 @@ function QnaTab({ userId, isTeacherAvailable, subjectId, receiverId }) {
               <div className="message-item" key={index}>
                 <div className="message-user">
                   <figure className="avatar">
-                    <img src="/assets/images/user.png" alt="avater" />
+                    <img src="/assets/images/teacher.jpg" alt="avater" style={{ height: '35px' }}/>
                   </figure>
                   <div>
                     <h5 className="font-xssss mt-2">Teacher</h5>

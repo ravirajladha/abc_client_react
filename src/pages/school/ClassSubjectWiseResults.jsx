@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef, useMemo } from "react";
+import React, { useState, useEffect, useRef, useMemo, useContext } from "react";
 import BackButton from "../../components/navigation/BackButton";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Loader from "../../components/common/Loader";
+import { AuthContext } from "../../lib/AuthContext.js";
 import NoContent from "../../components/common/NoContent";
-
 import $ from "jquery";
 import "datatables.net";
 import "datatables.net-dt/css/jquery.dataTables.css";
@@ -16,6 +16,7 @@ const ClassResults = () => {
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const tableRef = useRef(null);
   const { classId } = useParams();
+  const user = useContext(AuthContext).user;
 
   const [results, setResults] = useState([]);
   const [term, setTerm] = useState(""); // default to term 1
@@ -191,10 +192,9 @@ const ClassResults = () => {
                                       <Link
                                         key={index}
                                         to={
-                                          "/student/" +
-                                          result.student_id +
-                                          "/results/" +
-                                          testId
+                                          user.user.type === "sub_admin"
+                                            ? `/school/student/${result.student_id}/results/${testId}`
+                                            : `/student/${result.student_id}/results/${testId}`
                                         }
                                         className="px-3 py-1 me-2 d-inline-block text-white fw-700 lh-30 rounded-lg uppercase text-center font-xsssss ls-3 bg-current mx-1"
                                       >

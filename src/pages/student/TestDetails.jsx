@@ -67,14 +67,14 @@ function TestDetails() {
                           </h4>
                           <h4 className="fw-700 font-xss mt-4">
                             Subject:{" "}
-                            <span className="fw-500">{testDetails.title}</span>
+                            <span className="fw-500">{testDetails.subject.subject_name}</span>
                           </h4>
                           <h4 className="fw-700 font-xss mt-4">
                             Term:
                             <span className="fw-500">
-                              {testDetails.term == "1" && " Term 1"}
-                              {testDetails.term == "2" && " Term 2"}
-                              {testDetails.term == "3" && " Term 3"}
+                              {testDetails.term == "1" && " 1st"}
+                              {testDetails.term == "2" && " 2nd"}
+                              {testDetails.term == "3" && " 3rd"}
                               {/* Add more conditions here if you have more terms */}
                             </span>
                           </h4>

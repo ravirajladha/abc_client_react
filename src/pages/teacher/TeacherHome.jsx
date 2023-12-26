@@ -66,18 +66,18 @@ function TeacherHome() {
               </div>
             </div>
             <div className="row">
-              <DashboardItem
+              <DashboardItem itemColFour
                 dashboardItemIcon="package"
                 dashboardInfo={dashboardInfo.teacher_classes_count}
                 dashboardItemName="My Classes"
               ></DashboardItem>
 
-              <DashboardItem
+              <DashboardItem itemColFour
                 dashboardItemIcon="book"
                 dashboardInfo={dashboardInfo.teacher_subject_count}
                 dashboardItemName="My Subjects"
               ></DashboardItem>
-              <DashboardItem
+              <DashboardItem itemColFour
                 dashboardItemIcon="user"
                 dashboardInfo={dashboardInfo.teacher_students_count}
                 dashboardItemName="My Students"
@@ -85,17 +85,17 @@ function TeacherHome() {
             </div>
             {teacherClassInfo?.map((classInfo) => (
               <div className="row" key={classInfo.class_id}>
-                <DashboardItem
+                <DashboardItem itemColFour
                   dashboardItemIcon="package"
                   dashboardInfo={classInfo.class_name}
-                  dashboardItemName="Class"
+                  dashboardItemName="&nbsp;"
                 ></DashboardItem>
-                <DashboardItem
+                <DashboardItem itemColFour
                   dashboardItemIcon="book"
                   dashboardInfo={classInfo.subject_count}
                   dashboardItemName={ classInfo.class_name + " Subjects"}
                 ></DashboardItem>
-                <DashboardItem
+                <DashboardItem itemColFour
                   dashboardItemIcon="user"
                   dashboardInfo={classInfo.student_count}
                   dashboardItemName={ classInfo.class_name + " Students"}

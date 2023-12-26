@@ -35,7 +35,7 @@ function Chats() {
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [selectedStudentName, setSelectedStudentName] = useState(null);
   const [messages, setMessages] = useState([]);
-
+  
   const [messageInput, setMessageInput] = useState("");
   const handleInputChange = (e) => {
     setMessageInput(e.target.value);
@@ -84,7 +84,8 @@ function Chats() {
   const sendMessage = (e) => {
     e.preventDefault();
     if (!user) return; // Guard against no user
-
+    const lastMessage = Object.values(messages).pop();
+    const qnaId = lastMessage.qna_id ;
     console.log(selectedStudent);
     // Perform your logic for sending the message
     const receiverId = selectedStudent; // Replace with the actual receiver ID
@@ -92,6 +93,7 @@ function Chats() {
     formData.append("receiver_id", receiverId);
     formData.append("sender_id", user.user.id);
     formData.append("message", messageInput);
+    formData.append("qna_id", qnaId);
 
     fetch(baseUrl + "api/send_message", {
       method: "POST",
@@ -103,7 +105,7 @@ function Chats() {
         // console.log('Message sent successfully', data);
         // Optionally, you can update the messages state here
         // toast.success(data.msg);
-        handleStudentClick(receiverId);
+        handleStudentClick(receiverId,selectedStudentName);
       })
       .catch((error) => {
         // Handle error
@@ -119,7 +121,6 @@ function Chats() {
   function shouldShowInput() {
     if (messages && messages.length > 0) {
       const lastMessage = Object.values(messages).pop();
-
       // Check if lastMessage is defined and if it's from the user and has been replied
       return lastMessage && lastMessage.sender_id !== auth_id;
     }
@@ -153,7 +154,7 @@ function Chats() {
             <div className="col-lg-6 col-xl-4 col-md-6 chat-left scroll-bar border-right-light pl-4 pr-4">
               <div className="section full mt-2 mb-2 pl-3">
                 <ul className="list-group list-group-flush">
-                  {students && students
+                  {students && students.length > 0
                     ? students.map((student, index) => (
                         <React.Fragment key={index}>
                           <li
@@ -190,7 +191,10 @@ function Chats() {
                           </li>
                         </React.Fragment>
                       ))
-                    : ""}
+                    : <div className="text-center">
+                      <h4 className="font-xs text-dark d-block">No Qnas available</h4>
+                      </div>
+                    }
                 </ul>
               </div>
             </div>
@@ -214,6 +218,7 @@ function Chats() {
                                   <img
                                     src="/assets/images/teacher.jpg"
                                     alt="avater"
+                                    style={{ height: '35px' }}
                                   />
                                 </figure>
                                 <div>
@@ -238,6 +243,7 @@ function Chats() {
                                   <img
                                     src="/assets/images/user_profile.jpg"
                                     alt="avater"
+                                    style={{ height: '35px' }}
                                   />
                                 </figure>
                                 <div>

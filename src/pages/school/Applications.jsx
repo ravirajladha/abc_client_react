@@ -212,15 +212,16 @@ function Applications() {
                       <td>{application.student_nationality}</td>
                       <td>{application.student_pname}</td>
                       <td>{application.student_religion}</td>
-                      <td>{application.updated_at}</td>
+                      <td>{new Date(application.updated_at).toLocaleString()}</td>
+
                       <td>
                         <button
-                          className={`p-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 ${
+                          className={`p-2 d-inline-block text-white fw-700 lh-10 rounded-lg text-center font-xsssss ls-3 ${
                             application.application_status === 1
                               ? "bg-success"
                               : application.application_status === 2
                               ? "bg-danger"
-                              : "bg-current"
+                              : "bg-primary"
                           }`}
                         >
                           {application.application_status === 1
@@ -232,7 +233,7 @@ function Applications() {
                       </td>
                       <td>
                         <select
-                          className="form-select p-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current border-none"
+                          className="p-2 d-inline-block text-dark fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-grey border-none"
                           value={application.application_status}
                           onChange={(e) =>
                             changeApplicationStatus(index, +e.target.value)
