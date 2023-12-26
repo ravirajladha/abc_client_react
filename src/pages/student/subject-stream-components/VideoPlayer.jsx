@@ -10,7 +10,7 @@ export const VideoPlayer = (props) => {
   const playerRef = React.useRef(null);
   const { options, onReady, onPlayerChange, videoId, subjectId, lastTimestamp  } = props;
 
-  const [lastVideoId, setLastVideoId] = useState(0);
+  const [lastVideoId, setLastVideoId] = useState(videoId);
   let completeStatus = 0;
 // Flag to check if the component is unmounting
 const isUnmounting = useRef(false);
@@ -31,7 +31,7 @@ const isUnmounting = useRef(false);
         onPlayerChange && onPlayerChange(player); // Pass the player instance to the parent
       });
 
-      
+      setLastVideoId(videoId);
       // You could update an existing player in the `else` block here
       // on prop change, for example:
     } else {
@@ -40,81 +40,62 @@ const isUnmounting = useRef(false);
       player.autoplay(options.autoplay);
       player.src(options.sources);
       player.currentTime(lastTimestamp);
+      setLastVideoId(videoId);
+
     }
 
     
 
   }, [options, videoRef]);
 
-useEffect(() =>{
-  const player = playerRef.current;
-// Listen for the 'ended' event
-player.on('ended', () => {
-  // Save timestamp when the video ends
-  const currentTime = player.currentTime();
-  const duration = player.duration();
-  if(currentTime === duration) {
-    completeStatus = 1;
-  }
-  saveTimestamp(lastVideoId, currentTime, completeStatus)
-    .then(() => {
-      // Optionally, you can do something after saving the timestamp
-      console.log("Timestamp saved on video end",lastVideoId);
-    })
-    .catch((error) => {
-      console.error("Error saving timestamp:", error);
-    });
-});
-},[videoRef])
+  useEffect(() => {
+    const player = playerRef.current;
+
+    const handleEnded = () => {
+      const currentTime = player.currentTime();
+      const duration = player.duration();
+      if (currentTime === duration) {
+        completeStatus = 1;
+      }
+      saveTimestamp(lastVideoId, currentTime, completeStatus)
+        .then(() => {
+          console.log('Timestamp saved on video end', lastVideoId);
+        })
+        .catch((error) => {
+          console.error('Error saving timestamp:', error);
+        });
+    };
+
+    player.on('ended', handleEnded);
+
+    return () => {
+      player.off('ended', handleEnded); // Remove the 'ended' event listener
+    };
+  }, [playerRef, lastVideoId]);
   
 
-// Save timestamp when component unmounts or options change
-useEffect(() => {
-  // if (playerRef.current && options.sources && options.sources.length > 0 && isUnmounting.current) {
-  //   console.log("component unmount");
-  //   const currentTime = playerRef.current.currentTime();
-  //   saveTimestamp(currentTime);
-  // }
-
-  if (playerRef.current && videoId && videoId !== '0' ) {
-    const currentTime = playerRef.current.currentTime();
-    const duration = playerRef.current.duration();
-    if(currentTime === duration) {
-      completeStatus = 1;
-    }
-    // Save timestamp using the previous state of lastVideoId
-    saveTimestamp(lastVideoId, currentTime, completeStatus)
-      .then(() => {
-        // Update lastVideoId with the new videoId
-        setLastVideoId(videoId);
-      })
-      .catch((error) => {
-        console.error("Error saving timestamp:", error);
-      });
-  }
-}, [videoId]);
-
+// Save timestamp when videos change and component unmounts
 // Dispose the Video.js player when the functional component unmounts
+
 useEffect(() => {
   const player = playerRef.current;
-
+  const lastVideoIdSnapshot = lastVideoId;  // Capture the current value
 
   return () => {
     if (player && !player.isDisposed()) {
-      // Set the isUnmounting flag to true before unmounting
-      isUnmounting.current = true;
-
-      const currentTime = playerRef.current.currentTime();
-      saveTimestamp(lastVideoId,currentTime, completeStatus);
+      const currentTime = player.currentTime();
+      console.warn("isUnmounting", lastVideoIdSnapshot, currentTime);
+      saveTimestamp(lastVideoIdSnapshot, currentTime, completeStatus);
       player.dispose();
       playerRef.current = null;
     }
   };
-}, [playerRef]);
+}, [lastVideoId]);
+
 
 const saveTimestamp = async (videoId,currentTime, completeStatus) => {
   try {
-    // console.log(videoId);
+    console.log(lastVideoId);
     if(videoId == 0){
       return
     }

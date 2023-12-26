@@ -53,6 +53,12 @@ function EbookModules() {
                     </h2>
                   </div>
                   <div className="float-right">
+                  <Link
+                          to={"/ebooks/preview_ebook_admin/" + ebook_id}
+                          className="px-3 py-2 me-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1"
+                        >
+                          VIEW
+                        </Link>
                     <Link
                       to={"/ebooks/" + ebook_id + "/create-module"}
                       className="px-3 py-2 me-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1"
