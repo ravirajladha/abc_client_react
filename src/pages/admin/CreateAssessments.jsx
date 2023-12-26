@@ -52,7 +52,7 @@ function CreateAssessments() {
   };
 
   function getNumberOfQuestions(selectedSubject) {
-    fetch(`${baseUrl}api/get_number_of_questions/${selectedSubject}`)
+    fetch(`${baseUrl}api/getAssessmentSubjectQuestionsCount/${selectedSubject}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);

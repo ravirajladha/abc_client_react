@@ -137,9 +137,7 @@ function Image_8_2({element}) {
                     </Modal.Header>
                     <Modal.Body>{element.image_desc_1}</Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={closeModal1}>
-                            Close
-                        </Button>
+                        
                     </Modal.Footer>
                 </Modal>
 
@@ -150,9 +148,7 @@ function Image_8_2({element}) {
                     </Modal.Header>
                     <Modal.Body>{element.image_desc_2}</Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={closeModal2}>
-                            Close
-                        </Button>
+                       
                     </Modal.Footer>
                 </Modal>
 
@@ -163,9 +159,7 @@ function Image_8_2({element}) {
                     </Modal.Header>
                     <Modal.Body>{element.image_desc_3}</Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={closeModal3}>
-                            Close
-                        </Button>
+                        
                     </Modal.Footer>
                 </Modal>
 
@@ -176,9 +170,7 @@ function Image_8_2({element}) {
                     </Modal.Header>
                     <Modal.Body>{element.image_desc_4}</Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={closeModal4}>
-                            Close
-                        </Button>
+                       
                     </Modal.Footer>
                 </Modal>
 
@@ -189,9 +181,7 @@ function Image_8_2({element}) {
                     </Modal.Header>
                     <Modal.Body>{element.image_desc_5}</Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={closeModal5}>
-                            Close
-                        </Button>
+                       
                     </Modal.Footer>
                 </Modal>
                 {/* Modal 6_1_6 */}
@@ -201,9 +191,7 @@ function Image_8_2({element}) {
                     </Modal.Header>
                     <Modal.Body>{element.image_desc_6}</Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={closeModal6}>
-                            Close
-                        </Button>
+                       
                     </Modal.Footer>
                 </Modal>
                 {/* Modal 6_1_6 */}
@@ -213,9 +201,7 @@ function Image_8_2({element}) {
                     </Modal.Header>
                     <Modal.Body>{element.image_desc_7}</Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={closeModal7}>
-                            Close
-                        </Button>
+                        
                     </Modal.Footer>
                 </Modal>
                 {/* Modal 6_1_6 */}
@@ -225,9 +211,7 @@ function Image_8_2({element}) {
                     </Modal.Header>
                     <Modal.Body>{element.image_desc_8}</Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={closeModal8}>
-                            Close
-                        </Button>
+                        
                     </Modal.Footer>
                 </Modal>
 

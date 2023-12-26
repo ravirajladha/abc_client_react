@@ -9432,6 +9432,12 @@
 .doc-body .page-container {
   padding: 12px;
 }
+.modal-title {
+  font-size: 1rem;
+}
+.modal-body {
+  font-size: 0.8rem;
+}
   /* responsive image */
   /* image 2_1 */
   .img-preview-2_1 {

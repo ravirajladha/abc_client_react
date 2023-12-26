@@ -94,7 +94,7 @@ function Login() {
           <div
             className="col-xl-5 d-none d-xl-block p-0 vh-100 bg-image-cover bg-no-repeat"
             style={{
-              backgroundImage: `url("https://img.freepik.com/free-photo/handsome-young-indian-student-man-holding-notebooks-while-standing-street_231208-2771.jpg?w=740&t=st=1680715615~exp=1680716215~hmac=45298129d97bba1e98a1ea8c5192b03a14d4ee345a47bffe6f190f0763be3cb2")`,
+              backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/classroom1.jpg)`,
             }}
           ></div>
 
@@ -195,14 +195,7 @@ function Login() {
                   </button>
                 </form>
 
-                <div className="col-sm-12 p-0 text-left">
-                  <h6 className="text-grey-500 font-xssss fw-500 mt-0 mb-0 lh-32">
-                    Dont have account{" "}
-                    <Link to="/register" className="fw-700 ml-1">
-                      Register
-                    </Link>
-                  </h6>
-                </div>
+                
               </div>
             </div>
           </div>

@@ -12,6 +12,7 @@ function AddElements() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const { section_id } = useParams();
 
+  const [ebookId, setEbookId] = useState("");
   useEffect(() => {
     getEbookSection();
     getEbookElements();
@@ -28,6 +29,7 @@ function AddElements() {
       }
       const data = await response.json();
       setEbookSection(data);
+      setEbookId(data.ebook.id);
     } catch (error) {
       console.error("Error fetching ebook section:", error.message);
     }
@@ -5116,6 +5118,12 @@ function AddElements() {
                     Add <b> Elements</b>{" "}
                   </h2>
                   <div className="float-right">
+                  <Link
+                          to={"/ebooks/preview_ebook_admin/" + ebookId}
+                          className="px-3 py-2 me-2  d-inline-block text-white fw-700 lh-30 rounded-lg  text-center font-xsssss ls-3 bg-current mx-1"
+                        >
+                          VIEW
+                        </Link>
                     <BackButton />
                   </div>
                 </div>
