@@ -18,7 +18,8 @@ const ProtectedRoute = ({  allowedTypes,element }) => {
     sub_admin: '/school',
     parent: '/parent',
     school_student: '/home',
-    admin: '/admin',// Assuming 'school_student' is already defined
+    admin: '/admin',
+    recruiter: '/recruiter',// Assuming 'school_student' is already defined
     // Add any other user types and their home paths here
   };
   // console.log(`User Data: ${JSON.stringify(userData)}`); // Add logging to check the userData structure

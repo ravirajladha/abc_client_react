@@ -59,6 +59,8 @@ function Login() {
             usenavigate("/school");
           } else if (user.user.type === "parent") {
             usenavigate("/parent");
+          } else if (user.user.type === "recruiter") {
+            usenavigate("/recruiter");
           } else {
             usenavigate("/home");
           }

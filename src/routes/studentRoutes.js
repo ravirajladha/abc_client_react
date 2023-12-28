@@ -35,6 +35,7 @@ import SubjectResults from "../pages/student/SubjectResults.jsx";
 import TestDetails from "../pages/student/TestDetails.jsx";
 import Internship from "../pages/student/Internship.jsx";
 import TakeInternship from "../pages/student/TakeInternship.jsx";
+import Jobs from "../pages/student/Jobs.jsx";
 
 export const studentRoutes = (
   <>
@@ -510,6 +511,15 @@ export const studentRoutes = (
       path={`${process.env.PUBLIC_URL}/internship/:internship_id`}
       element={React.createElement(
         withLayoutAndProtection(TakeInternship, {
+          allowedTypes: ["school_student"],
+        })
+      )}
+    />
+      <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/jobs`}
+      element={React.createElement(
+        withLayoutAndProtection(Jobs, {
           allowedTypes: ["school_student"],
         })
       )}

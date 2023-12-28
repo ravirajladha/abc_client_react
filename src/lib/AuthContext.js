@@ -53,6 +53,7 @@ export const AuthProvider = ({ children }) => {
       teacher: '/teacher',
       sub_admin: '/school',
       parent: '/parent',
+      recruiter: '/recruiter',
      
       // ... other user types
     };

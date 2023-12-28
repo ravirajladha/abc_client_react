@@ -10723,3 +10723,34 @@
   
     /* 10 Option-3 Ends */
 }
+
+
+
+/* hide scrool bar */
+   /* Hide scrollbar for WebKit (Chrome, Safari) */
+   #nav-scroll .collapse.navbar-collapse ul::-webkit-scrollbar {
+    width: 0.5em;
+}
+
+/* Hide scrollbar track for WebKit */
+#nav-scroll .collapse.navbar-collapse ul::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Hide scrollbar thumb for WebKit */
+#nav-scroll .collapse.navbar-collapse ul::-webkit-scrollbar-thumb {
+    background-color: transparent;
+}
+
+/* Hide scrollbar for Firefox */
+#nav-scroll .collapse.navbar-collapse ul{
+    scrollbar-width: none;
+}
+
+/* custom box list type */
+.list-square li::before {
+  content: "\25A0"; /* Unicode character for a square */
+  font-size: 16px;
+  margin-right: 10px;
+  color: #273078;
+}

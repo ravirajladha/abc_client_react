@@ -44,7 +44,7 @@ function CreateChapters() {
             .then((resp) => {
               
                 setChapterNames([""]); // Reset chapterNames to initial state
-                toast.success("resp.msg");
+                toast.success(resp.msg);
                 setTimeout(() => {
                     navigate(`/all_classes/all_subjects/all_chapters/${subject_id}`);// Navigate after 5 seconds
                 }, 5000);

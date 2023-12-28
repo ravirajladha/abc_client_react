@@ -7,6 +7,7 @@ import SchoolNav from "./nav-sidebar-components/SchoolNav.jsx";
 import ParentNav from "./nav-sidebar-components/ParentNav.jsx";
 import StudentNav from "./nav-sidebar-components/StudentNav.jsx";
 import TeacherNav from "./nav-sidebar-components/TeacherNav.jsx";
+import RecruiterNav from "./nav-sidebar-components/RecruiterNav.jsx";
 
 import { useContext } from "react";
 import { AuthContext } from "../../lib/AuthContext.js";
@@ -40,6 +41,7 @@ function AppHeader() {
     sub_admin: <SchoolNav isSidebarOpen={isSidebarOpen} />,
     parent: <ParentNav />,
     default: <StudentNav />,
+    recruiter: <RecruiterNav />,
   };
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);

@@ -111,6 +111,21 @@ function StudentNav() {
             <div className="nav-caption fw-600 font-xssss text-dark">
               Internship
             </div>
+
+            <li>
+              <NavLink
+                activeclassname="active"
+                to="/jobs"
+                className="nav-content-bttn open-font"
+                data-tab="favorites"
+              >
+                <i className="feather-briefcase mr-3"></i>
+                <span>Jobs</span>
+              </NavLink>
+            </li>
+            <div className="nav-caption fw-600 font-xssss text-dark">
+              Jobs
+            </div>
           </ul>
 
           {/* <div className="nav-caption fw-600 font-xssss text-dark">

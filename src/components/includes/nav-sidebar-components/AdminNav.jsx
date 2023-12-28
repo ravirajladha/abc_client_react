@@ -47,9 +47,7 @@ function AdminNav() {
                 <span>Home</span>
               </NavLink>
             </li>
-            <div className="nav-caption fw-600 font-xssss text-dark">
-              Home
-            </div>
+            <div className="nav-caption fw-600 font-xssss text-dark">Home</div>
 
             <li className="nav-item">
               <NavLink className="navi-link" to="/all_classes">
@@ -85,9 +83,7 @@ function AdminNav() {
                 <span>Tests</span>
               </NavLink>
             </li>
-            <div className="nav-caption fw-600 font-xssss text-dark">
-              Tests
-            </div>
+            <div className="nav-caption fw-600 font-xssss text-dark">Tests</div>
 
             <li className="nav-item">
               <NavLink className="navi-link" to="/mini_projects">
@@ -105,46 +101,36 @@ function AdminNav() {
                 <span>E-Labs</span>
               </NavLink>
             </li>
-            <div className="nav-caption fw-600 font-xssss text-dark">
-              E-Lab
-            </div>
+            <div className="nav-caption fw-600 font-xssss text-dark">E-Lab</div>
             <li className="nav-item">
               <NavLink className="navi-link" to="/ebooks">
                 <i className="feather-book mr-2"></i>
                 <span>E-Book</span>
               </NavLink>
-              
             </li>
             <div className="nav-caption fw-600 font-xssss text-dark">
               E-Book
             </div>
-          
+
             <li className="nav-item">
-              <a
-                href="https://atomstest.kods.app/admin/project_reports"
-                className="navi-link"
-                target="_blank"
-              >
-                <i className="feather-file mr-2 "></i>
+              <NavLink className="navi-link" to="/project-reports">
+                <i className="feather-file mr-2"></i>
                 <span>Project Report</span>
-              </a>
+              </NavLink>
             </li>
             <div className="nav-caption fw-600 font-xssss text-dark">
               Project Report
             </div>
             <li className="nav-item">
-              <a
-                href="https://atomstest.kods.app/admin/use_cases"
-                className="navi-link"
-                target="_blank"
-              >
+              <NavLink className="navi-link" to="/case-studies">
                 <i className="feather-codepen mr-2"></i>
-                <span>Case Study</span>
-              </a>
+                <span>Case study</span>
+              </NavLink>
             </li>
             <div className="nav-caption fw-600 font-xssss text-dark">
-            Case Study
+            Case study
             </div>
+            
             <li className="nav-item">
               <NavLink className="navi-link" to="/viewInternship">
                 <i class="feather-file-plus"></i>
@@ -166,7 +152,8 @@ function AdminNav() {
           </ul>
 
           <div className="nav-caption fw-600 font-xssss text-dark">
-            <span></span><u>Account</u>
+            <span></span>
+            <u>Account</u>
           </div>
           <ul className="mb-3">
             <li className="logo d-none d-xl-block d-lg-block"></li>

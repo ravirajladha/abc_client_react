@@ -9,6 +9,7 @@ import { teacherRoutes } from './routes/teacherRoutes.js';
 import {  schoolRoutes} from './routes/schoolRoutes.js';
 import { studentRoutes } from './routes/studentRoutes.js';
 import { parentRoutes } from './routes/parentRoutes.js';
+import { recruiterRoutes } from './routes/recruiterRoutes.js';
 // Common Layout
 import Login from "./pages/common/Login.jsx";
 import Register from "./pages/common/Register.jsx";
@@ -39,6 +40,7 @@ class Root extends Component {
                 {schoolRoutes}
                 {teacherRoutes}
                 {parentRoutes}
+                {recruiterRoutes}
               </Routes>
             </MainLayout>
           </AuthProvider>

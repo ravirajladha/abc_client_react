@@ -68,6 +68,19 @@ import EditVideo from "../pages/admin/edit-pages/EditVideo.jsx";
 import Settings from "../pages/common/Settings.jsx";
 import EditTest from "../pages/admin/edit-pages/EditTest.jsx";
 import EditStudent from "../pages/admin/edit-pages/EditStudent.jsx";
+import ProjectReports from "../pages/admin/project-reports/ProjectReports.jsx";
+import CreateProjectReport from "../pages/admin/project-reports/CreateProjectReport.jsx";
+import ProjectReportModules from "../pages/admin/project-reports/ProjectReportModules.jsx";
+import AddProjectReportElements from "../pages/admin/project-reports/AddProjectReportElements.jsx";
+import PreviewProjectReport from "../pages/admin/project-reports/PreviewProjectReport.jsx";
+import CreateCaseStudy from "../pages/admin/case-studies/CreateCaseStudy.jsx";
+import CaseStudyModules from "../pages/admin/case-studies/CaseStudyModules.jsx";
+import CaseStudies from "../pages/admin/case-studies/CaseStudies.jsx";
+import AddCaseStudyElements from "../pages/admin/case-studies/AddCaseStudyElements.jsx";
+import PreviewCaseStudy from "../pages/admin/case-studies/PreviewCaseStudy.jsx";
+import AddCaseStudyModule from "../pages/admin/case-studies/AddCaseStudyModule.jsx";
+import AddProjectReportModule from "../pages/admin/project-reports/AddProjectReportModule.jsx";
+
 // const AdminHomeWithLayoutAndProtection = withLayoutAndProtection(AdminHome, { allowedTypes: ['admin'] });
 export const adminRoutes = (
   <>
@@ -288,7 +301,9 @@ export const adminRoutes = (
       exact
       path={`${process.env.PUBLIC_URL}/assessments/all_questions`}
       element={React.createElement(
-        withLayoutAndProtection(AllAssessmentQuestions, { allowedTypes: ["admin"] })
+        withLayoutAndProtection(AllAssessmentQuestions, {
+          allowedTypes: ["admin"],
+        })
       )}
     />
 
@@ -296,7 +311,9 @@ export const adminRoutes = (
       exact
       path={`${process.env.PUBLIC_URL}/assessments/create_question`}
       element={React.createElement(
-        withLayoutAndProtection(CreateAssessmentQuestion, { allowedTypes: ["admin"] })
+        withLayoutAndProtection(CreateAssessmentQuestion, {
+          allowedTypes: ["admin"],
+        })
       )}
     />
 
@@ -414,7 +431,9 @@ export const adminRoutes = (
       exact
       path={`${process.env.PUBLIC_URL}/assessments/assessment_details/:assesmentId`}
       element={React.createElement(
-        withLayoutAndProtection(SingleAssessmentDetails, { allowedTypes: ["admin"] })
+        withLayoutAndProtection(SingleAssessmentDetails, {
+          allowedTypes: ["admin"],
+        })
       )}
     />
     <Route
@@ -613,7 +632,9 @@ export const adminRoutes = (
       exact
       path={`${process.env.PUBLIC_URL}/assessments/assessment_subject_wise/:subject_id`}
       element={React.createElement(
-        withLayoutAndProtection(AssessmentSubjectWise, { allowedTypes: ["admin"] })
+        withLayoutAndProtection(AssessmentSubjectWise, {
+          allowedTypes: ["admin"],
+        })
       )}
     />
     <Route
@@ -694,6 +715,110 @@ export const adminRoutes = (
       path={`${process.env.PUBLIC_URL}/school/:schoolId/student/:studentId/edit`}
       element={React.createElement(
         withLayoutAndProtection(EditStudent, { allowedTypes: ["admin"] })
+      )}
+    />
+
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/project-reports`}
+      element={React.createElement(
+        withLayoutAndProtection(ProjectReports, { allowedTypes: ["admin"] })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/project-reports/create-project-report`}
+      element={React.createElement(
+        withLayoutAndProtection(CreateProjectReport, {
+          allowedTypes: ["admin"],
+        })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/project-reports/project-report-modules/:projectReportId`}
+      element={React.createElement(
+        withLayoutAndProtection(ProjectReportModules, {
+          allowedTypes: ["admin"],
+        })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/project-reports/add-elements/:moduleId`}
+      element={React.createElement(
+        withLayoutAndProtection(AddProjectReportElements, {
+          allowedTypes: ["admin"],
+        })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/project-reports/preview_project-report-admin/:projectReportId`}
+      element={React.createElement(
+        withLayoutAndProtection(PreviewProjectReport, {
+          allowedTypes: ["admin"],
+        })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/project-reports/:projectReportId/create-module`}
+      element={React.createElement(
+        withLayoutAndProtection(AddProjectReportModule, { allowedTypes: ["admin"] })
+      )}
+    />
+
+
+
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/case-studies`}
+      element={React.createElement(
+        withLayoutAndProtection(CaseStudies, { allowedTypes: ["admin"] })
+      )}
+    />
+     <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/case-studies/create-case-study`}
+      element={React.createElement(
+        withLayoutAndProtection(CreateCaseStudy, {
+          allowedTypes: ["admin"],
+        })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/case-studies/case-study-modules/:caseStudyId`}
+      element={React.createElement(
+        withLayoutAndProtection(CaseStudyModules, {
+          allowedTypes: ["admin"],
+        })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/case-studies/add-elements/:moduleId`}
+      element={React.createElement(
+        withLayoutAndProtection(AddCaseStudyElements, {
+          allowedTypes: ["admin"],
+        })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/case-studies/preview_case-study-admin/:caseStudyId`}
+      element={React.createElement(
+        withLayoutAndProtection(PreviewCaseStudy, {
+          allowedTypes: ["admin"],
+        })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/case-studies/:caseStudyId/create-module`}
+      element={React.createElement(
+        withLayoutAndProtection(AddCaseStudyModule, { allowedTypes: ["admin"] })
       )}
     />
   </>
