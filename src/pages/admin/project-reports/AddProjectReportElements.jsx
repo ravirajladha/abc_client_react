@@ -11,7 +11,7 @@ import BackButton from "../../../components/navigation/BackButton";
 function AddProjectReportElements() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
 
-  const { moduleId } = useParams();
+  const { sectionId } = useParams();
   const [selectedElement, setSelectedElement] = useState("");
   const [additionalField, setAdditionalField] = useState(null);
   const [inputFields, setInputFields] = useState({});
@@ -25,21 +25,28 @@ function AddProjectReportElements() {
     }));
   };
     useEffect(() => {
-        getProjectReportModule();
+        getProjectReportSection();
       }, []);
     
-      const [projectReportModule, setProjectReportModule] = useState([]);
-      const getProjectReportModule = async () => {
+      const [projectReportSection, setProjectReportSection] = useState([]);
+
+      const [projectReportTitle, setProjectReportTitle] = useState('');
+      const [projectReportModuleTitle, setProjectReportModuleTitle] = useState('');
+      const [projectReportSectionTitle, setProjectReportSectionTitle] = useState('');
+      const getProjectReportSection = async () => {
         try {
           const response = await fetch(
-            baseUrl + `api/get-project-report-module-by-id/${moduleId}`
+            baseUrl + `api/get-project-report-section-by-id/${sectionId}`
           );
           if (!response.ok) {
             throw new Error("Failed to fetch ebook section");
           }
           const data = await response.json();
-          setProjectReportModule(data.projectReportModules);
-          console.log(data);
+          setProjectReportSection(data.projectReportSection);
+          setProjectReportSectionTitle(data.projectReportSection.section_title);
+          setProjectReportModuleTitle(data.projectReportSection.project_report_module.module_title);
+          setProjectReportTitle(data.projectReportSection.project_report_module.project_report.title);
+          console.warn(data);
         } catch (error) {
           console.error("Error fetching ebook section:", error.message);
         }
@@ -112,7 +119,7 @@ function AddProjectReportElements() {
         });
     
         // Add other form fields as needed
-        formData.append("moduleId", moduleId);
+        formData.append("sectionId", sectionId);
         formData.append("elementId", selectedElement);
         e.preventDefault();
         try {
@@ -175,7 +182,7 @@ function AddProjectReportElements() {
                           type="text"
                           className="form-control"
                           placeholder="Enter Ebook Title"
-                          value={projectReportModule.project_report && projectReportModule.project_report.title}
+                          value={projectReportTitle}
                           readOnly
                           disabled
                         />
@@ -192,7 +199,23 @@ function AddProjectReportElements() {
                           type="text"
                           className="form-control"
                           placeholder="Enter Ebook title"
-                          value={projectReportModule && projectReportModule.module_title}
+                          value={projectReportModuleTitle}
+                          readOnly
+                          disabled
+                        />
+                      </div>
+                    </div>
+                    <div className="col-lg-4">
+                      <div>
+                        <label className="mont-font fw-600 font-xsss">
+                          Section title
+                        </label>
+                        <br />
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="Enter Ebook title"
+                          value={projectReportSectionTitle}
                           readOnly
                           disabled
                         />
@@ -215,7 +238,7 @@ function AddProjectReportElements() {
                           <option readOnly disabled value="">
                             -Select-
                           </option>
-                          <option value="1">Heading</option>
+                          {/* <option value="1">Heading</option> */}
                           <option value="2">Paragraph</option>
                         </select>
                       </div>

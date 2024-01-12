@@ -89,13 +89,37 @@ function CaseStudyModules() {
                           >
                             {module.module_title}
                             <Link
-                              to={"/case-studies/add-elements/" + module.id}
+                              to={"/case-studies/add-sections/" + module.id}
                               className="p-2 text-current fw-700 rounded-lg text-center font-xss position-absolute top-50 end-0 translate-middle mr-5"
                             >
                               <i className="feather-edit me-0"></i>
                             </Link>
                           </Accordion.Header>
-                          
+                          <Accordion.Body>
+                            {module.case_study_sections ? (
+                              module.case_study_sections.map((section, i) => (
+                                <div key={i}>
+                                  <div className="d-flex align-items-center justify-content-between">
+                                    <h5 className="font-xss fw-500 text-dark-500 ml-2">
+                                      {section.section_title}
+                                    </h5>
+                                    <Link
+                                      to={"/case-studies/add-elements/" + section.id}
+                                      className="btn btn-icon btn-sm text-white rounded-lg text-center font-xsss bg-current float-right mr-3" title="Add new element"
+                                    >
+                                      <i className="feather-plus"></i>
+                                    </Link>
+                                  </div>
+                                  <hr className="my-2" />
+                                </div>
+                              ))
+                            ) : (
+                              <h2 className="fw-400 font-lg d-block">
+                                Loading ...
+                              </h2>
+                            )}
+                          </Accordion.Body>
+
                         </Accordion.Item>
                       ))
                     ) : (

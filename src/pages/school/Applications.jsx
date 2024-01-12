@@ -65,7 +65,7 @@ function Applications() {
       scrollCollapse: true,
       fixedColumns: {
         leftColumns: 0,
-        rightColumns: 2,
+        rightColumns: 3,
       },
     });
   };
@@ -108,6 +108,81 @@ function Applications() {
       });
   };
 
+
+  const whatsappMessage1 = encodeURIComponent('*Dear Parents*\nGreetings from Agasthya Vidyanikethan!\n\nI am happy to welcome you to the 2024-25 school year! We are looking forward to a productive partnership with you to ensure our children can achieve their highest potential. We recognize that to be successful in school, our children need support from both home and school. We know a strong partnership with you will make a significant difference in your child’s education. As partners, we share the responsibility for our children’s success and want you to know that we will do our very best to carry out our responsibilities.\nPlease know more about from the Website link given below\nhttps://av.school\n\nTo Watch the Demo Content, please click on the below link\nhttps://player.vimeo.com/video/655228863\n\nRegards,\nTeam Agasthya Vidyanikethan');
+
+  const handleWhatsappClick1 = (applicationIndex,contact) => {
+    // Update the status
+    updateStatus1(applicationIndex);
+
+    // Open the new window
+    window.open(
+      `https://api.whatsapp.com/send?text=${whatsappMessage1}&phone=${contact}`,
+      "_blank",
+      "width=800,height=600"
+    );
+  };
+  const updateStatus1 = (applicationIndex) => {
+    const updatedApplications = [...applications];
+    updatedApplications[applicationIndex].whatsapp_status = 1;
+    setApplications(updatedApplications);
+    fetch(`${baseUrl}api/school/update-application-wp-status`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          applicationId: updatedApplications[applicationIndex].id,
+          newStatus: 1,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          
+        })
+        .catch((error) => {
+          console.error("Error updating application status:", error);
+          
+        });
+  };
+
+  const whatsappMessage2 = encodeURIComponent("*Dear Parents*\nGreetings from Agasthya Vidyanikethan!\n\nWe are glad to announce the launch of our new website www.av.school with the updated and much awaited academic and non academic details of our institution. We hereby look forward to a productive collaboration with you to ensure our children's goals to the highest potential. Together, let us share the responsibility of building a strong citizen for our country.\n\nFor general queries please fill in the below mentioned google form.\n\nhttps://forms.gle/iKK7Av8agTBZQ7LW6\n\nFor admission related queries visit the below link.\n\nhttps://www.av.school/application\n\nPlease visit the website for more information\n\nThanking You,\n\nAgasthya Vidyanikethan");
+
+  const handleWhatsappClick2 = (applicationIndex,contact) => {
+    // Update the status
+    updateStatus2(applicationIndex);
+
+    // Open the new window
+    window.open(
+      `https://api.whatsapp.com/send?text=${whatsappMessage2}&phone=${contact}`,
+      "_blank",
+      "width=800,height=600"
+    );
+  };
+  const updateStatus2 = (applicationIndex) => {
+    const updatedApplications = [...applications];
+    updatedApplications[applicationIndex].whatsapp_status_2 = 1;
+    setApplications(updatedApplications);
+    fetch(`${baseUrl}api/school/update-application-wp-status-2`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          applicationId: updatedApplications[applicationIndex].id,
+          newStatus: 1,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          
+        })
+        .catch((error) => {
+          console.error("Error updating application status:", error);
+          
+        });
+  };
+
   return (
     <div className="middle-sidebar-bottom">
       <div className="middle-sidebar-left">
@@ -119,6 +194,12 @@ function Applications() {
               </h2>
             </div>
             <div className="float-right">
+              <Link
+                to="/school/applications/old-applications"
+                className="p-2 d-inline-block me-2 text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current text-uppercase"
+              >
+                Old Applications
+              </Link>
               <BackButton />
             </div>
           </div>
@@ -131,7 +212,8 @@ function Applications() {
                 <thead>
                   <tr>
                     <th scope="col">Sl. No.</th>
-                    <th scope="col">Student First Name</th>
+                    <th scope="col">Student Full Name</th>
+                    <th scope="col">Class Name</th>
                     <th scope="col">Father Name</th>
                     <th scope="col">Mother Name</th>
                     <th scope="col">Student DOB</th>
@@ -170,6 +252,7 @@ function Applications() {
                     <th scope="col">Updated at</th>
                     <th scope="col">Status</th>
                     <th scope="col">Actions</th>
+                    <th scope="col">Message</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -177,6 +260,7 @@ function Applications() {
                     <tr key={index}>
                       <td>{index + 1}</td>
                       <td>{application.student_fname}</td>
+                      <td>{application.classname}</td>
                       <td>{application.fname}</td>
                       <td>{application.m_name}</td>
                       <td>{application.student_dob}</td>
@@ -212,7 +296,9 @@ function Applications() {
                       <td>{application.student_nationality}</td>
                       <td>{application.student_pname}</td>
                       <td>{application.student_religion}</td>
-                      <td>{new Date(application.updated_at).toLocaleString()}</td>
+                      <td>
+                        {new Date(application.updated_at).toLocaleString()}
+                      </td>
 
                       <td>
                         <button
@@ -250,6 +336,47 @@ function Applications() {
                             Reject
                           </option>
                         </select>
+                      </td>
+                     
+                      <td className="text-center">
+                        {application.f_mob ? (
+                          <>
+                          <img
+                              src={application.whatsapp_status === 0 ? "/assets/images/whatsapp.png" : "/assets/images/whatsapp_gray.png"}
+                              alt="icon"
+                              width={30}
+                              className="d-inline-block"
+                            onClick={() => handleWhatsappClick1(index,application.f_mob)}
+                            />
+                            <img
+                              src={application.whatsapp_status_2 === 0 ? "/assets/images/whatsapp.png" : "/assets/images/whatsapp_gray.png"}
+                              alt="icon"
+                              width={30}
+                              className="d-inline-block"
+                            onClick={() => handleWhatsappClick2(index,application.f_mob)}
+                            />
+                          </>
+                            
+                        ) : (
+                          application.m_mob && (
+                           <>
+                              <img
+                                src={application.whatsapp_status === 0 ? "/assets/images/whatsapp.png" : "/assets/images/whatsapp_gray.png"}
+                                alt="icon"
+                                width={30}
+                                className="d-inline-block"
+                                onClick={() => handleWhatsappClick1(index,application.m_mob)}
+                              />
+                              <img
+                              src={application.whatsapp_status_2 === 0 ? "/assets/images/whatsapp.png" : "/assets/images/whatsapp_gray.png"}
+                              alt="icon"
+                              width={30}
+                              className="d-inline-block"
+                            onClick={() => handleWhatsappClick2(index,application.f_mob)}
+                            />
+                          </>
+                          )
+                        )}
                       </td>
                     </tr>
                   ))}

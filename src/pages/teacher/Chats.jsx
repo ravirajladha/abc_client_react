@@ -158,9 +158,8 @@ function Chats() {
                     ? students.map((student, index) => (
                         <React.Fragment key={index}>
                           <li
-                            className="bg-transparent list-group-item no-icon pl-0"
+                            className="bg-transparent list-group-item no-icon pl-0 shadow-md"
                             onClick={() => handleStudentClick(student.id,student.name)}
-                            style={{border:'2px solid blue'}}
                           >
                             <figure className="avatar float-left mb-0 mr-3">
                               <img
@@ -175,6 +174,7 @@ function Chats() {
                                 {student.name}
                               </a>
                             </h3>{" "}
+                            <p></p>
                             {shouldShowInput() ? (
                               <div>
                                 <span className="d-block">
