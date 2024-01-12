@@ -100,10 +100,13 @@ function ParentNav() {
             </li>
             <li className="nav-item">
               <NavLink className="navi-link" to="/parent/admissions">
-                <i className="feather-book-open mr-2"></i>
+                <i className="feather-briefcase mr-2"></i>
                 <span>Admissions</span>
               </NavLink>
             </li>
+            <div className="nav-caption fw-600 font-xssss text-dark">
+            Admissions
+            </div>
           </ul>
           {/* <div className="nav-caption my-2 fw-600 font-xssss text-dark mt-1">
             Children

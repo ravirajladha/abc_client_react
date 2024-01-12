@@ -67,7 +67,7 @@ function Application() {
       scrollCollapse: true,
       fixedColumns: {
         leftColumns: 0, // No left fixed columns
-        rightColumns: 2, // Freeze the last two columns
+        rightColumns: 3, // Freeze the last two columns
       },
     });
   };
@@ -115,7 +115,7 @@ function Application() {
   };
 
   return (
-    <div className="card-body p-lg-5 p-4 w-100 border-0">
+    <div className="card-body w-100 border-0">
       {loading ? (
         <Loader />
       ) : (
@@ -124,45 +124,18 @@ function Application() {
             <thead>
               <tr>
                 <th scope="col">Sl. No.</th>
-                <th scope="col">Student First Name</th>
+                <th scope="col">Student Name</th>
+                <th scope="col">Branch</th>
+                <th scope="col">Class</th>
                 <th scope="col">Father Name</th>
-                <th scope="col">Mother Name</th>
+                <th scope="col">Mother name</th>
+                <th scope="col">Father Ph no</th>
+                <th scope="col">Mother Ph no</th>
                 <th scope="col">Student DOB</th>
-                <th scope="col">Father Blood Group</th>
-                <th scope="col">Father Company</th>
-                <th scope="col">Father Designation</th>
-                <th scope="col">Father Email</th>
-                <th scope="col">Father Mobile</th>
-                <th scope="col">Father Qualification</th>
-                <th scope="col">Father Salary</th>
-                <th scope="col">Father Telephone</th>
-                <th scope="col">Mother Blood Group</th>
-                <th scope="col">Mother Company</th>
-                <th scope="col">Mother Designation</th>
-                <th scope="col">Mother Email</th>
-                <th scope="col">Mother Mobile</th>
-                <th scope="col">Mother Name</th>
-                <th scope="col">Mother Qualification</th>
-                <th scope="col">Mother Salary</th>
-                <th scope="col">Mother Telephone</th>
-                <th scope="col">Religion Name</th>
-                <th scope="col">Relative Phone</th>
-                <th scope="col">Relationship with Child</th>
-                <th scope="col">Residential Address</th>
-                <th scope="col">Residential Phone</th>
-                <th scope="col">Student Aadhaar</th>
-                <th scope="col">Student Blood Group</th>
-                <th scope="col">Student Caste</th>
-                <th scope="col">Student DOB</th>
-                <th scope="col">Student Father Name</th>
-                <th scope="col">Student Gender</th>
-                <th scope="col">Student Mother Tongue</th>
-                <th scope="col">Student Nationality</th>
-                <th scope="col">Student Parent Name</th>
-                <th scope="col">Student Religion</th>
                 <th scope="col">Updated at</th>
                 <th scope="col">Status</th>
                 <th scope="col">Actions</th>
+                <th scope="col">View</th>
               </tr>
             </thead>
             <tbody>
@@ -170,41 +143,13 @@ function Application() {
                 <tr key={index}>
                   <td className = "text-center">{index + 1}</td>
                   <td className = "text-center">{application?.student_fname ?? "-"}</td>
+                  <td className = "text-center">{application?.branch ?? "-"}</td>
+                  <td className = "text-center">{application?.classname ?? "-"}</td>
                   <td className = "text-center">{application?.fname ?? "-"}</td>
                   <td className = "text-center">{application?.m_name ?? "-"}</td>
-                  <td className = "text-center">{application?.student_dob ?? "-"}</td>
-                  <td className = "text-center">{application?.f_bld ?? "-"}</td>
-                  <td className = "text-center">{application?.f_comp ?? "-"}</td>
-                  <td className = "text-center">{application?.f_desig ?? "-"}</td>
-                  <td className = "text-center">{application?.f_email ?? "-"}</td>
                   <td className = "text-center">{application?.f_mob ?? "-"}</td>
-                  <td className = "text-center">{application?.f_qual ?? "-"}</td>
-                  <td className = "text-center">{application?.f_sal ?? "-"}</td>
-                  <td className = "text-center">{application?.f_tel ?? "-"}</td>
-                  <td className = "text-center">{application?.m_bld ?? "-"}</td>
-                  <td className = "text-center">{application?.m_comp ?? "-"}</td>
-                  <td className = "text-center">{application?.m_desig ?? "-"}</td>
-                  <td className = "text-center">{application?.m_email ?? "-"}</td>
                   <td className = "text-center">{application?.m_mob ?? "-"}</td>
-                  <td className = "text-center">{application?.m_name ?? "-"}</td>
-                  <td className = "text-center">{application?.m_qual ?? "-"}</td>
-                  <td className = "text-center">{application?.m_sal ?? "-"}</td>
-                  <td className = "text-center">{application?.m_tel ?? "-"}</td>
-                  <td className = "text-center">{application?.rel_name ?? "-"}</td>
-                  <td className = "text-center">{application?.rel_phone ?? "-"}</td>
-                  <td className = "text-center">{application?.relation_ch ?? "-"}</td>
-                  <td className = "text-center">{application?.res_add ?? "-"}</td>
-                  <td className = "text-center">{application?.res_phone ?? "-"}</td>
-                  <td className = "text-center">{application?.student_aadhaar ?? "-"}</td>
-                  <td className = "text-center">{application?.student_blood_group ?? "-"}</td>
-                  <td className = "text-center">{application?.student_caste ?? "-"}</td>
                   <td className = "text-center">{application?.student_dob ?? "-"}</td>
-                  <td className = "text-center">{application?.student_fname ?? "-"}</td>
-                  <td className = "text-center">{application?.student_gender ?? "-"}</td>
-                  <td className = "text-center">{application?.student_mt ?? "-"}</td>
-                  <td className = "text-center">{application?.student_nationality ?? "-"}</td>
-                  <td className = "text-center">{application?.student_pname ?? "-"}</td>
-                  <td className = "text-center">{application?.student_religion ?? "-"}</td>
                   <td className = "text-center">{application?.updated_at
     ? new Date(application.updated_at).toLocaleString()
     : "-"}</td>
@@ -245,6 +190,14 @@ function Application() {
                       </option>
                     </select>
                   </td>
+                  <td>
+                  <Link
+                  to={`/schools/view-application/${application.id}`}
+                  className="p-2 px-3 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current"
+                >
+                  <i className="feather-eye ml-2"></i>
+                </Link>
+                    </td>
                 </tr>
               ))}
             </tbody>
