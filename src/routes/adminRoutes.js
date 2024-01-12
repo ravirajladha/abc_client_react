@@ -80,8 +80,6 @@ import AddCaseStudyElements from "../pages/admin/case-studies/AddCaseStudyElemen
 import PreviewCaseStudy from "../pages/admin/case-studies/PreviewCaseStudy.jsx";
 import AddCaseStudyModule from "../pages/admin/case-studies/AddCaseStudyModule.jsx";
 import AddProjectReportModule from "../pages/admin/project-reports/AddProjectReportModule.jsx";
-import AddProjectReportSections from "../pages/admin/project-reports/AddProjectReportSections.jsx";
-import AddCaseStudySections from "../pages/admin/case-studies/AddCaseStudySections.jsx";
 
 // const AdminHomeWithLayoutAndProtection = withLayoutAndProtection(AdminHome, { allowedTypes: ['admin'] });
 export const adminRoutes = (
@@ -747,7 +745,7 @@ export const adminRoutes = (
     />
     <Route
       exact
-      path={`${process.env.PUBLIC_URL}/project-reports/add-elements/:sectionId`}
+      path={`${process.env.PUBLIC_URL}/project-reports/add-elements/:moduleId`}
       element={React.createElement(
         withLayoutAndProtection(AddProjectReportElements, {
           allowedTypes: ["admin"],
@@ -770,13 +768,7 @@ export const adminRoutes = (
         withLayoutAndProtection(AddProjectReportModule, { allowedTypes: ["admin"] })
       )}
     />
-    <Route
-      exact
-      path={`${process.env.PUBLIC_URL}/project-reports/add-sections/:moduleId`}
-      element={React.createElement(
-        withLayoutAndProtection(AddProjectReportSections, { allowedTypes: ["admin"] })
-      )}
-    />
+
 
 
     <Route
@@ -806,7 +798,7 @@ export const adminRoutes = (
     />
     <Route
       exact
-      path={`${process.env.PUBLIC_URL}/case-studies/add-elements/:sectionId`}
+      path={`${process.env.PUBLIC_URL}/case-studies/add-elements/:moduleId`}
       element={React.createElement(
         withLayoutAndProtection(AddCaseStudyElements, {
           allowedTypes: ["admin"],
@@ -827,13 +819,6 @@ export const adminRoutes = (
       path={`${process.env.PUBLIC_URL}/case-studies/:caseStudyId/create-module`}
       element={React.createElement(
         withLayoutAndProtection(AddCaseStudyModule, { allowedTypes: ["admin"] })
-      )}
-    />
-    <Route
-      exact
-      path={`${process.env.PUBLIC_URL}/case-studies/add-sections/:moduleId`}
-      element={React.createElement(
-        withLayoutAndProtection(AddCaseStudySections, { allowedTypes: ["admin"] })
       )}
     />
   </>

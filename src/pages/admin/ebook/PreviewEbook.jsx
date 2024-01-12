@@ -139,15 +139,7 @@ const toggleNav = () => {
     getEbook();
     getEbookElements();
   }, []);
-// for nav dropdowsns
-const [visibleModule, setVisibleModule] = useState(null);
 
-const toggleSections = (moduleId) => {
-  // Toggle the visibility of sections for the clicked module
-  setVisibleModule((prevVisibleModule) =>
-    prevVisibleModule === moduleId ? null : moduleId
-  );
-};
   if (!ebookModules || !Object.keys(moduleRefs).length) {
     return (
       <div className="vh-100">
@@ -236,9 +228,10 @@ const toggleSections = (moduleId) => {
       <nav
         id="nav-scroll"
         className="side-nav left-nav navbar-expand-lg nav bg-white"
+        style={{ maxHeight: "100vh", overflowY: "auto" }}
       >
         <button
-          className={`navbar-toggler ${isNavOpen ? '' : 'collapsed'} ml-auto`}
+          className={`navbar-toggler ${isNavOpen ? '' : 'collapsed'}`}
           onClick={toggleNav}
           type="button"
           
@@ -249,7 +242,7 @@ const toggleSections = (moduleId) => {
         </button>
         <div className={`collapse navbar-collapse ${isNavOpen ? 'show' : ''}`} id="navbar-toggle">
 
-        {/* <Accordion
+        <Accordion
           defaultActiveKey="0"
           className="accordion mb-0 accordion-course"
         >
@@ -275,6 +268,7 @@ const toggleSections = (moduleId) => {
                         >
                           {section.section_title}
                         </Link>
+                        {/* <hr style={{ margin: 0 }} /> */}
                       </div>
                     ))
                   ) : (
@@ -289,60 +283,7 @@ const toggleSections = (moduleId) => {
               className="accordion-item border-0 mb-0 shadow-xss rounded-sm bg-white"
             ></Accordion.Item>
           )}
-        </Accordion> */}
-         <ul
-              className="list-unstyled"
-              id="main-collapse"
-              style={{
-                margin: 0,
-                padding: 0,
-                height: "100%",
-                overflowY: "auto",
-                transition: "height 0.3s ease-in-out",
-              }}
-            >
-              
-              {ebookModules
-                ? ebookModules.map((module,moduleIndex) => (
-                    <li
-                      key={module.id}
-                      className="mt-3"
-                      style={{
-                        borderBottom: "1px solid #ddd",
-                        padding: "10px",
-                        cursor: "pointer",
-                      }}
-                    >
-                      <div
-                        onClick={() => toggleSections(module.id)}
-                        style={{
-                          fontWeight: 700,
-                          fontSize: "14px",
-                        }}
-                      >
-                        {module.module_title}
-                      </div>
-
-                      {visibleModule === module.id && (
-                        <ul style={{ paddingLeft: "10px" }}>
-                          {module.ebook_sections.map((section,sectionIndex) => (
-                            <li key={section.id}>
-                               <Link
-                          className="nav-link sidenav-sub-item"
-                          onClick={handleScroll(moduleIndex, sectionIndex)}
-                          to={`#${generateId(section.section_title)}`}
-                          style={{ padding: "12px 0px" }}
-                        >
-                          {section.section_title}
-                        </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </li>
-                  ))
-                : ""}
-            </ul>
+        </Accordion>
         </div>
       </nav>
       <div className="page-container">

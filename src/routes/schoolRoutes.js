@@ -26,8 +26,6 @@ import TestResultDetails from "../pages/admin/TestResultDetails.jsx";
 import Settings from "../pages/common/Settings.jsx";
 import EditStudent from "../pages/school/EditStudent.jsx";
 import EditTeacher from "../pages/school/EditTeacher.jsx";
-import OldApplications from "../pages/school/OldApplications.jsx";
-import UploadOldApplications from "../pages/school/UploadOldApplications.jsx";
 
 export const schoolRoutes = (
   <>
@@ -160,20 +158,6 @@ export const schoolRoutes = (
       path={`${process.env.PUBLIC_URL}/school/applications`}
       element={React.createElement(
         withLayoutAndProtection(Applications, { allowedTypes: ["sub_admin"] })
-      )}
-    />
-    <Route
-      exact
-      path={`${process.env.PUBLIC_URL}/school/applications/old-applications`}
-      element={React.createElement(
-        withLayoutAndProtection(OldApplications, { allowedTypes: ["sub_admin"] })
-      )}
-    />
-    <Route
-      exact
-      path={`${process.env.PUBLIC_URL}/school/applications/upload-applications`}
-      element={React.createElement(
-        withLayoutAndProtection(UploadOldApplications, { allowedTypes: ["sub_admin"] })
       )}
     />
     <Route

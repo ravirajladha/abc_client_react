@@ -11,7 +11,7 @@ import BackButton from "../../../components/navigation/BackButton";
 function AddCaseStudyElements() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
 
-  const { sectionId } = useParams();
+  const { moduleId } = useParams();
   const [selectedElement, setSelectedElement] = useState("");
   const [additionalField, setAdditionalField] = useState(null);
   const [inputFields, setInputFields] = useState({});
@@ -42,31 +42,24 @@ function AddCaseStudyElements() {
     });
   };
 
-  const [caseStudySection, setCaseStudySection] = useState([]);
-
-  const [caseStudyTitle, setCaseStudyTitle] = useState('');
-      const [caseStudyModuleTitle, setCaseStudyModuleTitle] = useState('');
-      const [caseStudySectionTitle, setCaseStudySectionTitle] = useState('');
-  const getCaseStudySection = async () => {
+  const [caseStudyModule, setCaseStudyModule] = useState([]);
+  const getCaseStudyModule = async () => {
     try {
       const response = await fetch(
-        baseUrl + `api/get-case-study-section-by-id/${sectionId}`
+        baseUrl + `api/get-case-study-module-by-id/${moduleId}`
       );
       if (!response.ok) {
         throw new Error("Failed to fetch ebook section");
       }
       const data = await response.json();
-      setCaseStudySection(data.caseStudySection);
-      setCaseStudySectionTitle(data.caseStudySection.section_title);
-      setCaseStudyModuleTitle(data.caseStudySection.case_study_module.module_title);
-      setCaseStudyTitle(data.caseStudySection.case_study_module.case_study.title);
+      setCaseStudyModule(data.caseStudyModules);
       console.log(data);
     } catch (error) {
       console.error("Error fetching ebook section:", error.message);
     }
   };
   useEffect(() => {
-    getCaseStudySection();
+    getCaseStudyModule();
   }, []);
   const handleElementChange = (event) => {
     const selectedElementId = event.target.value;
@@ -114,12 +107,10 @@ function AddCaseStudyElements() {
                   <option value="" selected disabled readOnly>
                     --select--
                   </option>
-                  <option value="bullet">Bullet</option>
-                  <option value="check">Check</option>
-                  <option value="arrow">Arrow</option>
-                  <option value="star">Star</option>
-                <option value="square">Square</option>
-
+                  <option value="Bullet">Bullet</option>
+                  <option value="Check">Check</option>
+                  <option value="Arrow">Arrow</option>
+                  <option value="Star">Star</option>
                 </select>
               </div>
             </div>
@@ -173,11 +164,10 @@ function AddCaseStudyElements() {
                 <option value="" selected disabled readOnly>
                   --select--
                 </option>
-                <option value="bullet">Bullet</option>
-                <option value="check">Check</option>
-                <option value="arrow">Arrow</option>
-                <option value="star">Star</option>
-                <option value="square">Square</option>
+                <option value="Bullet">Bullet</option>
+                <option value="Check">Check</option>
+                <option value="Arrow">Arrow</option>
+                <option value="Star">Star</option>
               </select>
             </div>
           </div>
@@ -224,8 +214,6 @@ function AddCaseStudyElements() {
                   <option value="check">Check</option>
                   <option value="arrow">Arrow</option>
                   <option value="star">Star</option>
-                <option value="square">Square</option>
-
                 </select>
               </div>
             </div>
@@ -296,8 +284,6 @@ function AddCaseStudyElements() {
                 <option value="check">Check</option>
                 <option value="arrow">Arrow</option>
                 <option value="star">Star</option>
-                <option value="square">Square</option>
-
               </select>
             </div>
           </div>
@@ -432,7 +418,7 @@ function AddCaseStudyElements() {
     });
 
     // Add other form fields as needed
-    formData.append("sectionId", sectionId);
+    formData.append("moduleId", moduleId);
     formData.append("elementId", selectedElement);
     e.preventDefault();
     try {
@@ -496,7 +482,8 @@ function AddCaseStudyElements() {
                           className="form-control"
                           placeholder="Enter Ebook Title"
                           value={
-                            caseStudyTitle
+                            caseStudyModule.case_study &&
+                            caseStudyModule.case_study.title
                           }
                           readOnly
                           disabled
@@ -515,24 +502,8 @@ function AddCaseStudyElements() {
                           className="form-control"
                           placeholder="Enter Ebook title"
                           value={
-                            caseStudyModuleTitle
+                            caseStudyModule && caseStudyModule.module_title
                           }
-                          readOnly
-                          disabled
-                        />
-                      </div>
-                    </div>
-                    <div className="col-lg-4">
-                      <div>
-                        <label className="mont-font fw-600 font-xsss">
-                          Section title
-                        </label>
-                        <br />
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder="Enter Ebook title"
-                          value={caseStudySectionTitle}
                           readOnly
                           disabled
                         />

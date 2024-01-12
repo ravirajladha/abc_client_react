@@ -21,7 +21,6 @@ function CreateSubject() {
   const [selectedClass, setSelectedClass] = useState(class_id);
   const [subject, setSubject] = useState("");
   const [image, setImage] = useState("");
-  const [description, setDescription] = useState("");
 
   function getClasses() {
     let result = fetch(baseUrl + "api/get_classes").then(function (result) {
@@ -37,7 +36,6 @@ function CreateSubject() {
     formData.append("class", selectedClass);
     formData.append("subject", subject);
     formData.append("image", image);
-    formData.append("description", description);
     e.preventDefault();
     setIsSubmitting(true);
     fetch(baseUrl + "api/create_subject", {
@@ -89,7 +87,7 @@ function CreateSubject() {
                       onSubmit={createSubject}
                     >
                       <div className="row mb-6">
-                        <div className="col-lg-6">
+                        <div className="col-lg-4">
                           <label className="mont-font fw-600 font-xsss">
                             {" "}
                             Name
@@ -104,7 +102,7 @@ function CreateSubject() {
                             required
                           />
                         </div>
-                        <div className="col-lg-6">
+                        <div className="col-lg-4">
                           <div className="">
                             <label className="mont-font fw-600 font-xsss">
                               {" "}
@@ -120,22 +118,6 @@ function CreateSubject() {
                               accept="image/*"
                             />
                           </div>
-                        </div>
-                        <div className="col-lg-12">
-                          <label className="mont-font fw-600 font-xsss">
-                            {" "}
-                            Description
-                          </label>
-                          <br />
-                          <textarea
-                            rows="4"
-                            cols="70"
-                            className="form-control"
-                            placeholder="Enter Description.."
-                            value={description}
-                            onChange={(e) => setDescription(e.target.value)}
-                            required
-                          ></textarea>
                         </div>
                         <div className="col-lg-12">
                           <button

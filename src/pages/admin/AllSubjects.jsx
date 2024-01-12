@@ -5,7 +5,7 @@ import AppFooter from "../../components/includes/AppFooter";
 import BackButton from "../../components/navigation/BackButton";
 import Loader from "../../components/common/Loader";
 import NoContent from "../../components/common/NoContent.jsx";
-import { Modal, Button } from "react-bootstrap";
+
 function AllSubjects() {
   const { class_id } = useParams();
   const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -17,7 +17,7 @@ function AllSubjects() {
       baseUrl + "api/admin/get_subjects_and_video_count_by_class/" + class_id
     ).then(function (result) {
       result.json().then(function (jsonbody) {
-        console.warn(jsonbody);
+        //console.warn(jsonbody);
         setSubjects(jsonbody);
         setIsLoading(false);
       });
@@ -29,16 +29,6 @@ function AllSubjects() {
       getSubjects(class_id);
     }
   }, [class_id]);
-
-  const [showDescription, setShowDescription] = useState(null);
-
-  const handleMouseEnter = (index) => {
-    setShowDescription(index);
-  };
-
-  const handleMouseLeave = () => {
-    setShowDescription(null);
-  };
 
   return (
     <>
@@ -89,23 +79,7 @@ function AllSubjects() {
                     </Link>
                     <h4 className="fw-700 font-xs mt-4">
                       {subject.subject_name}
-                      <i
-                        className="feather-info text-primary"
-                        onMouseEnter={() => handleMouseEnter(index)}
-                        onMouseLeave={handleMouseLeave}
-                      ></i>
                     </h4>
-                    {subject.description && showDescription === index && (
-                      <div className="position-absolute mr-4 top-50 mt-2 mont-font font-xsss fw-500 shadow-md"
-                        style={{
-                          backgroundColor: "#f9f9f9",
-                          padding: "10px",
-                          zIndex: "1",
-                        }}
-                      >
-                        <p>{subject.description}</p>
-                      </div>
-                    )}
                     <div className="card-footer bg-transparent border-top-0">
                       <span className="font-xsssss fw-700 pl-3 pr-3 lh-32 text-uppercase rounded-lg ls-2 alert-success d-inline-block text-success mb-1 mr-1">
                         Chapter Count

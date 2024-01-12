@@ -128,8 +128,8 @@ function SubjectStream() {
           setLastTimestamp(resp && resp.video_timestamp);
           const defaultSources = [
             {
-              src: baseUrl + 'api/video/playlist/' + resp.video_details.video_file,
-              type: 'application/x-mpegURL',
+              src: baseUrl + resp.video_details.video_file,
+              type: "video/mp4",
             },
           ];
           setVideoJsOptions((prevOptions) => ({
@@ -182,9 +182,8 @@ function SubjectStream() {
 
     const newSources = [
       {
-        // src: baseUrl + videoFile,
-        src: baseUrl + 'api/video/playlist/' + videoFile,
-        type: 'application/x-mpegURL',
+        src: baseUrl + videoFile,
+        type: "video/mp4",
       },
     ];
 
@@ -224,9 +223,8 @@ function SubjectStream() {
       ...prevOptions,
       sources: [
         {
-          // src: baseUrl + matchVideo.video_file,
-        src: baseUrl + 'api/video/playlist/' + matchVideo.video_file,
-          type: 'application/x-mpegURL',
+          src: baseUrl + matchVideo.video_file,
+          type: "video/mp4",
         },
       ],
     }));

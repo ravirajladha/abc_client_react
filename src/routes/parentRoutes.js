@@ -16,7 +16,6 @@ import ParentSettings from "../pages/parent/ParentSettings.jsx";
 import ParentAddStudent from "../pages/parent/ParentAddStudent.jsx";
 
 import TestResultDetails from "../pages/admin/TestResultDetails.jsx";
-import Admissions from "../pages/parent/Admissions.jsx";
 
 export const parentRoutes = (
   <>
@@ -89,15 +88,6 @@ export const parentRoutes = (
       path={`${process.env.PUBLIC_URL}/student/:studentId/assessments/:subjectId`}
       element={React.createElement(
         withLayoutAndProtection(StudentAssessmentResults, {
-          allowedTypes: ["parent"],
-        })
-      )}
-    />
-    <Route
-      exact
-      path={`${process.env.PUBLIC_URL}/parent/admissions`}
-      element={React.createElement(
-        withLayoutAndProtection(Admissions, {
           allowedTypes: ["parent"],
         })
       )}

@@ -113,7 +113,7 @@ function CreateJob() {
                     </div>
                     <div className="col-lg-6">
                       <label className="mont-font fw-600 font-xsss">
-                        CTC
+                        Job Title
                       </label>
                       <input
                               type="number"

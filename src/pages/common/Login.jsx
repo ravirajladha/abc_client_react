@@ -39,11 +39,7 @@ function Login() {
         .then((res) => {
           // Check the HTTP status code before proceeding
           if (!res.ok) {
-            throw new Error(
-              res.status === 402
-                ? "Credentials not Enabled"
-                : "Invalid Credentials"
-            ); // This will be caught by the catch block below
+            throw new Error(res.status === 402 ? "Credentials not Enabled" : "Invalid Credentials"); // This will be caught by the catch block below
           }
           return res.json();
         })
@@ -200,14 +196,8 @@ function Login() {
                     Login
                   </button>
                 </form>
-                <div className="col-sm-12 p-0 text-left">
-                  <h6 className="text-grey-500 font-xssss fw-500 mt-0 mb-0 lh-32">
-                    Dont have account{" "}
-                    <Link to="/register" className="fw-700 ml-1">
-                      Register
-                    </Link>
-                  </h6>
-                </div>
+
+                
               </div>
             </div>
           </div>

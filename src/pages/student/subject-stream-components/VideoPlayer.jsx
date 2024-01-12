@@ -12,6 +12,8 @@ export const VideoPlayer = (props) => {
 
   const [lastVideoId, setLastVideoId] = useState(videoId);
   let completeStatus = 0;
+// Flag to check if the component is unmounting
+const isUnmounting = useRef(false);
   useEffect(() => {
 
     // Make sure Video.js player is only initialized once
@@ -28,10 +30,7 @@ export const VideoPlayer = (props) => {
         onReady && onReady(player);
         onPlayerChange && onPlayerChange(player); // Pass the player instance to the parent
       });
-      player.on('error', function(error) {
-        console.error('Video.js error:', error);
-        // Handle the error or display an error message to the user.
-      });
+
       setLastVideoId(videoId);
       // You could update an existing player in the `else` block here
       // on prop change, for example:
@@ -40,11 +39,9 @@ export const VideoPlayer = (props) => {
 
       player.autoplay(options.autoplay);
       player.src(options.sources);
-      // player.src(`${baseUrl}storage/videos/Sw2D1704093796.m3u8`);
       player.currentTime(lastTimestamp);
       setLastVideoId(videoId);
-      
-      
+
     }
 
     
@@ -137,7 +134,7 @@ const saveTimestamp = async (videoId,currentTime, completeStatus) => {
       <div ref={videoRef} />
       <i className="watermark" >{"userId"+user_id}</i>
       <img className="watermark_image"
-        src="assets/images/logo.png"
+        src="https://jonnasuresh.files.wordpress.com/2013/03/vtu-logo.png"
         alt="" style={{ opacity: 50, width: 50 }} />
     </div>
 
