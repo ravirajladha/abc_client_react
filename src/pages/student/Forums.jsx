@@ -103,9 +103,9 @@ function Forums() {
                                     <BackButton />
                                 </div>
                             </div>
-                            <div className="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
+                            <div className="card w-100 border-0 bg-white shadow-md p-0 mb-4">
                                 <div className="row">
-                                    <div className="col-lg-10 col-10">
+                                    <div className="col-lg-10 col-10 ">
                                         <div className="form-group icon-input mb-0 search-box">
                                             <i className="ti-search font-xs text-grey-400"></i>
                                             <input type="text"
@@ -119,8 +119,8 @@ function Forums() {
                                     </div>
                                     <div className="col-lg-2 col-2 my-auto">
                                         <Link to={"/school_forums/view_forum/" + forumId}
-                                            className="btn btn-sm bg-current text-white font-xssss fw-600 border-0 text-uppercase p-2"
-                                            >Search</Link>
+                                            className="btn btn-sm bg-primary text-white font-xss fw-600 border-0 text-uppercase p-2"
+                                            ><i className='feather-search'></i></Link>
                                     </div>
                                 </div>
                                 <div>

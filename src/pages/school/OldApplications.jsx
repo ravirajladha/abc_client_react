@@ -13,7 +13,7 @@ import BackButton from "../../components/navigation/BackButton";
 import Loader from "../../components/common/Loader.jsx";
 import NoContent from "../../components/common/NoContent.jsx";
 
-function Applications() {
+function OldApplications() {
   const tableRef = useRef(null);
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const [applications, setApplications] = useState([]);
@@ -21,10 +21,10 @@ function Applications() {
 
   const getApplications = () => {
     return new Promise((resolve, reject) => {
-      fetch(`${baseUrl}api/school/api_get_all_applications`)
+      fetch(`${baseUrl}api/school/get-old-applications`)
         .then((result) => result.json())
         .then((jsonbody) => {
-          setApplications(jsonbody);
+          setApplications(jsonbody.old_applications);
           setIsLoading(false);
           resolve(jsonbody);
           initializeDataTable();
@@ -43,22 +43,6 @@ function Applications() {
     });
   }, []);
 
-  // useEffect(() => {
-  //   if (applications.length > 0 && tableRef.current) {
-  //     const dataTable = $(tableRef.current).DataTable({
-  //       scrollX: true,
-  //       scrollCollapse: true,
-  //       fixedColumns: {
-  //         leftColumns: 0,
-  //         rightColumns: 2,
-  //       },
-  //     });
-  //     return () => {
-  //       dataTable.destroy();
-  //     };
-  //   }
-  // }, [applications]);
-
   const initializeDataTable = () => {
     $(tableRef.current).DataTable({
       scrollX: true,
@@ -75,7 +59,7 @@ function Applications() {
     updatedApplications[applicationIndex].application_status = newStatus;
     setApplications(updatedApplications);
     // Send a request to update the status on the backend
-    fetch(`${baseUrl}api/school/update_application_status`, {
+    fetch(`${baseUrl}api/school/update-old-application-status`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -107,8 +91,6 @@ function Applications() {
         setApplications(updatedApplications);
       });
   };
-
-
   const whatsappMessage1 = encodeURIComponent('*Dear Parents*\nGreetings from Agasthya Vidyanikethan!\n\nI am happy to welcome you to the 2024-25 school year! We are looking forward to a productive partnership with you to ensure our children can achieve their highest potential. We recognize that to be successful in school, our children need support from both home and school. We know a strong partnership with you will make a significant difference in your child’s education. As partners, we share the responsibility for our children’s success and want you to know that we will do our very best to carry out our responsibilities.\nPlease know more about from the Website link given below\nhttps://av.school\n\nTo Watch the Demo Content, please click on the below link\nhttps://player.vimeo.com/video/655228863\n\nRegards,\nTeam Agasthya Vidyanikethan');
 
   const handleWhatsappClick1 = (applicationIndex,contact) => {
@@ -126,7 +108,7 @@ function Applications() {
     const updatedApplications = [...applications];
     updatedApplications[applicationIndex].whatsapp_status = 1;
     setApplications(updatedApplications);
-    fetch(`${baseUrl}api/school/update-application-wp-status`, {
+    fetch(`${baseUrl}api/school/update-old-application-wp-status`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -163,7 +145,7 @@ function Applications() {
     const updatedApplications = [...applications];
     updatedApplications[applicationIndex].whatsapp_status_2 = 1;
     setApplications(updatedApplications);
-    fetch(`${baseUrl}api/school/update-application-wp-status-2`, {
+    fetch(`${baseUrl}api/school/update-old-application-wp-status-2`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -182,7 +164,6 @@ function Applications() {
           
         });
   };
-
   return (
     <div className="middle-sidebar-bottom">
       <div className="middle-sidebar-left">
@@ -190,15 +171,15 @@ function Applications() {
           <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
             <div>
               <h2 className="fw-400 font-lg d-block">
-                All <b> Applications</b>
+                Old <b> Applications</b>
               </h2>
             </div>
             <div className="float-right">
               <Link
-                to="/school/applications/old-applications"
+                to="/school/applications/upload-applications"
                 className="p-2 d-inline-block me-2 text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current text-uppercase"
               >
-                Old Applications
+                Upload Applications
               </Link>
               <BackButton />
             </div>
@@ -212,44 +193,31 @@ function Applications() {
                 <thead>
                   <tr>
                     <th scope="col">Sl. No.</th>
-                    <th scope="col">Student Full Name</th>
-                    <th scope="col">Class Name</th>
+                    <th scope="col">Month</th>
+                    <th scope="col">Year</th>
+                    <th scope="col">Enquiry Date</th>
+                    <th scope="col">Student Name</th>
+                    <th scope="col">Enquiry Class</th>
+                    <th scope="col">2024-25 Yr. Class Expected</th>
+                    <th scope="col">DOB</th>
                     <th scope="col">Father Name</th>
                     <th scope="col">Mother Name</th>
-                    <th scope="col">Student DOB</th>
-                    <th scope="col">Father Blood Group</th>
-                    <th scope="col">Father Company</th>
-                    <th scope="col">Father Designation</th>
-                    <th scope="col">Father Email</th>
-                    <th scope="col">Father Mobile</th>
-                    <th scope="col">Father Qualification</th>
-                    <th scope="col">Father Salary</th>
-                    <th scope="col">Father Telephone</th>
-                    <th scope="col">Mother Blood Group</th>
-                    <th scope="col">Mother Company</th>
-                    <th scope="col">Mother Designation</th>
-                    <th scope="col">Mother Email</th>
-                    <th scope="col">Mother Mobile</th>
-                    <th scope="col">Mother Name</th>
-                    <th scope="col">Mother Qualification</th>
-                    <th scope="col">Mother Salary</th>
-                    <th scope="col">Mother Telephone</th>
-                    <th scope="col">Religion Name</th>
-                    <th scope="col">Relative Phone</th>
-                    <th scope="col">Relationship with Child</th>
-                    <th scope="col">Residential Address</th>
-                    <th scope="col">Residential Phone</th>
-                    <th scope="col">Student Aadhaar</th>
-                    <th scope="col">Student Blood Group</th>
-                    <th scope="col">Student Caste</th>
-                    <th scope="col">Student DOB</th>
-                    <th scope="col">Student Father Name</th>
-                    <th scope="col">Student Gender</th>
-                    <th scope="col">Student Mother Tongue</th>
-                    <th scope="col">Student Nationality</th>
-                    <th scope="col">Student Parent Name</th>
-                    <th scope="col">Student Religion</th>
-                    <th scope="col">Updated at</th>
+                    <th scope="col">F-Contact No</th>
+                    <th scope="col">M-Contact No</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Heard About Us ?</th>
+                    <th scope="col">Previous Schooling Details</th>
+                    <th scope="col">Application Date</th>
+                    <th scope="col">Admission Date</th>
+                    <th scope="col">Admission Enquiry for </th>
+                    <th scope="col">Data</th>
+                    <th scope="col">Age as on 01/06/2023</th>
+                    <th scope="col">Entrance Test date</th>
+                    <th scope="col">Entrance Test result</th>
+                    <th scope="col">Remarks</th>
+                    <th scope="col">Data</th>
+                    <th scope="col">Already Enrolled</th>
                     <th scope="col">Status</th>
                     <th scope="col">Actions</th>
                     <th scope="col">Message</th>
@@ -259,46 +227,31 @@ function Applications() {
                   {applications.map((application, index) => (
                     <tr key={index}>
                       <td>{index + 1}</td>
-                      <td>{application.student_fname}</td>
-                      <td>{application.classname}</td>
-                      <td>{application.fname}</td>
+                      <td>{application.month}</td>
+                      <td>{application.year}</td>
+                      <td>{application.enquiry_date}</td>
+                      <td>{application.student_name}</td>
+                      <td>{application.enquiry_class}</td>
+                      <td>{application.class_expected_in_2024_25}</td>
+                      <td>{application.dob}</td>
+                      <td>{application.f_name}</td>
                       <td>{application.m_name}</td>
-                      <td>{application.student_dob}</td>
-                      <td>{application.f_bld}</td>
-                      <td>{application.f_comp}</td>
-                      <td>{application.f_desig}</td>
-                      <td>{application.f_email}</td>
-                      <td>{application.f_mob}</td>
-                      <td>{application.f_qual}</td>
-                      <td>{application.f_sal}</td>
-                      <td>{application.f_tel}</td>
-                      <td>{application.m_bld}</td>
-                      <td>{application.m_comp}</td>
-                      <td>{application.m_desig}</td>
-                      <td>{application.m_email}</td>
-                      <td>{application.m_mob}</td>
-                      <td>{application.m_name}</td>
-                      <td>{application.m_qual}</td>
-                      <td>{application.m_sal}</td>
-                      <td>{application.m_tel}</td>
-                      <td>{application.rel_name}</td>
-                      <td>{application.rel_phone}</td>
-                      <td>{application.relation_ch}</td>
-                      <td>{application.res_add}</td>
-                      <td>{application.res_phone}</td>
-                      <td>{application.student_aadhaar}</td>
-                      <td>{application.student_blood_group}</td>
-                      <td>{application.student_caste}</td>
-                      <td>{application.student_dob}</td>
-                      <td>{application.student_fname}</td>
-                      <td>{application.student_gender}</td>
-                      <td>{application.student_mt}</td>
-                      <td>{application.student_nationality}</td>
-                      <td>{application.student_pname}</td>
-                      <td>{application.student_religion}</td>
-                      <td>
-                        {new Date(application.updated_at).toLocaleString()}
-                      </td>
+                      <td>{application.f_contact}</td>
+                      <td>{application.m_contact}</td>
+                      <td>{application.address}</td>
+                      <td>{application.status}</td>
+                      <td>{application.heard_about_us}</td>
+                      <td>{application.prev_school}</td>
+                      <td>{application.application_date}</td>
+                      <td>{application.admission_date}</td>
+                      <td>{application.admission_enquiry_for}</td>
+                      <td>{application.data}</td>
+                      <td>{application.age_as_01_06_2023}</td>
+                      <td>{application.entrance_test_date}</td>
+                      <td>{application.entrance_test_result}</td>
+                      <td>{application.remarks}</td>
+                      <td>{application.data_2}</td>
+                      <td>{application.already_enrolled}</td>
 
                       <td>
                         <button
@@ -337,44 +290,43 @@ function Applications() {
                           </option>
                         </select>
                       </td>
-                     
                       <td className="text-center">
-                        {application.f_mob ? (
-                          <>
-                          <img
-                              src={application.whatsapp_status === 0 ? "/assets/images/whatsapp.png" : "/assets/images/whatsapp_gray.png"}
-                              alt="icon"
-                              width={30}
-                              className="d-inline-block"
-                            onClick={() => handleWhatsappClick1(index,application.f_mob)}
-                            />
-                            <img
-                              src={application.whatsapp_status_2 === 0 ? "/assets/images/whatsapp.png" : "/assets/images/whatsapp_gray.png"}
-                              alt="icon"
-                              width={30}
-                              className="d-inline-block"
-                            onClick={() => handleWhatsappClick2(index,application.f_mob)}
-                            />
-                          </>
-                            
-                        ) : (
-                          application.m_mob && (
+                        {application.f_contact ? (
                            <>
-                              <img
+                           <img
+                               src={application.whatsapp_status === 0 ? "/assets/images/whatsapp.png" : "/assets/images/whatsapp_gray.png"}
+                               alt="icon"
+                               width={30}
+                               className="d-inline-block"
+                             onClick={() => handleWhatsappClick1(index,application.f_contact)}
+                             />
+                             <img
+                               src={application.whatsapp_status_2 === 0 ? "/assets/images/whatsapp.png" : "/assets/images/whatsapp_gray.png"}
+                               alt="icon"
+                               width={30}
+                               className="d-inline-block"
+                             onClick={() => handleWhatsappClick2(index,application.f_contact)}
+                             />
+                           </>
+                          
+                        ) : (
+                          application.m_contact && (
+                            <>
+                            <img
                                 src={application.whatsapp_status === 0 ? "/assets/images/whatsapp.png" : "/assets/images/whatsapp_gray.png"}
                                 alt="icon"
                                 width={30}
                                 className="d-inline-block"
-                                onClick={() => handleWhatsappClick1(index,application.m_mob)}
+                              onClick={() => handleWhatsappClick1(index,application.m_contact)}
                               />
                               <img
-                              src={application.whatsapp_status_2 === 0 ? "/assets/images/whatsapp.png" : "/assets/images/whatsapp_gray.png"}
-                              alt="icon"
-                              width={30}
-                              className="d-inline-block"
-                            onClick={() => handleWhatsappClick2(index,application.f_mob)}
-                            />
-                          </>
+                                src={application.whatsapp_status_2 === 0 ? "/assets/images/whatsapp.png" : "/assets/images/whatsapp_gray.png"}
+                                alt="icon"
+                                width={30}
+                                className="d-inline-block"
+                              onClick={() => handleWhatsappClick2(index,application.m_contact)}
+                              />
+                            </>
                           )
                         )}
                       </td>
@@ -392,4 +344,4 @@ function Applications() {
   );
 }
 
-export default Applications;
+export default OldApplications;

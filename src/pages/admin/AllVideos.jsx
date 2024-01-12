@@ -149,7 +149,7 @@ function AllVideos() {
                             ? video.ebook_sections.map((section, index) => (
                                 <div
                                   key={index}
-                                  className="border-size-sm rounded-sm px-1 mx-1 d-inline-block"
+                                  className=" mx-1 d-inline-block"
                                 >
                                   <Link
                                     className="px-3 py-1 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss bg-current"
@@ -165,7 +165,7 @@ function AllVideos() {
                                 (section, index) => (
                                   <div
                                     key={index}
-                                    className="border-size-sm rounded-sm px-1 mx-1 d-inline-block"
+                                    className="mx-1 d-inline-block"
                                   >
                                     <Link
                                       className="px-3 py-1 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss bg-current"

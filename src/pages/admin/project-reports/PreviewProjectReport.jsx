@@ -1,15 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, NavLink, useParams, useLocation } from "react-router-dom";
-import { Link as ScrollLink, animateScroll as scroll } from 'react-scroll';
+import { Link as ScrollLink, animateScroll as scroll } from "react-scroll";
 
 import { Accordion } from "react-bootstrap";
 import Spinner from "react-bootstrap/Spinner";
+import Loader from "../../../components/common/Loader.jsx";
+import Paragraph from "../ebook/ebook-elements/Paragraph.jsx";
 
 function PreviewProjectReport() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const { projectReportId } = useParams();
   // Define a state for toggling the navigation menu
   const [isNavOpen, setNavOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   // Toggle function
   const toggleNav = () => {
@@ -26,6 +29,7 @@ function PreviewProjectReport() {
         result.json().then(function (jsonData) {
           console.warn(jsonData);
           setProjectReport(jsonData.projectReport);
+          setLoading(false);
         });
       }
     );
@@ -33,6 +37,16 @@ function PreviewProjectReport() {
   useEffect(() => {
     getProjectReport();
   }, []);
+
+// for nav dropdowsns
+  const [visibleModule, setVisibleModule] = useState(null);
+
+  const toggleSections = (moduleId) => {
+    // Toggle the visibility of sections for the clicked module
+    setVisibleModule((prevVisibleModule) =>
+      prevVisibleModule === moduleId ? null : moduleId
+    );
+  };
   return (
     <>
       {/* <!-- Bootstrap 5 Core CSS --> */}
@@ -104,7 +118,7 @@ function PreviewProjectReport() {
       <div className="doc-body doc-white-body">
         <nav
           id="nav-scroll"
-          className="side-nav left-nav navbar-expand-lg nav bg-white p-3"
+          className="side-nav left-nav navbar-expand-lg nav bg-white p-1"
         >
           <button
             className={`navbar-toggler ${isNavOpen ? "" : "collapsed"}`}
@@ -119,154 +133,133 @@ function PreviewProjectReport() {
             className={`collapse navbar-collapse ${isNavOpen ? "show" : ""}`}
             id="navbar-toggle"
           >
-            <ul className="" id="main-collapse" style={{margin: 0, padding: 0,height: "100%", 
-              overflowY: "auto", }} >
-              <img src="/assets_ebook/images/project_report.png" alt=""
-              style={{width:"100%", height:"auto"}}
-              className="p-4" />
+            <ul
+              className="list-unstyled"
+              id="main-collapse"
+              style={{
+                margin: 0,
+                padding: 0,
+                height: "100%",
+                overflowY: "auto",
+                transition: "height 0.3s ease-in-out",
+              }}
+            >
+              <img
+                src="/assets_ebook/images/project_report.png"
+                alt=""
+                style={{ width: "100%", height: "auto" }}
+                className="p-4"
+              />
               {projectReport.project_report_modules
-                ? projectReport.project_report_modules &&
-                  projectReport.project_report_modules.map(
-                    (module, moduleIndex) => (
-                      <li
-                      key={moduleIndex}
-                        className="nav-item mb-3"
+                ? projectReport.project_report_modules.map((module) => (
+                    <li
+                      key={module.id}
+                      className="mb-3"
+                      style={{
+                        borderBottom: "1px solid #ddd",
+                        padding: "10px",
+                        cursor: "pointer",
+                      }}
+                    >
+                      <div
+                        onClick={() => toggleSections(module.id)}
                         style={{
-                          borderBottom: "3px solid #273078",
-                          borderRadius: "10px",
-                          backgroundColor: "#f0f0f0",
                           fontWeight: 700,
+                          fontSize: "14px",
                         }}
                       >
-                         <ScrollLink
-                    to={module.module_title}
-                    spy={true}
-                    smooth={true}
-                    offset={-70} // adjust the offset as needed
-                    duration={500}
-                    className="nav-link"
-                    style={{
-                      fontWeight: 700,
-                      fontSize: "14px",
-                      color: "#000",
-                    }}
-                  >
-                    <span>{module.module_title}</span>
-                  </ScrollLink>
-                      </li>
-                    )
-                  )
+                        {module.module_title}
+                      </div>
+
+                      {visibleModule === module.id && (
+                        <ul style={{ paddingLeft: "10px" }}>
+                          {module.project_report_sections.map((section) => (
+                            <li key={section.id}>
+                              <ScrollLink
+                                to={section.id}
+                                spy={true}
+                                smooth={true}
+                                offset={-70}
+                                duration={500}
+                                className="nav-link"
+                                style={{
+                                  fontWeight: 500,
+                                  fontSize: "12px",
+                                  color: "#555",
+                                  cursor: "pointer",
+                                }}
+                              >
+                                {section.section_title}
+                              </ScrollLink>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </li>
+                  ))
                 : ""}
             </ul>
           </div>
         </nav>
-        <div className="page-container" style={{backgroundColor:"#f0f0f0"}}>
-          <div className="doc-container">
-            <h2
-              id="getting-started"
-              className="text-center mb-4"
-              style={{
-                fontFamily: "'Raleway','Poppins', 'sans-serif'",
-                fontWeight: 800,
-              }}
-            >
-              {projectReport.title}
-            </h2>
-            {projectReport.project_report_modules
-              ? projectReport.project_report_modules.map((module) => (
-                  <div
-                    key={module.id}
-                    className="mb-2"
-                    style={{
-                      backgroundColor: "#ffff",
-                      border: "2px solid #273078",
-                      boxShadow: "5px 5px 10px rgba(0, 0, 0, 0.3)",
-                    }}
-                    id={module.module_title}
+        
 
-                  >
-                    <div
-                      className="p-1 position-relative"
-                      style={{
-                        marginLeft: "65px",
-                        marginRight: "65px",
-                        border: "2px solid #273078",
-                      }}
-                    >
-                      <div
-                        className="p-1 position-absolute translate-middle-y d-flex justify-content-center align-items-center"
-                        style={{
-                          width: "63px",
-                          height: "105%",
-                          top: "50%",
-                          left: "-68px",
-                          fontSize: "35px",
-                          border: "2px solid #273078",
-                        }}
-                      >
-                        <i
-                          className="feather-edit p-2 text-light"
-                          style={{ backgroundColor: "#273078" }}
-                        ></i>
-                      </div>
-                      <h4
-                        id={module.module_title}
-                        className="doc-main-title text-center bg-secondary p-2"
-                      >
+        <div className="page-container">
+          {loading ? (
+            <Loader />
+          ) : (
+            <div className="doc-container">
+              <div className="d-flex rounded-lg justify-content-between">
+                <h4 id="getting-started" className="doc-main-title">
+                  {projectReport.title}
+                </h4>
+              </div>
+              <div id="" className="doc-wrapper">
+                <div className="doc-preview d-flex justify-content-center">
+                  <img
+                    src={baseUrl + projectReport.image}
+                    alt="preview"
+                    className="introduction-img"
+                    style={{ width: "60%", height: "auto" }}
+                  />
+                </div>
+              </div>
+              {projectReport.project_report_modules
+                ? projectReport.project_report_modules.map((module, index) => (
+                    <div key={index}>
+                      <h4 id="content" className="doc-main-title">
                         {module.module_title}
                       </h4>
-                      <div
-                        className="p-1 position-absolute translate-middle-y d-flex justify-content-center align-items-center"
-                        style={{
-                          width: "63px",
-                          height: "105%",
-                          top: "50%",
-                          right: "-68px",
-                          fontSize: "31px",
-                          border: "2px solid #273078",
-                        }}
-                      >
-                        <i
-                          className="feather-volume-2 p-2 text-light"
-                          style={{ backgroundColor: "#273078" }}
-                        ></i>
-                      </div>
-                    </div>
-
-                    <div className="element-container p-4">
-                        
-                      {module.project_report_elements.map(
-                          (element) => (
-                            <React.Fragment key={element.id}>
-                              {element.element_id === 1 && (
-                                <h6
-                                  id={`${element.content}-link`}
-                                  style={{
-                                    fontWeight: 600,
-                                    color: "#273078",
-                                    fontSize: "18px",
-                                  }}
-                                >
-                                  {element.content}
-                                </h6>
+                      {module.project_report_sections.map(
+                        (section, sectionIndex) => (
+                          <div
+                            className="doc-wrapper"
+                            key={sectionIndex}
+                            id={section.id}
+                          >
+                            <div className="d-flex justify-content-center">
+                              <h6 className="doc-title custom-h6">
+                                {section.section_title}{" "}
+                              </h6>
+                            </div>
+                              {section.project_report_elements.map(
+                                (element, elementIndex) => (
+                                  <div
+                                    key={elementIndex}
+                                  >
+                                      {element.element_id === 2 && (
+                                        <Paragraph element={element} />
+                                      )}
+                                  </div>
+                                )
                               )}
-
-                              {element.element_id === 2 && (
-                                <p
-                                  className="pt-2"
-                                  style={{ fontSize: "15px" }}
-                                >
-                                  {element.content}
-                                </p>
-                              )}
-                            </React.Fragment>
-                          )
-                        )}
+                          </div>
+                        )
+                      )}
                     </div>
-                  </div>
-                ))
-              : ""}
-          </div>
+                  ))
+                : ""}
+            </div>
+          )}
         </div>
       </div>
     </>

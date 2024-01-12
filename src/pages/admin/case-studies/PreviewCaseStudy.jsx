@@ -4,12 +4,16 @@ import { Link as ScrollLink, animateScroll as scroll } from "react-scroll";
 
 import { Accordion } from "react-bootstrap";
 import Spinner from "react-bootstrap/Spinner";
+import Loader from "../../../components/common/Loader.jsx";
+import Paragraph from "../ebook/ebook-elements/Paragraph.jsx";
+import List from "../ebook/ebook-elements/List.jsx";
 
 function PreviewCaseStudy() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const { caseStudyId } = useParams();
   // Define a state for toggling the navigation menu
   const [isNavOpen, setNavOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   // Toggle function
   const toggleNav = () => {
@@ -27,6 +31,7 @@ function PreviewCaseStudy() {
       result.json().then(function (jsonData) {
         console.warn(jsonData);
         setCaseStudy(jsonData.caseStudy);
+        setLoading(false);
       });
     });
   }
@@ -34,6 +39,15 @@ function PreviewCaseStudy() {
     getCaseStudy();
   }, []);
 
+  // for nav dropdowsns
+  const [visibleModule, setVisibleModule] = useState(null);
+
+  const toggleSections = (moduleId) => {
+    // Toggle the visibility of sections for the clicked module
+    setVisibleModule((prevVisibleModule) =>
+      prevVisibleModule === moduleId ? null : moduleId
+    );
+  };
   return (
     <>
       {/* <!-- Bootstrap 5 Core CSS --> */}
@@ -103,7 +117,7 @@ function PreviewCaseStudy() {
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"
       />
       <div className="doc-body doc-white-body">
-        <nav
+        {/* <nav
           id="nav-scroll"
           className="side-nav left-nav navbar-expand-lg nav bg-white p-3"
         >
@@ -165,155 +179,223 @@ function PreviewCaseStudy() {
                 : ""}
             </ul>
           </div>
-        </nav>
-        <div className="page-container" style={{ backgroundColor: "#f0f0f0" }}>
-          <div className="doc-container">
-            <h2
-              id="getting-started"
-              className="text-center mb-4"
+        </nav> */}
+
+        <nav
+          id="nav-scroll"
+          className="side-nav left-nav navbar-expand-lg nav bg-white p-1"
+        >
+          <button
+            className={`navbar-toggler ${isNavOpen ? "" : "collapsed"}`}
+            onClick={toggleNav}
+            type="button"
+          >
+            <span className="icon-bar top-bar"></span>
+            <span className="icon-bar middle-bar"></span>
+            <span className="icon-bar bottom-bar"></span>
+          </button>
+          <div
+            className={`collapse navbar-collapse ${isNavOpen ? "show" : ""}`}
+            id="navbar-toggle"
+          >
+            <ul
+              className="list-unstyled"
+              id="main-collapse"
               style={{
-                fontFamily: "'Raleway','Poppins', 'sans-serif'",
-                fontWeight: 800,
+                margin: 0,
+                padding: 0,
+                height: "100%",
+                overflowY: "auto",
+                transition: "height 0.3s ease-in-out",
               }}
             >
-              {caseStudy.title}
-            </h2>
-            {caseStudy.case_study_modules
-              ? caseStudy.case_study_modules.map((module) => (
-                  <div
-                    className="mb-4"
-                    style={{
-                      backgroundColor: "#ffff",
-                      boxShadow:
-                        "0px 5px 10px rgba(0, 0, 0, 0.1), 5px 0px 10px rgba(0, 0, 0, 0.1), -5px 0px 10px rgba(0, 0, 0, 0.1)",
-                    }}
-                    id={module.module_title}
-                  >
-                    <div
-                      className="position-relative"
-                      style={{ marginLeft: "62px", marginRight: "62px" }}
+              <img
+                src="/assets_ebook/images/use_case.png"
+                alt=""
+                style={{ width: "100%", height: "auto" }}
+                className="p-4"
+              />
+              {caseStudy.case_study_modules
+                ? caseStudy.case_study_modules.map((module) => (
+                    <li
+                      key={module.id}
+                      className="mb-3"
+                      style={{
+                        borderBottom: "1px solid #ddd",
+                        padding: "10px",
+                        cursor: "pointer",
+                      }}
                     >
                       <div
-                        className="position-absolute translate-middle-y d-flex justify-content-center align-items-center"
+                        onClick={() => toggleSections(module.id)}
                         style={{
-                          width: "60px",
-                          height: "105%",
-                          top: "50%",
-                          left: "-64px",
-                          fontSize: "35px",
-                        }}
-                      >
-                        <i
-                          className="feather-edit p-1 text-light"
-                          style={{ backgroundColor: "#273078" }}
-                        ></i>
-                      </div>
-                      <h4
-                        id={module.module_title}
-                        className="doc-main-title text-center p-1 text-light"
-                        style={{
-                          backgroundColor: "#273078",
-                          padding: "15px 0",
+                          fontWeight: 700,
+                          fontSize: "14px",
                         }}
                       >
                         {module.module_title}
-                      </h4>
-                      <div
-                        className="position-absolute translate-middle-y d-flex justify-content-center align-items-center"
-                        style={{
-                          width: "60px",
-                          height: "105%",
-                          top: "50%",
-                          right: "-64px",
-                          fontSize: "35px",
-                        }}
-                      >
-                        <i
-                          className="feather-volume-2 p-1 text-light"
-                          style={{ backgroundColor: "#273078" }}
-                        ></i>
                       </div>
-                    </div>
-                    <div className="element-container p-4">
-                      {module.case_study_elements.map((element) => (
-                        <React.Fragment key={element.id}>
-                          {element.element_id === 1 && (
-                            <p className="pt-2" style={{ fontSize: "18px" }}>
-                              {element.paragraph}
-                            </p>
-                          )}
-                          {element.element_id === 2 && (
-                            <ul
-                              className={`list-unstyled list-icon list-${element.list_type} list-success mb-25`}
-                            >
-                              {element.list_points
-                                .split("#@#")
-                                .map((point, index) => (
-                                  <li key={index}>{point}</li>
-                                ))}
-                            </ul>
-                          )}
-                          {element.element_id === 3 && (
-                            <ul
-                              className={`list-unstyled list-icon list-${element.list_type} list-success mb-25`}
-                            >
-                              {element.list_points
-                                .split("#@#")
-                                .map((point, index) => (
-                                  <React.Fragment key={index}>
-                                    <li>
-                                      <h6 style={{ fontWeight: "600" }}>
-                                        {point}
-                                      </h6>
-                                    </li>
-                                    <p
-                                      className="pt-2 ms-4"
-                                      style={{ fontSize: "18px" }}
-                                    >
-                                      {
-                                        element.list_description.split("#@#")[
-                                          index
-                                        ]
-                                      }
-                                    </p>
-                                  </React.Fragment>
-                                ))}
-                            </ul>
-                          )}
-                          {element.element_id === 4 &&
-                            element.appendices_heading
-                              .split("#@#")
-                              .map((heading, index) => (
-                                <React.Fragment key={index}>
-                                  <h6 style={{ fontWeight: "600" }}>
-                                    {heading}:{" "}
-                                    <span style={{ fontWeight: "400" }}>
-                                      {
-                                        element.appendices_sub_heading.split(
-                                          "#@#"
-                                        )[index]
-                                      }
-                                    </span>
-                                  </h6>
-                                  <p
-                                    className="pt-2 ms-4"
-                                    style={{ fontSize: "18px" }}
-                                  >
-                                    {
-                                      element.appendices_desc.split("#@#")[
-                                        index
-                                      ]
-                                    }
-                                  </p>
-                                </React.Fragment>
-                              ))}
-                        </React.Fragment>
-                      ))}
-                    </div>
-                  </div>
-                ))
-              : ""}
+
+                      {visibleModule === module.id && (
+                        <ul style={{ paddingLeft: "10px" }}>
+                          {module.case_study_sections.map((section) => (
+                            <li key={section.id}>
+                              <ScrollLink
+                                to={section.id}
+                                spy={true}
+                                smooth={true}
+                                offset={-70}
+                                duration={500}
+                                className="nav-link"
+                                style={{
+                                  fontWeight: 500,
+                                  fontSize: "12px",
+                                  color: "#555",
+                                  cursor: "pointer",
+                                }}
+                              >
+                                {section.section_title}
+                              </ScrollLink>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </li>
+                  ))
+                : ""}
+            </ul>
           </div>
+        </nav>
+
+        <div className="page-container">
+          {loading ? (
+            <Loader />
+          ) : (
+            <div className="doc-container">
+              <div className="d-flex rounded-lg justify-content-between">
+                <h4 id="getting-started" className="doc-main-title">
+                  {caseStudy.title}
+                </h4>
+              </div>
+              <div id="" className="doc-wrapper">
+                <div className="doc-preview d-flex justify-content-center">
+                  <img
+                    src={baseUrl + caseStudy.image}
+                    alt="preview"
+                    className="introduction-img"
+                    style={{ width: "60%", height: "auto" }}
+                  />
+                </div>
+              </div>
+              {caseStudy.case_study_modules
+                ? caseStudy.case_study_modules.map((module, index) => (
+                    <div key={index}>
+                      <h4 id="content" className="doc-main-title">
+                        {module.module_title}
+                      </h4>
+                      {module.case_study_sections.map(
+                        (section, sectionIndex) => (
+                          <div
+                            className="doc-wrapper"
+                            key={sectionIndex}
+                            id={section.id}
+                          >
+                            <div className="d-flex justify-content-center">
+                              <h6 className="doc-title custom-h6">
+                                {section.section_title}{" "}
+                              </h6>
+                            </div>
+
+                              {section.case_study_elements.map(
+                                (element, elementIndex) => (
+                                  <div
+                                    key={elementIndex}
+                                  >
+                                      {element.element_id === 1 && (
+                                        <Paragraph element={element} />
+                                      )}
+                                      {element.element_id === 2 && (
+                                        <ul
+                                          className={`list-unstyled list-icon list-${element.list_type} list-success mb-25`}
+                                        >
+                                          {element.list_points
+                                            .split("#@#")
+                                            .map((point, index) => (
+                                              <li key={index}>{point}</li>
+                                            ))}
+                                        </ul>
+                                      )}
+                                      {element.element_id === 3 && (
+                                        <ul
+                                          className={`list-unstyled list-icon list-${element.list_type} list-success mb-25`}
+                                        >
+                                          {element.list_points
+                                            .split("#@#")
+                                            .map((point, index) => (
+                                              <React.Fragment key={index}>
+                                                <li>
+                                                  <h6
+                                                    style={{
+                                                      fontWeight: "600",
+                                                    }}
+                                                  >
+                                                    {point}
+                                                  </h6>
+                                                </li>
+                                                <p
+                                                  className="pt-2 ms-4"
+                                                  style={{ fontSize: "18px" }}
+                                                >
+                                                  {
+                                                    element.list_description.split(
+                                                      "#@#"
+                                                    )[index]
+                                                  }
+                                                </p>
+                                              </React.Fragment>
+                                            ))}
+                                        </ul>
+                                      )}
+                                      {element.element_id === 4 &&
+                                        element.appendices_heading
+                                          .split("#@#")
+                                          .map((heading, index) => (
+                                            <React.Fragment key={index}>
+                                              <h6 style={{ fontWeight: "600" }}>
+                                                {heading}:{" "}
+                                                <span
+                                                  style={{ fontWeight: "400" }}
+                                                >
+                                                  {
+                                                    element.appendices_sub_heading.split(
+                                                      "#@#"
+                                                    )[index]
+                                                  }
+                                                </span>
+                                              </h6>
+                                              <p
+                                                className="pt-2 ms-4"
+                                                style={{ fontSize: "18px" }}
+                                              >
+                                                {
+                                                  element.appendices_desc.split(
+                                                    "#@#"
+                                                  )[index]
+                                                }
+                                              </p>
+                                            </React.Fragment>
+                                          ))}
+                                    </div>
+                                )
+                              )}
+                          </div>
+                        )
+                      )}
+                    </div>
+                  ))
+                : ""}
+            </div>
+          )}
         </div>
       </div>
     </>

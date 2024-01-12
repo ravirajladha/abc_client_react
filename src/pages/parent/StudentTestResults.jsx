@@ -78,13 +78,13 @@ function StudentTestResults() {
                         <th className="text-center border-0" scope="col">
                           Rank
                         </th>
-                        <th
+                        {/* <th
                           className="text-center border-0"
                           scope="col"
                           width="10%"
                         >
                           Actions
-                        </th>
+                        </th> */}
                       </tr>
                     </thead>
                     <tbody>
@@ -96,7 +96,7 @@ function StudentTestResults() {
                           </td>
                           <td className="text-center">{result.test_score}</td>
                           <td className="text-center">{result.test_rank}</td>
-                          <td className="text-center" width="10%">
+                          {/* <td className="text-center" width="10%">
                             <Link
                               key={index}
                               to={
@@ -109,7 +109,7 @@ function StudentTestResults() {
                             >
                               Test Response
                             </Link>
-                          </td>
+                          </td> */}
                         </tr>
                       ))}
                     </tbody>
