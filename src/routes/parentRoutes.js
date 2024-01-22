@@ -17,6 +17,7 @@ import ParentAddStudent from "../pages/parent/ParentAddStudent.jsx";
 
 import TestResultDetails from "../pages/admin/TestResultDetails.jsx";
 import Admissions from "../pages/parent/Admissions.jsx";
+import About from "../pages/parent/About.jsx";
 
 export const parentRoutes = (
   <>
@@ -102,5 +103,15 @@ export const parentRoutes = (
         })
       )}
     />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/parent/about`}
+      element={React.createElement(
+        withLayoutAndProtection(About, {
+          allowedTypes: ["parent"],
+        })
+      )}
+    />
+   
   </>
 );

@@ -112,12 +112,12 @@ function ParentSettings() {
               <b> Settings</b>
             </h2>
             <div className="float-right">
-              <Link
+              {/* <Link
                 to={"/parent/add_student"}
                 className="p-2 d-inline-block text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current mx-1"
               >
                 Add Student
-              </Link>
+              </Link> */}
               <BackButton />
             </div>
           </div>

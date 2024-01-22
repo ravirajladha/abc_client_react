@@ -82,7 +82,7 @@ function Admissions() {
             <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
               <div>
                 <h2 className="fw-400 font-lg d-block">
-                  All <b> Admissions</b>
+                  All <b> Applications</b>
                 </h2>
               </div>
               <div className="float-right">
@@ -96,98 +96,180 @@ function Admissions() {
               <>
                 {admissions && admissions.length > 0 ? (
                   <div className="card-body p-lg-5 p-4 w-100 border-0 ">
+                    <h4 className="mont-font fw-400 font-lg fw-500 mb-4">
+                      New Applications
+                    </h4>
                     <table ref={tableRef} id="myTable" className="table">
                       <thead>
                         <tr>
-                          <th scope="col">Sl. No.</th>
-                          <th scope="col">Student Full Name</th>
-                          <th scope="col">Class Name</th>
-                          <th scope="col">Father Name</th>
-                          <th scope="col">Mother Name</th>
-                          <th scope="col">Student DOB</th>
-                          <th scope="col">Father Blood Group</th>
-                          <th scope="col">Father Company</th>
-                          <th scope="col">Father Designation</th>
-                          <th scope="col">Father Email</th>
-                          <th scope="col">Father Mobile</th>
-                          <th scope="col">Father Qualification</th>
-                          <th scope="col">Father Salary</th>
-                          <th scope="col">Father Telephone</th>
-                          <th scope="col">Mother Blood Group</th>
-                          <th scope="col">Mother Company</th>
-                          <th scope="col">Mother Designation</th>
-                          <th scope="col">Mother Email</th>
-                          <th scope="col">Mother Mobile</th>
-                          <th scope="col">Mother Name</th>
-                          <th scope="col">Mother Qualification</th>
-                          <th scope="col">Mother Salary</th>
-                          <th scope="col">Mother Telephone</th>
-                          <th scope="col">Religion Name</th>
-                          <th scope="col">Relative Phone</th>
-                          <th scope="col">Relationship with Child</th>
-                          <th scope="col">Residential Address</th>
-                          <th scope="col">Residential Phone</th>
-                          <th scope="col">Student Aadhaar</th>
-                          <th scope="col">Student Blood Group</th>
-                          <th scope="col">Student Caste</th>
-                          <th scope="col">Student DOB</th>
-                          <th scope="col">Student Father Name</th>
-                          <th scope="col">Student Gender</th>
-                          <th scope="col">Student Mother Tongue</th>
-                          <th scope="col">Student Nationality</th>
-                          <th scope="col">Student Parent Name</th>
-                          <th scope="col">Student Religion</th>
-                          <th scope="col">Updated at</th>
-                          <th scope="col">Status</th>
-                          <th scope="col">Actions</th>
+                        <th scope="col">Sl. No.</th>
+                    <th scope="col">Student Full Name</th>
+                    <th scope="col">Class Name</th>
+                    <th scope="col">Father Name</th>
+                    <th scope="col">Mother Name</th>
+                    <th scope="col">Student DOB</th>
+                    <th scope="col">Father Blood Group</th>
+                    <th scope="col">Father Company</th>
+                    <th scope="col">Father Designation</th>
+                    <th scope="col">Father Email</th>
+                    <th scope="col">Father Mobile</th>
+                    <th scope="col">Father Qualification</th>
+                    <th scope="col">Father Salary</th>
+                    <th scope="col">Father Telephone</th>
+                    <th scope="col">Mother Blood Group</th>
+                    <th scope="col">Mother Company</th>
+                    <th scope="col">Mother Designation</th>
+                    <th scope="col">Mother Email</th>
+                    <th scope="col">Mother Mobile</th>
+                    <th scope="col">Mother Qualification</th>
+                    <th scope="col">Mother Salary</th>
+                    <th scope="col">Mother Telephone</th>
+                    <th scope="col">Relative Name</th>
+                    <th scope="col">Relative Phone</th>
+                    <th scope="col">Relationship with Child</th>
+                    <th scope="col">Residential Address</th>
+                    <th scope="col">Residential Phone</th>
+                    <th scope="col">Student Aadhaar</th>
+                    <th scope="col">Student Blood Group</th>
+                    <th scope="col">Student Caste</th>
+                    <th scope="col">Student Gender</th>
+                    <th scope="col">Student Mother Tongue</th>
+                    <th scope="col">Student Nationality</th>
+                    <th scope="col">Student Nick Name</th>
+                    <th scope="col">Student Religion</th>
+                    <th scope="col">Last School Name</th>
+                    <th scope="col">Branch</th>
+                    <th scope="col">Distance Between School And Residence</th>
+                    <th scope="col">Issues</th>
+                    <th scope="col">Updated at</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Actions</th>
                         </tr>
                       </thead>
                       <tbody>
                         {admissions.map((application, index) => (
                           <tr key={index}>
-                            <td>{index + 1}</td>
-                            <td>{application.student_fname}</td>
-                            <td>{application.classname}</td>
-                            <td>{application.fname}</td>
-                            <td>{application.m_name}</td>
-                            <td>{application.student_dob}</td>
-                            <td>{application.f_bld}</td>
-                            <td>{application.f_comp}</td>
-                            <td>{application.f_desig}</td>
-                            <td>{application.f_email}</td>
-                            <td>{application.f_mob}</td>
-                            <td>{application.f_qual}</td>
-                            <td>{application.f_sal}</td>
-                            <td>{application.f_tel}</td>
-                            <td>{application.m_bld}</td>
-                            <td>{application.m_comp}</td>
-                            <td>{application.m_desig}</td>
-                            <td>{application.m_email}</td>
-                            <td>{application.m_mob}</td>
-                            <td>{application.m_name}</td>
-                            <td>{application.m_qual}</td>
-                            <td>{application.m_sal}</td>
-                            <td>{application.m_tel}</td>
-                            <td>{application.rel_name}</td>
-                            <td>{application.rel_phone}</td>
-                            <td>{application.relation_ch}</td>
-                            <td>{application.res_add}</td>
-                            <td>{application.res_phone}</td>
-                            <td>{application.student_aadhaar}</td>
-                            <td>{application.student_blood_group}</td>
-                            <td>{application.student_caste}</td>
-                            <td>{application.student_dob}</td>
-                            <td>{application.student_fname}</td>
-                            <td>{application.student_gender}</td>
-                            <td>{application.student_mt}</td>
-                            <td>{application.student_nationality}</td>
-                            <td>{application.student_pname}</td>
-                            <td>{application.student_religion}</td>
-                            <td>
-                              {new Date(
-                                application.updated_at
-                              ).toLocaleString()}
-                            </td>
+                            <td className="text-center">{index + 1}</td>
+                      <td className="text-center">
+                        {application?.student_fname ?? "-"}
+                      </td>
+                      <td className="text-center">
+                        {application?.classname ?? "-"}
+                      </td>
+                      <td className="text-center">
+                        {application?.fname ?? "-"}
+                      </td>
+                      <td className="text-center">
+                        {application?.m_name ?? "-"}
+                      </td>
+                      <td className="text-center">
+                        {application?.student_dob ?? "-"}
+                      </td>
+                      <td className="text-center">
+                        {application?.f_bld ?? "-"}
+                      </td>
+                      <td className="text-center">
+                        {application?.f_comp ?? "-"}
+                      </td>
+                      <td className="text-center">
+                        {application?.f_desig ?? "-"}
+                      </td>
+                      <td className="text-center">
+                        {application?.f_email ?? "-"}
+                      </td>
+                      <td className="text-center">
+                        {application?.f_mob ?? "-"}
+                      </td>
+                      <td className="text-center">
+                        {application?.f_qual ?? "-"}
+                      </td>
+                      <td className="text-center">
+                        {application?.f_sal ?? "-"}
+                      </td>
+                      <td className="text-center">
+                        {application?.f_tel ?? "-"}
+                      </td>
+                      <td className="text-center">
+                        {application?.m_bld ?? "-"}
+                      </td>
+                      <td className="text-center">
+                        {application?.m_comp ?? "-"}
+                      </td>
+                      <td className="text-center">
+                        {application?.m_desig ?? "-"}
+                      </td>
+                      <td className="text-center">
+                        {application?.m_email ?? "-"}
+                      </td>
+                      <td className="text-center">
+                        {application?.m_mob ?? "-"}
+                      </td>
+
+                      <td className="text-center">
+                        {application?.m_qual ?? "-"}
+                      </td>
+                      <td className="text-center">
+                        {application?.m_sal ?? "-"}
+                      </td>
+                      <td className="text-center">
+                        {application?.m_tel ?? "-"}
+                      </td>
+                      <td className="text-center">
+                        {application?.rel_name ?? "-"}
+                      </td>
+                      <td className="text-center">
+                        {application?.rel_phone ?? "-"}
+                      </td>
+                      <td className="text-center">
+                        {application?.relation_ch ?? "-"}
+                      </td>
+                      <td className="text-center">
+                        {application?.res_add ?? "-"}
+                      </td>
+                      <td className="text-center">
+                        {application?.res_phone ?? "-"}
+                      </td>
+                      <td className="text-center">
+                        {application?.student_aadhaar ?? "-"}
+                      </td>
+                      <td className="text-center">
+                        {application?.student_blood_group ?? "-"}
+                      </td>
+                      <td className="text-center">
+                        {application?.student_caste ?? "-"}
+                      </td>
+                      <td className="text-center">
+                        {application?.student_gender ?? "-"}
+                      </td>
+                      <td className="text-center">
+                        {application?.student_mt ?? "-"}
+                      </td>
+                      <td className="text-center">
+                        {application?.student_nationality ?? "-"}
+                      </td>
+                      <td className="text-center">
+                        {application?.student_pname ?? "-"}
+                      </td>
+                      <td className="text-center">
+                        {application?.student_religion ?? "-"}
+                      </td>
+                      <td className="text-center">
+                        {application?.last_school_name ?? "-"}
+                      </td>
+                      <td className="text-center">
+                        {application?.branch ?? "-"}
+                      </td>
+                      <td className="text-center">
+                        {application?.des ?? "-"}
+                      </td>
+                      <td className="text-center">
+                        {application?.issues ?? "-"}
+                      </td>
+                      <td className="text-center">
+                        {application?.updated_at
+                          ? new Date(application.updated_at).toLocaleString()
+                          : "-"}
+                      </td>
 
                             <td>
                               <button
@@ -217,8 +299,10 @@ function Admissions() {
                 )}
 
                 {oldAdmissions && oldAdmissions.length > 0 ? (
-                  <div className="card-body p-lg-5 p-4 w-100 border-0 ">
-                    <h4 className="mont-font fw-400 font-lg fw-500 mb-2">Old Admissions</h4>
+                  <div className="card-body p-lg-5 p-4 w-100 border-0 shadow-xss">
+                    <h4 className="mont-font fw-400 font-lg fw-500 mb-4">
+                      Old Applications
+                    </h4>
                     <table ref={tableRef2} id="myTable" className="table">
                       <thead>
                         <tr>
@@ -309,13 +393,43 @@ function Admissions() {
                   ""
                 )}
 
-                  {
-              admissions && admissions.length === 0 && oldAdmissions && oldAdmissions.length === 0 ? (
-                <NoContent contentName="Admissions" />
-              ): null
-            }
+                {admissions &&
+                admissions.length === 0 &&
+                oldAdmissions &&
+                oldAdmissions.length === 0 ? (
+                  // <NoContent contentName="Applications" />
+                  <h2 className="fw-500 font-xs text-center">No Applications Available</h2>
+                  
+                ) : null}
               </>
             )}
+          </div>
+
+          <div className="row mt-5">
+            <div className="col-lg-12">
+              <div className="card mb-4 shadow-xss rounded-lg border-0 p-4">
+                <h2 className="fw-700 font-md d-block mb-3">
+                  Important Information
+                </h2>
+                <ul style={{ listStyleType: 'circle!important', marginLeft: '20px' }} >
+                  <li>&#9642; Original Copy of the Birth Certificate.</li>
+                  <li>&#9642;
+                    Xerox Copy of the Immunization (vaccine) record (Original
+                    must be brought along for verification).
+                  </li>
+                  <li>&#9642;
+                    Xerox Copy of the Caste & Income Certificate of both Child &
+                    Parents.
+                  </li>
+                  <li>&#9642;
+                    Xerox Copy of Student's individual Bank Account Pass Book.
+                  </li>
+                  <li>&#9642; Xerox Copy of Aadhar Card of both Child & Parents.</li>
+                  <li>&#9642; 4 Passport Size Photos of the Child.</li>
+                  <li>&#9642; 2 Stamp Size Photos of the Child.</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </div>

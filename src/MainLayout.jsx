@@ -21,7 +21,7 @@ const MainLayout = ({ children }) => {
     }
     
     // Check for dynamic route patterns
-    if (path.startsWith('/ebooks/preview') || path.startsWith('/editor_practicse/') || path.startsWith('/project-reports/preview') || path.startsWith('/case-studies/preview')) { 
+    if (path.startsWith('/ebooks/preview') || path.startsWith('/editor_practicse/') || path.startsWith('/project-reports/preview') || path.startsWith('/case-studies/preview') || path.startsWith('/school/applications/print-applications')) { 
       return false;
     }
 
