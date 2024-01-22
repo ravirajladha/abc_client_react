@@ -87,7 +87,7 @@ const Register = () => {
           <div
             className="col-xl-5 d-none d-xl-block p-0 vh-100 bg-image-cover bg-no-repeat"
             style={{
-              backgroundImage: `url("https://img.freepik.com/free-photo/smiley-woman-holding-book-front-view_23-2149915887.jpg?w=740&t=st=1680948722~exp=1680949322~hmac=f11745674cdd4603e26546821f6cf0dd0d93a8e00c9d7b35bd149bc003461def")`,
+              backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/classroom2.jpg)`,
             }}
           ></div>
 
@@ -200,13 +200,12 @@ const Register = () => {
                       id="exampleCheck1"
                     />
                     <label
-                      className="form-check-label font-xsss text-grey-500"
+                      className="form-check-label font-xsss"
                       htmlFor="exampleCheck1"
                     >
-                      Accept Term and Conditions
+                      Accept Terms and Conditions
                     </label>
                   </div>
-
                   <div className="col-sm-12 p-0 text-left">
                     <div className="form-group mb-1">
                       <button
@@ -216,8 +215,8 @@ const Register = () => {
                         Register
                       </button>
                     </div>
-                    <h6 className="text-grey-500 font-xsss fw-500 mt-0 mb-0 lh-32">
-                      Already have account{" "}
+                    <h6 className="font-xsss fw-500 mt-2 mb-0 lh-32">
+                    Already have an account?{" "}
                       <Link to="/" className="fw-700 ml-1">
                         Login
                       </Link>

@@ -28,6 +28,11 @@ import EditStudent from "../pages/school/EditStudent.jsx";
 import EditTeacher from "../pages/school/EditTeacher.jsx";
 import OldApplications from "../pages/school/OldApplications.jsx";
 import UploadOldApplications from "../pages/school/UploadOldApplications.jsx";
+import ViewApplication from "../pages/school/ViewApplication.jsx";
+import PrintApplication from "../pages/school/PrintApplication.jsx";
+import BlacklistedApplications from "../pages/school/BlacklistedApplications.jsx";
+import ViewOldApplication from "../pages/school/ViewOldApplication.jsx";
+import PrintOldApplication from "../pages/school/PrintOldApplication.jsx";
 
 export const schoolRoutes = (
   <>
@@ -235,6 +240,51 @@ export const schoolRoutes = (
       path={`${process.env.PUBLIC_URL}/school/teacher/:teacherId/edit`}
       element={React.createElement(
         withLayoutAndProtection(EditTeacher, {
+          allowedTypes: ["sub_admin"],
+        })
+      )}
+    />
+     <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/school/applications/view-application/:applicationId`}
+      element={React.createElement(
+        withLayoutAndProtection(ViewApplication, {
+          allowedTypes: ["sub_admin"],
+        })
+      )}
+    />
+     <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/school/applications/print-applications/:applicationId`}
+      element={React.createElement(
+        withLayoutAndProtection(PrintApplication, {
+          allowedTypes: ["sub_admin"],
+        })
+      )}
+    />
+     <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/school/applications/black-listed-applications/`}
+      element={React.createElement(
+        withLayoutAndProtection(BlacklistedApplications, {
+          allowedTypes: ["sub_admin"],
+        })
+      )}
+    />
+    <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/school/applications/view-old-application/:applicationId`}
+      element={React.createElement(
+        withLayoutAndProtection(ViewOldApplication, {
+          allowedTypes: ["sub_admin"],
+        })
+      )}
+    />
+     <Route
+      exact
+      path={`${process.env.PUBLIC_URL}/school/applications/print-old-applications/:applicationId`}
+      element={React.createElement(
+        withLayoutAndProtection(PrintOldApplication, {
           allowedTypes: ["sub_admin"],
         })
       )}

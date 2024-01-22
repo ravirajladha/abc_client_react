@@ -115,7 +115,7 @@ function Login() {
                 />
                 <br />
                 <h2 className="fw-700 display1-size display2-md-size mb-3">
-                  Login into <br />
+                  Login to <br />
                   your account
                 </h2>
                 <form onSubmit={login}>
@@ -201,10 +201,10 @@ function Login() {
                   </button>
                 </form>
                 <div className="col-sm-12 p-0 text-left">
-                  <h6 className="text-grey-500 font-xssss fw-500 mt-0 mb-0 lh-32">
-                    Dont have account{" "}
+                  <h6 className="text-black font-xsss fw-500 mt-2 mb-0 lh-32 ">
+                  If you do not have a parent account,{" "}
                     <Link to="/register" className="fw-700 ml-1">
-                      Register
+                      Signup
                     </Link>
                   </h6>
                 </div>
