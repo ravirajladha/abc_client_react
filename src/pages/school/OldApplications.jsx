@@ -14,6 +14,7 @@ import Loader from "../../components/common/Loader.jsx";
 import NoContent from "../../components/common/NoContent.jsx";
 import { Modal } from 'react-bootstrap';
 import moment from "moment";
+import { ToastContainer, toast } from "react-toastify";
 
 function OldApplications() {
   const tableRef = useRef(null);
@@ -21,14 +22,21 @@ function OldApplications() {
   const [applications, setApplications] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [message, setMessage] = useState('1');
+  
+  // filter with status - selceted value
+  const [selectedStatus, setSelectedStatus] = useState('');
 
-  const getApplications = (selectedStatus = null) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
+  const getApplications = (selectedStatus = null, page = 1) => {
     return new Promise((resolve, reject) => {
-      fetch(`${baseUrl}api/school/get-old-applications/${selectedStatus}`)
+      fetch(`${baseUrl}api/school/get-old-applications/${selectedStatus}?page=${page}`)
         .then((result) => result.json())
         .then((jsonbody) => {
           console.warn(jsonbody);
-          setApplications(jsonbody);
+          setApplications(jsonbody.data);
+          setTotalPages(jsonbody.last_page);
           setIsLoading(false);
           resolve(jsonbody);
           initializeDataTable();
@@ -48,7 +56,8 @@ function OldApplications() {
   }, []);
 
   const initializeDataTable = () => {
-    $(tableRef.current).DataTable({
+    const table = $(tableRef.current).DataTable({
+      pageLength: 50,
       scrollX: true,
       scrollCollapse: true,
       fixedColumns: {
@@ -62,7 +71,17 @@ function OldApplications() {
         'pdfHtml5',   // PDF button
         // 'print',      // Print button
       ],
+      initComplete: function () {
+        const pagination = $(this).closest('.dataTables_wrapper').find('.dataTables_paginate');
+        // Remove existing pagination
+        pagination.empty();
+    }
     });
+  };
+  const handleChangePage = (event) => {
+  setIsLoading(true);
+    setCurrentPage(parseInt(event.target.value, 10));
+    getApplications({ selectedStatus: selectedStatus , page: parseInt(event.target.value, 10) });
   };
 
   const changeApplicationStatus = (applicationIndex, newStatus) => {
@@ -102,38 +121,33 @@ function OldApplications() {
         setApplications(updatedApplications);
       });
   };
-  const whatsappMessage1 = encodeURIComponent('*Dear Parents*\nGreetings from Agasthya Vidyanikethan!\n\nI am happy to welcome you to the 2024-25 school year! We are looking forward to a productive partnership with you to ensure our children can achieve their highest potential. We recognize that to be successful in school, our children need support from both home and school. We know a strong partnership with you will make a significant difference in your child’s education. As partners, we share the responsibility for our children’s success and want you to know that we will do our very best to carry out our responsibilities.\nPlease know more about from the Website link given below\nhttps://av.school\n\nTo Watch the Demo Content, please click on the below link\nhttps://player.vimeo.com/video/655228863\n\nRegards,\nTeam Agasthya Vidyanikethan');
-
-
-  const whatsappMessage2 = encodeURIComponent("Dear Parents,\n\nGreetings from Agasthya Vidyanikethan!\n\nWe are glad to announce the launch of our new website www.av.school with the updated and much awaited academic and non academic details of our institution. We hereby look forward to a productive collaboration with you to ensure our children's goals to the highest potential. Together, let us share the responsibility of building a strong citizen for our country.\n\nFor general queries please fill in the below mentioned google form.\n\nhttps://forms.gle/iKK7Av8agTBZQ7LW6\n\nFor admission related queries visit the below link.\n\nhttps://www.av.school/application\n\nPlease visit the website for more information\n\nThanking You,\n\nAgasthya Vidyanikethan");
-
-
 
   const handleWhatsappClick = (applicationIndex,contact) => {
     // Update the status
-    console.log(message);
-    updateStatus(applicationIndex,message);
+    console.log(message);   
+    let messageType;
     if(message === '1'){
-      console.warn(message);
-      window.open(
-        `https://api.whatsapp.com/send?text=${whatsappMessage1}&phone=${contact}`,
-        "_blank",
-        "width=800,height=600"
-      );
+      messageType = 'announcement_website';
     }else if(message === '2'){
-      console.warn(message);
-      window.open(
-        `https://api.whatsapp.com/send?text=${whatsappMessage2}&phone=${contact}`,
-        "_blank",
-        "width=800,height=600"
-      );
-    }    
+      messageType = 'weclome_message1';
+    }
+    fetch(`${baseUrl}api/school/send-whatsapp-message/${contact}/${messageType}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    updateStatus(applicationIndex,message);
+
   };
   const updateStatus = (applicationIndex,message) => {
     const updatedApplications = [...applications];
-    updatedApplications[applicationIndex].whatsapp_status_2 = 1;
+    if (message === '1') {
+      updatedApplications[applicationIndex].whatsapp_status = 1;
+    } else {
+      updatedApplications[applicationIndex].whatsapp_status_2 = 1;
+    }
     setApplications(updatedApplications);
-    
   let apiUrl;
 
   // Determine the API URL based on the selected message
@@ -156,7 +170,7 @@ function OldApplications() {
       })
         .then((response) => response.json())
         .then((data) => {
-          
+        toast.success( "Meassage Sent successfully!");
         })
         .catch((error) => {
           console.error("Error updating application status:", error);
@@ -212,7 +226,6 @@ const storeRemark = async (e) => {
 };
 
 
-const [selectedStatus, setSelectedStatus] = useState('');
 
 const handleStatusChange = (event) => {
   setSelectedStatus(event.target.value);
@@ -221,13 +234,119 @@ const handleStatusChange = (event) => {
 const handleSearch = () => {
   // Call the API with the selected status
   setIsLoading(true);
-
   getApplications(selectedStatus);
 };
+
+  // for bulk message sent
+
+  const [selectedIds, setSelectedIds] = useState([]);
+  const [selectedPhoneNumbers, setSelectedPhoneNumbers] = useState([]);
+
+  // Function to handle checkbox click events for individual rows
+  const handleCheckboxChange = (id, phoneNumber) => {
+
+    setSelectedIds(prevSelectedIds => {
+      if (prevSelectedIds.includes(id)) {
+        // If already selected, remove it from the array
+        return prevSelectedIds.filter(item => item !== id);
+      } else {
+        // If not selected, add it to the array
+        return [...prevSelectedIds, id];
+      }
+    });
+
+    setSelectedPhoneNumbers(prevSelectedPhoneNumbers => {
+      phoneNumber = parseInt(phoneNumber, 10);
+      if (prevSelectedPhoneNumbers.includes(phoneNumber)) {
+      // If already selected, don't remove it, just return the array
+      return prevSelectedPhoneNumbers.filter((item) => item !== phoneNumber);
+    } else {
+      // If not selected, add it to the array
+      return [...prevSelectedPhoneNumbers, parseInt(phoneNumber, 10)];
+    }
+    });
+  };
+
+  // Function to handle "Select All" checkbox click event
+  const handleSelectAllChange = () => {
+    const allPhoneNumbers = applications.map(application => isValidNumber(application.f_mob)
+    ? parseInt(application.f_mob, 10)
+    : isValidNumber(application.m_mob)
+    ? parseInt(application.m_mob, 10)
+    : '');
+    setSelectedIds(prevSelectedIds => {
+      // If all IDs are already selected, clear the selection
+      if (prevSelectedIds.length === applications.length) {
+        return [];
+      } else {
+        // Otherwise, select all IDs
+        return applications.map(application => application.id);
+      }
+    });
+
+    setSelectedPhoneNumbers(prevSelectedPhoneNumbers => {
+      // If all phone numbers are already selected, clear the selection
+      if (prevSelectedPhoneNumbers.length === allPhoneNumbers.length) {
+        return [];
+      } else {
+        // Otherwise, select all phone numbers
+        return allPhoneNumbers;
+      }
+    });
+  };
+
+  const [selectedMessageType, setSelectedMessageType] = useState("");
+  const handleMessageTypeChange = (event) => {
+    setSelectedMessageType(event.target.value);
+  };
+  const handleWhatsappBulk = (data) => {
+    let messageType;
+    if(selectedMessageType === '1'){
+      messageType = 'announcement_website';
+    }else if(selectedMessageType === '2'){
+      messageType = 'weclome_message1';
+    }else if(selectedMessageType === '3'){
+      messageType = 'acids_bases_andsalts_1';
+    }
+    else if(selectedMessageType === '4'){
+      messageType = 'acids_bases_andsalts_2';
+    }
+
+    const formData = new FormData();
+    formData.append('selectedPhoneNumbers', JSON.stringify(selectedPhoneNumbers));
+    formData.append('selectedIds', JSON.stringify(selectedIds));
+
+    fetch(`${baseUrl}api/school/send-bulk-whatsapp-message-old/${messageType}`, {
+      method: "POST",
+      body: formData
+    }).then(response => response.json())
+    .then(data => {
+        // Update WhatsApp status to 1 for matching application IDs
+        const updatedStatusApplications = applications.map(application => {
+            if (selectedIds.includes(application.id)) {
+                return { ...application, whatsappStatus: 1 };
+            }
+            return application;
+        });
+
+        // Call updateStatus function with updated applications
+        setApplications(updatedStatusApplications);
+        setSelectedPhoneNumbers([]);
+        setSelectedIds([]);
+
+        toast.success( "Meassage Sent successfully!");
+    })
+    .catch(error => {
+        // Handle error
+        console.error('Error:', error);
+    });
+    // updateStatus(applicationIndex, message);
+  }
   return (
     <div className="middle-sidebar-bottom">
       <div className="middle-sidebar-left">
         <div className="row">
+      <ToastContainer />
           <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
             <div>
               <h2 className="fw-400 font-lg d-block">
@@ -245,12 +364,12 @@ const handleSearch = () => {
             </div>
           </div>
           <div className="row px-5">
-            <div className="col-lg-6">
+            <div className="col-lg-4">
               <select className="form-control" aria-label="Select status"
               onChange={handleStatusChange}
               value={selectedStatus}>
-                <option className="bg-light text-dark" value="" disabled>
-                  --select--
+                <option className="bg-light text-dark" value="null" disabled>
+                  -- All --
                 </option>
                 <option className="bg-light text-dark" value="0">
                   Pending
@@ -272,10 +391,42 @@ const handleSearch = () => {
                 </option>
               </select>
             </div>
-            <div className=" col-lg-6" >
+            <div className=" col-lg-2" >
               <button className="p-2 d-inline-block me-2 text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current text-uppercase"
               onClick={handleSearch}>Search</button>
             </div>
+            <div className="col-lg-4">
+                <select
+                  className="form-control"
+                  aria-label="Select status"
+                  onChange={handleMessageTypeChange}
+                  value={selectedMessageType}
+                >
+                  <option className="bg-light text-dark" value="" disabled>
+                    --select--
+                  </option>
+                  <option className="bg-light text-dark" value="1">
+                    Announcement
+                  </option>
+                  <option className="bg-light text-dark" value="2">
+                    Welcome
+                  </option>
+                  <option className="bg-light text-dark" value="3">
+                    10th-Acids,bases,salts-1
+                  </option>
+                  <option className="bg-light text-dark" value="4">
+                    10th-Acids,bases,salts-2
+                  </option>
+                </select>
+              </div>
+              <div className=" col-lg-2">
+                <button
+                  className="p-2 d-inline-block me-2 text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current text-uppercase"
+                  onClick={handleWhatsappBulk}
+                >
+                  Send
+                </button>
+              </div>
           </div>
           {isLoading ? (
             <Loader />
@@ -284,6 +435,14 @@ const handleSearch = () => {
               <table ref={tableRef} id="myTable" className="table">
                 <thead>
                   <tr>
+                  <th scope="col">
+            {/* Checkbox for "Select All" */}
+            Select All <input
+              type="checkbox"
+              checked={selectedIds.length === applications.length}
+              onChange={handleSelectAllChange}
+            />
+          </th>
                     <th scope="col">Sl. No.</th>
                     <th scope="col">Month</th>
                     <th scope="col">Year</th>
@@ -321,6 +480,14 @@ const handleSearch = () => {
                 <tbody>
                   {applications.map((application, index) => (
                     <tr key={index}>
+                       <td className="text-center">
+              {/* Checkbox for selecting individual rows */}
+              <input
+                type="checkbox"
+                checked={selectedIds.includes(application.id)}
+                onChange={() => handleCheckboxChange(application.id, isValidNumber(application.f_contact) ? application.f_contact : isValidNumber(application.m_contact) ? application.m_contact : '')}
+              />
+            </td>
                       <td>{index + 1}</td>
                       <td>{application.month}</td>
                       <td>{application.year}</td>
@@ -420,14 +587,14 @@ const handleSearch = () => {
                                       ? "bg-dark text-light"
                                       : "bg-light text-dark"
                                   }`} value="1">
-                            Message 1
+                            Annoucement
                           </option>
                           <option className={`${
                                     application.whatsapp_status_2 === 1
                                       ? "bg-dark text-light"
                                       : "bg-light text-dark"
                                   }`} value="2">
-                          Message 2
+                          Welcome
                           </option>
                         </select>
                           <img
@@ -454,14 +621,14 @@ const handleSearch = () => {
                                       ? "bg-dark text-light"
                                       : "bg-light text-dark"
                                   }`} value="1">
-                            Message 1
+                            Annoucement
                           </option>
                           <option className={`${
                                     application.whatsapp_status_2 === 1
                                       ? "bg-dark text-light"
                                       : "bg-light text-dark"
                                   }`} value="2">
-                          Message 2
+                          Welcome
                           </option>
                         </select>
                           <img
@@ -499,6 +666,17 @@ const handleSearch = () => {
                   ))}
                 </tbody>
               </table>
+              <div className="row d-flex justify-content-end">
+                  <div className="col-2 text-right">
+                  <select className="p-2 d-inline-block text-dark fw-500 lh-30 rounded-lg text-center font-xsss ls-3 border-3" value={currentPage} onChange={handleChangePage}>
+                    {Array.from({ length: totalPages }, (_, index) => (
+                      <option key={index + 1} value={index + 1}>
+                        Page {index + 1}
+                      </option>
+                    ))}
+                  </select>
+                  </div>
+                </div>
             </div>
           ) : (
             <NoContent contentName="Applications" />

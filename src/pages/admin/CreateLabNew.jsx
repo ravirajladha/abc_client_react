@@ -15,11 +15,12 @@ function CreateLab(props) {
   const [selectedClass, setSelectedClass] = useState("");
   const [selectedSubject, setSelectedSubject] = useState("");
   const [languages, setLanguages] = useState([
-    { id: "62", name: "Java" },
-    { id: "75", name: "C" },
-    { id: "71", name: "Python" },
-    { id: "82", name: "SQL" },
+    { id: "62", name: "Java (OpenJDK 13.0.1)" },
+    { id: "75", name: "C (Clang 7.0.1)" },
+    { id: "71", name: "Python (3.8.1)" },
+    { id: "82", name: "SQL (SQLite 3.27.2)" },
   ]);
+  
   const [selectedLanguage, setSelectedLanguage] = useState("");
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -122,11 +123,31 @@ function CreateLab(props) {
   };
 
   // Use this function when the selected language changes
+  // const handleLanguageChange = (e) => {
+  //   const selectedValue = e.target.value;
+  //   setSelectedLanguage(selectedValue);
+  //   setFormData({ ...formData, language_id: selectedValue });
+  // };
   const handleLanguageChange = (e) => {
-    const selectedValue = e.target.value;
-    setSelectedLanguage(selectedValue);
-    setFormData({ ...formData, language_id: selectedValue });
+    const selectedId = e.target.value;
+    // Find the selected language object from the languageslist by ID
+    const selectedLanguageObject = languageslist[selectedId];
+  
+    // Convert the language object to a JSON string
+    const languageJsonString = JSON.stringify(selectedLanguageObject);
+  
+    // Set the selected language id to the state that tracks the selected language
+    setSelectedLanguage(selectedId);
+  
+    // Update the formData state with the language JSON string
+    setFormData(prevFormData => ({ 
+      ...prevFormData, 
+      language_id: languageJsonString
+    }));
   };
+  
+  
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -177,7 +198,7 @@ function CreateLab(props) {
           template2: "", // State for Template 2 AceEditor
           data_harness_code: "", // State for Data Harness Code AceEditor
           testcases: "", // State for the textarea
-          language_id: "", // State for the langauge
+          language_id: "", 
         });
 
         setSelectedClass("");
@@ -231,6 +252,7 @@ function CreateLab(props) {
       value: "sql",
     },
   };
+
 
   return (
     <>
@@ -319,21 +341,21 @@ function CreateLab(props) {
                           </label>
                           <br />
                           <select
-                            name="language_id"
-                            id="language_id"
-                            className="form-control"
-                            value={selectedLanguage}
-                            onChange={handleLanguageChange}
-                          >
-                            <option disabled value="">
-                              -Select-
-                            </option>
-                            {languages.map((language) => (
-                              <option key={language.id} value={language.id}>
-                                {language.name}
-                              </option>
-                            ))}
-                          </select>
+  name="language_id"
+  id="language_id"
+  className="form-control"
+  value={selectedLanguage}
+  onChange={handleLanguageChange}
+>
+  <option disabled value="">
+    -Select-
+  </option>
+  {languages.map((language) => (
+    <option key={language.id} value={language.id}>
+      {language.name}
+    </option>
+  ))}
+</select>
                         </div>
                       </div>
                       <div className="col-lg-6">
@@ -357,16 +379,15 @@ function CreateLab(props) {
                             Code
                           </label>
                           <textarea
-  name="code"
-  value={formData.code}
-  onChange={handleInputChange}
-  className="form-control"
-  placeholder="Enter Code"
-  rows={3} // You can set the number of rows to define the height of the textarea
->
-  {formData.code}
-</textarea>
-
+                            name="code"
+                            value={formData.code}
+                            onChange={handleInputChange}
+                            className="form-control"
+                            placeholder="Enter Code"
+                            rows={3} // You can set the number of rows to define the height of the textarea
+                          >
+                            {formData.code}
+                          </textarea>
                         </div>
                       </div>
                       <div className="col-lg-6">
@@ -375,13 +396,13 @@ function CreateLab(props) {
                             Description
                           </label>
                           <textarea
-  name="description"
-  value={formData.description}
-  onChange={handleInputChange}
-  className="form-control"
-  placeholder="Enter description"
-  rows={3} // Adjust the number of rows as needed
-/>
+                            name="description"
+                            value={formData.description}
+                            onChange={handleInputChange}
+                            className="form-control"
+                            placeholder="Enter description"
+                            rows={3} // Adjust the number of rows as needed
+                          />
                         </div>
                       </div>
                       <div className="col-lg-6">
@@ -390,13 +411,13 @@ function CreateLab(props) {
                             I/O Format
                           </label>
                           <textarea
-  name="io_format"
-  value={formData.io_format}
-  onChange={handleInputChange}
-  className="form-control"
-  placeholder="Enter io_format"
-  rows={3} // Adjust the number of rows as needed
-/>
+                            name="io_format"
+                            value={formData.io_format}
+                            onChange={handleInputChange}
+                            className="form-control"
+                            placeholder="Enter io_format"
+                            rows={3} // Adjust the number of rows as needed
+                          />
                         </div>
                       </div>
                       <div className="col-lg-6">
@@ -405,13 +426,13 @@ function CreateLab(props) {
                             Constraints
                           </label>
                           <textarea
-  name="constraints"
-  value={formData.constraints}
-  onChange={handleInputChange}
-  className="form-control"
-  placeholder="Enter constraints"
-  rows={3} // Adjust the number of rows as needed
-/>
+                            name="constraints"
+                            value={formData.constraints}
+                            onChange={handleInputChange}
+                            className="form-control"
+                            placeholder="Enter constraints"
+                            rows={3} // Adjust the number of rows as needed
+                          />
                         </div>
                       </div>
                       <div className="col-lg-6">
@@ -420,13 +441,13 @@ function CreateLab(props) {
                             Sample I/O
                           </label>
                           <textarea
-  name="io_sample"
-  value={formData.io_sample}
-  onChange={handleInputChange}
-  className="form-control"
-  placeholder="Enter io_sample"
-  rows={3} // Adjust the number of rows as needed
-/>
+                            name="io_sample"
+                            value={formData.io_sample}
+                            onChange={handleInputChange}
+                            className="form-control"
+                            placeholder="Enter io_sample"
+                            rows={3} // Adjust the number of rows as needed
+                          />
                         </div>
                       </div>
                       <div className="form-group col-lg-6">
@@ -535,10 +556,6 @@ function CreateLab(props) {
                           rows={3}
                           className="form-control"
                         />
-
-
-
-
                       </div>
                       <div className="col-lg-12">
                         <button

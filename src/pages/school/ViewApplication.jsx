@@ -58,7 +58,6 @@ function ViewApplication() {
             {application && application ? (
               <div className="col-lg-10 pt-0 my-3 mx-auto">
                 <div className="card w-100 border-0 bg-white shadow-md p-0 px-5 mt-3">
-                  {/* <div className="mx-5"> */}
                   <div className="row">
                     <div className="col-lg-3">
                       <img
@@ -123,14 +122,6 @@ function ViewApplication() {
                         </p>
                       </div>
                       <div className="col-lg-6">
-                        <p className="fw-500 font-xs d-block mb-2">
-                          Pet Name :{" "}
-                          {application.student_pname ?? "___________________"}
-                        </p>
-                        <p className="fw-500 font-xs d-block  mb-2">
-                          Aadhar Card No :{" "}
-                          {application.student_aadhaar ?? "___________________"}
-                        </p>
                         <p className="fw-500 font-xs d-block  mb-2">
                           Mother tongue :{" "}
                           {application.student_mt ?? "___________________"}
@@ -177,7 +168,7 @@ function ViewApplication() {
                             "___________________"}
                         </p>
                       </div>
-                      <div className="col-lg-12">
+                      {/* <div className="col-lg-12">
                         <p className="fw-500 font-xss d-block  mb-2">
                           List any special problems that your child may have,
                           such as allergies, existing illness, previous serious
@@ -188,7 +179,7 @@ function ViewApplication() {
                           {application.issues ??
                             "___________________________________________"}
                         </p>
-                      </div>
+                      </div> */}
                     </div>
 
                     <div className="row mt-3 ">
@@ -216,26 +207,6 @@ function ViewApplication() {
                           {application.f_mob ?? "___________________"}
                         </p>
                         <p className="fw-500 font-xs d-block  mb-2">
-                          Aadhar Card No :{" "}
-                          {application.f_aadhar ?? "___________________"}
-                        </p>
-                        <p className="fw-500 font-xs d-block  mb-2">
-                          Company :{" "}
-                          {application.f_comp ?? "___________________"}
-                        </p>
-                        <p className="fw-500 font-xs d-block  mb-2">
-                          Annual Income :{" "}
-                          {application.f_sal ?? "___________________"}
-                        </p>
-                        <p className="fw-500 font-xs d-block  mb-2">
-                          Office Tel No :{" "}
-                          {application.f_tel ?? "___________________"}
-                        </p>
-                        <p className="fw-500 font-xs d-block  mb-2">
-                          Blood Group :{" "}
-                          {application.f_bld ?? "___________________"}
-                        </p>
-                        <p className="fw-500 font-xs d-block  mb-2">
                           E-mail :{" "}
                           {application.f_email ?? "___________________"}
                         </p>
@@ -261,26 +232,6 @@ function ViewApplication() {
                           {application.m_mob ?? "___________________"}
                         </p>
                         <p className="fw-500 font-xs d-block  mb-2">
-                          Aadhar Card No :{" "}
-                          {application.m_adhar ?? "___________________"}
-                        </p>
-                        <p className="fw-500 font-xs d-block  mb-2">
-                          Company :{" "}
-                          {application.m_comp ?? "___________________"}
-                        </p>
-                        <p className="fw-500 font-xs d-block  mb-2">
-                          Annual Income :{" "}
-                          {application.m_sal ?? "___________________"}
-                        </p>
-                        <p className="fw-500 font-xs d-block  mb-2">
-                          Office Tel No :{" "}
-                          {application.m_tel ?? "___________________"}
-                        </p>
-                        <p className="fw-500 font-xs d-block  mb-2">
-                          Blood Group :{" "}
-                          {application.m_bld ?? "___________________"}
-                        </p>
-                        <p className="fw-500 font-xs d-block  mb-2">
                           E-mail :{" "}
                           {application.m_email ?? "___________________"}
                         </p>
@@ -292,7 +243,7 @@ function ViewApplication() {
                         </p>
                       </div>
                     </div>
-                    <div className="row mt-3">
+                    {/* <div className="row mt-3">
                       <h2 className="fw-400 font-xs d-block text-center mb-2">
                         <b>
                           Emergency contact person (other than parents above)
@@ -316,9 +267,8 @@ function ViewApplication() {
                           {application.relation_ch ?? "___________________"}
                         </p>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
-                  {/* </div> */}
                 </div>
               </div>
             ) : (
