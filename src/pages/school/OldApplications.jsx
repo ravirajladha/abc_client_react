@@ -311,7 +311,27 @@ const handleSearch = () => {
     else if(selectedMessageType === '4'){
       messageType = 'acids_bases_andsalts_2';
     }
-
+    else if(selectedMessageType === '5'){
+      messageType = 'av_greeting_1';
+    }
+    else if(selectedMessageType === '6'){
+      messageType = 'av_greeting_2';
+    }
+    else if(selectedMessageType === '7'){
+      messageType = 'av_greeting_3';
+    }
+    else if(selectedMessageType === '8'){
+      messageType = 'avunit2_photo';
+    }
+    else if(selectedMessageType === '9'){
+      messageType = 'cultural_event_av';
+    }
+    else if(selectedMessageType === '10'){
+      messageType = 'acids_bases_salt_session1';
+    }
+    else if(selectedMessageType === '11'){
+      messageType = 'acid_bases_salts_session2';
+    }
     const formData = new FormData();
     formData.append('selectedPhoneNumbers', JSON.stringify(selectedPhoneNumbers));
     formData.append('selectedIds', JSON.stringify(selectedIds));
@@ -416,6 +436,27 @@ const handleSearch = () => {
                   </option>
                   <option className="bg-light text-dark" value="4">
                     10th-Acids,bases,salts-2
+                  </option>
+                  <option className="bg-light text-dark" value="5">
+                  AV Greeting 1
+                  </option>
+                  <option className="bg-light text-dark" value="6">
+                  AV Greetings 2
+                  </option>
+                  <option className="bg-light text-dark" value="7">
+                  AV Greetings 3
+                  </option>
+                  <option className="bg-light text-dark" value="8">
+                  AV Unit 2 @ Photo
+                  </option>
+                  <option className="bg-light text-dark" value="9">
+                  Cultural Events @AV
+                  </option>
+                  <option className="bg-light text-dark" value="10">
+                  Acids, Bases and Salts Session 1
+                  </option>
+                  <option className="bg-light text-dark" value="11">
+                  Acids, Bases and Salts Session 2
                   </option>
                 </select>
               </div>
