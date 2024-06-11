@@ -259,6 +259,7 @@ function Editor1() {
     }
   };
   //handlecompile function starts
+
   const handleCompile = async () => {
     setProcessing(true);
     setMessages([]);
@@ -305,13 +306,13 @@ if __name__ == "__main__":
   roman = intToRoman(number)
   print(roman)
 `.trim();
-    }  else if (language.id == 82) {
+    } else if (language.id == 82) {
       // Prepare Python code for compilation
       const userFunction = code.trim();
 
       // Prepare the full Python code for compilation
-      finalCode = userFunction ;
-}else {
+      finalCode = userFunction;
+    } else {
       console.log("error in deciding language");
       setProcessing(false);
       return; // Exit the function if language is not recognized

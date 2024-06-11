@@ -54,7 +54,7 @@ function AllLabs() {
             <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
               <div>
                 <h2 className="fw-400 font-lg d-block">
-                  All <b> E-Labs</b>
+                  All <b>E-Labs</b>
                 </h2>
               </div>
               <div className="float-right">

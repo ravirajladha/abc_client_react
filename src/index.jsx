@@ -33,8 +33,6 @@ class Root extends Component {
                 <Route exact path={`${process.env.PUBLIC_URL}/`} element={<Login />} />
                 <Route exact path={`${process.env.PUBLIC_URL}/ebooks/private_ebook/:ebook_id`} element={<PreviewEbook />} />
    
-
-
                 {adminRoutes}
                 {studentRoutes}
                 {schoolRoutes}

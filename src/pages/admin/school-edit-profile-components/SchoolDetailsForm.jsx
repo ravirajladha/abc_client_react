@@ -69,7 +69,7 @@ function SchoolDetailsForm() {
           <div className="col-md-4 col-sm-6">
             <div className="form-group">
               <label className="mont-font fw-600 font-xsss">
-                Choose School Photo (required)<span>*</span>
+                Choose School Photo1 (required)<span>*</span>
               </label>
               <br />
               {/* File input handler to be implemented */}

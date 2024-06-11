@@ -134,7 +134,7 @@ function Home() {
   const fetchLabDetails = async (labId) => {
     try {
       const response = await fetch(
-        `http://localhost:8000/api/get_lab/${labId}`
+        `http://localhost:8002/api/get_lab/${labId}`
       );
       const data = await response.json();
 
@@ -222,7 +222,7 @@ function Home() {
   };
   const handleCompile = async () => {
     setProcessing(true);
-
+console.log("labs", labs);
     // Check if we have test cases to process
     if (labs && Array.isArray(labs.testcase)) {
       // Iterate over each test case
@@ -480,12 +480,7 @@ function Home() {
                 {/* {console.log(process.env.REACT_APP_RAPID_API_URL)} */}
               </p>
             </Link>
-            {/* <div
-                            className='flex items-center justify-center rounded bg-dark-fill-3 hover:bg-dark-fill-2 h-8 w-8 cursor-pointer'
-
-                        >
-                            <FaChevronRight />
-                        </div> */}
+           
           </div>
 
           <div className="flex items-center space-x-4 flex-1 justify-end ">

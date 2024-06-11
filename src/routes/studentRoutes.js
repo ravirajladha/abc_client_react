@@ -486,9 +486,6 @@ export const studentRoutes = (
       )}
     />
 
-   
-   
-
     <Route
       exact
       path={`${process.env.PUBLIC_URL}/editor_practicse/:type/:redirecting_id/:type_id/:labId`}
