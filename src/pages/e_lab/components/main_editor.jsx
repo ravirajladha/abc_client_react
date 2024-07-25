@@ -24,9 +24,7 @@ import axios from "axios";
 import ThemeDropdown from "./ThemeDropdown";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import OutputDetails from "./OutputDetails";
-
 import { useParams } from "react-router-dom";
 import Accordion from "./Accordion";
 
