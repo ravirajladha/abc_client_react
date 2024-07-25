@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import BackButton from "../../components/navigation/BackButton";
 import Loader from "../../components/common/Loader.jsx";
 import NoContent from "../../components/common/NoContent.jsx";
-import { Modal } from 'react-bootstrap';
+import { Modal } from "react-bootstrap";
 import moment from "moment";
 import { ToastContainer, toast } from "react-toastify";
 
@@ -21,22 +21,34 @@ function OldApplications() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const [applications, setApplications] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [message, setMessage] = useState('1');
-  
+  const [message, setMessage] = useState("1");
+
   // filter with status - selceted value
-  const [selectedStatus, setSelectedStatus] = useState('');
+  const [selectedStatus, setSelectedStatus] = useState("");
+
+  const [classes, setClasses] = useState("");
+  const [selectedClass, setSelectedClass] = useState("");
 
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  const getApplications = (selectedStatus = null, page = 1) => {
+  const [totalRecordCount, setTotalRecordCount] = useState('');
+
+  const getApplications = (
+    selectedStatus = "",
+    selectedClass = "",
+    page = 1
+  ) => {
     return new Promise((resolve, reject) => {
-      fetch(`${baseUrl}api/school/get-old-applications/${selectedStatus}?page=${page}`)
+      fetch(
+        `${baseUrl}api/school/get-old-applications?status=${selectedStatus}&class=${selectedClass}&page=${page}`
+      )
         .then((result) => result.json())
         .then((jsonbody) => {
           console.warn(jsonbody);
           setApplications(jsonbody.data);
           setTotalPages(jsonbody.last_page);
+          setTotalRecordCount(jsonbody.total);
           setIsLoading(false);
           resolve(jsonbody);
           initializeDataTable();
@@ -48,11 +60,22 @@ function OldApplications() {
         });
     });
   };
-
+  // unique classes from old application table
+  const getClasses = () => {
+    fetch(`${baseUrl}api/school/get-old-application-classes`)
+      .then((result) => result.json())
+      .then((jsonbody) => {
+        setClasses(jsonbody.classes);
+      })
+      .catch((error) => {
+        console.error("Error fetching classes:", error);
+      });
+  };
   useEffect(() => {
     getApplications().catch((error) => {
       console.error("Error fetching student applications:", error);
     });
+    getClasses();
   }, []);
 
   const initializeDataTable = () => {
@@ -64,24 +87,30 @@ function OldApplications() {
         leftColumns: 0,
         rightColumns: 5,
       },
-      dom: 'Bfrtip', // Add this line to enable the Buttons extension
+      dom: "Bfrtip", // Add this line to enable the Buttons extension
       buttons: [
-        'excelHtml5', // Excel button
-        'csvHtml5',   // CSV button
-        'pdfHtml5',   // PDF button
+        "excelHtml5", // Excel button
+        "csvHtml5", // CSV button
+        "pdfHtml5", // PDF button
         // 'print',      // Print button
       ],
       initComplete: function () {
-        const pagination = $(this).closest('.dataTables_wrapper').find('.dataTables_paginate');
+        const pagination = $(this)
+          .closest(".dataTables_wrapper")
+          .find(".dataTables_paginate");
         // Remove existing pagination
         pagination.empty();
-    }
+      },
     });
   };
   const handleChangePage = (event) => {
-  setIsLoading(true);
+    setIsLoading(true);
     setCurrentPage(parseInt(event.target.value, 10));
-    getApplications({ selectedStatus: selectedStatus , page: parseInt(event.target.value, 10) });
+    getApplications(
+      selectedStatus,
+      selectedClass,
+      parseInt(event.target.value, 10)
+    );
   };
 
   const changeApplicationStatus = (applicationIndex, newStatus) => {
@@ -122,120 +151,123 @@ function OldApplications() {
       });
   };
 
-  const handleWhatsappClick = (applicationIndex,contact) => {
+  const handleWhatsappClick = (applicationIndex, contact) => {
     // Update the status
-    console.log(message);   
+    console.log(message);
     let messageType;
-    if(message === '1'){
-      messageType = 'announcement_website';
-    }else if(message === '2'){
-      messageType = 'weclome_message1';
+    if (message === "1") {
+      messageType = "announcement_website";
+    } else if (message === "2") {
+      messageType = "weclome_message1";
     }
-    fetch(`${baseUrl}api/school/send-whatsapp-message/${contact}/${messageType}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-    updateStatus(applicationIndex,message);
-
+    fetch(
+      `${baseUrl}api/school/send-whatsapp-message/${contact}/${messageType}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    updateStatus(applicationIndex, message);
   };
-  const updateStatus = (applicationIndex,message) => {
+  const updateStatus = (applicationIndex, message) => {
     const updatedApplications = [...applications];
-    if (message === '1') {
+    if (message === "1") {
       updatedApplications[applicationIndex].whatsapp_status = 1;
     } else {
       updatedApplications[applicationIndex].whatsapp_status_2 = 1;
     }
     setApplications(updatedApplications);
-  let apiUrl;
+    let apiUrl;
 
-  // Determine the API URL based on the selected message
-  if (message === '1') {
-    apiUrl = `${baseUrl}api/school/update-old-application-wp-status`;
-  } else if (message === '2') {
-    apiUrl = `${baseUrl}api/school/update-old-application-wp-status-2`;
-  }
+    // Determine the API URL based on the selected message
+    if (message === "1") {
+      apiUrl = `${baseUrl}api/school/update-old-application-wp-status`;
+    } else if (message === "2") {
+      apiUrl = `${baseUrl}api/school/update-old-application-wp-status-2`;
+    }
 
-  console.warn(message,apiUrl);
+    console.warn(message, apiUrl);
     fetch(apiUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          applicationId: updatedApplications[applicationIndex].id,
-          newStatus: 1,
-        }),
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        applicationId: updatedApplications[applicationIndex].id,
+        newStatus: 1,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        toast.success("Meassage Sent successfully!");
       })
-        .then((response) => response.json())
-        .then((data) => {
-        toast.success( "Meassage Sent successfully!");
-        })
-        .catch((error) => {
-          console.error("Error updating application status:", error);
-          
-        });
+      .catch((error) => {
+        console.error("Error updating application status:", error);
+      });
   };
   const isValidNumber = (number) => {
-    return number && !number.includes('-') && number.length >= 10; // Adjust the conditions as needed
+    return number && !number.includes("-") && number.length >= 10; // Adjust the conditions as needed
   };
 
   const [applicationId, setApplicationId] = useState("");
   const [remark, setRemark] = useState("");
   const [modal1Open, setModal1Open] = useState(false);
-    const closeModal1 = () => setModal1Open(false);
+  const closeModal1 = () => setModal1Open(false);
   const handleAddRemark = (applicationId) => {
     // console.log(applicationId);
     setApplicationId(applicationId);
     setModal1Open(true);
-
-};
-const storeRemark = async (e) => {
-  e.preventDefault();
-  try {
+  };
+  const storeRemark = async (e) => {
+    e.preventDefault();
+    try {
       if (!remark.trim()) {
-          // Show toaster message for empty note
-          return
-      }else{
-          const formData = new FormData();
-          formData.append("applicationId", applicationId);
-          formData.append("remark", remark);
+        // Show toaster message for empty note
+        return;
+      } else {
+        const formData = new FormData();
+        formData.append("applicationId", applicationId);
+        formData.append("remark", remark);
 
-          const response = await fetch(baseUrl + "api/school/store-old-application-remark", {
-              method: "POST",
-              body: formData,
-          });
-          if (!response) {
-              throw new Error("Failed to store reamrk");
+        const response = await fetch(
+          baseUrl + "api/school/store-old-application-remark",
+          {
+            method: "POST",
+            body: formData,
           }
-          // Update the state with the new remark
+        );
+        if (!response) {
+          throw new Error("Failed to store reamrk");
+        }
+        // Update the state with the new remark
         const updatedApplications = applications.map((app) =>
-        app.id === applicationId
-          ? { ...app, old_remarks: [...app.old_remarks, { remark }] }
-          : app
-      );
-      setApplications(updatedApplications);
-          setModal1Open(false);
-          setRemark("");
+          app.id === applicationId
+            ? { ...app, old_remarks: [...app.old_remarks, { remark }] }
+            : app
+        );
+        setApplications(updatedApplications);
+        setModal1Open(false);
+        setRemark("");
       }
-      
-  } catch (error) {
+    } catch (error) {
       console.error("Error storing notes:", error);
-  }
-};
+    }
+  };
 
+  const handleStatusChange = (event) => {
+    setSelectedStatus(event.target.value);
+  };
+  const handleClassChange = (event) => {
+    setSelectedClass(event.target.value);
+  };
 
-
-const handleStatusChange = (event) => {
-  setSelectedStatus(event.target.value);
-};
-
-const handleSearch = () => {
-  // Call the API with the selected status
-  setIsLoading(true);
-  getApplications(selectedStatus);
-};
+  const handleSearch = () => {
+    // Call the API with the selected status
+    setIsLoading(true);
+    getApplications(selectedStatus, selectedClass);
+  };
 
   // for bulk message sent
 
@@ -244,47 +276,48 @@ const handleSearch = () => {
 
   // Function to handle checkbox click events for individual rows
   const handleCheckboxChange = (id, phoneNumber) => {
-
-    setSelectedIds(prevSelectedIds => {
+    setSelectedIds((prevSelectedIds) => {
       if (prevSelectedIds.includes(id)) {
         // If already selected, remove it from the array
-        return prevSelectedIds.filter(item => item !== id);
+        return prevSelectedIds.filter((item) => item !== id);
       } else {
         // If not selected, add it to the array
         return [...prevSelectedIds, id];
       }
     });
 
-    setSelectedPhoneNumbers(prevSelectedPhoneNumbers => {
+    setSelectedPhoneNumbers((prevSelectedPhoneNumbers) => {
       phoneNumber = parseInt(phoneNumber, 10);
       if (prevSelectedPhoneNumbers.includes(phoneNumber)) {
-      // If already selected, don't remove it, just return the array
-      return prevSelectedPhoneNumbers.filter((item) => item !== phoneNumber);
-    } else {
-      // If not selected, add it to the array
-      return [...prevSelectedPhoneNumbers, parseInt(phoneNumber, 10)];
-    }
+        // If already selected, don't remove it, just return the array
+        return prevSelectedPhoneNumbers.filter((item) => item !== phoneNumber);
+      } else {
+        // If not selected, add it to the array
+        return [...prevSelectedPhoneNumbers, parseInt(phoneNumber, 10)];
+      }
     });
   };
 
   // Function to handle "Select All" checkbox click event
   const handleSelectAllChange = () => {
-    const allPhoneNumbers = applications.map(application => isValidNumber(application.f_mob)
-    ? parseInt(application.f_mob, 10)
-    : isValidNumber(application.m_mob)
-    ? parseInt(application.m_mob, 10)
-    : '');
-    setSelectedIds(prevSelectedIds => {
+    const allPhoneNumbers = applications.map((application) =>
+      isValidNumber(application.f_mob)
+        ? parseInt(application.f_mob, 10)
+        : isValidNumber(application.m_mob)
+        ? parseInt(application.m_mob, 10)
+        : ""
+    );
+    setSelectedIds((prevSelectedIds) => {
       // If all IDs are already selected, clear the selection
       if (prevSelectedIds.length === applications.length) {
         return [];
       } else {
         // Otherwise, select all IDs
-        return applications.map(application => application.id);
+        return applications.map((application) => application.id);
       }
     });
 
-    setSelectedPhoneNumbers(prevSelectedPhoneNumbers => {
+    setSelectedPhoneNumbers((prevSelectedPhoneNumbers) => {
       // If all phone numbers are already selected, clear the selection
       if (prevSelectedPhoneNumbers.length === allPhoneNumbers.length) {
         return [];
@@ -301,52 +334,53 @@ const handleSearch = () => {
   };
   const handleWhatsappBulk = (data) => {
     let messageType;
-    if(selectedMessageType === '1'){
-      messageType = 'announcement_website';
-    }else if(selectedMessageType === '2'){
-      messageType = 'weclome_message1';
-    }else if(selectedMessageType === '3'){
-      messageType = 'acids_bases_andsalts_1';
-    }
-    else if(selectedMessageType === '4'){
-      messageType = 'acids_bases_andsalts_2';
-    }
-    else if(selectedMessageType === '5'){
-      messageType = 'av_greeting_1';
-    }
-    else if(selectedMessageType === '6'){
-      messageType = 'av_greeting_2';
-    }
-    else if(selectedMessageType === '7'){
-      messageType = 'av_greeting_3';
-    }
-    else if(selectedMessageType === '8'){
-      messageType = 'avunit2_photo';
-    }
-    else if(selectedMessageType === '9'){
-      messageType = 'cultural_event_av';
-    }
-    else if(selectedMessageType === '10'){
-      messageType = 'acids_bases_salt_session1';
-    }
-    else if(selectedMessageType === '11'){
-      messageType = 'acid_bases_salts_session2';
+    if (selectedMessageType === "1") {
+      messageType = "announcement_website";
+    } else if (selectedMessageType === "2") {
+      messageType = "weclome_message1";
+    } else if (selectedMessageType === "3") {
+      messageType = "acids_bases_andsalts_1";
+    } else if (selectedMessageType === "4") {
+      messageType = "acids_bases_andsalts_2";
+    } else if (selectedMessageType === "5") {
+      messageType = "av_greeting_1";
+    } else if (selectedMessageType === "6") {
+      messageType = "av_greeting_2";
+    } else if (selectedMessageType === "7") {
+      messageType = "av_greeting_3";
+    } else if (selectedMessageType === "8") {
+      messageType = "avunit2_photo";
+    } else if (selectedMessageType === "9") {
+      messageType = "cultural_event_av";
+    } else if (selectedMessageType === "10") {
+      messageType = "acids_bases_salt_session1";
+    } else if (selectedMessageType === "11") {
+      messageType = "acid_bases_salts_session2";
+    } else if (selectedMessageType === "12") {
+      messageType = "av_unit2_inauguration_copy";
     }
     const formData = new FormData();
-    formData.append('selectedPhoneNumbers', JSON.stringify(selectedPhoneNumbers));
-    formData.append('selectedIds', JSON.stringify(selectedIds));
+    formData.append(
+      "selectedPhoneNumbers",
+      JSON.stringify(selectedPhoneNumbers)
+    );
+    formData.append("selectedIds", JSON.stringify(selectedIds));
 
-    fetch(`${baseUrl}api/school/send-bulk-whatsapp-message-old/${messageType}`, {
-      method: "POST",
-      body: formData
-    }).then(response => response.json())
-    .then(data => {
+    fetch(
+      `${baseUrl}api/school/send-bulk-whatsapp-message-old/${messageType}`,
+      {
+        method: "POST",
+        body: formData,
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
         // Update WhatsApp status to 1 for matching application IDs
-        const updatedStatusApplications = applications.map(application => {
-            if (selectedIds.includes(application.id)) {
-                return { ...application, whatsappStatus: 1 };
-            }
-            return application;
+        const updatedStatusApplications = applications.map((application) => {
+          if (selectedIds.includes(application.id)) {
+            return { ...application, whatsappStatus: 1 };
+          }
+          return application;
         });
 
         // Call updateStatus function with updated applications
@@ -354,19 +388,20 @@ const handleSearch = () => {
         setSelectedPhoneNumbers([]);
         setSelectedIds([]);
 
-        toast.success( "Meassage Sent successfully!");
-    })
-    .catch(error => {
+        toast.success("Meassage Sent successfully!");
+      })
+      .catch((error) => {
         // Handle error
-        console.error('Error:', error);
-    });
+        console.error("Error:", error);
+      });
     // updateStatus(applicationIndex, message);
-  }
+  };
+
   return (
     <div className="middle-sidebar-bottom">
       <div className="middle-sidebar-left">
         <div className="row">
-      <ToastContainer />
+          <ToastContainer />
           <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
             <div>
               <h2 className="fw-400 font-lg d-block">
@@ -385,10 +420,13 @@ const handleSearch = () => {
           </div>
           <div className="row px-5">
             <div className="col-lg-4">
-              <select className="form-control" aria-label="Select status"
-              onChange={handleStatusChange}
-              value={selectedStatus}>
-                <option className="bg-light text-dark" value="null" disabled>
+              <select
+                className="form-control"
+                aria-label="Select status"
+                onChange={handleStatusChange}
+                value={selectedStatus}
+              >
+                <option className="bg-light text-dark" value="">
                   -- All --
                 </option>
                 <option className="bg-light text-dark" value="0">
@@ -407,67 +445,98 @@ const handleSearch = () => {
                   Waiting List
                 </option>
                 <option className="bg-light text-dark" value="5">
-                    Black List
+                  Black List
                 </option>
               </select>
             </div>
-            <div className=" col-lg-2" >
-              <button className="p-2 d-inline-block me-2 text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current text-uppercase"
-              onClick={handleSearch}>Search</button>
-            </div>
             <div className="col-lg-4">
-                <select
-                  className="form-control"
-                  aria-label="Select status"
-                  onChange={handleMessageTypeChange}
-                  value={selectedMessageType}
-                >
-                  <option className="bg-light text-dark" value="" disabled>
-                    --select--
-                  </option>
-                  <option className="bg-light text-dark" value="1">
-                    Announcement
-                  </option>
-                  <option className="bg-light text-dark" value="2">
-                    Welcome
-                  </option>
-                  <option className="bg-light text-dark" value="3">
-                    10th-Acids,bases,salts-1
-                  </option>
-                  <option className="bg-light text-dark" value="4">
-                    10th-Acids,bases,salts-2
-                  </option>
-                  <option className="bg-light text-dark" value="5">
-                  AV Greeting 1
-                  </option>
-                  <option className="bg-light text-dark" value="6">
-                  AV Greetings 2
-                  </option>
-                  <option className="bg-light text-dark" value="7">
-                  AV Greetings 3
-                  </option>
-                  <option className="bg-light text-dark" value="8">
+              <select
+                className="form-control"
+                aria-label="Select status"
+                onChange={handleClassChange}
+                value={selectedClass}
+              >
+                <option className="bg-light text-dark" value="">
+                  -- All class --
+                </option>
+                {classes &&
+                  classes.map((classItem, index) => (
+                    <option
+                      className="bg-light text-dark"
+                      key={index}
+                      value={classItem}
+                    >
+                      {classItem}
+                    </option>
+                  ))}
+              </select>
+            </div>
+            <div className=" col-lg-2">
+              <button
+                className="p-2 d-inline-block me-2 text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current text-uppercase"
+                onClick={handleSearch}
+              >
+                Search
+              </button>
+            </div>
+          </div>
+          <div className="row px-5 mt-2">
+            <div className="col-lg-4">
+              <select
+                className="form-control"
+                aria-label="Select status"
+                onChange={handleMessageTypeChange}
+                value={selectedMessageType}
+              >
+                <option className="bg-light text-dark" value="" disabled>
+                  -- Select Message --
+                </option>
+                <option className="bg-light text-dark" value="1">
+                  Announcement
+                </option>
+                <option className="bg-light text-dark" value="2">
+                  Welcome
+                </option>
+                <option className="bg-light text-dark" value="3">
+                  10th-Acids,bases,salts-1
+                </option>
+                <option className="bg-light text-dark" value="4">
+                  10th-Acids,bases,salts-2
+                </option>
+                <option className="bg-light text-dark" value="8">
                   AV Unit 2 @ Photo
-                  </option>
-                  <option className="bg-light text-dark" value="9">
+                </option>
+                <option className="bg-light text-dark" value="5">
+                  AV Greeting 1
+                </option>
+                <option className="bg-light text-dark" value="9">
                   Cultural Events @AV
-                  </option>
-                  <option className="bg-light text-dark" value="10">
+                </option>
+                <option className="bg-light text-dark" value="6">
+                  AV Greetings 2
+                </option>
+                <option className="bg-light text-dark" value="10">
                   Acids, Bases and Salts Session 1
-                  </option>
-                  <option className="bg-light text-dark" value="11">
+                </option>
+                <option className="bg-light text-dark" value="11">
                   Acids, Bases and Salts Session 2
-                  </option>
-                </select>
-              </div>
-              <div className=" col-lg-2">
-                <button
-                  className="p-2 d-inline-block me-2 text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current text-uppercase"
-                  onClick={handleWhatsappBulk}
-                >
-                  Send
-                </button>
-              </div>
+                </option>
+                <option className="bg-light text-dark" value="7">
+                  AV Greetings 3
+                </option>
+                <option className="bg-light text-dark" value="12">
+                  AV Unit 2 Inauguration
+                </option>
+              </select>
+            </div>
+            <div className=" col-lg-2">
+              <button
+                className="p-2 d-inline-block me-2 text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current text-uppercase"
+                onClick={handleWhatsappBulk}
+              >
+                Send
+              </button>
+            </div>
           </div>
           {isLoading ? (
             <Loader />
@@ -476,14 +545,15 @@ const handleSearch = () => {
               <table ref={tableRef} id="myTable" className="table">
                 <thead>
                   <tr>
-                  <th scope="col">
-            {/* Checkbox for "Select All" */}
-            Select All <input
-              type="checkbox"
-              checked={selectedIds.length === applications.length}
-              onChange={handleSelectAllChange}
-            />
-          </th>
+                    <th scope="col">
+                      {/* Checkbox for "Select All" */}
+                      Select All{" "}
+                      <input
+                        type="checkbox"
+                        checked={selectedIds.length === applications.length}
+                        onChange={handleSelectAllChange}
+                      />
+                    </th>
                     <th scope="col">Sl. No.</th>
                     <th scope="col">Month</th>
                     <th scope="col">Year</th>
@@ -513,22 +583,32 @@ const handleSearch = () => {
                     <th scope="col">Status</th>
                     <th scope="col">Actions</th>
                     <th scope="col">Message</th>
-                    <th scope="col" style={{width:"100px"}}>Remarks</th>
+                    <th scope="col" style={{ width: "100px" }}>
+                      Remarks
+                    </th>
                     <th scope="col">View</th>
-
                   </tr>
                 </thead>
                 <tbody>
                   {applications.map((application, index) => (
                     <tr key={index}>
-                       <td className="text-center">
-              {/* Checkbox for selecting individual rows */}
-              <input
-                type="checkbox"
-                checked={selectedIds.includes(application.id)}
-                onChange={() => handleCheckboxChange(application.id, isValidNumber(application.f_contact) ? application.f_contact : isValidNumber(application.m_contact) ? application.m_contact : '')}
-              />
-            </td>
+                      <td className="text-center">
+                        {/* Checkbox for selecting individual rows */}
+                        <input
+                          type="checkbox"
+                          checked={selectedIds.includes(application.id)}
+                          onChange={() =>
+                            handleCheckboxChange(
+                              application.id,
+                              isValidNumber(application.f_contact)
+                                ? application.f_contact
+                                : isValidNumber(application.m_contact)
+                                ? application.m_contact
+                                : ""
+                            )
+                          }
+                        />
+                      </td>
                       <td>{index + 1}</td>
                       <td>{application.month}</td>
                       <td>{application.year}</td>
@@ -557,33 +637,33 @@ const handleSearch = () => {
                       <td>{application.already_enrolled}</td>
 
                       <td>
-                      <button
-                            className={`p-2 d-inline-block text-white fw-700 lh-10 rounded-lg text-center font-xsssss ls-3 ${
-                              application.application_status === 1
-                                ? "bg-secondary"
-                                : application.application_status === 2
-                                ? "bg-success"
-                                : application.application_status === 3
-                                ? "bg-info"
-                                : application.application_status === 4
-                                ? "bg-warning"
-                                : application.application_status === 5
-                                ? "bg-danger"
-                                : "bg-primary"
-                            }`}
-                          >
-                            {application.application_status === 1
-                              ? "School visit scheduled"
+                        <button
+                          className={`p-2 d-inline-block text-white fw-700 lh-10 rounded-lg text-center font-xsssss ls-3 ${
+                            application.application_status === 1
+                              ? "bg-secondary"
                               : application.application_status === 2
-                              ? "Approved"
+                              ? "bg-success"
                               : application.application_status === 3
-                              ? "Admitted"
+                              ? "bg-info"
                               : application.application_status === 4
-                              ? "Waiting List"
+                              ? "bg-warning"
                               : application.application_status === 5
-                              ? "Black List"
-                              : "Pending"}
-                          </button>
+                              ? "bg-danger"
+                              : "bg-primary"
+                          }`}
+                        >
+                          {application.application_status === 1
+                            ? "School visit scheduled"
+                            : application.application_status === 2
+                            ? "Approved"
+                            : application.application_status === 3
+                            ? "Admitted"
+                            : application.application_status === 4
+                            ? "Waiting List"
+                            : application.application_status === 5
+                            ? "Black List"
+                            : "Pending"}
+                        </button>
                       </td>
                       <td>
                         <select
@@ -598,149 +678,187 @@ const handleSearch = () => {
                             Pending
                           </option>
                           <option className="bg-light text-dark" value="1">
-                          School visit scheduled
+                            School visit scheduled
                           </option>
                           <option className="bg-light text-dark" value="2">
-                          Approved
+                            Approved
                           </option>
                           <option className="bg-light text-dark" value="3">
-                          Admitted
+                            Admitted
                           </option>
                           <option className="bg-light text-dark" value="4">
-                          Waiting List
+                            Waiting List
                           </option>
                           <option className="bg-light text-dark" value="5">
-                              Black List
-                            </option>
+                            Black List
+                          </option>
                         </select>
                       </td>
                       <td className="text-center">
                         {isValidNumber(application.f_contact) ? (
-                           <>
-                          
+                          <>
                             <select
-                          className="p-2 d-inline-block text-dark fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-grey border-none"
-                          onChange={(e) => setMessage(e.target.value)}
-                          aria-label="Select status"
-                        >
-                          <option className={`${
-                                    application.whatsapp_status === 1
-                                      ? "bg-dark text-light"
-                                      : "bg-light text-dark"
-                                  }`} value="1">
-                            Annoucement
-                          </option>
-                          <option className={`${
-                                    application.whatsapp_status_2 === 1
-                                      ? "bg-dark text-light"
-                                      : "bg-light text-dark"
-                                  }`} value="2">
-                          Welcome
-                          </option>
-                        </select>
-                          <img
-                               src="/assets/images/whatsapp.png"
-                               alt="icon"
-                               width={30}
-                               className="d-inline-block"
-                             onClick={() => handleWhatsappClick(index,application.f_contact)}
-                             />
-                        
-                           </>
-                          
+                              className="p-2 d-inline-block text-dark fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-grey border-none"
+                              onChange={(e) => setMessage(e.target.value)}
+                              aria-label="Select status"
+                            >
+                              <option
+                                className={`${
+                                  application.whatsapp_status === 1
+                                    ? "bg-dark text-light"
+                                    : "bg-light text-dark"
+                                }`}
+                                value="1"
+                              >
+                                Annoucement
+                              </option>
+                              <option
+                                className={`${
+                                  application.whatsapp_status_2 === 1
+                                    ? "bg-dark text-light"
+                                    : "bg-light text-dark"
+                                }`}
+                                value="2"
+                              >
+                                Welcome
+                              </option>
+                            </select>
+                            <img
+                              src="/assets/images/whatsapp.png"
+                              alt="icon"
+                              width={30}
+                              className="d-inline-block"
+                              onClick={() =>
+                                handleWhatsappClick(
+                                  index,
+                                  application.f_contact
+                                )
+                              }
+                            />
+                          </>
                         ) : (
                           isValidNumber(application.m_contact) && (
                             <>
-                           
-                               <select
-                          className="p-2 d-inline-block text-dark fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-grey border-none"
-                          onChange={(e) => setMessage(e.target.value)}
-                          aria-label="Select status"
-                        >
-                          <option className={`${
+                              <select
+                                className="p-2 d-inline-block text-dark fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-grey border-none"
+                                onChange={(e) => setMessage(e.target.value)}
+                                aria-label="Select status"
+                              >
+                                <option
+                                  className={`${
                                     application.whatsapp_status === 1
                                       ? "bg-dark text-light"
                                       : "bg-light text-dark"
-                                  }`} value="1">
-                            Annoucement
-                          </option>
-                          <option className={`${
+                                  }`}
+                                  value="1"
+                                >
+                                  Annoucement
+                                </option>
+                                <option
+                                  className={`${
                                     application.whatsapp_status_2 === 1
                                       ? "bg-dark text-light"
                                       : "bg-light text-dark"
-                                  }`} value="2">
-                          Welcome
-                          </option>
-                        </select>
-                          <img
-                               src="/assets/images/whatsapp.png"
-                               alt="icon"
-                               width={30}
-                               className="d-inline-block"
-                             onClick={() => handleWhatsappClick(index,application.m_contact)}
-                             />
+                                  }`}
+                                  value="2"
+                                >
+                                  Welcome
+                                </option>
+                              </select>
+                              <img
+                                src="/assets/images/whatsapp.png"
+                                alt="icon"
+                                width={30}
+                                className="d-inline-block"
+                                onClick={() =>
+                                  handleWhatsappClick(
+                                    index,
+                                    application.m_contact
+                                  )
+                                }
+                              />
                             </>
                           )
                         )}
                       </td>
                       <td>
-                          <button className="p-2 d-inline-block text-white fw-700 lh-10 rounded-lg text-center font-xsssss ls-3 bg-primary"
-                          onClick={() => handleAddRemark(application.id)}>Remark</button>
-                          <ul>
-                            {
-                              application.old_remarks.map((remark,i) =>(
-                                <React.Fragment key={i}>
-                                <li>&#9642; {remark.remark}</li>
-                                </React.Fragment>
-                              ))
-                            }
-                          </ul>
+                        <button
+                          className="p-2 d-inline-block text-white fw-700 lh-10 rounded-lg text-center font-xsssss ls-3 bg-primary"
+                          onClick={() => handleAddRemark(application.id)}
+                        >
+                          Remark
+                        </button>
+                        <ul>
+                          {application.old_remarks.map((remark, i) => (
+                            <React.Fragment key={i}>
+                              <li>&#9642; {remark.remark}</li>
+                            </React.Fragment>
+                          ))}
+                        </ul>
                       </td>
                       <td>
-                          <Link
-                            to={`/school/applications/view-old-application/${application.id}`}
-                          >
-                            View
-                          </Link>
+                        <Link
+                          to={`/school/applications/view-old-application/${application.id}`}
+                        >
+                          View
+                        </Link>
                       </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
               <div className="row d-flex justify-content-end">
-                  <div className="col-2 text-right">
-                  <select className="p-2 d-inline-block text-dark fw-500 lh-30 rounded-lg text-center font-xsss ls-3 border-3" value={currentPage} onChange={handleChangePage}>
+                <div className="col-2">
+                  <h4 className="font-xss fw-500 mt-2">Total Records: {totalRecordCount}</h4>
+                </div>
+                <div className="col-2 text-right">
+                  <select
+                    className="p-2 d-inline-block text-dark fw-500 lh-30 rounded-lg text-center font-xsss ls-3 border-3"
+                    value={currentPage}
+                    onChange={handleChangePage}
+                  >
                     {Array.from({ length: totalPages }, (_, index) => (
                       <option key={index + 1} value={index + 1}>
                         Page {index + 1}
                       </option>
                     ))}
                   </select>
-                  </div>
                 </div>
+              </div>
             </div>
           ) : (
             <NoContent contentName="Applications" />
           )}
 
-<Modal show={modal1Open} onHide={closeModal1} >
-                <Modal.Header closeButton >
-                    <Modal.Title></Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <div className="form-group icon-input mb-3">
-                        <i className="font-sm ti-email text-grey-500 pr-0"></i>
-                        <input type="text" name="note" className="style2-input pl-5 form-control text-grey-900 font-xsss fw-600" placeholder="Enter Remark.."
-                            value={remark}
-                            onChange={(e) => setRemark(e.target.value)}
-                            required   />
-                    </div>
-                    <div className="form-group mb-1"><button type="submit" className="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 " onClick={storeRemark}>Save </button></div>
-                </Modal.Body>
-                <Modal.Footer>
-
-                </Modal.Footer>
-            </Modal>
+          <Modal show={modal1Open} onHide={closeModal1}>
+            <Modal.Header closeButton>
+              <Modal.Title></Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <div className="form-group icon-input mb-3">
+                <i className="font-sm ti-email text-grey-500 pr-0"></i>
+                <input
+                  type="text"
+                  name="note"
+                  className="style2-input pl-5 form-control text-grey-900 font-xsss fw-600"
+                  placeholder="Enter Remark.."
+                  value={remark}
+                  onChange={(e) => setRemark(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="form-group mb-1">
+                <button
+                  type="submit"
+                  className="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 "
+                  onClick={storeRemark}
+                >
+                  Save{" "}
+                </button>
+              </div>
+            </Modal.Body>
+            <Modal.Footer></Modal.Footer>
+          </Modal>
         </div>
       </div>
     </div>

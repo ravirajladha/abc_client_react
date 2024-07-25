@@ -26,17 +26,25 @@ function Applications() {
   // filter with status - selceted value
   const [selectedStatus, setSelectedStatus] = useState("");
 
+  const [classes, setClasses] = useState("");
+  const [selectedClass, setSelectedClass] = useState("");
+
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  const getApplications = (selectedStatus = null, page = 1) => {
+  const [totalRecordCount, setTotalRecordCount] = useState("");
+
+  const getApplications = (selectedStatus = "", page = 1) => {
     return new Promise((resolve, reject) => {
-      fetch(`${baseUrl}api/school/api_get_all_applications/${selectedStatus}?page=${page}`)
+      fetch(
+        `${baseUrl}api/school/api_get_all_applications?status=${selectedStatus}&class=${selectedClass}&page=${page}`
+      )
         .then((result) => result.json())
         .then((jsonbody) => {
           console.warn(jsonbody);
           setApplications(jsonbody.data);
           setTotalPages(jsonbody.last_page);
+          setTotalRecordCount(jsonbody.total);
           setIsLoading(false);
           resolve(jsonbody);
           initializeDataTable();
@@ -72,18 +80,24 @@ function Applications() {
         // 'print',      // Print button
       ],
       initComplete: function () {
-        const pagination = $(this).closest('.dataTables_wrapper').find('.dataTables_paginate');
+        const pagination = $(this)
+          .closest(".dataTables_wrapper")
+          .find(".dataTables_paginate");
         // Remove existing pagination
         pagination.empty();
-    }
+      },
     });
   };
 
   const handleChangePage = (event) => {
     setIsLoading(true);
-      setCurrentPage(parseInt(event.target.value, 10));
-      getApplications({ selectedStatus: selectedStatus , page: parseInt(event.target.value, 10) });
-    };
+    setCurrentPage(parseInt(event.target.value, 10));
+    getApplications(
+      selectedStatus,
+      selectedClass,
+      parseInt(event.target.value, 10)
+    );
+  };
 
   const changeApplicationStatus = (applicationIndex, newStatus) => {
     const updatedApplications = [...applications];
@@ -123,28 +137,29 @@ function Applications() {
       });
   };
 
-
   const handleWhatsappClick = async (applicationIndex, contact) => {
     // Update the status
     // updateStatus(applicationIndex, message);
     let messageType;
-    if(message === '1'){
-      messageType = 'announcement_website';
-    }else if(message === '2'){
-      messageType = 'weclome_message1';
+    if (message === "1") {
+      messageType = "announcement_website";
+    } else if (message === "2") {
+      messageType = "weclome_message1";
     }
-    fetch(`${baseUrl}api/school/send-whatsapp-message/${contact}/${messageType}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
+    fetch(
+      `${baseUrl}api/school/send-whatsapp-message/${contact}/${messageType}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     updateStatus(applicationIndex, message);
-
   };
   const updateStatus = (applicationIndex, message) => {
     const updatedApplications = [...applications];
-    if (message === '1') {
+    if (message === "1") {
       updatedApplications[applicationIndex].whatsapp_status = 1;
     } else {
       updatedApplications[applicationIndex].whatsapp_status_2 = 1;
@@ -172,7 +187,7 @@ function Applications() {
     })
       .then((response) => response.json())
       .then((data) => {
-        toast.success( "Meassage Sent successfully!");
+        toast.success("Meassage Sent successfully!");
       })
       .catch((error) => {
         console.error("Error updating application status:", error);
@@ -228,17 +243,18 @@ function Applications() {
     }
   };
 
-
   const handleStatusChange = (event) => {
     setSelectedStatus(event.target.value);
+  };
+  const handleClassChange = (event) => {
+    setSelectedClass(event.target.value);
   };
 
   const handleSearch = () => {
     // Call the API with the selected status
     setIsLoading(true);
-    getApplications(selectedStatus);
+    getApplications(selectedStatus, selectedClass);
   };
-
 
   // for bulk message sent
 
@@ -247,48 +263,48 @@ function Applications() {
 
   // Function to handle checkbox click events for individual rows
   const handleCheckboxChange = (id, phoneNumber) => {
-
-    setSelectedIds(prevSelectedIds => {
+    setSelectedIds((prevSelectedIds) => {
       if (prevSelectedIds.includes(id)) {
         // If already selected, remove it from the array
-        return prevSelectedIds.filter(item => item !== id);
+        return prevSelectedIds.filter((item) => item !== id);
       } else {
         // If not selected, add it to the array
         return [...prevSelectedIds, id];
       }
     });
 
-    setSelectedPhoneNumbers(prevSelectedPhoneNumbers => {
+    setSelectedPhoneNumbers((prevSelectedPhoneNumbers) => {
       phoneNumber = parseInt(phoneNumber, 10);
       if (prevSelectedPhoneNumbers.includes(phoneNumber)) {
-      // If already selected, don't remove it, just return the array
-      return prevSelectedPhoneNumbers.filter((item) => item !== phoneNumber);
-    } else {
-      // If not selected, add it to the array
-      return [...prevSelectedPhoneNumbers, parseInt(phoneNumber, 10)];
-    }
+        // If already selected, don't remove it, just return the array
+        return prevSelectedPhoneNumbers.filter((item) => item !== phoneNumber);
+      } else {
+        // If not selected, add it to the array
+        return [...prevSelectedPhoneNumbers, parseInt(phoneNumber, 10)];
+      }
     });
   };
 
   // Function to handle "Select All" checkbox click event
   const handleSelectAllChange = () => {
-    const allPhoneNumbers = applications.map(application => 
+    const allPhoneNumbers = applications.map((application) =>
       isValidNumber(application.f_mob)
-                                ? parseInt(application.f_mob, 10)
-                                : isValidNumber(application.m_mob)
-                                ? parseInt(application.m_mob, 10)
-                                : '');
-    setSelectedIds(prevSelectedIds => {
+        ? parseInt(application.f_mob, 10)
+        : isValidNumber(application.m_mob)
+        ? parseInt(application.m_mob, 10)
+        : ""
+    );
+    setSelectedIds((prevSelectedIds) => {
       // If all IDs are already selected, clear the selection
       if (prevSelectedIds.length === applications.length) {
         return [];
       } else {
         // Otherwise, select all IDs
-        return applications.map(application => application.id);
+        return applications.map((application) => application.id);
       }
     });
 
-    setSelectedPhoneNumbers(prevSelectedPhoneNumbers => {
+    setSelectedPhoneNumbers((prevSelectedPhoneNumbers) => {
       // If all phone numbers are already selected, clear the selection
       if (prevSelectedPhoneNumbers.length === allPhoneNumbers.length) {
         return [];
@@ -305,54 +321,51 @@ function Applications() {
   };
   const handleWhatsappBulk = (data) => {
     let messageType;
-    if(selectedMessageType === '1'){
-      messageType = 'announcement_website';
-    }else if(selectedMessageType === '2'){
-      messageType = 'weclome_message1';
-    }
-    else if(selectedMessageType === '3'){
-      messageType = 'acids_bases_andsalts_1';
-    }
-    else if(selectedMessageType === '4'){
-      messageType = 'acids_bases_andsalts_2';
-    }
-    else if(selectedMessageType === '5'){
-      messageType = 'av_greeting_1';
-    }
-    else if(selectedMessageType === '6'){
-      messageType = 'av_greeting_2';
-    }
-    else if(selectedMessageType === '7'){
-      messageType = 'av_greeting_3';
-    }
-    else if(selectedMessageType === '8'){
-      messageType = 'avunit2_photo';
-    }
-    else if(selectedMessageType === '9'){
-      messageType = 'cultural_event_av';
-    }
-    else if(selectedMessageType === '10'){
-      messageType = 'acids_bases_salt_session1';
-    }
-    else if(selectedMessageType === '11'){
-      messageType = 'acid_bases_salts_session2';
+    if (selectedMessageType === "1") {
+      messageType = "announcement_website";
+    } else if (selectedMessageType === "2") {
+      messageType = "weclome_message1";
+    } else if (selectedMessageType === "3") {
+      messageType = "acids_bases_andsalts_1";
+    } else if (selectedMessageType === "4") {
+      messageType = "acids_bases_andsalts_2";
+    } else if (selectedMessageType === "5") {
+      messageType = "av_greeting_1";
+    } else if (selectedMessageType === "6") {
+      messageType = "av_greeting_2";
+    } else if (selectedMessageType === "7") {
+      messageType = "av_greeting_3";
+    } else if (selectedMessageType === "8") {
+      messageType = "avunit2_photo";
+    } else if (selectedMessageType === "9") {
+      messageType = "cultural_event_av";
+    } else if (selectedMessageType === "10") {
+      messageType = "acids_bases_salt_session1";
+    } else if (selectedMessageType === "11") {
+      messageType = "acid_bases_salts_session2";
+    } else if (selectedMessageType === "12") {
+      messageType = "av_unit2_inauguration_copy";
     }
 
     const formData = new FormData();
-    formData.append('selectedPhoneNumbers', JSON.stringify(selectedPhoneNumbers));
-    formData.append('selectedIds', JSON.stringify(selectedIds));
+    formData.append(
+      "selectedPhoneNumbers",
+      JSON.stringify(selectedPhoneNumbers)
+    );
+    formData.append("selectedIds", JSON.stringify(selectedIds));
 
     fetch(`${baseUrl}api/school/send-bulk-whatsapp-message/${messageType}`, {
       method: "POST",
-      body: formData
-    }).then(response => response.json())
-    .then(data => {
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
         // Update WhatsApp status to 1 for matching application IDs
-        const updatedStatusApplications = applications.map(application => {
-            if (selectedIds.includes(application.id)) {
-                return { ...application, whatsappStatus: 1 };
-            }
-            return application;
+        const updatedStatusApplications = applications.map((application) => {
+          if (selectedIds.includes(application.id)) {
+            return { ...application, whatsappStatus: 1 };
+          }
+          return application;
         });
 
         // Call updateStatus function with updated applications
@@ -360,20 +373,20 @@ function Applications() {
         setSelectedPhoneNumbers([]);
         setSelectedIds([]);
 
-        toast.success( "Meassage Sent successfully!");
-    })
-    .catch(error => {
+        toast.success("Meassage Sent successfully!");
+      })
+      .catch((error) => {
         // Handle error
-        console.error('Error:', error);
-    });
+        console.error("Error:", error);
+      });
     // updateStatus(applicationIndex, message);
-  }
+  };
   return (
     <>
       <div className="middle-sidebar-bottom">
         <div className="middle-sidebar-left">
           <div className="row">
-      <ToastContainer />
+            <ToastContainer />
             <div className="col-lg-12 pt-0 mb-3 d-flex justify-content-between">
               <div>
                 <h2 className="fw-400 font-lg d-block">
@@ -404,7 +417,7 @@ function Applications() {
                   onChange={handleStatusChange}
                   value={selectedStatus}
                 >
-                  <option className="bg-light text-dark" value="null">
+                  <option className="bg-light text-dark" value="">
                     -- All --
                   </option>
                   <option className="bg-light text-dark" value="0">
@@ -427,6 +440,28 @@ function Applications() {
                   </option>
                 </select>
               </div>
+              {/* <div className="col-lg-4">
+                <select
+                  className="form-control"
+                  aria-label="Select status"
+                  onChange={handleClassChange}
+                  value={selectedClass}
+                >
+                  <option className="bg-light text-dark" value="">
+                    -- All class --
+                  </option>
+                  {classes &&
+                    classes.map((classItem, index) => (
+                      <option
+                        className="bg-light text-dark"
+                        key={index}
+                        value={classItem}
+                      >
+                        {classItem}
+                      </option>
+                    ))}
+                </select>
+              </div> */}
               <div className=" col-lg-2">
                 <button
                   className="p-2 d-inline-block me-2 text-white fw-700 lh-30 rounded-lg text-center font-xsssss ls-3 bg-current text-uppercase"
@@ -435,6 +470,8 @@ function Applications() {
                   Search
                 </button>
               </div>
+            </div>
+            <div className="row px-5 mt-2">
               <div className="col-lg-4">
                 <select
                   className="form-control"
@@ -443,7 +480,7 @@ function Applications() {
                   value={selectedMessageType}
                 >
                   <option className="bg-light text-dark" value="" disabled>
-                    --select--
+                    -- Select Message --
                   </option>
                   <option className="bg-light text-dark" value="1">
                     Announcement
@@ -457,26 +494,29 @@ function Applications() {
                   <option className="bg-light text-dark" value="4">
                     10th-Acids,bases,salts-2
                   </option>
-                  <option className="bg-light text-dark" value="5">
-                  AV Greeting 1
-                  </option>
-                  <option className="bg-light text-dark" value="6">
-                  AV Greetings 2
-                  </option>
-                  <option className="bg-light text-dark" value="7">
-                  AV Greetings 3
-                  </option>
                   <option className="bg-light text-dark" value="8">
-                  AV Unit 2 @ Photo
+                    AV Unit 2 @ Photo
+                  </option>
+                  <option className="bg-light text-dark" value="5">
+                    AV Greeting 1
                   </option>
                   <option className="bg-light text-dark" value="9">
-                  Cultural Events @AV
+                    Cultural Events @AV
+                  </option>
+                  <option className="bg-light text-dark" value="6">
+                    AV Greetings 2
                   </option>
                   <option className="bg-light text-dark" value="10">
-                  Acids, Bases and Salts Session 1
+                    Acids, Bases and Salts Session 1
                   </option>
                   <option className="bg-light text-dark" value="11">
-                  Acids, Bases and Salts Session 2
+                    Acids, Bases and Salts Session 2
+                  </option>
+                  <option className="bg-light text-dark" value="7">
+                    AV Greetings 3
+                  </option>
+                  <option className="bg-light text-dark" value="12">
+                  AV Unit 2 Inauguration
                   </option>
                 </select>
               </div>
@@ -489,7 +529,6 @@ function Applications() {
                 </button>
               </div>
             </div>
-
             {isLoading ? (
               <Loader />
             ) : applications && applications.length > 0 ? (
@@ -497,14 +536,15 @@ function Applications() {
                 <table ref={tableRef} id="myTable" className="table">
                   <thead>
                     <tr>
-                    <th scope="col">
-            {/* Checkbox for "Select All" */}
-            Select All <input
-              type="checkbox"
-              checked={selectedIds.length === applications.length}
-              onChange={handleSelectAllChange}
-            />
-          </th>
+                      <th scope="col">
+                        {/* Checkbox for "Select All" */}
+                        Select All{" "}
+                        <input
+                          type="checkbox"
+                          checked={selectedIds.length === applications.length}
+                          onChange={handleSelectAllChange}
+                        />
+                      </th>
                       <th scope="col">Sl. No.</th>
                       <th scope="col">Enquired At</th>
                       <th scope="col">Student Full Name</th>
@@ -544,18 +584,27 @@ function Applications() {
                   <tbody>
                     {applications.map((application, index) => (
                       <tr key={index}>
-                    <td className="text-center">
-              {/* Checkbox for selecting individual rows */}
-              <input
-                type="checkbox"
-                checked={selectedIds.includes(application.id)}
-                onChange={() => handleCheckboxChange(application.id, isValidNumber(application.f_mob) ? application.f_mob : isValidNumber(application.m_mob) ? application.m_mob : '')}
-              />
-            </td>
-            
+                        <td className="text-center">
+                          {/* Checkbox for selecting individual rows */}
+                          <input
+                            type="checkbox"
+                            checked={selectedIds.includes(application.id)}
+                            onChange={() =>
+                              handleCheckboxChange(
+                                application.id,
+                                isValidNumber(application.f_mob)
+                                  ? application.f_mob
+                                  : isValidNumber(application.m_mob)
+                                  ? application.m_mob
+                                  : ""
+                              )
+                            }
+                          />
+                        </td>
+
                         <td className="text-center">{index + 1}</td>
                         <td className="text-center">
-                            {application?.enquired_at ?? "-"}
+                          {application?.enquired_at ?? "-"}
                         </td>
                         <td className="text-center">
                           {application?.student_fname ?? "-"}
@@ -803,17 +852,25 @@ function Applications() {
                   </tbody>
                 </table>
                 <div className="row d-flex justify-content-end">
+                  <div className="col-2">
+                    <h4 className="font-xss fw-500 mt-2">
+                      Total Records: {totalRecordCount}
+                    </h4>
+                  </div>
                   <div className="col-2 text-right">
-                  <select className="p-2 d-inline-block text-dark fw-500 lh-30 rounded-lg text-center font-xsss ls-3 border-3" value={currentPage} onChange={handleChangePage}>
-                    {Array.from({ length: totalPages }, (_, index) => (
-                      <option key={index + 1} value={index + 1}>
-                        Page {index + 1}
-                      </option>
-                    ))}
-                  </select>
+                    <select
+                      className="p-2 d-inline-block text-dark fw-500 lh-30 rounded-lg text-center font-xsss ls-3 border-3"
+                      value={currentPage}
+                      onChange={handleChangePage}
+                    >
+                      {Array.from({ length: totalPages }, (_, index) => (
+                        <option key={index + 1} value={index + 1}>
+                          Page {index + 1}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                 </div>
-                
               </div>
             ) : (
               <NoContent contentName="Applications" />
