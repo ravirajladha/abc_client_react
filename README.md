@@ -22,43 +22,6 @@ The backend of the LMS is powered by robust administrative tools that can be acc
 - Student and instructor management
 - Analytics and reporting
 
-## Installation
-
-To run this project locally, follow these steps:
-
-1. Clone the repository:
-    ```sh
-    git clone https://github.com/yourusername/your-repo-name.git
-    ```
-
-2. Navigate to the project directory:
-    ```sh
-    cd your-repo-name
-    ```
-
-3. Install dependencies:
-    ```sh
-    npm install
-    ```
-
-4. Start the development server:
-    ```sh
-    npm start
-    ```
-
-## Usage
-
-1. Open your browser and navigate to `http://localhost:3000` to access the frontend.
-2. For backend access, visit `http://localhost:5000` and log in with your admin credentials.
-
-## Contributing
-
-We welcome contributions to improve the project. Please fork the repository and submit a pull request.
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
 ## Contact
 
-For any questions or feedback, please contact us at [your-email@example.com].
+For any questions or feedback, please contact us at [ravirajladha.com or visit ravirajaldha.com].
