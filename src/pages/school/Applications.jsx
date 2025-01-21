@@ -34,7 +34,7 @@ function Applications() {
 
   const [totalRecordCount, setTotalRecordCount] = useState("");
 
-  const getApplications = (selectedStatus = "", page = 1) => {
+  const getApplications = (selectedStatus = "", selectedClass = "", page = 1) => {
     return new Promise((resolve, reject) => {
       fetch(
         `${baseUrl}api/school/api_get_all_applications?status=${selectedStatus}&class=${selectedClass}&page=${page}`
